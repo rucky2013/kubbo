@@ -1,0 +1,1 @@
+roundrobin=com.sogou.map.kubbo.distributed.loadbalance.RoundRobinLoadBalance

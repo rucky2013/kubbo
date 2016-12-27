@@ -1,0 +1,2 @@
+filter=com.sogou.map.kubbo.rpc.protocol.FilterWrappedProtocol
+listener=com.sogou.map.kubbo.rpc.protocol.ListenerWrappedProtocol

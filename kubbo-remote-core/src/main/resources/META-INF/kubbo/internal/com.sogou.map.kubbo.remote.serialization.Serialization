@@ -1,0 +1,2 @@
+java=com.sogou.map.kubbo.remote.serialization.java.JavaSerialization
+kryo=com.sogou.map.kubbo.remote.serialization.kryo.KryoSerialization

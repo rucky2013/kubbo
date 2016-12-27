@@ -1,0 +1,2 @@
+transport=com.sogou.map.kubbo.remote.transport.codec.TransportCodec
+session=com.sogou.map.kubbo.remote.session.codec.SessionCodec

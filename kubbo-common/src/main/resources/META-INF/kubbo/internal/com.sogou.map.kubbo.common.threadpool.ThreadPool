@@ -1,0 +1,4 @@
+fixed=com.sogou.map.kubbo.common.threadpool.impl.FixedThreadPool
+cached=com.sogou.map.kubbo.common.threadpool.impl.CachedThreadPool
+limited=com.sogou.map.kubbo.common.threadpool.impl.LimitedThreadPool
+scalable=com.sogou.map.kubbo.common.threadpool.impl.ScalableThreadPool

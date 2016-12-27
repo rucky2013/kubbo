@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sogou.map</groupId>
+	<artifactId>kubbo-parent</artifactId>
+	<version>0.3-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>kubbo-all</artifactId>
+  <packaging>jar</packaging>
+  <name>${project.artifactId}</name>
+  
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-remote-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-remote-netty4</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-rpc-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-rpc-kubbo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-distributed</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-discovery-kubernetes</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-boot</artifactId>
+      <version>${project.version}</version>
+    </dependency> 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-bench</artifactId>
+      <version>${project.version}</version>
+    </dependency>     
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+          <relocations>
+            <relocation>
+              <pattern>javassist.</pattern>
+              <shadedPattern>com.sogou.map.shade.javassist.</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.esotericsoftware.</pattern>
+              <shadedPattern>com.sogou.map.shade.com.esotericsoftware.</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>de.javakaffee.</pattern>
+              <shadedPattern>com.sogou.map.shade.de.javakaffee.</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.objectweb.</pattern>
+              <shadedPattern>com.sogou.map.shade.org.objectweb.</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.objenesis.</pattern>
+              <shadedPattern>com.sogou.map.shade.org.objenesis.</shadedPattern>
+            </relocation>
+          </relocations>
+          <artifactSet>
+            <includes>
+              <include>com.sogou.map:kubbo-common</include>
+              <include>com.sogou.map:kubbo-remote-core</include>
+              <include>com.sogou.map:kubbo-remote-netty4</include>
+              <include>com.sogou.map:kubbo-rpc-core</include>
+              <include>com.sogou.map:kubbo-rpc-kubbo</include>
+              <include>com.sogou.map:kubbo-distributed</include>
+              <include>com.sogou.map:kubbo-discovery-kubernetes</include>
+              <include>com.sogou.map:kubbo-boot</include>
+              <include>com.sogou.map:kubbo-bench</include>
+              <include>org.javassist:javassist</include>
+              <!--kryo-->
+              <include>com.esotericsoftware:*</include>
+              <include>de.javakaffee:*</include>
+              <include>org.ow2.asm:asm</include>
+              <include>org.objenesis:objenesis</include>
+            </includes>
+          </artifactSet>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.common.compiler.Compiler</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.common.threadpool.ThreadPool</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.Codec</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.serialization.Serialization</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.transport.TransportLayer</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.session.SessionLayer</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.rpc.Protocol</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.rpc.InvokerProxy</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.Discovery</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.LoadBalance</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.Replication</resource>
+            </transformer>
+          </transformers>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>

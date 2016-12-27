@@ -1,0 +1,3 @@
+adaptive=com.sogou.map.kubbo.common.compiler.impl.AdaptiveCompiler
+jdk=com.sogou.map.kubbo.common.compiler.impl.JdkCompiler
+javassist=com.sogou.map.kubbo.common.compiler.impl.JavassistCompiler

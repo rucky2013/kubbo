@@ -1,0 +1,48 @@
+  "object": {
+    "kind": "Endpoints",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "traffic-message",
+      "namespace": "default",
+      "selfLink": "/api/v1/namespaces/default/endpoints/traffic-message",
+      "uid": "bf708083-3118-11e6-b31c-aaaaaa5bd651",
+      "resourceVersion": "4418492",
+      "creationTimestamp": "2016-06-13T03:41:44Z",
+      "labels": {
+        "biz": "mssp"
+      }
+    },
+    "subsets": [
+      {
+        "addresses": [
+          {
+            "ip": "172.24.52.189",
+            "targetRef": {
+              "kind": "Pod",
+              "namespace": "default",
+              "name": "traffic-message-v1-vb9ax",
+              "uid": "579f05bf-b2f4-11e6-9bf0-aaaaaa5bd651",
+              "resourceVersion": "4418491"
+            }
+          },
+          {
+            "ip": "172.24.82.7",
+            "targetRef": {
+              "kind": "Pod",
+              "namespace": "default",
+              "name": "traffic-message-v1-lzhzu",
+              "uid": "bef33976-3118-11e6-b31c-aaaaaa5bd651",
+              "resourceVersion": "273552"
+            }
+          }
+        ],
+        "ports": [
+          {
+            "name": "client",
+            "port": "2379",
+            "protocol": "TCP"
+          }
+        ]
+      }
+    ]
+  }
