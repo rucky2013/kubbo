@@ -20,7 +20,6 @@ import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.heartbeat.HeartBeatTask;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionServer;
-import com.sogou.map.kubbo.remote.session.InternalResponseFuture;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.transport.AbstractServerDelegate;
 
@@ -141,7 +140,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	public Collection<Channel> getChannels() {
+    public Collection<Channel> getChannels() {
         return (Collection)getSessionChannels();
     }
 

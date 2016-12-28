@@ -7,7 +7,6 @@ import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionHandler;
-import com.sogou.map.kubbo.remote.session.InternalResponseFuture;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
