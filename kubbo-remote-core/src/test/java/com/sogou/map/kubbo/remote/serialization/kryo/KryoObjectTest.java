@@ -5,10 +5,7 @@ package com.sogou.map.kubbo.remote.serialization.kryo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-
 import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
-import com.sogou.map.kubbo.remote.serialization.SerializableClassRegistry;
 import com.sogou.map.kubbo.remote.serialization.java.JavaObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.kryo.KryoObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.kryo.obj.Color;

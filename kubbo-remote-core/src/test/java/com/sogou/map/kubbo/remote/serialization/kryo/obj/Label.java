@@ -10,7 +10,11 @@ import java.io.Serializable;
  *
  */
 public class Label implements Serializable{
-    public static final Color COLOR_1       = new Color(38, 162, 224);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final Color COLOR_1       = new Color(38, 162, 224);
     public static final Color COLOR_2       = new Color(253, 96, 60);
     
 	public static final Label TIME_LESS 			= new Label("时间短", COLOR_1, 1);

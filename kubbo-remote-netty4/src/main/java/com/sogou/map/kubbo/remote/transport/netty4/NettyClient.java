@@ -54,7 +54,7 @@ public class NettyClient extends AbstractClient {
     
     @Override
     protected void doOpen() throws Throwable {
-        NettyHelper.setNettyLoggerFactory();
+        NettyLoggerAdapter.setNettyLoggerFactory();
         bootstrap = new Bootstrap();
         // config
         bootstrap.channel(NioSocketChannel.class)
@@ -64,10 +64,11 @@ public class NettyClient extends AbstractClient {
         		 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, getConnectTimeout())
         		 .handler(new ChannelInitializer<SocketChannel>() {
         			 		public void initChannel(SocketChannel ch) {
-				                NettyCodecAdapter adapter = new NettyCodecAdapter(getCodec(), getUrl(), NettyClient.this);
+    			                NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyClient.this);
+    			                NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyClient.this);
 				                ChannelPipeline channelPipeline = ch.pipeline();
-				                channelPipeline.addLast("decoder", adapter.getDecoder());
-				                channelPipeline.addLast("encoder", adapter.getEncoder());
+				                channelPipeline.addLast("decoder", decoder);
+				                channelPipeline.addLast("encoder", encoder);
 				                channelPipeline.addLast("handler", new NettyHandler(getUrl(), NettyClient.this));
         			 		}
         		 });

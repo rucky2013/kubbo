@@ -13,6 +13,10 @@ import java.io.Serializable;
  * 路径的边
  */
 public class Edge implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public byte  direction = 1; //方向
 	public int indexID = 0;
 	public long navID = 0;

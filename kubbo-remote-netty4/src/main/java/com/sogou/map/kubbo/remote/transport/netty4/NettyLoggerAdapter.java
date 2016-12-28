@@ -10,7 +10,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
 /**
  * @author liufuliang
  */
-final class NettyHelper {
+final class NettyLoggerAdapter {
 
     public static void setNettyLoggerFactory() {
         InternalLoggerFactory factory = InternalLoggerFactory.getDefaultFactory();

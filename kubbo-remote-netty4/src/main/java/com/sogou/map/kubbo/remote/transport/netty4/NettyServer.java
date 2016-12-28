@@ -56,7 +56,7 @@ public class NettyServer extends AbstractServer implements Server {
 
     @Override
     protected void doOpen() throws Throwable {
-        NettyHelper.setNettyLoggerFactory();
+        NettyLoggerAdapter.setNettyLoggerFactory();
         
         final NettyHandler nettyHandler = new NettyHandler(getUrl(), NettyServer.this);
         channels = nettyHandler.getChannels();
@@ -69,11 +69,12 @@ public class NettyServer extends AbstractServer implements Server {
                 .option(ChannelOption.SO_BACKLOG, 100)
         		.childOption(ChannelOption.TCP_NODELAY, true)
         		.childHandler(new ChannelInitializer<SocketChannel>() {
-        				public void initChannel(SocketChannel ch) {
-			                NettyCodecAdapter adapter = new NettyCodecAdapter(getCodec(), getUrl(), NettyServer.this);
+        				public void initChannel(SocketChannel ch) {			                
+			                NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyServer.this);
+			                NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyServer.this);
 			                ChannelPipeline channelPipeline = ch.pipeline();
-			                channelPipeline.addLast("decoder", adapter.getDecoder());
-			                channelPipeline.addLast("encoder", adapter.getEncoder());
+			                channelPipeline.addLast("decoder", decoder);
+			                channelPipeline.addLast("encoder", encoder);
 			                channelPipeline.addLast("handler", nettyHandler);
 			            }
         });

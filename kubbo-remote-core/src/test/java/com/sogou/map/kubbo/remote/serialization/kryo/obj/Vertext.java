@@ -13,6 +13,10 @@ import java.io.Serializable;
  * 控制点,包括起终点和途经点
  */
 public class Vertext implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int		idx = 0;		//对应Edge在路线Edge序列中的下标
 	public float	pct = -1;		//在对应Edge上的位置
 	public boolean	via = false;	//是否是途经点

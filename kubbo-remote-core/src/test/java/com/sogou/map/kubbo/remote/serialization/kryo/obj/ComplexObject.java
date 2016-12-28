@@ -12,6 +12,11 @@ import java.util.List;
  *
  */
 public class ComplexObject extends Topology{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public int tactic = 1;
 	
 	public List<Label> labels = new ArrayList<Label>(5);
