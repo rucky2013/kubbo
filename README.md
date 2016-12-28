@@ -1,13 +1,14 @@
 # Kubbo
 Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kubernetes和netty。  
-支持JDK6及以上, 建议使用JDK8
+支持JAVA6及以上, 建议使用JAVA8
 
 
 ## Links
 * [Documentation](http://go2map.sogou-inc.com:8890/display/go2map/Quickstart)
 
 ## Usage
-### 添加依赖
+### *添加依赖*  
+按照[maven全局配置](http://git.sogou-inc.com/mssp/commons/blob/master/README.md)配置好maven, 然后添加以下工程依赖
 ```
 <dependency>
   <groupId>com.sogou.map</groupId>
@@ -15,9 +16,10 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
   <version>0.2</version>
 </dependency>
 ```
-> 建议使用maven管理工程, 如果不使用maven, 可以直接下载kubbo-all-0.2.jar和netty-all-4.1.6.Final.jar包导入工程里，下载地址 http://repo.mssp.sogou/maven/
 
-### 定义API接口  
+建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.2.jar和netty-all-4.1.6.Final.jar包导入工程里  
+
+### *定义API接口*  
 ```
 public interface SampleService {
     String echo(String message);
@@ -25,7 +27,7 @@ public interface SampleService {
 ```
 
 
-### 服务端  
+### *服务端*    
 rpc接口实现  
 ```
 @Export(SampleService.class)
@@ -58,7 +60,7 @@ public class SampleLifecycleHook implements LifecycleHook {
 如果需要, 可以在kubbo.propertie中对服务参数进行具体配置, 具体配置项可参考配置详解  
 
 
-### 客户端
+### *客户端*
 ```
 SampleService service = Kubbo.refer(SampleService.class);
 String result = service.echo("helloworld");
@@ -68,7 +70,7 @@ String result = service.echo("helloworld");
 3. 客户端异步调用方法可参考异步调用
 
 
-### 配置文件 kubbo.properties
+### *配置文件 kubbo.properties*
 kubbo.properties路径可以通过以下任意一种方法指定, 推荐使用java系统变量（如果使用kubbo-boot启动, 便无需配置kubbo.properties路径）  
 * 环境变量  
   KUBBO_CONFIGURATION=x/y/z/kubbo.properties
