@@ -29,19 +29,19 @@ public class JavaObjectInput implements ObjectInput {
         return inputStream;
     }
 
-	public Object readObject() throws IOException, ClassNotFoundException{
-		byte b = getObjectInputStream().readByte();
-		if( b == 0 )
-			return null;
-		return getObjectInputStream().readObject();
-	}
+    public Object readObject() throws IOException, ClassNotFoundException{
+        byte b = getObjectInputStream().readByte();
+        if( b == 0 )
+            return null;
+        return getObjectInputStream().readObject();
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T> T readObject(Class<T> cls) throws IOException, ClassNotFoundException {
-		return (T) readObject();
-	}
+    @SuppressWarnings("unchecked")
+    public <T> T readObject(Class<T> cls) throws IOException, ClassNotFoundException {
+        return (T) readObject();
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public <T> T readObject(Class<T> cls, Type type) throws IOException,ClassNotFoundException
     {
         return (T) readObject();
@@ -75,22 +75,22 @@ public class JavaObjectInput implements ObjectInput {
         return inputStream.readDouble();
     }
 
-	public String readUTF() throws IOException{
-		int len = getObjectInputStream().readInt();
-		if( len < 0 )
-			return null;
+    public String readUTF() throws IOException{
+        int len = getObjectInputStream().readInt();
+        if( len < 0 )
+            return null;
 
-		return getObjectInputStream().readUTF();
-	}
+        return getObjectInputStream().readUTF();
+    }
 
-	public byte[] readBytes() throws IOException{
-		int len = getObjectInputStream().readInt();
-		if( len < 0 )
-			return null;
-		if( len == 0 )
-			return new byte[0];
-		byte[] b = new byte[len];
-		getObjectInputStream().readFully(b);
-		return b;
-	}
+    public byte[] readBytes() throws IOException{
+        int len = getObjectInputStream().readInt();
+        if( len < 0 )
+            return null;
+        if( len == 0 )
+            return new byte[0];
+        byte[] b = new byte[len];
+        getObjectInputStream().readFully(b);
+        return b;
+    }
 }

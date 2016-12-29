@@ -12,16 +12,16 @@ import java.io.Serializable;
 
 public class Color implements Serializable{
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public static final Color WHITE     = new Color(255, 255, 255);
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    public static final Color WHITE     = new Color(255, 255, 255);
     public static final Color BLACK 	= new Color(0, 0, 0);
     public static final Color RED       = new Color(255, 0, 0);
 
     int value;
     public Color(){
-    	
+        
     }
     public Color(int r, int g, int b) {
         this(r, g, b, 255);
@@ -44,18 +44,18 @@ public class Color implements Serializable{
         }
     }
     public int getValue(){
-    	return value;
+        return value;
     }
     public int getRed() {
-    	return (getRGB() >> 16) & 0xFF;
+        return (getRGB() >> 16) & 0xFF;
     }
 
     public int getGreen() {
-    	return (getRGB() >> 8) & 0xFF;
+        return (getRGB() >> 8) & 0xFF;
     }
 
     public int getBlue() {
-    	return (getRGB() >> 0) & 0xFF;
+        return (getRGB() >> 0) & 0xFF;
     }
 
     public int getAlpha() {
@@ -63,6 +63,6 @@ public class Color implements Serializable{
     }
 
     public int getRGB() {
-    	return value;
+        return value;
     }
 }

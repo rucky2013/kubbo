@@ -14,6 +14,6 @@ import com.sogou.map.kubbo.common.extension.SPI;
  */
 @SPI(JavassistAnnotationDiscovery.NAME)
 public interface AnnotationDiscovery {
-	void discover() throws IOException;
-	void addListener(AnnotationDiscoveryListener listener);
+    void discover() throws IOException;
+    void addListener(AnnotationDiscoveryListener listener);
 }

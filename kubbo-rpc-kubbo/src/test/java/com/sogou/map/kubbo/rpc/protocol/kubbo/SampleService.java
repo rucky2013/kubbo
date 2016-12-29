@@ -11,12 +11,12 @@ import java.util.Set;
 
 public interface SampleService
 {
-	void sayHello(String name);
-	
-	Set<String> keys(Map<String, String> map);
+    void sayHello(String name);
+    
+    Set<String> keys(Map<String, String> map);
 
-	String echo(String text);
-	
-	void update(byte[] buf);
-	
+    String echo(String text);
+    
+    void update(byte[] buf);
+    
 }

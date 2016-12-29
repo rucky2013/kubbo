@@ -21,7 +21,7 @@ import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
  * @author liufuliang
  */
 public class CachedThreadPool implements ThreadPool {
-	public static final String NAME = "cached";
+    public static final String NAME = "cached";
 
     public Executor getExecutor(URL url) {
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
@@ -31,24 +31,24 @@ public class CachedThreadPool implements ThreadPool {
         int alive = url.getParameter(Constants.ALIVE_KEY, Constants.DEFAULT_ALIVE);
         
         return getExecutor(cores, maxthreads, alive, TimeUnit.MILLISECONDS, 
-        		queues == 0 ? new SynchronousQueue<Runnable>() : 
-        			(queues < 0 ? new LinkedBlockingQueue<Runnable>() 
-        					: new LinkedBlockingQueue<Runnable>(queues)),
-        		name, new AbortPolicyWithReport(name, url), false);
+                queues == 0 ? new SynchronousQueue<Runnable>() : 
+                    (queues < 0 ? new LinkedBlockingQueue<Runnable>() 
+                            : new LinkedBlockingQueue<Runnable>(queues)),
+                name, new AbortPolicyWithReport(name, url), false);
     }
     
     public static Executor getExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, 
-    		BlockingQueue<Runnable> workQueue, String threadname, RejectedExecutionHandler handler, boolean allowCoreThreadTimeOut){
-    	ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
-        		workQueue, new NamedThreadFactory(threadname, true), handler);
-    	executor.allowCoreThreadTimeOut(allowCoreThreadTimeOut);
-    	return executor;
+            BlockingQueue<Runnable> workQueue, String threadname, RejectedExecutionHandler handler, boolean allowCoreThreadTimeOut){
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
+                workQueue, new NamedThreadFactory(threadname, true), handler);
+        executor.allowCoreThreadTimeOut(allowCoreThreadTimeOut);
+        return executor;
     }
     
     public static Executor getExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, 
-    		BlockingQueue<Runnable> workQueue, String threadname,  boolean allowCoreThreadTimeOut){
-    	return getExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
-    			workQueue, threadname, new ThreadPoolExecutor.AbortPolicy(), allowCoreThreadTimeOut);
+            BlockingQueue<Runnable> workQueue, String threadname,  boolean allowCoreThreadTimeOut){
+        return getExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
+                workQueue, threadname, new ThreadPoolExecutor.AbortPolicy(), allowCoreThreadTimeOut);
     }
 
 }

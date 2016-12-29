@@ -5,6 +5,6 @@ package com.sogou.map.kubbo.rpc;
  * @author liufuliang
  */
 public interface InvokerDelegate<T> extends Invoker<T> {
-	Invoker<T> getInvoker();
+    Invoker<T> getInvoker();
 
 }

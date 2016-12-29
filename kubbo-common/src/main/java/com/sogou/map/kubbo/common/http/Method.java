@@ -18,7 +18,7 @@ public enum Method {
     CONNECT;
 
 
-	public static boolean isBodyAble(Method method){
-		return method == PUT || PUT == POST;
-	}
+    public static boolean isBodyAble(Method method){
+        return method == PUT || PUT == POST;
+    }
 }

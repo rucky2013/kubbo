@@ -18,9 +18,9 @@ import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
  */
 public class DecodeableRpcResult extends RpcResult implements Decodeable {
 
-	private static final long serialVersionUID = -4446367169516521258L;
+    private static final long serialVersionUID = -4446367169516521258L;
 
-	private static final Logger log = LoggerFactory.getLogger(DecodeableRpcResult.class);
+    private static final Logger log = LoggerFactory.getLogger(DecodeableRpcResult.class);
 
     private Channel     channel;
 
@@ -69,7 +69,7 @@ public class DecodeableRpcResult extends RpcResult implements Decodeable {
                 break;
             case KubboCodec.RESPONSE_VALUE:
                 try {
-                	setValue(in.readObject());
+                    setValue(in.readObject());
 //                    Type[] returnType = RpcUtils.getReturnTypes(invocation);
 //                    setValue(returnType == null || returnType.length == 0 ? in.readObject() :
 //                                 (returnType.length == 1 ? in.readObject((Class<?>) returnType[0])

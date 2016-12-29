@@ -12,23 +12,23 @@ import com.sogou.map.kubbo.common.http.HttpConnection;
  *
  */
 public class JdkHttpConnection implements HttpConnection {
-	HttpURLConnection connection;
+    HttpURLConnection connection;
 
-	public JdkHttpConnection(HttpURLConnection connection) {
-		this.connection = connection;
-	}
+    public JdkHttpConnection(HttpURLConnection connection) {
+        this.connection = connection;
+    }
 
-	public HttpURLConnection getHttpURLConnection(){
-		return this.connection;
-	}
-	
-	@Override
-	public void close() {
-		if(this.connection != null){
-			this.connection.disconnect();
-		}
-		
-	}
+    public HttpURLConnection getHttpURLConnection(){
+        return this.connection;
+    }
+    
+    @Override
+    public void close() {
+        if(this.connection != null){
+            this.connection.disconnect();
+        }
+        
+    }
 
 
 }

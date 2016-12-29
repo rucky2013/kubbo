@@ -9,9 +9,9 @@ package com.sogou.map.kubbo.common.http;
  */
 public class KubboHttpException extends Exception {
 
-	private static final long serialVersionUID = 6831076217953900452L;
+    private static final long serialVersionUID = 6831076217953900452L;
 
-	public KubboHttpException(String message) {
+    public KubboHttpException(String message) {
         super(message);
     }
 

@@ -57,12 +57,12 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
 
     @Override
     public void read(ChannelHandlerContext ctx) throws Exception {
-    	ctx.read();
+        ctx.read();
     }
     
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-    	ctx.writeAndFlush(msg, promise);
+        ctx.writeAndFlush(msg, promise);
 
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {

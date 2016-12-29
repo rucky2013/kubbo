@@ -34,12 +34,12 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
 
     @Override
     public Result doInvoke(Invocation invocation, final List<Invoker<T>> invokers, LoadBalance loadbalance) throws RpcException {
-    	List<Invoker<T>> copyinvokers = invokers;
+        List<Invoker<T>> copyinvokers = invokers;
         
-    	//尝试次数
-    	int tries = getUrl().getMethodParameter(invocation.getMethodName(), Constants.RETRY_KEY, Constants.DEFAULT_RETRY) + 1;
+        //尝试次数
+        int tries = getUrl().getMethodParameter(invocation.getMethodName(), Constants.RETRY_KEY, Constants.DEFAULT_RETRY) + 1;
         if (tries <= 0) {
-        	tries = 1;
+            tries = 1;
         }
         
         // retry loop.
@@ -47,11 +47,11 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
         List<Invoker<T>> invoked = new ArrayList<Invoker<T>>(copyinvokers.size()); // invoked invokers.
         Set<String> providers = new HashSet<String>(tries);
         for (int i = 0; i < tries; i++) {
-        	//重试时，进行重新选择，避免重试时invoker列表已发生变化.
-        	//注意：如果列表发生了变化，那么invoked判断会失效，因为invoker示例已经改变
-        	if (i > 0) {
-        		copyinvokers = list(invocation);
-        	}
+            //重试时，进行重新选择，避免重试时invoker列表已发生变化.
+            //注意：如果列表发生了变化，那么invoked判断会失效，因为invoker示例已经改变
+            if (i > 0) {
+                copyinvokers = list(invocation);
+            }
             Invoker<T> invoker = select(invocation, copyinvokers, invoked, loadbalance);
             invoked.add(invoker);
             
@@ -74,14 +74,14 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
                 }
                 exception = e;
             } catch (Throwable e) {
-            	exception = new RpcException(e.getMessage(), e);
+                exception = new RpcException(e.getMessage(), e);
             } finally {
                 providers.add(invoker.getUrl().getAddress());
             }
         }
         throw new RpcException(exception.getCode(), 
-        		"Failed to invoke the method "+ invocation.getMethodName() 
-        		+ " in the service " + getInterface().getName() 
+                "Failed to invoke the method "+ invocation.getMethodName() 
+                + " in the service " + getInterface().getName() 
                 + ". Tried " + tries + " times of the providers " + providers 
                 + " (" + providers.size() + "/" + copyinvokers.size() 
                 + ") from the discovery " + directory.getUrl().getAddress()

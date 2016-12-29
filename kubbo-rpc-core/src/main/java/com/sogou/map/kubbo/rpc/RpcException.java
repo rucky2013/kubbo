@@ -8,7 +8,7 @@ package com.sogou.map.kubbo.rpc;
  */
 public final class RpcException extends RuntimeException {
 
-	private static final long serialVersionUID = 7815426752583648734L;
+    private static final long serialVersionUID = 7815426752583648734L;
 
     public static final int UNKNOWN_EXCEPTION = 0;
     

@@ -20,6 +20,6 @@ public @interface JSONBean {
     /**
      * 
      */
-	String value() default "";
+    String value() default "";
 
 }

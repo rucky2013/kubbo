@@ -14,8 +14,8 @@ import com.sogou.map.kubbo.rpc.RpcException;
  */
 public abstract class AbstractDirectory<T> implements Directory<T> {
 
-	protected final URL url;
-	protected Class<T> type;
+    protected final URL url;
+    protected Class<T> type;
     private volatile boolean destroyed = false;
     
     public AbstractDirectory(Class<T> type, URL url) {
@@ -29,8 +29,8 @@ public abstract class AbstractDirectory<T> implements Directory<T> {
     }
     
     @Override
-	public Class<T> getInterface(){
-    	return type;
+    public Class<T> getInterface(){
+        return type;
     }
     
     @Override

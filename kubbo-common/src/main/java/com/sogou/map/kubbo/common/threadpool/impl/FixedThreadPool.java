@@ -21,7 +21,7 @@ import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
  * @author liufuliang
  */
 public class FixedThreadPool implements ThreadPool {
-	public static final String NAME = "fixed";
+    public static final String NAME = "fixed";
 
     public Executor getExecutor(URL url) {
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
@@ -29,19 +29,19 @@ public class FixedThreadPool implements ThreadPool {
         int queues = url.getParameter(Constants.QUEUES_KEY, Constants.DEFAULT_QUEUES);
         return getExecutor(threads, 
            		queues == 0 ? new SynchronousQueue<Runnable>() : 
-        			(queues < 0 ? new LinkedBlockingQueue<Runnable>() 
-        					: new LinkedBlockingQueue<Runnable>(queues)),
-        					name, new AbortPolicyWithReport(name, url));
+                    (queues < 0 ? new LinkedBlockingQueue<Runnable>() 
+                            : new LinkedBlockingQueue<Runnable>(queues)),
+                            name, new AbortPolicyWithReport(name, url));
     }
     
     public static Executor getExecutor(int threads, BlockingQueue<Runnable> workQueue, String threadname, RejectedExecutionHandler handler){
-    	ThreadPoolExecutor executor = new ThreadPoolExecutor(threads, threads, 0, TimeUnit.MILLISECONDS, 
-        		workQueue, new NamedThreadFactory(threadname, true), handler);
-    	return executor;
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(threads, threads, 0, TimeUnit.MILLISECONDS, 
+                workQueue, new NamedThreadFactory(threadname, true), handler);
+        return executor;
     }
     
     public static Executor getExecutor(int threads, BlockingQueue<Runnable> workQueue, String threadname){
-    	return getExecutor(threads, workQueue, threadname, new ThreadPoolExecutor.AbortPolicy());
+        return getExecutor(threads, workQueue, threadname, new ThreadPoolExecutor.AbortPolicy());
     }
 
 }

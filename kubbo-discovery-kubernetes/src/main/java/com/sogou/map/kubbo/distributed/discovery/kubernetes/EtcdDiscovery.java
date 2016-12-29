@@ -15,12 +15,12 @@ import com.sogou.map.kubbo.distributed.Discovery;
 public class EtcdDiscovery implements Discovery {
     public final static String NAME = "etcd";
 
-	@Override
-	public <T> Directory<T> subscribe(Class<T> type, URL url) {
-		EtcdDiscoveryDirectory<T> directory = new EtcdDiscoveryDirectory<T>(type, url);
-		directory.synchronize();
-		directory.watchUpdate();
-		return directory;
-	}
+    @Override
+    public <T> Directory<T> subscribe(Class<T> type, URL url) {
+        EtcdDiscoveryDirectory<T> directory = new EtcdDiscoveryDirectory<T>(type, url);
+        directory.synchronize();
+        directory.watchUpdate();
+        return directory;
+    }
 
 }

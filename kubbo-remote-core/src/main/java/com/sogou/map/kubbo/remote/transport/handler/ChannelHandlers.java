@@ -11,7 +11,7 @@ import com.sogou.map.kubbo.remote.heartbeat.HeartbeatHandler;
 public class ChannelHandlers {
     private static ChannelHandlers INSTANCE = new ChannelHandlers();
     protected ChannelHandlers() {
-    	
+        
     }
     protected static ChannelHandlers getInstance() {
         return INSTANCE;

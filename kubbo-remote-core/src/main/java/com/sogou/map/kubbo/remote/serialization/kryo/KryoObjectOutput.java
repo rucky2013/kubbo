@@ -91,7 +91,7 @@ public class KryoObjectOutput implements ObjectOutput, Releasable{
 
     @Override
     public void release() {
-    	Kryos.releaseKryo(kryo);
+        Kryos.releaseKryo(kryo);
         kryo = null;
     }
 }

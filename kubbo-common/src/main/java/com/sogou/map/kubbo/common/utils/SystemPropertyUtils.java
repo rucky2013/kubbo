@@ -52,12 +52,12 @@ public final class SystemPropertyUtils {
         }
 
         //env
-    	String envKey = key.toUpperCase().replaceAll("[^0-9A-Z]", "_");
-    	String value = System.getenv(envKey);
+        String envKey = key.toUpperCase().replaceAll("[^0-9A-Z]", "_");
+        String value = System.getenv(envKey);
         if(value != null){
-        	return value;
+            return value;
         }
-    	//system proprerty
+        //system proprerty
         try {
             if (System.getSecurityManager() == null) {
                 value = System.getProperty(key);
@@ -109,7 +109,7 @@ public final class SystemPropertyUtils {
         }
 
         logger.warn(
-        		String.format("Unable to parse the boolean system property '{}':{} - using the default value: {}",
+                String.format("Unable to parse the boolean system property '{}':{} - using the default value: {}",
                 key, value, def)
         );
 
@@ -143,7 +143,7 @@ public final class SystemPropertyUtils {
         }
 
         logger.warn(
-        		String.format("Unable to parse the integer system property '{}':{} - using the default value: {}",
+                String.format("Unable to parse the integer system property '{}':{} - using the default value: {}",
                 key, value, def)
         );
 
@@ -175,7 +175,7 @@ public final class SystemPropertyUtils {
         }
 
         logger.warn(
-        		String.format("Unable to parse the long integer system property '{}':{} - using the default value: {}",
+                String.format("Unable to parse the long integer system property '{}':{} - using the default value: {}",
                 key, value, def)
         );
 
@@ -187,12 +187,12 @@ public final class SystemPropertyUtils {
      * @param value
      * @return
      */
-	public static boolean isNaV(String value) {
-		return value == null || value.length() == 0 
-    			|| "null".equalsIgnoreCase(value) 
-    			|| "N/A".equalsIgnoreCase(value);
-	}
-	
+    public static boolean isNaV(String value) {
+        return value == null || value.length() == 0 
+                || "null".equalsIgnoreCase(value) 
+                || "N/A".equalsIgnoreCase(value);
+    }
+    
 
     private SystemPropertyUtils() {
         // Unused

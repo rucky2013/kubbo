@@ -12,19 +12,19 @@ import java.util.List;
  *
  */
 public class Topology implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public List<Vertext> vertextes = new ArrayList<Vertext>();		//控制点序列
-	public List<Edge> edges = new ArrayList<Edge>();			//Link序列
-	public Label label;
-	
-	public void addEdge(Edge e){
-		edges.add(e);
-	}
-	public void addVertext(Vertext v){
-		vertextes.add(v);
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    public List<Vertext> vertextes = new ArrayList<Vertext>();		//控制点序列
+    public List<Edge> edges = new ArrayList<Edge>();			//Link序列
+    public Label label;
+    
+    public void addEdge(Edge e){
+        edges.add(e);
+    }
+    public void addVertext(Vertext v){
+        vertextes.add(v);
+    }
 
 }

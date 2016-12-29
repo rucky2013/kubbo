@@ -13,10 +13,10 @@ import com.sogou.map.kubbo.remote.transport.handler.NoOpChannelHandler;
  */
 public class NoOpSessionHandler extends NoOpChannelHandler implements SessionHandler{
 
-	@Override
-	public Object reply(SessionChannel channel, Object request)
-			throws RemotingException {
-		return null;
-	}
+    @Override
+    public Object reply(SessionChannel channel, Object request)
+            throws RemotingException {
+        return null;
+    }
 
 }

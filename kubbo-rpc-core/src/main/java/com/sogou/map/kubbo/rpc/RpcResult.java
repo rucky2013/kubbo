@@ -21,16 +21,16 @@ public class RpcResult extends AbstractAttachable<RpcResult> implements Result, 
     private Throwable                exception;
 
     public RpcResult(){
-    	super(new HashMap<String, String>());
+        super(new HashMap<String, String>());
     }
     
     public RpcResult(Object result){
-    	this();
+        this();
         this.result = result;
     }
 
     public RpcResult(Throwable exception){
-    	this();
+        this();
         this.exception = exception;
     }
 
@@ -65,7 +65,7 @@ public class RpcResult extends AbstractAttachable<RpcResult> implements Result, 
         this.exception = e;
     }
 
-	@Override
+    @Override
     public String toString() {
         return "RpcResult [result=" + result + ", exception=" + exception + "]";
     }

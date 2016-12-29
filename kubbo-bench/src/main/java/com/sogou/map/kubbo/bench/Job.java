@@ -7,9 +7,9 @@ package com.sogou.map.kubbo.bench;
  *
  */
 public interface Job {
-	/**
-	 * 
-	 * @return  successful?
-	 */
-	public boolean execute();
+    /**
+     * 
+     * @return  successful?
+     */
+    public boolean execute();
 }

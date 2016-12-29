@@ -21,7 +21,7 @@ import com.sogou.map.kubbo.remote.transport.AbstractCodec;
  * @author liufuliang
  */
 public class TransportCodec extends AbstractCodec {
-	@Override
+    @Override
     public void encode(Channel channel, ChannelBuffer buffer, Object message) throws IOException {
         OutputStream output = new ChannelBufferOutputStream(buffer);
         ObjectOutput objectOutput = Serializations.getSerialization(channel.getUrl()).serialize(channel.getUrl(), output);

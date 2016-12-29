@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.remote.Codec;
  * @author liufuliang
  */
 public abstract class AbstractCodec implements Codec {
-	private static final Logger logger = LoggerFactory.getLogger(AbstractCodec.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractCodec.class);
     
     protected static void checkPayload(Channel channel, long size) throws IOException {
         int payload = Constants.DEFAULT_PAYLOAD;
@@ -21,8 +21,8 @@ public abstract class AbstractCodec implements Codec {
             payload = channel.getUrl().getParameter(Constants.PAYLOAD_KEY, Constants.DEFAULT_PAYLOAD);
         }
         if (payload > 0 && size > payload) {
-        	IOException e = new IOException("Data length too large: " + size + ", max payload: " + payload + ", channel: " + channel);
-        	logger.error(e);
+            IOException e = new IOException("Data length too large: " + size + ", max payload: " + payload + ", channel: " + channel);
+            logger.error(e);
             throw e;
         }
     }

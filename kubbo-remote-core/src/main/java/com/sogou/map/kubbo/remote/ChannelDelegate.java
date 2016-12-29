@@ -7,5 +7,5 @@
  *
  */
 public interface ChannelDelegate extends Channel {
-	Channel getChannel();
+    Channel getChannel();
 }

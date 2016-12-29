@@ -42,7 +42,7 @@ public class HeaderSessionClient extends AbstractClientDelegate implements Sessi
     private final SessionChannel sessionChannel;
 
     public HeaderSessionClient(Client client){
-    	super(client);
+        super(client);
         if (client == null) {
             throw new IllegalArgumentException("client == NULL");
         }
@@ -111,8 +111,8 @@ public class HeaderSessionClient extends AbstractClientDelegate implements Sessi
         stopHeartbeatTimer();
     }
 
-	@Override
-	public String toString() {
-		return "HeaderSessionClient [channel=" + sessionChannel + "]";
-	}
+    @Override
+    public String toString() {
+        return "HeaderSessionClient [channel=" + sessionChannel + "]";
+    }
 }

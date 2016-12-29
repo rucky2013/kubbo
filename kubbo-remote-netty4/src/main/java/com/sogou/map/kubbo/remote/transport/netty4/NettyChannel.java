@@ -44,10 +44,10 @@ final class NettyChannel extends AbstractChannel {
         if (channel == null) {
             NettyChannel nc = new NettyChannel(ch, url, handler);
             if (ch.isActive()) {
-            	channel = channelMap.putIfAbsent(ch, nc);
+                channel = channelMap.putIfAbsent(ch, nc);
             }
             if (channel == null) {
-            	channel = nc;
+                channel = nc;
             }
         }
         return channel;
@@ -91,19 +91,19 @@ final class NettyChannel extends AbstractChannel {
             }
         } catch (Throwable e) {
             throw new RemotingException(this, new StringBuffer(32)
-            		.append("Failed to send message [").append(message).append("] ")
-            		.append("to ").append(getRemoteAddress()).append(", ")
-            		.append("cause: ").append(e.getMessage())
-            		.toString(),
-            		e);            		
+                    .append("Failed to send message [").append(message).append("] ")
+                    .append("to ").append(getRemoteAddress()).append(", ")
+                    .append("cause: ").append(e.getMessage())
+                    .toString(),
+                    e);            		
         }
         
         if(!success) {
             throw new RemotingException(this, new StringBuffer(32)
-            		.append("Failed to send message [").append(message).append("] ")
-            		.append("to ").append(getRemoteAddress()).append(" ")
-            		.append("in timeout(").append(timeout).append("ms) limit")
-            		.toString());
+                    .append("Failed to send message [").append(message).append("] ")
+                    .append("to ").append(getRemoteAddress()).append(" ")
+                    .append("in timeout(").append(timeout).append("ms) limit")
+                    .toString());
         }
     }
 

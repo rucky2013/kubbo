@@ -71,12 +71,12 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
     
     @Override
     public Result invoke(final Invocation invocation) throws RpcException {
-    	//invokers
+        //invokers
         List<Invoker<T>> invokers = list(invocation);
 
         //loadbalance
         LoadBalance loadbalance = (invokers != null && invokers.size() > 0) ? 
-        		getLoadBalance(invokers.get(0).getUrl(), invocation.getMethodName()) : getDefaultLoadBalance();
+                getLoadBalance(invokers.get(0).getUrl(), invocation.getMethodName()) : getDefaultLoadBalance();
         //doInvoke
         return doInvoke(invocation, invokers, loadbalance);
     }
@@ -89,18 +89,18 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
      * 
      */
     protected Invoker<T> select(
-    		Invocation invocation,
-    		List<Invoker<T>> invokers, 
-    		List<Invoker<T>> skipped, 
-    		LoadBalance loadbalance) throws RpcException {
-    	//保护
-    	if (isInvokersEmpty(invokers))
+            Invocation invocation,
+            List<Invoker<T>> invokers, 
+            List<Invoker<T>> skipped, 
+            LoadBalance loadbalance) throws RpcException {
+        //保护
+        if (isInvokersEmpty(invokers))
             return null;
-    	if(skipped == null){
-    		skipped = Collections.emptyList();
-    	}
-    	
-    	//快速返回
+        if(skipped == null){
+            skipped = Collections.emptyList();
+        }
+        
+        //快速返回
         if (invokers.size() == 1)
             return invokers.get(0);
         if (invokers.size() == 2 && skipped.size() > 0) {
@@ -116,9 +116,9 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
         
         //重试.
         if( !invoker.isAvailable() ){
-        	Invoker<T> retryInvoker = loadbalance.select(invokers, getUrl(), invocation);
+            Invoker<T> retryInvoker = loadbalance.select(invokers, getUrl(), invocation);
             if(retryInvoker == null){
-            	int index = invokers.indexOf(invoker);
+                int index = invokers.indexOf(invoker);
                 try{
                     invoker = index < invokers.size() - 1 ? invokers.get(index + 1) : invoker;
                 } catch (Exception e) {
@@ -139,42 +139,42 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
      * @throws RpcException
      */
     protected Invoker<T> selectRetry(    		
-    		Invocation invocation,
-    		List<Invoker<T>> invokers, 
-    		List<Invoker<T>> skipped, 
-    		LoadBalance loadbalance) throws RpcException{
-    	List<Invoker<T>> theInvokers = new ArrayList<Invoker<T>>(invokers);
-    	//Available, Not Skipped
-    	for(Invoker<T> ink : invokers){
-    		if(ink.isAvailable() && !skipped.contains(ink)){
-    			theInvokers.add(ink);
-    		}
-    	}
-    	//Available, Skipped
-    	if(theInvokers.isEmpty()){
-    		for(Invoker<T> ink : skipped){
-    			if(ink.isAvailable()){
-    				theInvokers.add(ink);
-    			}
-    		}
-    	}
-    	if(theInvokers.isEmpty()){
-    		return null;
-    	}
-    	
-    	Invoker<T> invoker = loadbalance.select(theInvokers, getUrl(), invocation);
+            Invocation invocation,
+            List<Invoker<T>> invokers, 
+            List<Invoker<T>> skipped, 
+            LoadBalance loadbalance) throws RpcException{
+        List<Invoker<T>> theInvokers = new ArrayList<Invoker<T>>(invokers);
+        //Available, Not Skipped
+        for(Invoker<T> ink : invokers){
+            if(ink.isAvailable() && !skipped.contains(ink)){
+                theInvokers.add(ink);
+            }
+        }
+        //Available, Skipped
+        if(theInvokers.isEmpty()){
+            for(Invoker<T> ink : skipped){
+                if(ink.isAvailable()){
+                    theInvokers.add(ink);
+                }
+            }
+        }
+        if(theInvokers.isEmpty()){
+            return null;
+        }
+        
+        Invoker<T> invoker = loadbalance.select(theInvokers, getUrl(), invocation);
         return invoker;
     }
     
     protected boolean isInvokersEmpty(List<Invoker<T>> invokers){
-    	return invokers == null || invokers.size() == 0;
+        return invokers == null || invokers.size() == 0;
     }
     
     protected  List<Invoker<T>> list(Invocation invocation) throws RpcException {
-    	assertNotDestroyed();
-    	List<Invoker<T>> invokers = directory.list(invocation);
-    	assertInvokersNotEmpty(invokers, invocation);
-    	return invokers;
+        assertNotDestroyed();
+        List<Invoker<T>> invokers = directory.list(invocation);
+        assertInvokersNotEmpty(invokers, invocation);
+        return invokers;
     }
 
     private void assertNotDestroyed() {
@@ -196,14 +196,14 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
     }
     
     private LoadBalance getLoadBalance(URL url, String methodName){
-    	LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(
-    			url.getMethodParameter(methodName, Constants.LOADBALANCE_KEY, Constants.DEFAULT_LOADBALANCE));
-    	return loadbalance;
+        LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(
+                url.getMethodParameter(methodName, Constants.LOADBALANCE_KEY, Constants.DEFAULT_LOADBALANCE));
+        return loadbalance;
     }
     
     private LoadBalance getDefaultLoadBalance(){
-    	LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(Constants.DEFAULT_LOADBALANCE);
-    	return loadbalance;
+        LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(Constants.DEFAULT_LOADBALANCE);
+        return loadbalance;
     }
     
     protected abstract Result doInvoke(Invocation invocation, List<Invoker<T>> invokers,

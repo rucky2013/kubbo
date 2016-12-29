@@ -22,23 +22,23 @@ import com.sogou.map.kubbo.common.extension.SPI;
 
 public class AnnotationDiscoveryTest {
 
-	@Test
-	public void testDiscovery() throws IOException {
-		final List<String> clazzs = new ArrayList<String>();
-		AnnotationDiscovery discovery = new JavassistAnnotationDiscovery();
-		discovery.addListener(new ClassAnnotationDiscoveryListener() {
-			@Override
-			public String[] annotations() {
-				return new String[] { SPI.class.getName() };
-			}
-			
-			@Override
-			public void discovered(String clazz, String annotation) {
-				clazzs.add(clazz);
-			}
-		});
-		discovery.discover();
-		Assert.assertTrue(true);
-	}
+    @Test
+    public void testDiscovery() throws IOException {
+        final List<String> clazzs = new ArrayList<String>();
+        AnnotationDiscovery discovery = new JavassistAnnotationDiscovery();
+        discovery.addListener(new ClassAnnotationDiscoveryListener() {
+            @Override
+            public String[] annotations() {
+                return new String[] { SPI.class.getName() };
+            }
+            
+            @Override
+            public void discovered(String clazz, String annotation) {
+                clazzs.add(clazz);
+            }
+        });
+        discovery.discover();
+        Assert.assertTrue(true);
+    }
 
 }

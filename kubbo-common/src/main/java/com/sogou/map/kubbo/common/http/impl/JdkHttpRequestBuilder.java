@@ -41,19 +41,19 @@ import com.sogou.map.kubbo.common.json.JSONObject;
  */
 public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
 
-	public JdkHttpRequestBuilder(Method method, String url) {
-		super(method, url);
-	}
+    public JdkHttpRequestBuilder(Method method, String url) {
+        super(method, url);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.sogou.map.kubbo.common.http.AbstractHttpRequestBuilder#doExecute()
-	 */
-	@Override
-	protected HttpResponse doExecute() throws IOException {
-		//query params
-		String url = JdkHttpRequestBuilder.this.url;
+    /* (non-Javadoc)
+     * @see com.sogou.map.kubbo.common.http.AbstractHttpRequestBuilder#doExecute()
+     */
+    @Override
+    protected HttpResponse doExecute() throws IOException {
+        //query params
+        String url = JdkHttpRequestBuilder.this.url;
         if (! Method.isBodyAble(method) && hasParams()) {
-        	url += (url.contains("?") ? "&" : "?") + Https.toQueryString(params);
+            url += (url.contains("?") ? "&" : "?") + Https.toQueryString(params);
         }
         //connection
         URL requestUrl = new URL(url);
@@ -68,11 +68,11 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
         connection.setUseCaches(cache);
         //connect timeout
         if(connectTimeout > 0){
-        	connection.setConnectTimeout(connectTimeout);
+            connection.setConnectTimeout(connectTimeout);
         }
         //read timeout
         if(readTimeout > 0){
-        	connection.setReadTimeout(readTimeout);
+            connection.setReadTimeout(readTimeout);
         }
         //ifModifiedSince
         if (ifModifiedSince > 0) {
@@ -88,69 +88,69 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
         }
         //headers
         if(hasHeaders()){
-        	addRequestProperties(connection, headers);
+            addRequestProperties(connection, headers);
         }
         //request
         if(Method.isBodyAble(method)){
-        	if(isStreamBody()){
+            if(isStreamBody()){
                 streamBody(connection, body, false);
-        	} else{
-        		writeBody(connection, body);
-        	}
+            } else{
+                writeBody(connection, body);
+            }
         } else {
-        	connection.connect();
+            connection.connect();
         }
         //response
         HttpResponse response = new JdkHttpResponse(connection, chunkedHandler);
         if(! keepalive){
-        	response.setAutoDisconnect();
+            response.setAutoDisconnect();
         }
         
         return response;
-	}
-	
+    }
+    
     private void writeBody(HttpURLConnection connection, Object body) throws IOException {
         byte[] requestBody = null;
         if (hasParams()) {
-        	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_FORM);
-        	requestBody = Https.toQueryString(params).getBytes(Const.UTF8);
+            connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_FORM);
+            requestBody = Https.toQueryString(params).getBytes(Const.UTF8);
         } else if (! hasBody()) {
-        	requestBody = null;
+            requestBody = null;
         } else if (body instanceof JSONObject) {
-        	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_JSON);
-        	requestBody =  ((JSONObject) body).toString().getBytes(Const.UTF8);
+            connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_JSON);
+            requestBody =  ((JSONObject) body).toString().getBytes(Const.UTF8);
         } else if (body instanceof JSONArray) {
-        	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_JSON);
-        	requestBody =  ((JSONArray) body).toString().getBytes(Const.UTF8);
+            connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_JSON);
+            requestBody =  ((JSONArray) body).toString().getBytes(Const.UTF8);
         } else if (body instanceof byte[]) {
-        	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_BINARY);
+            connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_BINARY);
             requestBody = (byte[]) body;
         } else {
-        	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.TEXT_PLAIN);
-        	requestBody = body.toString().getBytes(Const.UTF8);
+            connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.TEXT_PLAIN);
+            requestBody = body.toString().getBytes(Const.UTF8);
         }
 
         if (requestBody != null) {
             connection.setFixedLengthStreamingMode(requestBody.length);
             connection.setDoOutput(true);
-	    	OutputStream os = null;
-	        try {
-	            os = connection.getOutputStream();
-	            os.write(requestBody);
-	            os.flush();
-	        } finally {
-	            if (os != null) {
-	                try { os.close(); } catch (Exception ignored) {}
-	            }
-	        }
-	    }
+            OutputStream os = null;
+            try {
+                os = connection.getOutputStream();
+                os.write(requestBody);
+                os.flush();
+            } finally {
+                if (os != null) {
+                    try { os.close(); } catch (Exception ignored) {}
+                }
+            }
+        }
     }
-	
-	private void streamBody(HttpURLConnection connection, Object body, boolean compress) throws IOException {
+    
+    private void streamBody(HttpURLConnection connection, Object body, boolean compress) throws IOException {
         InputStream is;
         boolean closeStream;
-		long length = -1L;
-    	if (body instanceof File) {
+        long length = -1L;
+        if (body instanceof File) {
             length = compress ? -1L : ((File) body).length();
             is = new FileInputStream((File) body);
             closeStream = true;
@@ -165,13 +165,13 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
         }
 
         if(length < 0){
-        	connection.setChunkedStreamingMode(-1); // use default chunk size
+            connection.setChunkedStreamingMode(-1); // use default chunk size
         } else {
             connection.setFixedLengthStreamingMode((int) length);
         }
 
         //attributes
-    	connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_BINARY);
+        connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_BINARY);
         connection.setDoOutput(true);
 
         OutputStream os = null;
@@ -191,14 +191,14 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
             }
         }
     }
-	
-	private void addRequestProperties(HttpURLConnection connection, Map<String, Object> map) {
+    
+    private void addRequestProperties(HttpURLConnection connection, Map<String, Object> map) {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             addRequestProperty(connection, entry.getKey(), entry.getValue());
         }
     } 
-	
-	private void addRequestProperty(HttpURLConnection connection, String name, Object value) {
+    
+    private void addRequestProperty(HttpURLConnection connection, String name, Object value) {
         if (name == null || name.length() == 0 || value == null) {
             throw new IllegalArgumentException("name and value must not be empty");
         }
@@ -214,29 +214,29 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
 
         connection.addRequestProperty(name, valueAsString);
     }
-	
-	private DateFormat getRfc1123DateFormat() {
+    
+    private DateFormat getRfc1123DateFormat() {
         DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
         format.setLenient(false);
         format.setTimeZone(TimeZone.getTimeZone("UTC"));
         return format;
     }
-	
-	
+    
+    
     private void initializeSSL(HttpURLConnection connection){
         if ( connection instanceof HttpsURLConnection ) {
             HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
             if (hostnameVerifier == null) {
-            	hostnameVerifier = new AlwaysAcceptHostnameVerifier();
+                hostnameVerifier = new AlwaysAcceptHostnameVerifier();
             }
             if (sslSocketFactory == null) {
-				try {
-	        		SSLContext sslcontext = SSLContext.getInstance("TLS");
-	        		sslcontext.init(null, new TrustManager[]{ new AlwaysAcceptX509TrustManager() }, null);
-	            	sslSocketFactory = sslcontext.getSocketFactory();
-				} catch (NoSuchAlgorithmException e) {
-				} catch (KeyManagementException e) {
-				} 
+                try {
+                    SSLContext sslcontext = SSLContext.getInstance("TLS");
+                    sslcontext.init(null, new TrustManager[]{ new AlwaysAcceptX509TrustManager() }, null);
+                    sslSocketFactory = sslcontext.getSocketFactory();
+                } catch (NoSuchAlgorithmException e) {
+                } catch (KeyManagementException e) {
+                } 
             }
             sslConnection.setHostnameVerifier(hostnameVerifier);
             sslConnection.setSSLSocketFactory(sslSocketFactory);

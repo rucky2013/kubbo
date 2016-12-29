@@ -13,7 +13,7 @@ public class CompatibleKryo extends Kryo {
 
     private static final Logger logger = LoggerFactory.getLogger(CompatibleKryo.class);
 
-	@Override
+    @Override
     @SuppressWarnings("rawtypes")
     public Serializer getDefaultSerializer(Class type) {
         if (type == null) {
@@ -28,7 +28,7 @@ public class CompatibleKryo extends Kryo {
         }
         return super.getDefaultSerializer(type);
     }
-	
+    
     public static boolean isZeroArgConstructorAvailable(Class<?> clazz) {
         try {
             clazz.getDeclaredConstructor();

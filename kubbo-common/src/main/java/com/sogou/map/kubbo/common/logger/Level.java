@@ -10,36 +10,36 @@ public enum Level {
     /**
      * ALL
      */
-	ALL,
-	
-	/**
+    ALL,
+    
+    /**
      * TRACE
      */
-	TRACE,
-	
-	/**
+    TRACE,
+    
+    /**
      * DEBUG
      */
-	DEBUG,
-	
-	/**
+    DEBUG,
+    
+    /**
      * INFO
      */
-	INFO,
-	
-	/**
+    INFO,
+    
+    /**
      * WARN
      */
-	WARN,
-	
-	/**
+    WARN,
+    
+    /**
      * ERROR
      */
-	ERROR,
+    ERROR,
 
-	/**
+    /**
      * OFF
      */
-	OFF
+    OFF
 
 }

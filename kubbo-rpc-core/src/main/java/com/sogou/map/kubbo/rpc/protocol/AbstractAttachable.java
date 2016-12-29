@@ -13,25 +13,25 @@ import com.sogou.map.kubbo.rpc.Attachable;
  */
 public class AbstractAttachable<T extends AbstractAttachable<T>> implements Attachable {
 
-	protected Map<String, String>  attachments;
-	
-	public AbstractAttachable() {
-	}
-	public AbstractAttachable(Map<String, String> attachments) {
+    protected Map<String, String>  attachments;
+    
+    public AbstractAttachable() {
+    }
+    public AbstractAttachable(Map<String, String> attachments) {
         this.attachments = attachments == null ? new HashMap<String, String>() : attachments;
-	}
-	
+    }
+    
     @SuppressWarnings("unchecked")
-	private T asDerivedType() {
+    private T asDerivedType() {
         return (T) this;
     }
-	
-	@Override
+    
+    @Override
     public Map<String, String> getAttachments() {
         return attachments;
     }
 
-	@Override
+    @Override
     public String getAttachment(String key) {
         if (attachments == null) {
             return null;
@@ -39,7 +39,7 @@ public class AbstractAttachable<T extends AbstractAttachable<T>> implements Atta
         return attachments.get(key);
     }
 
-	@Override
+    @Override
     public String getAttachment(String key, String defaultValue) {
         if (attachments == null) {
             return defaultValue;
@@ -50,7 +50,7 @@ public class AbstractAttachable<T extends AbstractAttachable<T>> implements Atta
         }
         return value;
     }
-	
+    
     public T setAttachments(Map<String, String> attachments) {
         this.attachments = attachments == null ? new HashMap<String, String>() : attachments;
         return asDerivedType();
@@ -73,41 +73,41 @@ public class AbstractAttachable<T extends AbstractAttachable<T>> implements Atta
             attachments = new HashMap<String, String>();
         }
         if (!attachments.containsKey(key)) {
-        	attachments.put(key, value);
+            attachments.put(key, value);
         }
         return asDerivedType();
     }
 
     public T addAttachments(Map<String, String> attachments) {
-    	if (attachments == null) {
-    		return asDerivedType();
-    	}
-    	if (this.attachments == null) {
-    		this.attachments = new HashMap<String, String>();
+        if (attachments == null) {
+            return asDerivedType();
         }
-    	this.attachments.putAll(attachments);
+        if (this.attachments == null) {
+            this.attachments = new HashMap<String, String>();
+        }
+        this.attachments.putAll(attachments);
         return asDerivedType();
     }
 
     public T addAttachmentsIfAbsent(Map<String, String> attachments) {
-    	if(attachments != null){
-        	for (Map.Entry<String, String> entry : attachments.entrySet()) {
-        		setAttachmentIfAbsent(entry.getKey(), entry.getValue());
-        	}
-    	}
-    	return asDerivedType();
+        if(attachments != null){
+            for (Map.Entry<String, String> entry : attachments.entrySet()) {
+                setAttachmentIfAbsent(entry.getKey(), entry.getValue());
+            }
+        }
+        return asDerivedType();
     }
     
     public T removeAttachment(String key) {
-    	if(attachments != null){
+        if(attachments != null){
             attachments.remove(key);
-    	}
+        }
         return asDerivedType();
     }
     
     public void clearAttachments() {
-    	if(attachments != null){
+        if(attachments != null){
             this.attachments.clear();
-    	}
+        }
     }
 }

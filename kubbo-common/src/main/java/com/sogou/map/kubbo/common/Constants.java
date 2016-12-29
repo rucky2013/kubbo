@@ -456,9 +456,9 @@ public class Constants {
 
     public static final String EXECUTOR_SERVICE_COMPONENT_KEY      = ExecutorService.class.getName();
     
-    public static final String TRUE                           	   = "true";
+    public static final String TRUE                                  = "true";
     
-    public static final String FALSE                           	   = "false";
+    public static final String FALSE                                  = "false";
     
     public static final String DEFAULT_VERSION                      = "1.0.0";
     

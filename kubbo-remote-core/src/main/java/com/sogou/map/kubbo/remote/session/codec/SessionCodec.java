@@ -100,7 +100,7 @@ public class SessionCodec extends TransportCodec {
         ObjectOutput out = serialization.serialize(channel.getUrl(), bos);
         try{
             if(req.isEvent()){
-            	encodeData(channel, out, req.getData());
+                encodeData(channel, out, req.getData());
             } else{
                 encodeRequestData(channel, out, req.getData());
             }
@@ -147,23 +147,23 @@ public class SessionCodec extends TransportCodec {
             buffer.writerIndex(savedWriteIndex + HEADER_LENGTH);
             ChannelBufferOutputStream bos = new ChannelBufferOutputStream(buffer);
             ObjectOutput out = serialization.serialize(channel.getUrl(), bos);
-			try {
-				// encode response data or error message.
-				if (res.isOK()) {
-					if (res.isEvent()) {
-						encodeData(channel, out, res.getResult());
-					} else {
-						encodeResponseData(channel, out, res.getResult());
-					}
-				} else {
-					out.writeUTF(res.getErrorMessage());
-				}
-				out.flushBuffer();
-			} finally {
-				if (out instanceof Releasable) {
-					((Releasable) out).release();
-				}
-			}
+            try {
+                // encode response data or error message.
+                if (res.isOK()) {
+                    if (res.isEvent()) {
+                        encodeData(channel, out, res.getResult());
+                    } else {
+                        encodeResponseData(channel, out, res.getResult());
+                    }
+                } else {
+                    out.writeUTF(res.getErrorMessage());
+                }
+                out.flushBuffer();
+            } finally {
+                if (out instanceof Releasable) {
+                    ((Releasable) out).release();
+                }
+            }
            
             bos.flush();
             bos.close();
@@ -276,16 +276,16 @@ public class SessionCodec extends TransportCodec {
                 res.setStatus(status);
                 if (status == Response.OK) {
                     try {
-                    	Object data;
-                    	if(res.isEvent()){
+                        Object data;
+                        if(res.isEvent()){
                             data = decodeData(channel, in);
-                    	} else{
-                    		data = decodeResponseData(channel, in, res);
-                    	}
+                        } else{
+                            data = decodeResponseData(channel, in, res);
+                        }
                         res.setResult(data);
                     } catch (Throwable t) {
                         if (logger.isWarnEnabled()) {
-                        	logger.warn("Decode response failed: " + t.getMessage(), t);
+                            logger.warn("Decode response failed: " + t.getMessage(), t);
                         }
                         res.setStatus(Response.CLIENT_ERROR);
                         res.setErrorMessage(StringUtils.toString(t));
@@ -303,16 +303,16 @@ public class SessionCodec extends TransportCodec {
                     req.setEvent(true);
                 }
                 try {
-                	Object data;
-                	if(req.isEvent()){
+                    Object data;
+                    if(req.isEvent()){
                         data = decodeData(channel, in);
-                	} else{
-                		data = decodeRequestData(channel, in, req);
-                	}
+                    } else{
+                        data = decodeRequestData(channel, in, req);
+                    }
                     req.setData(data);
                 } catch (Throwable t) {
                     if (logger.isWarnEnabled()) {
-                    	logger.warn("Decode request failed: " + t.getMessage(), t);
+                        logger.warn("Decode request failed: " + t.getMessage(), t);
                     }
                     // bad request
                     req.setBroken(true);
@@ -321,25 +321,25 @@ public class SessionCodec extends TransportCodec {
                 return req;
             }
         }finally {
-			if (in instanceof Releasable) {
-				((Releasable) in).release();
-			}
-		}
+            if (in instanceof Releasable) {
+                ((Releasable) in).release();
+            }
+        }
     }
 
     protected void encodeRequestData(Channel channel, ObjectOutput out, Object data) throws IOException {
-    	encodeData(out, data);
+        encodeData(out, data);
     }
 
     protected void encodeResponseData(Channel channel, ObjectOutput out, Object data) throws IOException {
-    	encodeData(out, data);
+        encodeData(out, data);
     }
     
     protected Object decodeRequestData(Channel channel, ObjectInput in, Request request) throws IOException {
-    	return decodeData(channel, in);
+        return decodeData(channel, in);
     }
 
     protected Object decodeResponseData(Channel channel, ObjectInput in, Response response) throws IOException {
-    	return decodeData(channel, in);
+        return decodeData(channel, in);
     }
 }

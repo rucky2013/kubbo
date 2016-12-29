@@ -32,13 +32,13 @@ public class NettyTransportEncoder extends MessageToMessageEncoder<Object> {
         this.url = url;
         this.handler = handler;
     }
-	
+    
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, List<Object> out) throws Exception {
-    	com.sogou.map.kubbo.remote.buffer.ChannelBuffer buffer = ChannelBuffers.dynamicBuffer(1024);
+        com.sogou.map.kubbo.remote.buffer.ChannelBuffer buffer = ChannelBuffers.dynamicBuffer(1024);
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {
-        	codec.encode(channel, buffer, msg);
+            codec.encode(channel, buffer, msg);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }

@@ -55,13 +55,13 @@ public final class HeartBeatTask implements Runnable {
                     if ( lastRead != null && now - lastRead > heartbeatTimeout ) {
                         logger.warn( "Close channel " + channel + ", because heartbeat read idle time out: " + heartbeatTimeout + "ms" );
                         if (channel instanceof Client) {
-                        	try {
-                        		((Client)channel).reconnect();
-                        	}catch (Exception e) {
-								//do nothing
-							}
+                            try {
+                                ((Client)channel).reconnect();
+                            }catch (Exception e) {
+                                //do nothing
+                            }
                         } else {
-                        	channel.close();
+                            channel.close();
                         }
                     }
                 } catch ( Throwable t ) {

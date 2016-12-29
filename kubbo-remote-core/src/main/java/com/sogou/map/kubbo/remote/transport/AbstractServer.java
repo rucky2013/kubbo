@@ -43,7 +43,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
         super(url, handler);
         localAddress = getUrl().toInetSocketAddress();
         String host = url.getParameter(Constants.ANYHOST_KEY, false) || NetUtils.isInvalidLocalHost(getUrl().getHost()) ? 
-        				NetUtils.ANYHOST : getUrl().getHost();
+                        NetUtils.ANYHOST : getUrl().getHost();
         bindAddress = new InetSocketAddress(host, getUrl().getPort());
         this.accepts = url.getParameter(Constants.ACCEPTS_KEY, Constants.DEFAULT_ACCEPTS);
         this.idleTimeout = url.getParameter(Constants.IDLE_TIMEOUT_KEY, Constants.DEFAULT_IDLE_TIMEOUT);
@@ -51,8 +51,8 @@ public abstract class AbstractServer extends AbstractRole implements Server {
             doOpen();
             if (logger.isInfoEnabled()) {
                 logger.info("Start " + getClass().getSimpleName() 
-                		+ " bind " + getBindAddress() 
-						+ ", kubbo version " + Version.getVersion());
+                        + " bind " + getBindAddress() 
+                        + ", kubbo version " + Version.getVersion());
             }
         } catch (Throwable t) {
             throw new RemotingException(url.toInetSocketAddress(), null, "Failed to bind " + getClass().getSimpleName() 
@@ -194,9 +194,9 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     public void disconnected(Channel ch) throws RemotingException {
         Collection<Channel> channels = getChannels();
         if (channels.size() == 0){
-        	if(logger.isDebugEnabled()){
+            if(logger.isDebugEnabled()){
                 logger.warn("All clients has discontected from " + ch.getLocalAddress() + ". You can graceful shutdown now.");
-        	}
+            }
         }
         super.disconnected(ch);
     }

@@ -6,5 +6,5 @@ package com.sogou.map.kubbo.rpc;
  * @author liufuliang
  */
 public interface ProtocolDelegate extends Protocol{
-	Protocol getProtocol();
+    Protocol getProtocol();
 }

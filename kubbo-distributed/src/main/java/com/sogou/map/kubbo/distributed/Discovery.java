@@ -11,6 +11,6 @@ import com.sogou.map.kubbo.common.extension.SPI;
  */
 @SPI("etcd")
 public interface Discovery {
-	@Adaptive(Constants.DISCOVERY_KEY)
-	<T> Directory<T> subscribe(Class<T> type, URL url);
+    @Adaptive(Constants.DISCOVERY_KEY)
+    <T> Directory<T> subscribe(Class<T> type, URL url);
 }

@@ -121,8 +121,8 @@ public class KryoObjectInput implements ObjectInput, Releasable {
 
     @Override
     @SuppressWarnings("unchecked")
-	public <T> T readObject(Class<T> clazz) throws IOException, ClassNotFoundException {
-    	// TODO optimization
+    public <T> T readObject(Class<T> clazz) throws IOException, ClassNotFoundException {
+        // TODO optimization
         return (T) readObject();
     }
 
@@ -133,7 +133,7 @@ public class KryoObjectInput implements ObjectInput, Releasable {
 
     @Override
     public void release() {
-    	Kryos.releaseKryo(kryo);;
+        Kryos.releaseKryo(kryo);;
         kryo = null;
     }
 }

@@ -8,6 +8,6 @@ package com.sogou.map.kubbo.sample.api;
  *
  */
 public interface SampleService {
-	String echo(String message);
-	void update(byte[] buf);
+    String echo(String message);
+    void update(byte[] buf);
 }

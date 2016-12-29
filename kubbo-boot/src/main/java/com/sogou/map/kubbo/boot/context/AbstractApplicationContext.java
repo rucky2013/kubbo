@@ -14,13 +14,13 @@ import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
  *
  */
 public class AbstractApplicationContext implements ApplicationContext{
-	private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+    private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
-	@Override
-	public String getApplicationHome() {
-		return SystemPropertyUtils.get(Constants.APPLICATION_HOME_SYSTEM_PROPERTY, ".");
+    @Override
+    public String getApplicationHome() {
+        return SystemPropertyUtils.get(Constants.APPLICATION_HOME_SYSTEM_PROPERTY, ".");
 
-	}
+    }
 
     @Override
     public boolean hasAttribute(String key) {
@@ -47,8 +47,8 @@ public class AbstractApplicationContext implements ApplicationContext{
     }
     
     @Override
-	public void removeAttributes(){
-    	attributes.clear();
+    public void removeAttributes(){
+        attributes.clear();
     }
 
 }

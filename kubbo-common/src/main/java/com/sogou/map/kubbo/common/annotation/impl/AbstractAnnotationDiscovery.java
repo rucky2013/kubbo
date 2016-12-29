@@ -30,8 +30,8 @@ import com.sogou.map.kubbo.common.annotation.ResourceIterator;
  *
  */
 public abstract class AbstractAnnotationDiscovery implements AnnotationDiscovery{
-	
-	protected final Map<String, Set<ClassAnnotationDiscoveryListener>> classAnnotationListeners =
+    
+    protected final Map<String, Set<ClassAnnotationDiscoveryListener>> classAnnotationListeners =
         new HashMap<String, Set<ClassAnnotationDiscoveryListener>>();
     
     private <L extends AnnotationDiscoveryListener> void addAnnotationListener (Map<String, Set<L>> map, L listener) {
@@ -50,54 +50,54 @@ public abstract class AbstractAnnotationDiscovery implements AnnotationDiscovery
         }
     }
     
-	@Override
-	public void addListener(AnnotationDiscoveryListener listener) {
-		if( listener instanceof ClassAnnotationDiscoveryListener){
-			addAnnotationListener(classAnnotationListeners, (ClassAnnotationDiscoveryListener)listener);
-		}	
-	}
-	
-	@Override
-	public void discover() throws IOException {
-		URL[] resources = findResources();		
-		for (URL resource : resources) {
-			ResourceIterator iterator = getResourceIterator(resource, new PackageFilter());
-			if (iterator != null) {
-				doDiscover(iterator);
-			}
-		}
-	}
-	
-	protected abstract void doDiscover(ResourceIterator itr) throws IOException;
+    @Override
+    public void addListener(AnnotationDiscoveryListener listener) {
+        if( listener instanceof ClassAnnotationDiscoveryListener){
+            addAnnotationListener(classAnnotationListeners, (ClassAnnotationDiscoveryListener)listener);
+        }	
+    }
+    
+    @Override
+    public void discover() throws IOException {
+        URL[] resources = findResources();		
+        for (URL resource : resources) {
+            ResourceIterator iterator = getResourceIterator(resource, new PackageFilter());
+            if (iterator != null) {
+                doDiscover(iterator);
+            }
+        }
+    }
+    
+    protected abstract void doDiscover(ResourceIterator itr) throws IOException;
     
 
-	private ResourceIterator getResourceIterator(URL url, Filter filter) throws IOException {
-	    String urlString = url.toString();
-	    if (urlString.endsWith("!/")) {
-	        urlString = urlString.substring(4);
-	        urlString = urlString.substring(0, urlString.length() - 2);
-	        url = new URL(urlString);
-	    }
-	
-	    if (!urlString.endsWith("/")) {
-	        return new JarFileIterator(url.openStream(), filter);
-	    } else {
-	
-	        if (!url.getProtocol().equals("file")) {
-	            throw new IOException("Unable to understand protocol: " + url.getProtocol());
-	        }
-	
-	        String filePath = URLDecoder.decode(url.getPath(), "UTF-8");
-	        File f = new File(filePath);
-	        if (!f.exists()) return null;
-	
-	        if (f.isDirectory()) {
-	            return new ClassFileIterator(f, filter);
-	        } else {
-	            return new JarFileIterator(url.openStream(), filter);
-	        }
-	    }
-	}
+    private ResourceIterator getResourceIterator(URL url, Filter filter) throws IOException {
+        String urlString = url.toString();
+        if (urlString.endsWith("!/")) {
+            urlString = urlString.substring(4);
+            urlString = urlString.substring(0, urlString.length() - 2);
+            url = new URL(urlString);
+        }
+    
+        if (!urlString.endsWith("/")) {
+            return new JarFileIterator(url.openStream(), filter);
+        } else {
+    
+            if (!url.getProtocol().equals("file")) {
+                throw new IOException("Unable to understand protocol: " + url.getProtocol());
+            }
+    
+            String filePath = URLDecoder.decode(url.getPath(), "UTF-8");
+            File f = new File(filePath);
+            if (!f.exists()) return null;
+    
+            if (f.isDirectory()) {
+                return new ClassFileIterator(f, filter);
+            } else {
+                return new JarFileIterator(url.openStream(), filter);
+            }
+        }
+    }
     
     public final URL[] findResources() {
         URL[] ret = findResourcesForCurrentClasspath();
@@ -132,7 +132,7 @@ public abstract class AbstractAnnotationDiscovery implements AnnotationDiscovery
                 throw new RuntimeException(
                         "File in java.class.path does not exist: " + fp);
             try {
-            	urls.add(fp.toURI().toURL());
+                urls.add(fp.toURI().toURL());
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }

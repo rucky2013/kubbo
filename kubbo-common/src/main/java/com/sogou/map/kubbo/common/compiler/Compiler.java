@@ -11,13 +11,13 @@ import com.sogou.map.kubbo.common.extension.SPI;
 @SPI(JavassistCompiler.NAME)
 public interface Compiler {
 
-	/**
-	 * Compile java source code.
-	 * 
-	 * @param code Java source code
-	 * @param classLoader TODO
-	 * @return Compiled class
-	 */
-	Class<?> compile(String code, ClassLoader classLoader);
+    /**
+     * Compile java source code.
+     * 
+     * @param code Java source code
+     * @param classLoader TODO
+     * @return Compiled class
+     */
+    Class<?> compile(String code, ClassLoader classLoader);
 
 }

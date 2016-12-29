@@ -47,167 +47,167 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * @author liufuliang
  */
 public class Kubbo {
-	static {
+    static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-            	try { Kubbo.destroy(); } catch (Throwable e) {}
+                try { Kubbo.destroy(); } catch (Throwable e) {}
             }
         });
-	}
-	
-	//所有引用过的protocol
-	private static ConcurrentMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
-	//所有引用过的远程接口
-	private static ConcurrentMap<String, Object> services = new ConcurrentHashMap<String, Object>();
-		
-	public static <T> Exporter<T> export(T service, Class<T> type, String url) throws RpcException {
-		return export(service, type, URL.valueOf(url));
-	}
-	
-	public static <T> Exporter<T> export(T service, Class<T> type, URL url) throws RpcException {
-		return getProtocol(url).export(
-				getAdaptiveInvokerProxy().getInvoker(service, type, url)
-				);
-	}
-	public static Exporter<?> exportGeneric(Object service, Class<?> type, URL url) throws RpcException {
-		return getProtocol(url).export(
-				getAdaptiveInvokerProxy().getGenericInvoker(service, type, url)
-				);
-	}
-	
-	public static <T> T refer(Class<T> type, String url) throws RpcException {
-		return refer(type, URL.valueOf(url));
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static <T> T refer(Class<T> type, URL url) throws RpcException {
-		String referKey =  type.getName() + " -> " +  url.toFullString();
-		if(services.containsKey(referKey)){
-			return (T) services.get(referKey);
-		}
-		
-		if("discovery".equalsIgnoreCase(url.getProtocol())){
-			return getAdaptiveInvokerProxy().getProxy(
-					getProtocol("discovery").refer(type, url));
-		}
-		T service = getAdaptiveInvokerProxy().getProxy(
-				getProtocol(url).refer(type, url));
-		
-		services.putIfAbsent(referKey, service);
-		return service;
-	}
-	
-	public static <T> T refer(Class<T> type){
-		return refer(null, type);
-	}
-	
-	public static <T> T refer(String name, Class<T> type){
-		KubboConfiguration configuration = KubboConfiguration.getInstance();
-		if(! configuration.isConfigured()){
-			PropertiesConfigurator.configure();
-			if(! configuration.isConfigured()){
-				throw new IllegalArgumentException("Kubbo not configured yet!");
-			}
-		}
-		
-		String address = configuration.getReferenceAddress(type.getName(), name);
-		if(StringUtils.isBlank(address)){
-			throw new IllegalArgumentException("Not found interface implements for " + type.getName());
-		}
-		return refer(type, address);
-	}
-	
-	public static void destroy(){
-		synchronized (Kubbo.class) {
-			services.clear();
-			for(String key : protocols.keySet()){
-				Protocol protocol = protocols.get(key);
-				protocol.destroy();
-				protocols.remove(key);
-			}
-		}
-	}
-	
+    }
+    
+    //所有引用过的protocol
+    private static ConcurrentMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
+    //所有引用过的远程接口
+    private static ConcurrentMap<String, Object> services = new ConcurrentHashMap<String, Object>();
+        
+    public static <T> Exporter<T> export(T service, Class<T> type, String url) throws RpcException {
+        return export(service, type, URL.valueOf(url));
+    }
+    
+    public static <T> Exporter<T> export(T service, Class<T> type, URL url) throws RpcException {
+        return getProtocol(url).export(
+                getAdaptiveInvokerProxy().getInvoker(service, type, url)
+                );
+    }
+    public static Exporter<?> exportGeneric(Object service, Class<?> type, URL url) throws RpcException {
+        return getProtocol(url).export(
+                getAdaptiveInvokerProxy().getGenericInvoker(service, type, url)
+                );
+    }
+    
+    public static <T> T refer(Class<T> type, String url) throws RpcException {
+        return refer(type, URL.valueOf(url));
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static <T> T refer(Class<T> type, URL url) throws RpcException {
+        String referKey =  type.getName() + " -> " +  url.toFullString();
+        if(services.containsKey(referKey)){
+            return (T) services.get(referKey);
+        }
+        
+        if("discovery".equalsIgnoreCase(url.getProtocol())){
+            return getAdaptiveInvokerProxy().getProxy(
+                    getProtocol("discovery").refer(type, url));
+        }
+        T service = getAdaptiveInvokerProxy().getProxy(
+                getProtocol(url).refer(type, url));
+        
+        services.putIfAbsent(referKey, service);
+        return service;
+    }
+    
+    public static <T> T refer(Class<T> type){
+        return refer(null, type);
+    }
+    
+    public static <T> T refer(String name, Class<T> type){
+        KubboConfiguration configuration = KubboConfiguration.getInstance();
+        if(! configuration.isConfigured()){
+            PropertiesConfigurator.configure();
+            if(! configuration.isConfigured()){
+                throw new IllegalArgumentException("Kubbo not configured yet!");
+            }
+        }
+        
+        String address = configuration.getReferenceAddress(type.getName(), name);
+        if(StringUtils.isBlank(address)){
+            throw new IllegalArgumentException("Not found interface implements for " + type.getName());
+        }
+        return refer(type, address);
+    }
+    
+    public static void destroy(){
+        synchronized (Kubbo.class) {
+            services.clear();
+            for(String key : protocols.keySet()){
+                Protocol protocol = protocols.get(key);
+                protocol.destroy();
+                protocols.remove(key);
+            }
+        }
+    }
+    
     
     /**
      * 异步调用 ，需要返回值
      * @param callable
      * @return 通过future.get()获取返回结果.
      */
-	@SuppressWarnings("unchecked")
-	public static <T> Future<T> callAsync(Callable<T> callable) throws RpcException {
-    	try {
-	    	try {
-	    		RpcContext.getContext().setAttachment(Constants.ASYNC_KEY, Constants.TRUE);
-				final T o = callable.call();
-				//local调用会直接返回结果.
-				if (o != null) {
-					FutureTask<T> f = new FutureTask<T>(new Callable<T>() {
-						public T call() throws Exception {
-							return o;
-						}
-					});
-					f.run();
-					return f;
-				} else {
-					
-				}
-			} catch (Exception e) {
-				throw new RpcException(e);
-			} finally {
-				RpcContext.getContext().removeAttachment(Constants.ASYNC_KEY);
-			}
-    	} catch (final RpcException e) {
-			return new Future<T>() {
-				public boolean cancel(boolean mayInterruptIfRunning) {
-					return false;
-				}
-				public boolean isCancelled() {
-					return false;
-				}
-				public boolean isDone() {
-					return true;
-				}
-				public T get() throws InterruptedException, ExecutionException {
-					throw new ExecutionException(e.getCause());
-				}
-				public T get(long timeout, TimeUnit unit)
-						throws InterruptedException, ExecutionException,
-						TimeoutException {
-					return get();
-				}
-			};
-		}
-    	return ((Future<T>)RpcContext.getContext().getFuture());
+    @SuppressWarnings("unchecked")
+    public static <T> Future<T> callAsync(Callable<T> callable) throws RpcException {
+        try {
+            try {
+                RpcContext.getContext().setAttachment(Constants.ASYNC_KEY, Constants.TRUE);
+                final T o = callable.call();
+                //local调用会直接返回结果.
+                if (o != null) {
+                    FutureTask<T> f = new FutureTask<T>(new Callable<T>() {
+                        public T call() throws Exception {
+                            return o;
+                        }
+                    });
+                    f.run();
+                    return f;
+                } else {
+                    
+                }
+            } catch (Exception e) {
+                throw new RpcException(e);
+            } finally {
+                RpcContext.getContext().removeAttachment(Constants.ASYNC_KEY);
+            }
+        } catch (final RpcException e) {
+            return new Future<T>() {
+                public boolean cancel(boolean mayInterruptIfRunning) {
+                    return false;
+                }
+                public boolean isCancelled() {
+                    return false;
+                }
+                public boolean isDone() {
+                    return true;
+                }
+                public T get() throws InterruptedException, ExecutionException {
+                    throw new ExecutionException(e.getCause());
+                }
+                public T get(long timeout, TimeUnit unit)
+                        throws InterruptedException, ExecutionException,
+                        TimeoutException {
+                    return get();
+                }
+            };
+        }
+        return ((Future<T>)RpcContext.getContext().getFuture());
     }
     
-	/**
-	 * 异步调用，只发送请求，不接收返回结果.
-	 * @param callable
-	 */
-	public static void callAsync(Runnable runable) throws RpcException {
-    	try {
-    		RpcContext.getContext().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
-    		runable.run();
-		} catch (Throwable e) {
-			throw new RpcException("Oneway async call error. " + e.getMessage(), e);
-		} finally {
-			RpcContext.getContext().removeAttachment(Constants.RETURN_KEY);
-		}
+    /**
+     * 异步调用，只发送请求，不接收返回结果.
+     * @param callable
+     */
+    public static void callAsync(Runnable runable) throws RpcException {
+        try {
+            RpcContext.getContext().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
+            runable.run();
+        } catch (Throwable e) {
+            throw new RpcException("Oneway async call error. " + e.getMessage(), e);
+        } finally {
+            RpcContext.getContext().removeAttachment(Constants.RETURN_KEY);
+        }
     }
-	
-	
-	
-	
+    
+    
+    
+    
     private static Protocol getProtocol(URL url) {
         String type = url.getParameter(Constants.PROTOCOL_KEY, Constants.DEFAULT_PROTOCOL);
         return getProtocol(type);
     }
 
     private static Protocol getProtocol(String type) {
-    	Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension(type);
-    	protocols.putIfAbsent(type, protocol);
-    	return protocol;
+        Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension(type);
+        protocols.putIfAbsent(type, protocol);
+        return protocol;
     }
 
     
@@ -215,6 +215,6 @@ public class Kubbo {
         return ExtensionLoader.getExtensionLoader(InvokerProxy.class).getAdaptiveExtension();
     }
     
-	private Kubbo(){}
+    private Kubbo(){}
 
 }

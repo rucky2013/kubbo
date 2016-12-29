@@ -13,7 +13,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder get(String url) {
         return request(Method.GET, url);
     }
@@ -23,9 +23,9 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder head(String url) {
-    	return request(Method.HEAD, url);
+        return request(Method.HEAD, url);
     }
 
     /**
@@ -33,7 +33,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder put(String url) {
         return request(Method.PUT, url);
     }
@@ -43,7 +43,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder post(String url) {
         return request(Method.POST, url);
     }
@@ -53,7 +53,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder delete(String url) {
         return request(Method.DELETE, url);
     }
@@ -63,7 +63,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      *
      * @return a request builder
      */
-	@Override
+    @Override
     public HttpRequestBuilder options(String url) {
         return request(Method.OPTIONS, url);
     }

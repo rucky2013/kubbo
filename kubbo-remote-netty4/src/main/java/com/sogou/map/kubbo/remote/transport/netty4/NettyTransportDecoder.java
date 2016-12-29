@@ -34,7 +34,7 @@ public class NettyTransportDecoder extends SimpleChannelInboundHandler<ByteBuf> 
         this.handler = handler;
         int bufferSize = url.getPositiveParameter(Constants.BUFFER_KEY, Constants.DEFAULT_BUFFER_SIZE);
         this.bufferSize = bufferSize >= Constants.MIN_BUFFER_SIZE && bufferSize <= Constants.MAX_BUFFER_SIZE ? 
-        		bufferSize : Constants.DEFAULT_BUFFER_SIZE;
+                bufferSize : Constants.DEFAULT_BUFFER_SIZE;
     }
     private com.sogou.map.kubbo.remote.buffer.ChannelBuffer buffer = ChannelBuffers.EMPTY_BUFFER;
 
@@ -92,8 +92,8 @@ public class NettyTransportDecoder extends SimpleChannelInboundHandler<ByteBuf> 
                 message.discardReadBytes();
                 if(message.isDirect()){
                     int size = message.readableBytes();
-                	buffer = ChannelBuffers.dynamicBuffer(size > bufferSize ? size : bufferSize);
-                	buffer.writeBytes(message, message.readableBytes());
+                    buffer = ChannelBuffers.dynamicBuffer(size > bufferSize ? size : bufferSize);
+                    buffer.writeBytes(message, message.readableBytes());
                 } else{
                     buffer = message;
                 }

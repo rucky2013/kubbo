@@ -47,9 +47,9 @@ public abstract class AbstractRole extends AbstractEndpoint implements Resetable
     
     @Override
     public void reset(URL url) {
-    	if(url == null){
-    		return;
-    	}
+        if(url == null){
+            return;
+        }
         if (isClosed()) {
             throw new IllegalStateException("Failed to reset parameters "
                                         + url + ", cause: Channel closed. channel: " + getLocalAddress());

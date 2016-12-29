@@ -8,10 +8,10 @@ package com.sogou.map.kubbo.distributed.discovery;
  *
  */
 public class EtcdDiscoveryDirectoryTest {
-	public interface SampleService {
+    public interface SampleService {
 
-	}
-	
+    }
+    
 //	@Test
 //	public void testWatch(){
 //		EtcdDiscoveryDirectory<SampleService> directory = new EtcdDiscoveryDirectory<SampleService>(SampleService.class, 

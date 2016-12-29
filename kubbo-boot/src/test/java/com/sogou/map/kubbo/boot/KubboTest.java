@@ -58,59 +58,59 @@ public class KubboTest {
 //        	System.out.println(t);
 //        }
 //	}
-	
-	
-	@BeforeClass
-	public static void init(){
-		SampleService exportservice = new SampleServiceImpl();
-		Kubbo.export(exportservice, SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
-	}
-	
-	@AfterClass
-	public static void destroy(){
-		Kubbo.destroy();
-	}
-	
-	@Test
-	public void testSyncCall(){
-		SampleService referservice = Kubbo.refer(SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
-				
-		Assert.assertEquals(referservice.echo("123456"), "123456");
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("key1", "1");
-		map.put("key2", "2");
-		map.put("key3", "3");
-		Assert.assertTrue(referservice.keys(map).equals(map.keySet()));
-	}
-	
-	@Test
-	public void testAsyncCall() throws InterruptedException, ExecutionException{
-		final SampleService referservice = Kubbo.refer(SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
-		
-		//echo
-		Future<String> future = Kubbo.callAsync(new Callable<String>(){
-			@Override
-			public String call() throws Exception {
-				return referservice.echo("123456");
-			}
-			
-		});
-		String result = future.get();
-		Assert.assertEquals("123456", result);
-		
-		//keys
-		final Map<String, String> map = new HashMap<String, String>();
-		map.put("key1", "1");
-		map.put("key2", "2");
-		map.put("key3", "3");
-		Future<Set<String>> future1  = Kubbo.callAsync(new Callable<Set<String>>(){
-			@Override
-			public Set<String> call() throws Exception {
-				return referservice.keys(map);
-			}
-			
-		});		
-		Assert.assertTrue(future1.get().equals(map.keySet()));
-	}
+    
+    
+    @BeforeClass
+    public static void init(){
+        SampleService exportservice = new SampleServiceImpl();
+        Kubbo.export(exportservice, SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
+    }
+    
+    @AfterClass
+    public static void destroy(){
+        Kubbo.destroy();
+    }
+    
+    @Test
+    public void testSyncCall(){
+        SampleService referservice = Kubbo.refer(SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
+                
+        Assert.assertEquals(referservice.echo("123456"), "123456");
+        
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("key1", "1");
+        map.put("key2", "2");
+        map.put("key3", "3");
+        Assert.assertTrue(referservice.keys(map).equals(map.keySet()));
+    }
+    
+    @Test
+    public void testAsyncCall() throws InterruptedException, ExecutionException{
+        final SampleService referservice = Kubbo.refer(SampleService.class, "kubbo://127.0.0.1:30660/sample?transportlayer=netty4");
+        
+        //echo
+        Future<String> future = Kubbo.callAsync(new Callable<String>(){
+            @Override
+            public String call() throws Exception {
+                return referservice.echo("123456");
+            }
+            
+        });
+        String result = future.get();
+        Assert.assertEquals("123456", result);
+        
+        //keys
+        final Map<String, String> map = new HashMap<String, String>();
+        map.put("key1", "1");
+        map.put("key2", "2");
+        map.put("key3", "3");
+        Future<Set<String>> future1  = Kubbo.callAsync(new Callable<Set<String>>(){
+            @Override
+            public Set<String> call() throws Exception {
+                return referservice.keys(map);
+            }
+            
+        });		
+        Assert.assertTrue(future1.get().equals(map.keySet()));
+    }
 }

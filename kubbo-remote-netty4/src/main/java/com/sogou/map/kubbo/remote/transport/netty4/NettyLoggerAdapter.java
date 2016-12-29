@@ -29,10 +29,10 @@ final class NettyLoggerAdapter {
 
     static class KubboLogger extends AbstractInternalLogger {
         /**
-		 * 
-		 */
-		private static final long serialVersionUID = -9073867371277304347L;
-		private Logger logger;
+         * 
+         */
+        private static final long serialVersionUID = -9073867371277304347L;
+        private Logger logger;
 
         KubboLogger(Logger logger) {
             super(logger.toString());

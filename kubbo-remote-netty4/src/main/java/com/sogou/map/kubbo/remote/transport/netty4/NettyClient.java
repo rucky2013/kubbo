@@ -58,20 +58,20 @@ public class NettyClient extends AbstractClient {
         bootstrap = new Bootstrap();
         // config
         bootstrap.channel(NioSocketChannel.class)
-        		 .group(WORKER_GROUP)
-        		 .option(ChannelOption.SO_KEEPALIVE, true)
-        		 .option(ChannelOption.TCP_NODELAY, true)
-        		 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, getConnectTimeout())
-        		 .handler(new ChannelInitializer<SocketChannel>() {
-        			 		public void initChannel(SocketChannel ch) {
-    			                NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyClient.this);
-    			                NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyClient.this);
-				                ChannelPipeline channelPipeline = ch.pipeline();
-				                channelPipeline.addLast("decoder", decoder);
-				                channelPipeline.addLast("encoder", encoder);
-				                channelPipeline.addLast("handler", new NettyHandler(getUrl(), NettyClient.this));
-        			 		}
-        		 });
+                 .group(WORKER_GROUP)
+                 .option(ChannelOption.SO_KEEPALIVE, true)
+                 .option(ChannelOption.TCP_NODELAY, true)
+                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, getConnectTimeout())
+                 .handler(new ChannelInitializer<SocketChannel>() {
+                             public void initChannel(SocketChannel ch) {
+                                NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyClient.this);
+                                NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyClient.this);
+                                ChannelPipeline channelPipeline = ch.pipeline();
+                                channelPipeline.addLast("decoder", decoder);
+                                channelPipeline.addLast("encoder", encoder);
+                                channelPipeline.addLast("handler", new NettyHandler(getUrl(), NettyClient.this));
+                             }
+                 });
         
     }
 

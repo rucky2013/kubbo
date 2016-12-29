@@ -27,7 +27,7 @@ final class HeaderSessionChannel extends AbstractChannelDelegate implements Sess
     private volatile boolean    closed      = false;
 
     HeaderSessionChannel(Channel channel){
-    	super(channel);
+        super(channel);
     }
 
     static HeaderSessionChannel getOrAddChannel(Channel ch) {
@@ -59,9 +59,9 @@ final class HeaderSessionChannel extends AbstractChannelDelegate implements Sess
     public void send(Object message, boolean blocking) throws RemotingException {
         if (closed) {
             throw new RemotingException(
-            		this.getLocalAddress(), 
-            		null, 
-            		"Failed to send message " + message + ", cause: The channel " + this + " is closed!");
+                    this.getLocalAddress(), 
+                    null, 
+                    "Failed to send message " + message + ", cause: The channel " + this + " is closed!");
         }
         if (message instanceof Request
                 || message instanceof Response

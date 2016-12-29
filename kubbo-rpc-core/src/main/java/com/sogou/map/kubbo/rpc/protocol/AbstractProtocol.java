@@ -23,13 +23,13 @@ import com.sogou.map.kubbo.rpc.utils.Rpcs;
  */
 public abstract class AbstractProtocol implements Protocol {
 
-	protected final Logger logger = LoggerFactory.getLogger(AbstractProtocol.class);
+    protected final Logger logger = LoggerFactory.getLogger(AbstractProtocol.class);
 
-	protected final Map<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>(); // group/path:version -> exporter
+    protected final Map<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>(); // group/path:version -> exporter
 
-	//TODO SOFEREFENCE
+    //TODO SOFEREFENCE
     protected final Set<Invoker<?>> invokers = new ConcurrentHashSet<Invoker<?>>();
-	
+    
     
 //    public Collection<Exporter<?>> getExporters() {
 //        return Collections.unmodifiableCollection(exporterMap.values());
@@ -40,10 +40,10 @@ public abstract class AbstractProtocol implements Protocol {
     }
     
     @Override
-	public void destroy() {
-	    for (Invoker<?> invoker : invokers){
-	        if (invoker != null) {
-	            invokers.remove(invoker);
+    public void destroy() {
+        for (Invoker<?> invoker : invokers){
+            if (invoker != null) {
+                invokers.remove(invoker);
                 try {
                     if (logger.isInfoEnabled()) {
                         logger.info("Destroy reference: " + invoker.getUrl());
@@ -53,8 +53,8 @@ public abstract class AbstractProtocol implements Protocol {
                     logger.warn(t.getMessage(), t);
                 }
             }
-	    }
-	    for (String key : new ArrayList<String>(exporterMap.keySet())) {
+        }
+        for (String key : new ArrayList<String>(exporterMap.keySet())) {
             Exporter<?> exporter = exporterMap.remove(key);
             if (exporter != null) {
                 try {
@@ -67,19 +67,19 @@ public abstract class AbstractProtocol implements Protocol {
                 }
             }
         }
-	}
+    }
     
     protected static int getServerShutdownTimeout() {
-    	return SystemPropertyUtils.getInt(Constants.SHUTDOWN_WAIT_KEY, Constants.DEFAULT_SERVER_SHUTDOWN_TIMEOUT);
+        return SystemPropertyUtils.getInt(Constants.SHUTDOWN_WAIT_KEY, Constants.DEFAULT_SERVER_SHUTDOWN_TIMEOUT);
     }
-	
-	
+    
+    
     protected static String serviceKey(Invoker<?> invoker) {
-    	URL url = invoker.getUrl();
+        URL url = invoker.getUrl();
         return Rpcs.serviceKey(url.getParameter(Constants.GROUP_KEY), 
-        				  url.getPath(), 
-        				  invoker.getInterface().getName(),
-        				  url.getParameter(Constants.VERSION_KEY));
+                          url.getPath(), 
+                          invoker.getInterface().getName(),
+                          url.getParameter(Constants.VERSION_KEY));
     }
 
 

@@ -9,10 +9,10 @@ import java.util.Set;
  * <code>TestService</code>
  */
 public interface SampleService{
-	void sayHello(String name);
-	
-	Set<String> keys(Map<String, String> map);
+    void sayHello(String name);
+    
+    Set<String> keys(Map<String, String> map);
 
-	String echo(String text);
-	
+    String echo(String text);
+    
 }

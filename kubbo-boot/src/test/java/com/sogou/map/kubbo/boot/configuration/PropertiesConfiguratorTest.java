@@ -11,14 +11,14 @@ import org.junit.Test;
  *
  */
 public class PropertiesConfiguratorTest {
-	public static void main(String[] args){
-		new PropertiesConfiguratorTest().testConfigure();
-	}
-	@Test
-	public void testConfigure(){
-		PropertiesConfigurator.configure(PropertiesConfiguratorTest.class.getResourceAsStream("/kubbo.properties"));
-		KubboConfiguration configuration = KubboConfiguration.getInstance();
-		Assert.assertTrue(configuration.isConfigured());
-	}
+    public static void main(String[] args){
+        new PropertiesConfiguratorTest().testConfigure();
+    }
+    @Test
+    public void testConfigure(){
+        PropertiesConfigurator.configure(PropertiesConfiguratorTest.class.getResourceAsStream("/kubbo.properties"));
+        KubboConfiguration configuration = KubboConfiguration.getInstance();
+        Assert.assertTrue(configuration.isConfigured());
+    }
 
 }

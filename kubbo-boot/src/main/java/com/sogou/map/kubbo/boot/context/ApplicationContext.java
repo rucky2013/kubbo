@@ -11,5 +11,5 @@ import com.sogou.map.kubbo.common.Attributable;
  *
  */
 public interface ApplicationContext extends Attributable{
-	String getApplicationHome();
+    String getApplicationHome();
 }

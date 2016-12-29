@@ -156,9 +156,9 @@ public class JSONArray implements Iterable<Object> {
     public JSONArray(Collection<?> collection) {
         this.myArrayList = new ArrayList<Object>();
         if (collection != null) {
-        	for (Object o: collection){
-        		this.myArrayList.add(JSONObject.wrap(o));
-        	}
+            for (Object o: collection){
+                this.myArrayList.add(JSONObject.wrap(o));
+            }
         }
     }
 
@@ -454,7 +454,7 @@ public class JSONArray implements Iterable<Object> {
      * @return
      */
     public boolean isEmpty(){
-    	return this.myArrayList.isEmpty();
+        return this.myArrayList.isEmpty();
     }
 
     /**
@@ -1055,7 +1055,7 @@ public class JSONArray implements Iterable<Object> {
                 }
             }
         } catch(JSONException e){
-        	return false;
+            return false;
         }
 
         return true;

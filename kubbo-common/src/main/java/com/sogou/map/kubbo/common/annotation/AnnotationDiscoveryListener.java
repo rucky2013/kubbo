@@ -7,8 +7,8 @@ package com.sogou.map.kubbo.common.annotation;
  */
 public interface AnnotationDiscoveryListener {
 
-	/**
-	 * @return Array of supported annotations names
-	 */
-	String[] annotations();
+    /**
+     * @return Array of supported annotations names
+     */
+    String[] annotations();
 }

@@ -25,7 +25,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
     private final SessionHandler handler;
 
     public HeaderSessionHandler(SessionHandler handler){
-    	super(handler);
+        super(handler);
         if (handler == null) {
             throw new IllegalArgumentException("handler == NULL");
         }
@@ -90,7 +90,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
         SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
         try {
             if (message instanceof Request) {
-            	// handle request.
+                // handle request.
                 Request request = (Request) message;
                 if (request.isEvent()) {
                     handleEvent(channel, request);
@@ -101,12 +101,12 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
                     handler.received(sessionChannel, request.getData());
                 }
             } else if (message instanceof Response) {
-            	// handle response.
+                // handle response.
                 handleResponse(channel, (Response) message);
             } else if (message instanceof String) {
-            	handler.received(sessionChannel, message);
+                handler.received(sessionChannel, message);
             } else {
-            	// handle none
+                // handle none
                 handler.received(sessionChannel, message);
             }
         } finally {

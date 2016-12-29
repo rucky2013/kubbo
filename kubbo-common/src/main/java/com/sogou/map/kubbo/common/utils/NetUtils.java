@@ -57,16 +57,16 @@ public class NetUtils {
     }
     
     public static int getAvailablePort(int port) {
-    	if (port <= 0) {
-    		return getAvailablePort();
-    	}
-    	for(int i = port; i < MAX_PORT; i ++) {
-    		ServerSocket ss = null;
+        if (port <= 0) {
+            return getAvailablePort();
+        }
+        for(int i = port; i < MAX_PORT; i ++) {
+            ServerSocket ss = null;
             try {
                 ss = new ServerSocket(i);
                 return i;
             } catch (IOException e) {
-            	// continue
+                // continue
             } finally {
                 if (ss != null) {
                     try {
@@ -75,8 +75,8 @@ public class NetUtils {
                     }
                 }
             }
-    	}
-    	return port;
+        }
+        return port;
     }
 
     private static final int MIN_PORT = 0;
@@ -90,7 +90,7 @@ public class NetUtils {
     private static final Pattern ADDRESS_PATTERN = Pattern.compile("^\\d{1,3}(\\.\\d{1,3}){3}\\:\\d{1,5}$");
 
     public static boolean isValidAddress(String address){
-    	return ADDRESS_PATTERN.matcher(address).matches();
+        return ADDRESS_PATTERN.matcher(address).matches();
     }
 
     private static final Pattern LOCAL_IP_PATTERN = Pattern.compile("127(\\.\\d{1,3}){3}$");
@@ -107,19 +107,19 @@ public class NetUtils {
     
     public static boolean isInvalidLocalHost(String host) {
         return host == null 
-        			|| host.length() == 0
+                    || host.length() == 0
                     || host.equalsIgnoreCase("localhost")
                     || host.equals("0.0.0.0")
                     || (LOCAL_IP_PATTERN.matcher(host).matches());
     }
     
     public static boolean isValidLocalHost(String host) {
-    	return ! isInvalidLocalHost(host);
+        return ! isInvalidLocalHost(host);
     }
 
     public static InetSocketAddress getLocalSocketAddress(String host, int port) {
         return isInvalidLocalHost(host) ? 
-        		new InetSocketAddress(port) : new InetSocketAddress(host, port);
+                new InetSocketAddress(port) : new InetSocketAddress(host, port);
     }
 
     private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
@@ -155,10 +155,10 @@ public class NetUtils {
             }
         } else {
             if (NetUtils.isInvalidLocalHost(host)) {
-        		return NetUtils.getLocalHost();
-        	}
+                return NetUtils.getLocalHost();
+            }
         }
-    	return host;
+        return host;
     }
     
     private static InetAddress LOCAL_ADDRESS = getLocalAddress();
@@ -277,13 +277,13 @@ public class NetUtils {
     }
     
     public static String toURL(String protocol, String host, int port, String path) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(protocol).append("://");
-		sb.append(host).append(':').append(port);
-		if( path.charAt(0) != '/' )
-			sb.append('/');
-		sb.append(path);
-		return sb.toString();
-	}
+        StringBuilder sb = new StringBuilder();
+        sb.append(protocol).append("://");
+        sb.append(host).append(':').append(port);
+        if( path.charAt(0) != '/' )
+            sb.append('/');
+        sb.append(path);
+        return sb.toString();
+    }
     
 }

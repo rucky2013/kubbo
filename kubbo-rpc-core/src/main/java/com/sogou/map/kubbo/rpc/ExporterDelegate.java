@@ -5,6 +5,6 @@ package com.sogou.map.kubbo.rpc;
  * @author liufuliang
  */
 public interface ExporterDelegate<T> extends Exporter<T> {
-	Exporter<T> getExporter();
+    Exporter<T> getExporter();
 
 }

@@ -16,7 +16,7 @@ public class MessageArrayHandler extends AbstractChannelHandlerDelegate {
     }
 
     
-	@Override
+    @Override
     public void received(Channel channel, Object message) throws RemotingException {
         if (message instanceof MessageArray) {
             MessageArray array = (MessageArray)message;

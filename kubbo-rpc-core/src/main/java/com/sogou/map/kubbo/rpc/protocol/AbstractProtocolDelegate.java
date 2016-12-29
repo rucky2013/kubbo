@@ -16,36 +16,36 @@ import com.sogou.map.kubbo.rpc.RpcException;
 public class AbstractProtocolDelegate implements ProtocolDelegate{
     protected final Protocol protocol;
 
-	public AbstractProtocolDelegate(Protocol protocol) {
+    public AbstractProtocolDelegate(Protocol protocol) {
         if (protocol == null) {
             throw new IllegalArgumentException("protocol == NULL");
         }
-		this.protocol = protocol;
-	}
+        this.protocol = protocol;
+    }
 
-	@Override
-	public int getDefaultPort() {
-		return protocol.getDefaultPort();
-	}
+    @Override
+    public int getDefaultPort() {
+        return protocol.getDefaultPort();
+    }
 
-	@Override
-	public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
-		return protocol.export(invoker);
-	}
+    @Override
+    public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
+        return protocol.export(invoker);
+    }
 
-	@Override
-	public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {
-		return protocol.refer(type, url);
-	}
+    @Override
+    public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {
+        return protocol.refer(type, url);
+    }
 
-	@Override
-	public void destroy() {
-		protocol.destroy();
-	}
+    @Override
+    public void destroy() {
+        protocol.destroy();
+    }
 
-	@Override
-	public Protocol getProtocol() {
-		return protocol;
-	}
+    @Override
+    public Protocol getProtocol() {
+        return protocol;
+    }
 
 }

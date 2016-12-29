@@ -11,9 +11,9 @@ import com.sogou.map.kubbo.common.KubboException;
  */
 public class EtcdOprationException extends KubboException{
 
-	private static final long serialVersionUID = -603616854565733593L;
+    private static final long serialVersionUID = -603616854565733593L;
 
-	public EtcdOprationException(String message) {
+    public EtcdOprationException(String message) {
         super(message);
     }
 

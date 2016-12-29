@@ -44,9 +44,9 @@ public class Serializations {
     }
 
     public static Serialization getSerialization(URL url) {
-    	Serialization s = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
+        Serialization s = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
             url.getParameter(Constants.SERIALIZATION_KEY, Constants.DEFAULT_REMOTE_SERIALIZATION));
-    	return s;
+        return s;
     }
 
     public static Serialization getSerialization(URL url, Byte id) {

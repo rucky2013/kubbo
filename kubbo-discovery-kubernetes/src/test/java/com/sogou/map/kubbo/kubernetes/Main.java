@@ -20,35 +20,35 @@ import javax.net.ssl.X509TrustManager;
  *
  */
 public class Main {
-	private static TrustManager myX509TrustManager = new X509TrustManager() {
+    private static TrustManager myX509TrustManager = new X509TrustManager() {
 
-		@Override
-		public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-			// TODO Auto-generated method stub
-			
-		}
+        @Override
+        public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+            // TODO Auto-generated method stub
+            
+        }
 
-		@Override
-		public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-			// TODO Auto-generated method stub
-			
-		}
+        @Override
+        public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+            // TODO Auto-generated method stub
+            
+        }
 
-		@Override
-		public X509Certificate[] getAcceptedIssuers() {
-			// TODO Auto-generated method stub
-			return null;
-		} 
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            // TODO Auto-generated method stub
+            return null;
+        } 
 
 
-	};
-	public static void main(String[] args) throws NoSuchAlgorithmException, IOException, KeyManagementException{
-		String url = "https://10.134.106.205:6443/api/v1/namespaces/default/endpoints/mtk";
-		SSLContext sslcontext = SSLContext.getInstance("TLS"); 
-		sslcontext.init(null, new TrustManager[]{myX509TrustManager}, null);
-		URL requestUrl = new URL(url); 
-		HttpsURLConnection httpsConn = (HttpsURLConnection)requestUrl.openConnection();
-		//设置套接工厂 
-		httpsConn.setSSLSocketFactory(sslcontext.getSocketFactory());
-	}
+    };
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException, KeyManagementException{
+        String url = "https://10.134.106.205:6443/api/v1/namespaces/default/endpoints/mtk";
+        SSLContext sslcontext = SSLContext.getInstance("TLS"); 
+        sslcontext.init(null, new TrustManager[]{myX509TrustManager}, null);
+        URL requestUrl = new URL(url); 
+        HttpsURLConnection httpsConn = (HttpsURLConnection)requestUrl.openConnection();
+        //设置套接工厂 
+        httpsConn.setSSLSocketFactory(sslcontext.getSocketFactory());
+    }
 }

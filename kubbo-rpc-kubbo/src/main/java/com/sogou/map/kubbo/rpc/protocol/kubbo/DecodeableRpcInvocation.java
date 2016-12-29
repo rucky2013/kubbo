@@ -20,9 +20,9 @@ import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
  */
 public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable {
 
-	private static final long serialVersionUID = 6029662240065402716L;
+    private static final long serialVersionUID = 6029662240065402716L;
 
-	private static final Logger log = LoggerFactory.getLogger(DecodeableRpcInvocation.class);
+    private static final Logger log = LoggerFactory.getLogger(DecodeableRpcInvocation.class);
 
     private Channel     channel;
 
@@ -99,7 +99,7 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
             setArguments(args);
 
             @SuppressWarnings("unchecked")
-			Map<String, String> attachment = (Map<String, String>) in.readObject(Map.class);
+            Map<String, String> attachment = (Map<String, String>) in.readObject(Map.class);
             setAttachments(attachment);
 
         } catch (ClassNotFoundException e) {

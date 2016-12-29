@@ -12,5 +12,5 @@ import com.sogou.map.kubbo.common.extension.SPI;
 
 @SPI("demo2")
 interface Demo {
-	String say();
+    String say();
 }

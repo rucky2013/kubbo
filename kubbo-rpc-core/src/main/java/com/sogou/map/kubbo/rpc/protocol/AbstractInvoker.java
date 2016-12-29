@@ -65,7 +65,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         for (String key : attachmentKeys) {
             String value = url.getParameter(key);
             if (!StringUtils.isBlank(value)) {
-            	attachments.put(key, value);
+                attachments.put(key, value);
             }
         }
         return attachments;
@@ -118,18 +118,18 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         
         //invoker attachment
         if (attachments != null && attachments.size() > 0) {
-        	invocation.addAttachmentsIfAbsent(attachments);
+            invocation.addAttachmentsIfAbsent(attachments);
         }
         
         //context attachment
         Map<String, String> context = RpcContext.getContext().getAttachments();
         if (context != null) {
-        	invocation.addAttachmentsIfAbsent(context);
+            invocation.addAttachmentsIfAbsent(context);
         }
         
         //async or sync attachment
         if (getUrl().getMethodParameter(invocation.getMethodName(), Constants.ASYNC_KEY, false)){
-        	invocation.setAttachment(Constants.ASYNC_KEY, "true");
+            invocation.setAttachment(Constants.ASYNC_KEY, "true");
         }
         
         

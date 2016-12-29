@@ -12,8 +12,8 @@ import javax.net.ssl.SSLSession;
  */
 public class AlwaysAcceptHostnameVerifier implements HostnameVerifier{
 
-	public boolean verify(String hostname, SSLSession session) {
-		return true;
-	}
+    public boolean verify(String hostname, SSLSession session) {
+        return true;
+    }
 
 }

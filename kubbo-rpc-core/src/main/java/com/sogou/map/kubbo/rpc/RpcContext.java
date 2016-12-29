@@ -14,9 +14,9 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
     private Future<?> future;
 
     
-	protected RpcContext() {
-		super(new HashMap<String, String>());
-	}
+    protected RpcContext() {
+        super(new HashMap<String, String>());
+    }
 
     /**
      * get future.
@@ -39,27 +39,27 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
     }
     
     
-	private static final ThreadLocal<RpcContext> LOCAL = new ThreadLocal<RpcContext>() {
-		@Override
-		protected RpcContext initialValue() {
-			return new RpcContext();
-		}
-	};
+    private static final ThreadLocal<RpcContext> LOCAL = new ThreadLocal<RpcContext>() {
+        @Override
+        protected RpcContext initialValue() {
+            return new RpcContext();
+        }
+    };
 
-	/**
-	 * get context.
-	 * 
-	 * @return context
-	 */
-	public static RpcContext getContext() {
-	    return LOCAL.get();
-	}
-	
-	/**
-	 * remove context.
-	 * 
-	 */
-	public static void removeContext() {
-	    LOCAL.remove();
-	}
+    /**
+     * get context.
+     * 
+     * @return context
+     */
+    public static RpcContext getContext() {
+        return LOCAL.get();
+    }
+    
+    /**
+     * remove context.
+     * 
+     */
+    public static void removeContext() {
+        LOCAL.remove();
+    }
 }

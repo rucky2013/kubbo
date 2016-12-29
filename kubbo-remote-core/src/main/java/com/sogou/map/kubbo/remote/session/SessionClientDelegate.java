@@ -6,5 +6,5 @@ package com.sogou.map.kubbo.remote.session;
  * @author liufuliang
  */
 public interface SessionClientDelegate extends SessionClient {
-	SessionClient getSessionClient();
+    SessionClient getSessionClient();
 }

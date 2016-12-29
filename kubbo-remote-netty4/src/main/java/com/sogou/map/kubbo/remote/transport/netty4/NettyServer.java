@@ -64,19 +64,19 @@ public class NettyServer extends AbstractServer implements Server {
         bossGroup = new NioEventLoopGroup(1, new NamedThreadFactory("NettyServerBoss", true));
         workerGroup = new NioEventLoopGroup(getUrl().getPositiveParameter(Constants.IO_THREADS_KEY, DEFAULT_EVENT_LOOP_THREADS), new NamedThreadFactory("NettyServerEventLoopGroup", true));
         ServerBootstrap bootstrap = new ServerBootstrap()
-        		.group(bossGroup, workerGroup)
-        		.channel(NioServerSocketChannel.class)
+                .group(bossGroup, workerGroup)
+                .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 100)
-        		.childOption(ChannelOption.TCP_NODELAY, true)
-        		.childHandler(new ChannelInitializer<SocketChannel>() {
-        				public void initChannel(SocketChannel ch) {			                
-			                NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyServer.this);
-			                NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyServer.this);
-			                ChannelPipeline channelPipeline = ch.pipeline();
-			                channelPipeline.addLast("decoder", decoder);
-			                channelPipeline.addLast("encoder", encoder);
-			                channelPipeline.addLast("handler", nettyHandler);
-			            }
+                .childOption(ChannelOption.TCP_NODELAY, true)
+                .childHandler(new ChannelInitializer<SocketChannel>() {
+                        public void initChannel(SocketChannel ch) {			                
+                            NettyTransportEncoder encoder = new NettyTransportEncoder(getCodec(), getUrl(), NettyServer.this);
+                            NettyTransportDecoder decoder = new NettyTransportDecoder(getCodec(), getUrl(), NettyServer.this);
+                            ChannelPipeline channelPipeline = ch.pipeline();
+                            channelPipeline.addLast("decoder", decoder);
+                            channelPipeline.addLast("encoder", encoder);
+                            channelPipeline.addLast("handler", nettyHandler);
+                        }
         });
 
         // bind

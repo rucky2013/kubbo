@@ -242,7 +242,7 @@ public class JSONObject {
     public JSONObject(Map<?, ?> map) {
         this.map = new HashMap<String, Object>();
         if (map != null) {
-        	for (final Entry<?, ?> e : map.entrySet()) {
+            for (final Entry<?, ?> e : map.entrySet()) {
                 final Object value = e.getValue();
                 if (value != null) {
                     this.map.put(String.valueOf(e.getKey()), wrap(value));
@@ -1376,8 +1376,8 @@ public class JSONObject {
             return pointer.queryFrom(this);
             
         } catch (JSONException e) {
-        	return null;
-		}
+            return null;
+        }
     }
 
     /**
@@ -1912,7 +1912,7 @@ public class JSONObject {
         Method[] beanMethods = beanClazz.getDeclaredMethods();  
         T javaBean = null;  
         try {  
-        	javaBean = beanClazz.newInstance();  
+            javaBean = beanClazz.newInstance();  
         } catch (Exception e){  
             throw new JSONException("Can not create a instance of Class " + beanClazz.getName() + ".");  
         }  

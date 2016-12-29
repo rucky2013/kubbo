@@ -40,7 +40,7 @@ public class KubboCodec extends SessionCodec implements Codec {
 
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
 
-	@Override
+    @Override
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
         int save = buffer.readerIndex();
         MessageArray result = MessageArray.create();
@@ -96,9 +96,9 @@ public class KubboCodec extends SessionCodec implements Codec {
         out.writeUTF(ReflectUtils.getDesc(inv.getParameterTypes()));
         Object[] args = inv.getArguments();
         if (args != null)
-	        for (int i = 0; i < args.length; i++){
-	            out.writeObject(args[i]);
-	        }
+            for (int i = 0; i < args.length; i++){
+                out.writeObject(args[i]);
+            }
         out.writeObject(inv.getAttachments());
     }
 

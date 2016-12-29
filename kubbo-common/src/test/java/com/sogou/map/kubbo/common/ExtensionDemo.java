@@ -11,8 +11,8 @@ import com.sogou.map.kubbo.common.extension.ExtensionLoader;
  */
 public class ExtensionDemo {
 
-	public static void main(String[] args){
-		Demo demo = ExtensionLoader.getExtensionLoader(Demo.class).getExtension("demo1");
-		System.out.println(demo.say());
-	}
+    public static void main(String[] args){
+        Demo demo = ExtensionLoader.getExtensionLoader(Demo.class).getExtension("demo1");
+        System.out.println(demo.say());
+    }
 }

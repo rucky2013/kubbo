@@ -22,50 +22,50 @@ public class DiscoveryProtocol extends AbstractProtocol {
     public static final String NAME = "discovery";
     
     public static final int DEFAULT_PORT = 40660;
-	
+    
     protected Protocol protocol;
 
     
-	@Override
-	public int getDefaultPort() {
-		return DEFAULT_PORT;
-	}
+    @Override
+    public int getDefaultPort() {
+        return DEFAULT_PORT;
+    }
 
-	@Override
-	public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
-		if(protocol == null){
-			protocol = getAdaptiveProtocol();
-		}
-		return protocol.export(invoker);
-	}
+    @Override
+    public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
+        if(protocol == null){
+            protocol = getAdaptiveProtocol();
+        }
+        return protocol.export(invoker);
+    }
 
-	@Override
-	public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {		
-		//discovery
-		Discovery discovery = getAdaptiveDiscovery();
-		Directory<T> directory = discovery.subscribe(type, url);
-		// replication
-		Replication replica = getAdaptiveReplication();
-		return replica.join(directory);
-	}
-	
-	@Override
-	public void destroy() {
-		if(protocol != null){
-			protocol.destroy();
-		}
-		super.destroy();
-	}
-	
-	private Replication getAdaptiveReplication() {
+    @Override
+    public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {		
+        //discovery
+        Discovery discovery = getAdaptiveDiscovery();
+        Directory<T> directory = discovery.subscribe(type, url);
+        // replication
+        Replication replica = getAdaptiveReplication();
+        return replica.join(directory);
+    }
+    
+    @Override
+    public void destroy() {
+        if(protocol != null){
+            protocol.destroy();
+        }
+        super.destroy();
+    }
+    
+    private Replication getAdaptiveReplication() {
         return ExtensionLoader.getExtensionLoader(Replication.class).getAdaptiveExtension();
     }
-	
-	private Protocol getAdaptiveProtocol() {
-		return ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
-	}
-	
-	private Discovery getAdaptiveDiscovery() {
-		return ExtensionLoader.getExtensionLoader(Discovery.class).getAdaptiveExtension();
-	}
+    
+    private Protocol getAdaptiveProtocol() {
+        return ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
+    }
+    
+    private Discovery getAdaptiveDiscovery() {
+        return ExtensionLoader.getExtensionLoader(Discovery.class).getAdaptiveExtension();
+    }
 }

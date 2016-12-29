@@ -6,5 +6,5 @@ package com.sogou.map.kubbo.remote;
  * @author liufuliang
  */
 public interface ServerDelegate extends Server {
-	Server getServer();
+    Server getServer();
 }

@@ -10,5 +10,5 @@ import java.io.IOException;
  *
  */
 public interface HttpRequest {
-	HttpResponse execute() throws IOException;
+    HttpResponse execute() throws IOException;
 }

@@ -15,7 +15,7 @@ import com.sogou.map.kubbo.rpc.Invoker;
  */
 public abstract class AbstractLoadBalance implements LoadBalance {
 
-	@Override
+    @Override
     public <T> Invoker<T> select(List<Invoker<T>> invokers, URL url, Invocation invocation) {
         if (invokers == null || invokers.size() == 0)
             return null;
@@ -27,21 +27,21 @@ public abstract class AbstractLoadBalance implements LoadBalance {
     protected int getWeight(Invoker<?> invoker, Invocation invocation) {
         int weight = invoker.getUrl().getMethodParameter(invocation.getMethodName(), Constants.WEIGHT_KEY, Constants.DEFAULT_WEIGHT);
         if (weight > 0) {
-	        long timestamp = invoker.getUrl().getParameter(Constants.TIMESTAMP_KEY, 0L);
-	    	if (timestamp > 0L) {
-	    		int uptime = (int) (System.currentTimeMillis() - timestamp);
-	    		int warmup = invoker.getUrl().getParameter(Constants.WARMUP_KEY, Constants.DEFAULT_WARMUP);
-	    		if (uptime > 0 && uptime < warmup) {
-	    			weight = calculateWarmupWeight(uptime, warmup, weight);
-	    		}
-	    	}
+            long timestamp = invoker.getUrl().getParameter(Constants.TIMESTAMP_KEY, 0L);
+            if (timestamp > 0L) {
+                int uptime = (int) (System.currentTimeMillis() - timestamp);
+                int warmup = invoker.getUrl().getParameter(Constants.WARMUP_KEY, Constants.DEFAULT_WARMUP);
+                if (uptime > 0 && uptime < warmup) {
+                    weight = calculateWarmupWeight(uptime, warmup, weight);
+                }
+            }
         }
-    	return weight;
+        return weight;
     }
     
     static int calculateWarmupWeight(int uptime, int warmup, int weight) {
-    	int ww = (int) ( ((float) uptime / (float) warmup) * weight );
-    	return ww < 1 ? 1 : (ww > weight ? weight : ww);
+        int ww = (int) ( ((float) uptime / (float) warmup) * weight );
+        return ww < 1 ? 1 : (ww > weight ? weight : ww);
     }
     
     protected abstract <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation);

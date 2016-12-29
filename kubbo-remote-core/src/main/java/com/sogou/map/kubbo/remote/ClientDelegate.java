@@ -10,6 +10,6 @@ public interface ClientDelegate extends Client{
     /**
      * reconnect.
      */
-	Client getClient();
+    Client getClient();
 
 }

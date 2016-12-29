@@ -26,10 +26,10 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
 
     private volatile boolean     closed;
     
-	private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+    private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
     public AbstractEndpoint(URL url, ChannelHandler handler) {
-    	super(handler);
+        super(handler);
         if (url == null) {
             throw new IllegalArgumentException("url == NULL");
         }
@@ -133,7 +133,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     }
     
     @Override
-	public void removeAttributes(){
-    	attributes.clear();
+    public void removeAttributes(){
+        attributes.clear();
     }
 }

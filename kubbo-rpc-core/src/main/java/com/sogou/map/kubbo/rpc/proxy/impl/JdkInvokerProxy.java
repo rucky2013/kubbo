@@ -36,16 +36,16 @@ public class JdkInvokerProxy extends AbstractInvokerProxy {
         };
     }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public Invoker<?> getGenericInvoker(Object proxy, Class<?> typeClazz, URL url) throws RpcException {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
+    public Invoker<?> getGenericInvoker(Object proxy, Class<?> typeClazz, URL url) throws RpcException {
         return new AbstractServiceInvoker(proxy, typeClazz, url) {
-			@Override
-			protected Object doInvoke(Object proxy, String methodName, Class[] parameterTypes, Object[] arguments) throws Throwable{
+            @Override
+            protected Object doInvoke(Object proxy, String methodName, Class[] parameterTypes, Object[] arguments) throws Throwable{
                 Method method = proxy.getClass().getMethod(methodName, parameterTypes);
                 return method.invoke(proxy, arguments);
-			}
+            }
         };
-	}
+    }
 
 }

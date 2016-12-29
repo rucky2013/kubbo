@@ -10,6 +10,6 @@ import com.sogou.map.kubbo.boot.context.ApplicationContext;
  *
  */
 public interface LifecycleHook {
-	void destroy(ApplicationContext ctx);
-	void initialize(ApplicationContext ctx);
+    void destroy(ApplicationContext ctx);
+    void initialize(ApplicationContext ctx);
 }

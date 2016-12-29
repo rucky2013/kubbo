@@ -28,15 +28,15 @@ public class JavaObjectOutput implements ObjectOutput {
         return outputStream;
     }
 
-	public void writeObject(Object obj) throws IOException{
-		if( obj == null ){
-			outputStream.writeByte(0);
-		}
-		else{
-			outputStream.writeByte(1);
-			outputStream.writeObject(obj);
-		}
-	}
+    public void writeObject(Object obj) throws IOException{
+        if( obj == null ){
+            outputStream.writeByte(0);
+        }
+        else{
+            outputStream.writeByte(1);
+            outputStream.writeObject(obj);
+        }
+    }
 
     public void writeBool(boolean v) throws IOException {
         outputStream.writeBoolean(v);
@@ -66,15 +66,15 @@ public class JavaObjectOutput implements ObjectOutput {
         outputStream.writeDouble(v);
     }
     
-	public void writeUTF(String v) throws IOException{
-		if( v == null ){
-			getObjectOutputStream().writeInt(-1);
-		}
-		else{
-			outputStream.writeInt(v.length());
-			outputStream.writeUTF(v);
-		}
-	}
+    public void writeUTF(String v) throws IOException{
+        if( v == null ){
+            getObjectOutputStream().writeInt(-1);
+        }
+        else{
+            outputStream.writeInt(v.length());
+            outputStream.writeUTF(v);
+        }
+    }
 
 
     public void writeBytes(byte[] v) throws IOException {

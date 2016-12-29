@@ -78,7 +78,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
             final long max = (long) timeout;
             final long start = System.currentTimeMillis();
             if (getUrl().getParameter(Constants.CHANNEL_SEND_READONLYEVENT_KEY, false)){
-            	notifyChannelReadOnly();
+                notifyChannelReadOnly();
             }
             while (HeaderSessionServer.this.isRunning() 
                     && System.currentTimeMillis() - start < max) {

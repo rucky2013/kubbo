@@ -57,10 +57,10 @@ public final class JarFileIterator implements ResourceIterator {
 
     // helper method to set the next InputStream
     private void setNext() {
-    	start = true;
+        start = true;
         try {
             if (next != null) {
-            	jarInputStream.closeEntry();
+                jarInputStream.closeEntry();
             }
             next = null;
 
@@ -105,7 +105,7 @@ public final class JarFileIterator implements ResourceIterator {
     static class JarInputStreamWrapper extends InputStream {
 
         // input stream object which is wrapped
-    	private InputStream is;
+        private InputStream is;
 
         public JarInputStreamWrapper(InputStream is) {
             this.is = is;
@@ -143,7 +143,7 @@ public final class JarFileIterator implements ResourceIterator {
 
         @Override
         public void mark(int i) {
-        	is.mark(i);
+            is.mark(i);
         }
 
         @Override

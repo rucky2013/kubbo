@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.sample.consumer;
+package com.sogou.map.kubbo.sample.client;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -15,10 +15,10 @@ import com.sogou.map.kubbo.sample.api.SampleService;
 public class SampleConsumer {
 
     public static void main(String[] args) {
-    	final SampleService service = Kubbo.refer(SampleService.class);
+        final SampleService service = Kubbo.refer(SampleService.class);
         for(;;){
-        	try{
-        		long start = System.currentTimeMillis();
+            try{
+                long start = System.currentTimeMillis();
 //        		byte[] data = new byte[100 * 1024 * 1024];
 //        		service.update(data);//500m
                 Future<String> response = Kubbo.callAsync(new Callable<String>() {
@@ -30,10 +30,10 @@ public class SampleConsumer {
                 long end = System.currentTimeMillis();
                 System.out.println(result + ", time " + (end - start) + "ms");
             } catch(Throwable t){
-            	System.out.println(t);
+                System.out.println(t);
             }
-        	
-        	try { Thread.sleep(5000); } catch (InterruptedException e) {}
+            
+            try { Thread.sleep(5000); } catch (InterruptedException e) {}
         }
         
 

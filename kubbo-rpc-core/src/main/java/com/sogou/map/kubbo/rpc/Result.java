@@ -6,12 +6,12 @@ package com.sogou.map.kubbo.rpc;
  */
 public interface Result extends Attachable{
 
-	/**
-	 * Get invoke result.
-	 * 
-	 * @return result. if no result return null.
-	 */
-	Object getValue();
+    /**
+     * Get invoke result.
+     * 
+     * @return result. if no result return null.
+     */
+    Object getValue();
 
     /**
      * Has exception.
@@ -20,12 +20,12 @@ public interface Result extends Attachable{
      */
     boolean hasException();
     
-	/**
-	 * Get exception.
-	 * 
-	 * @return exception. if no exception return null.
-	 */
-	Throwable getException();
+    /**
+     * Get exception.
+     * 
+     * @return exception. if no exception return null.
+     */
+    Throwable getException();
 
 
     /**

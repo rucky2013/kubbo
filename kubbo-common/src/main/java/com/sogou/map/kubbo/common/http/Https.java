@@ -18,7 +18,7 @@ import java.util.zip.GZIPOutputStream;
  *
  */
 public class Https {
-	
+    
     public static byte[] readBytes(InputStream is) throws IOException {
         if (is == null) {
             return null;
@@ -27,8 +27,8 @@ public class Https {
         copyStream(is, baos);
         return baos.toByteArray();
     }
-	
-	public static byte[] gzip(byte[] input) throws IOException {
+    
+    public static byte[] gzip(byte[] input) throws IOException {
         GZIPOutputStream gzipOS = null;
         try {
             ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
@@ -44,18 +44,18 @@ public class Https {
             }
         }
     }
-	
-	public static boolean isGzipCompress(HttpURLConnection connection){
-		String encoding = connection.getContentEncoding();
-		return encoding != null && encoding.toLowerCase().indexOf("gzip") >= 0;
-	}
-	
-	public static boolean isKeepAliveSupported(HttpURLConnection connection){
-		String connectionHeader = connection.getHeaderField("Connection");
-		return connectionHeader == null || connectionHeader.toLowerCase().indexOf("close") < 0;
-	}
+    
+    public static boolean isGzipCompress(HttpURLConnection connection){
+        String encoding = connection.getContentEncoding();
+        return encoding != null && encoding.toLowerCase().indexOf("gzip") >= 0;
+    }
+    
+    public static boolean isKeepAliveSupported(HttpURLConnection connection){
+        String connectionHeader = connection.getHeaderField("Connection");
+        return connectionHeader == null || connectionHeader.toLowerCase().indexOf("close") < 0;
+    }
 
-	
+    
     /**
      * Convert a Map to a query string.
      * @param values the map with the values
@@ -105,12 +105,12 @@ public class Https {
         byte[] buffer = new byte[1024];
         int count;
         while ((count = input.read(buffer)) != -1) {
-        	output.write(buffer, 0, count);
+            output.write(buffer, 0, count);
         }
 
     }
     
-	private Https(){
-		
-	}
+    private Https(){
+        
+    }
 }

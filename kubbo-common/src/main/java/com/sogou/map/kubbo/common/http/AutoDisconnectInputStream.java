@@ -38,9 +38,9 @@ public class AutoDisconnectInputStream extends FilterInputStream {
     @Override
     public void close() throws IOException {
         try {
-        	if(in != null){
+            if(in != null){
                 super.close();
-        	}
+            }
         } finally {
             connection.close();
         }

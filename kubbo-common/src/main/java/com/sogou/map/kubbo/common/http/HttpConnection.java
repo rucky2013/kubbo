@@ -8,5 +8,5 @@ package com.sogou.map.kubbo.common.http;
  *
  */
 public interface HttpConnection {
-	public void close();
+    public void close();
 }

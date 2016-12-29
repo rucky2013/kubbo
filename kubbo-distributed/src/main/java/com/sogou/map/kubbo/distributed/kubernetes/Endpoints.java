@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.json.JSONBean;
 
 @JSONBean
 public class Endpoints {
-	String namespace = "default";
-	String service = "";
-	
+    String namespace = "default";
+    String service = "";
+    
 }

@@ -8,5 +8,5 @@ package com.sogou.map.kubbo.boot.annotation;
  *
  */
 public interface SampleService1 {
-	String echo(String msg);
+    String echo(String msg);
 }

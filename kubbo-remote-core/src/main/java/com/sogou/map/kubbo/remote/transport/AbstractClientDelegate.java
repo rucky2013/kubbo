@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.remote.RemotingException;
  */
 public class AbstractClientDelegate extends AbstractEndpointDelegate implements ClientDelegate {
     
-	protected transient Client client;
+    protected transient Client client;
 
     public AbstractClientDelegate() {
     }
@@ -44,8 +44,8 @@ public class AbstractClientDelegate extends AbstractEndpointDelegate implements 
         return client.isConnected();
     }
 
-	@Override
-	public InetSocketAddress getRemoteAddress() {
-		return client.getRemoteAddress();
-	}
+    @Override
+    public InetSocketAddress getRemoteAddress() {
+        return client.getRemoteAddress();
+    }
 }

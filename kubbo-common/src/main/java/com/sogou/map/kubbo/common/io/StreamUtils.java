@@ -11,89 +11,89 @@ import java.io.InputStream;
 
 public class StreamUtils
 {
-	private StreamUtils(){}
+    private StreamUtils(){}
 
-	public static InputStream limitedInputStream(final InputStream is, final int limit) throws IOException
-	{
-		return new InputStream(){
-			private int mPosition = 0, mMark = 0, mLimit = Math.min(limit, is.available());
+    public static InputStream limitedInputStream(final InputStream is, final int limit) throws IOException
+    {
+        return new InputStream(){
+            private int mPosition = 0, mMark = 0, mLimit = Math.min(limit, is.available());
 
-			public int read() throws IOException
-			{
-				if( mPosition < mLimit )
-				{
-					mPosition++;
-					return is.read();
-				}
-				return -1;
-		    }
+            public int read() throws IOException
+            {
+                if( mPosition < mLimit )
+                {
+                    mPosition++;
+                    return is.read();
+                }
+                return -1;
+            }
 
-			public int read(byte b[], int off, int len) throws IOException
-			{
-				if( b == null )
-				    throw new NullPointerException();
+            public int read(byte b[], int off, int len) throws IOException
+            {
+                if( b == null )
+                    throw new NullPointerException();
 
-				if( off < 0 || len < 0 || len > b.length - off )
-				    throw new IndexOutOfBoundsException();
+                if( off < 0 || len < 0 || len > b.length - off )
+                    throw new IndexOutOfBoundsException();
 
-				if( mPosition >= mLimit )
-				    return -1;
+                if( mPosition >= mLimit )
+                    return -1;
 
-				if( mPosition + len > mLimit )
-				    len = mLimit - mPosition;
+                if( mPosition + len > mLimit )
+                    len = mLimit - mPosition;
 
-				if( len <= 0 )
-				    return 0;
+                if( len <= 0 )
+                    return 0;
 
-				is.read(b, off, len);
-				mPosition += len;
-				return len;
-		    }
+                is.read(b, off, len);
+                mPosition += len;
+                return len;
+            }
 
-			public long skip(long len) throws IOException
-		    {
-				if( mPosition + len > mLimit )
-					len = mLimit - mPosition;
+            public long skip(long len) throws IOException
+            {
+                if( mPosition + len > mLimit )
+                    len = mLimit - mPosition;
 
-				if( len <= 0 )
-					return 0;
+                if( len <= 0 )
+                    return 0;
 
-				is.skip(len);
-				mPosition += len;
-				return len;
-		    }
+                is.skip(len);
+                mPosition += len;
+                return len;
+            }
 
-			public int available()
-			{
-				return mLimit - mPosition;
-			}
+            public int available()
+            {
+                return mLimit - mPosition;
+            }
 
-			public boolean markSupported()
-		    {
-		    	return is.markSupported();
-			}
+            public boolean markSupported()
+            {
+                return is.markSupported();
+            }
 
-			public void mark(int readlimit)
-			{
-				is.mark(readlimit);
-				mMark = mPosition;
-			}
+            public void mark(int readlimit)
+            {
+                is.mark(readlimit);
+                mMark = mPosition;
+            }
 
-			public void reset() throws IOException
-			{
-				is.reset();
-				mPosition = mMark;
-			}
+            public void reset() throws IOException
+            {
+                is.reset();
+                mPosition = mMark;
+            }
 
-			public void close() throws IOException
-			{}
-		};
-	}
-	
-	public static InputStream markSupportedInputStream(final InputStream is, final int markBufferSize) {
-	    if(is.markSupported()) {
-	        return is;
-	    }
+            public void close() throws IOException
+            {}
+        };
+    }
+    
+    public static InputStream markSupportedInputStream(final InputStream is, final int markBufferSize) {
+        if(is.markSupported()) {
+            return is;
+        }
 
         return new InputStream() {
             byte[] mMarkBuffer;
@@ -191,11 +191,11 @@ public class StreamUtils
                 return available;
             }
         };
-	}
-	
-	public static InputStream markSupportedInputStream(final InputStream is) {
-	    return markSupportedInputStream(is, 1024);
-	}
+    }
+    
+    public static InputStream markSupportedInputStream(final InputStream is) {
+        return markSupportedInputStream(is, 1024);
+    }
 
     public static void skipUnusedStream(InputStream is) throws IOException {
         if (is.available() > 0) {
