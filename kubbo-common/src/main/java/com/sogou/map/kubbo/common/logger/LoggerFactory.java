@@ -27,12 +27,12 @@ public class LoggerFactory {
     // 查找常用的日志框架
     static {
         String logger = System.getProperty("kubbo.logger");
-        if ("slf4j".equals(logger)) {
-            setLoggerAdapter(new Slf4jLoggerAdapter());
-        } /*else if ("log4j2".equals(logger)) {
+        /*if ("log4j2".equals(logger)) {
             setLoggerAdapter(new Log4j2LoggerAdapter());
         } else*/ if("log4j".equals(logger)){
             setLoggerAdapter(new Log4jLoggerAdapter());
+        } else if ("slf4j".equals(logger)) {
+            setLoggerAdapter(new Slf4jLoggerAdapter());
         } else if ("jdk".equals(logger)) {
             setLoggerAdapter(new JdkLoggerAdapter());
         } else {
