@@ -24,9 +24,6 @@ import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * KubboRpc
- * <br>
- * 
  * <h3>Kubbo分层架构</h3>
  * kubbo的分层参考了osi7层模型, 并增加了分布式层
  * <pre>
@@ -97,10 +94,21 @@ public class Kubbo {
         return service;
     }
     
+    /**
+     * 
+     * @param type RPC接口
+     * @return 返回RPC接口的本地对象
+     */
     public static <T> T refer(Class<T> type){
         return refer(null, type);
     }
     
+    /**
+     * 
+     * @param name RPC接口的别名
+     * @param type RPC接口
+     * @return 返回RPC接口的本地对象
+     */
     public static <T> T refer(String name, Class<T> type){
         KubboConfiguration configuration = KubboConfiguration.getInstance();
         if(! configuration.isConfigured()){
@@ -117,6 +125,9 @@ public class Kubbo {
         return refer(type, address);
     }
     
+    /**
+     * 销毁资源
+     */
     public static void destroy(){
         synchronized (Kubbo.class) {
             services.clear();
@@ -131,8 +142,9 @@ public class Kubbo {
     
     /**
      * 异步调用 ，需要返回值
-     * @param callable
+     * @param callable rpc调用封装
      * @return 通过future.get()获取返回结果.
+     * @exception RpcException rpc调用异常
      */
     @SuppressWarnings("unchecked")
     public static <T> Future<T> callAsync(Callable<T> callable) throws RpcException {
@@ -183,7 +195,8 @@ public class Kubbo {
     
     /**
      * 异步调用，只发送请求，不接收返回结果.
-     * @param callable
+     * @param runable rpc调用封装
+     * @exception RpcException rpc调用异常
      */
     public static void callAsync(Runnable runable) throws RpcException {
         try {

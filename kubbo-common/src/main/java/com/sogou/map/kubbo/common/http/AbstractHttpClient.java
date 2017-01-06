@@ -72,7 +72,7 @@ public abstract class AbstractHttpClient implements HttpClient{
      * 
      * @param method
      * @param url
-     * @return
+     * @return a request builder
      */
     public HttpRequestBuilder request(Method method, String url) {
         if (method == null) {

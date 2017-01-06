@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
  * JSONObject Bean的标识。
  *
  * @author liufuliang
- * @export
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

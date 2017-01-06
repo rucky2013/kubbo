@@ -14,7 +14,7 @@ public class ProgressiveRetryState {
 
     /**
      *  scale the interval
-     * @return
+     * @return next interval
      */
     public int scale(){
         if(retryInterval < RETRY_MIN_INTERVAL){

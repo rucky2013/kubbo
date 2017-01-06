@@ -23,7 +23,7 @@ public interface HttpResponse {
 
     /**
      * 
-     * @return
+     * @return isChunked
      */
     boolean isChunked();
     

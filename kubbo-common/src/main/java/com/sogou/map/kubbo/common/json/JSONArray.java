@@ -63,12 +63,12 @@ import java.util.Map;
  * JSON syntax rules. The constructors are more forgiving in the texts they will
  * accept:
  * <ul>
- * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just
+ * <li>An extra <code>,</code>&nbsp;(comma) may appear just
  * before the closing bracket.</li>
  * <li>The <code>null</code> value will be inserted when there is <code>,</code>
- * &nbsp;<small>(comma)</small> elision.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
- * quote)</small>.</li>
+ * &nbsp;(comma) elision.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;(single
+ * quote).</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
@@ -137,9 +137,9 @@ public class JSONArray implements Iterable<Object> {
      * Construct a JSONArray from a source JSON text.
      *
      * @param source
-     *            A string that begins with <code>[</code>&nbsp;<small>(left
-     *            bracket)</small> and ends with <code>]</code>
-     *            &nbsp;<small>(right bracket)</small>.
+     *            A string that begins with <code>[</code>&nbsp;(left
+     *            bracket) and ends with <code>]</code>
+     *            &nbsp;(right bracket).
      * @throws JSONException
      *             If there is a syntax error.
      */
@@ -451,7 +451,7 @@ public class JSONArray implements Iterable<Object> {
     
     /**
      * 
-     * @return
+     * @return empty or not
      */
     public boolean isEmpty(){
         return this.myArrayList.isEmpty();
@@ -1110,9 +1110,9 @@ public class JSONArray implements Iterable<Object> {
      * @param indentFactor
      *            The number of spaces to add to each level of indentation.
      * @return a printable, displayable, transmittable representation of the
-     *         object, beginning with <code>[</code>&nbsp;<small>(left
-     *         bracket)</small> and ending with <code>]</code>
-     *         &nbsp;<small>(right bracket)</small>.
+     *         object, beginning with <code>[</code>&nbsp;(left
+     *         bracket) and ending with <code>]</code>
+     *         &nbsp;(right bracket).
      * @throws JSONException
      */
     public String toString(int indentFactor) throws JSONException {

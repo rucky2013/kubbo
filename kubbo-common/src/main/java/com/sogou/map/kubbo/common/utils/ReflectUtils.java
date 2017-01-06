@@ -211,7 +211,7 @@ public final class ReflectUtils {
 
     /**
      * get name.
-     * java.lang.Object[][].class => "java.lang.Object[][]"
+     * java.lang.Object[][].class =&gt; "java.lang.Object[][]"
      * 
      * @param c class.
      * @return name.
@@ -323,14 +323,13 @@ public final class ReflectUtils {
 
     /**
      * get class desc.
-     * boolean[].class => "[Z"
-     * Object.class => "Ljava/lang/Object;"
+     * boolean[].class =&gt; "[Z"
+     * Object.class =&gt; "Ljava/lang/Object;"
      * 
      * @param c class.
      * @return desc.
-     * @throws NotFoundException 
      */
-    public static String getDesc(Class<?> c)
+    public static String getDesc(Class<?> c) 
     {
         StringBuilder ret = new StringBuilder();
 
@@ -364,11 +363,10 @@ public final class ReflectUtils {
 
     /**
      * get class array desc.
-     * [int.class, boolean[].class, Object.class] => "I[ZLjava/lang/Object;"
+     * [int.class, boolean[].class, Object.class] =&gt; "I[ZLjava/lang/Object;"
      * 
      * @param cs class array.
      * @return desc.
-     * @throws NotFoundException 
      */
     public static String getDesc(final Class<?>[] cs)
     {
@@ -383,8 +381,8 @@ public final class ReflectUtils {
 
     /**
      * get method desc.
-     * int do(int arg1) => "do(I)I"
-     * void do(String arg1,boolean arg2) => "do(Ljava/lang/String;Z)V"
+     * int do(int arg1) =&gt; "do(I)I"
+     * void do(String arg1,boolean arg2) =&gt; "do(Ljava/lang/String;Z)V"
      * 
      * @param m method.
      * @return desc.
@@ -436,8 +434,8 @@ public final class ReflectUtils {
 
     /**
      * get class desc.
-     * Object.class => "Ljava/lang/Object;"
-     * boolean[].class => "[Z"
+     * Object.class =&gt; "Ljava/lang/Object;"
+     * boolean[].class =&gt; "[Z"
      * 
      * @param c class.
      * @return desc.
@@ -527,7 +525,7 @@ public final class ReflectUtils {
 
     /**
      * name to desc.
-     * java.util.Map[][] => "[[Ljava/util/Map;"
+     * java.util.Map[][] =&gt; "[[Ljava/util/Map;"
      * 
      * @param name name.
      * @return desc.
@@ -557,7 +555,7 @@ public final class ReflectUtils {
 
     /**
      * desc to name.
-     * "[[I" => "int[][]"
+     * "[[I" =&gt; "int[][]"
      * 
      * @param desc desc.
      * @return name.
@@ -601,8 +599,8 @@ public final class ReflectUtils {
 
     /**
      * name to class.
-     * "boolean" => boolean.class
-     * "java.util.Map[][]" => java.util.Map[][].class
+     * "boolean" =&gt; boolean.class
+     * "java.util.Map[][]" =&gt; java.util.Map[][].class
      * 
      * @param name name.
      * @return Class instance.
@@ -614,8 +612,8 @@ public final class ReflectUtils {
 
     /**
      * name to class.
-     * "boolean" => boolean.class
-     * "java.util.Map[][]" => java.util.Map[][].class
+     * "boolean" =&gt; boolean.class
+     * "java.util.Map[][]" =&gt; java.util.Map[][].class
      * 
      * @param cl ClassLoader instance.
      * @param name name.
@@ -672,8 +670,8 @@ public final class ReflectUtils {
 
     /**
      * desc to class.
-     * "[Z" => boolean[].class
-     * "[[Ljava/util/Map;" => java.util.Map[][].class
+     * "[Z" =&gt; boolean[].class
+     * "[[Ljava/util/Map;" =&gt; java.util.Map[][].class
      * 
      * @param desc desc.
      * @return Class instance.
@@ -686,8 +684,8 @@ public final class ReflectUtils {
 
     /**
      * desc to class.
-     * "[Z" => boolean[].class
-     * "[[Ljava/util/Map;" => java.util.Map[][].class
+     * "[Z" =&gt; boolean[].class
+     * "[[Ljava/util/Map;" =&gt; java.util.Map[][].class
      * 
      * @param cl ClassLoader instance.
      * @param desc desc.

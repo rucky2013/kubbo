@@ -27,7 +27,7 @@ public class ClassHelper {
     /**
      * get class loader 
      * 
-     * @param cls
+     * @param cls class
      * @return class loader
      */
     public static ClassLoader getClassLoader(Class<?> cls) {
@@ -62,7 +62,7 @@ public class ClassHelper {
         return getClassLoader(ClassHelper.class);
     }
 
-    /**
+    /*
      * Same as <code>Class.forName()</code>, except that it works for primitive
      * types.
      */

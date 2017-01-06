@@ -135,7 +135,6 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
      * @param invokers
      * @param skipped
      * @param loadbalance
-     * @return
      * @throws RpcException
      */
     protected Invoker<T> selectRetry(    		

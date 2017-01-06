@@ -175,7 +175,7 @@ public final class StringUtils {
     /**
      * 
      * @param data
-     * @return
+     * @return safe string
      */
     public static String safeToString(Object data) {
         if (data == null) return null;

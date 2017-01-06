@@ -14,7 +14,7 @@ public interface Watcher<T> {
       /**
        * Run when the watcher finally closes.
        *
-       * @param cause What caused the watcher to be closed. Null means normal close.
+       * @param exception What caused the watcher to be closed. Null means normal close.
        */
       void exceptionCaught(KubboHttpException exception);
 }

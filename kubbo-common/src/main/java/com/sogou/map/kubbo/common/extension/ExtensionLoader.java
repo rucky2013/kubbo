@@ -39,9 +39,9 @@ import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
  * 
  * @author liufuliang
  *
- * @see kubbo.common.extension.SPI
- * @see kubbo.common.extension.Adaptive
- * @see kubbo.common.extension.Activate
+ * @see com.sogou.map.kubbo.common.extension.SPI
+ * @see com.sogou.map.kubbo.common.extension.Adaptive
+ * @see com.sogou.map.kubbo.common.extension.Activate
  */
 public class ExtensionLoader<T> {
 
@@ -129,7 +129,6 @@ public class ExtensionLoader<T> {
      * @param url url
      * @param key url parameter key which used to get extension point names
      * @return extension list which are activated.
-     * @see #getActivateExtension(kubbo.common.URL, String, String)
      */
     public List<T> getActivateExtension(URL url, String key) {
         return getActivateExtension(url, key, null);
@@ -140,7 +139,6 @@ public class ExtensionLoader<T> {
      *     getActivateExtension(url, values, null);
      * </pre>
      *
-     * @see #getActivateExtension(kubbo.common.URL, String[], String)
      * @param url url
      * @param values extension point names
      * @return extension list which are activated
@@ -154,7 +152,6 @@ public class ExtensionLoader<T> {
      *     getActivateExtension(url, url.getParameter(key).split(","), null);
      * </pre>
      *
-     * @see #getActivateExtension(kubbo.common.URL, String[], String)
      * @param url url
      * @param key url parameter key which used to get extension point names
      * @param group group
@@ -171,7 +168,7 @@ public class ExtensionLoader<T> {
     /**
      * Get activate extensions.
      *
-     * @see kubbo.common.extension.Activate
+     * @see com.sogou.map.kubbo.common.extension.Activate
      * @param url url
      * @param values extension point names
      * @param group group
@@ -288,7 +285,7 @@ public class ExtensionLoader<T> {
      * 返回指定名字的扩展。如果指定名字的扩展不存在，则抛异常 {@link IllegalStateException}.
      *
      * @param name
-     * @return
+     * @return extention
      */
     @SuppressWarnings("unchecked")
     public T getExtension(String name) {
@@ -387,50 +384,6 @@ public class ExtensionLoader<T> {
             }
 
             cachedAdaptiveClass = clazz;
-        }
-    }
-
-    /**
-     * 编程方式添加替换已有扩展点。
-     *
-     * @param name 扩展点名
-     * @param clazz 扩展点类
-     * @throws IllegalStateException 要添加扩展点名已经存在。
-     * @deprecated 不推荐应用使用，一般只在测试时可以使用
-     */
-    @Deprecated
-    public void replaceExtension(String name, Class<?> clazz) {
-        getExtensionClasses(); // load classes
-
-        if(!type.isAssignableFrom(clazz)) {
-            throw new IllegalStateException("Input type " +
-                    clazz + "not implement Extension " + type);
-        }
-        if(clazz.isInterface()) {
-            throw new IllegalStateException("Input type " +
-                    clazz + "can not be interface!");
-        }
-
-        if(!clazz.isAnnotationPresent(Adaptive.class)) {
-            if(StringUtils.isBlank(name)) {
-                throw new IllegalStateException("Extension name is blank (Extension " + type + ")!");
-            }
-            if(!cachedClasses.get().containsKey(name)) {
-                throw new IllegalStateException("Extension name " +
-                        name + " not existed(Extension " + type + ")!");
-            }
-
-            cachedNames.put(clazz, name);
-            cachedClasses.get().put(name, clazz);
-            cachedInstances.remove(name);
-        }
-        else {
-            if(cachedAdaptiveClass == null) {
-                throw new IllegalStateException("Adaptive Extension not existed(Extension " + type + ")!");
-            }
-
-            cachedAdaptiveClass = clazz;
-            cachedAdaptiveInstance.set(null);
         }
     }
 

@@ -33,7 +33,6 @@ public interface Invocation extends Attachable{
     /**
      * get the invoker in current context.
      * 
-     * @transient
      * @return invoker.
      */
     Invoker<?> getInvoker();

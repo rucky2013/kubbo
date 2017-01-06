@@ -48,7 +48,7 @@ public class XML {
     /** The Character '='. */
     public static final Character EQ = '=';
 
-    /** The Character '>'. */
+    /** The Character '&gt;'. */
     public static final Character GT = '>';
 
     /** The Character '&lt;'. */
@@ -67,10 +67,10 @@ public class XML {
      * Replace special characters with XML escapes:
      * 
      * <pre>
-     * &amp; <small>(ampersand)</small> is replaced by &amp;amp;
-     * &lt; <small>(less than)</small> is replaced by &amp;lt;
-     * &gt; <small>(greater than)</small> is replaced by &amp;gt;
-     * &quot; <small>(double quote)</small> is replaced by &amp;quot;
+     * &amp; (ampersand) is replaced by &amp;amp;
+     * &lt; (less than) is replaced by &amp;lt;
+     * &gt; (greater than) is replaced by &amp;gt;
+     * &quot; (double quote) is replaced by &amp;quot;
      * </pre>
      * 
      * @param string
@@ -295,19 +295,6 @@ public class XML {
             }
         }
     }
-    
-    /**
-     * This method has been deprecated in favor of the
-     * {@link JSONObject.stringToValue(String)} method. Use it instead.
-     * 
-     * @deprecated Use {@link JSONObject#stringToValue(String)} instead.
-     * @param string String to convert
-     * @return JSON value of this string or the string
-     */
-    @Deprecated
-    public static Object stringToValue(String string) {
-        return JSONObject.stringToValue(string);
-    }
 
     /**
      * Convert a well-formed (but not necessarily valid) XML string into a
@@ -317,7 +304,7 @@ public class XML {
      * name/value pairs and arrays of values. JSON does not does not like to
      * distinguish between elements and attributes. Sequences of similar
      * elements are represented as JSONArrays. Content text may be placed in a
-     * "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code>
+     * "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code>
      * are ignored.
      * 
      * @param string
@@ -338,7 +325,7 @@ public class XML {
      * name/value pairs and arrays of values. JSON does not does not like to
      * distinguish between elements and attributes. Sequences of similar
      * elements are represented as JSONArrays. Content text may be placed in a
-     * "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code>
+     * "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code>
      * are ignored.
      * 
      * All values are converted as strings, for 1, 01, 29.0 will not be coerced to

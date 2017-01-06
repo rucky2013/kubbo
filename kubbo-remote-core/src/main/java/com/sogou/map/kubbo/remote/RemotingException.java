@@ -6,7 +6,6 @@ import java.net.InetSocketAddress;
  * RemotingException. (API, Prototype, ThreadSafe)
  * 
  * @author liufuliang
- * @export
  */
 public class RemotingException extends Exception {
 

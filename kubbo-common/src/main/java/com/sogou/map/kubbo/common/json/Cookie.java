@@ -143,7 +143,7 @@ public class Cookie {
      * Convert <code>%</code><i>hh</i> sequences to single characters, and
      * convert plus to space.
      * @param string A string that may contain
-     *      <code>+</code>&nbsp;<small>(plus)</small> and
+     *      <code>+</code>&nbsp;(plus) and
      *      <code>%</code><i>hh</i> sequences.
      * @return The unescaped string.
      */

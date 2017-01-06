@@ -14,8 +14,8 @@ public interface HttpRequestBuilder {
     /**
      * Add a request header.  
      *
-     * @param header The header type
-     * @param value The value
+     * @param key A key
+     * @param value A value
      * @return this
      */
     HttpRequestBuilder header(String key, Object value);
@@ -59,12 +59,13 @@ public interface HttpRequestBuilder {
     HttpRequestBuilder tokenAuthentication(String token);
     
     /**
+     * <p>
      * Set the request body.  May be a string, byte array, ByteBuf, InputStream,
      * Image or an Object which can be converted to JSON by a vanilla ObjectMapper.
-     * <p/>
+     * </p>
      * For custom serialization, convert to a byte stream first.
      *
-     * @param o The body
+     * @param body The body
      * @return this
      */
     HttpRequestBuilder body(Object body);
@@ -85,15 +86,15 @@ public interface HttpRequestBuilder {
     
     /**
      * 
-     * @param compress
-     * @return
+     * @param gzip 是否使用gzip压缩
+     * @return this
      */
     HttpRequestBuilder gzip(boolean gzip);
     
     /**
      * 
      * @param keepalive
-     * @return
+     * @return this
      */
     HttpRequestBuilder keepalive(boolean keepalive);
     
@@ -101,47 +102,47 @@ public interface HttpRequestBuilder {
     /**
      * 
      * @param cache
-     * @return
+     * @return this
      */
     HttpRequestBuilder cache(boolean cache);
     
     /**
      * 
      * @param ifModifiedSince
-     * @return
+     * @return this
      */
     HttpRequestBuilder ifModifiedSince(long ifModifiedSince);
 
     /**
      * 
      * @param followRedirects
-     * @return
+     * @return this
      */
     HttpRequestBuilder followRedirects(boolean followRedirects);
     /**
      * 
      * @param sslSocketFactory
-     * @return
+     * @return this
      */
     HttpRequestBuilder setSSLSocketFactory(SSLSocketFactory sslSocketFactory);
     
     /**
      * 
      * @param hostnameVerifier
-     * @return
+     * @return this
      */
     HttpRequestBuilder setHostnameVerifier(HostnameVerifier hostnameVerifier);
     
     /**
      * 
      * @param handler
-     * @return
+     * @return this
      */
     HttpRequestBuilder setChunkedHandler(ChunkedHandler handler);
     
     /**
      * 
-     * @return
+     * @return HttpRequest
      */
     HttpRequest build();
     
@@ -162,16 +163,15 @@ public interface HttpRequestBuilder {
     
     /**
      * 
-     * @param asType
-     * @return
+     * @param asType 返回类型
+     * @return http返回
      * @throws KubboHttpException
      */
     <T> T execute(Class<T> asType) throws KubboHttpException;
     
     /**
      * 
-     * @param asType 返回类型
-     * @return
+     * @return HttpResponse
      * @throws KubboHttpException
      */
     HttpResponse execute() throws KubboHttpException;

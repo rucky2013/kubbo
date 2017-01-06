@@ -20,7 +20,7 @@ public interface Filter {
      * return result;
      * </code>
      * 
-     * @see kubbo.rpc.Invoker#invoke(Invocation)
+     * @see com.sogou.map.kubbo.rpc.Invoker#invoke(Invocation)
      * @param invoker service
      * @param invocation invocation.
      * @return invoke result.

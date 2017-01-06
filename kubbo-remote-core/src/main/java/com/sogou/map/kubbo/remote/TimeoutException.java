@@ -6,7 +6,6 @@ import java.net.InetSocketAddress;
  * TimeoutException. (API, Prototype, ThreadSafe)
  * 
  * @author liufuliang
- * @export
  */
 public class TimeoutException extends RemotingException {
 

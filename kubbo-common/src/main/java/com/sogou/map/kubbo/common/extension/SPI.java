@@ -30,7 +30,6 @@ yyy=com.foo.YyyProtocol
  * 而不是报加载扩展点失败，以及失败原因。
  *
  * @author liufuliang
- * @export
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

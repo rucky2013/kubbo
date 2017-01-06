@@ -185,7 +185,7 @@ public final class SystemPropertyUtils {
     /**
      * NaV (not a value)
      * @param value
-     * @return
+     * @return not a value
      */
     public static boolean isNaV(String value) {
         return value == null || value.length() == 0 

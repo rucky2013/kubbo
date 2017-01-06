@@ -3,10 +3,7 @@
  */
 package com.sogou.map.kubbo.common.http;
 
-/**
- * @author liufuliang
- *
- */
+
 public enum Method {
     GET, 
     PUT, 

@@ -64,7 +64,6 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
     
     /**
      * watch loop
-     * @return
      */
     public void watchUpdate(){
         workLoop.execute(new Runnable(){
@@ -85,7 +84,6 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
     }
     /**
      * 
-     * @param urls
      */
     public void doUpdate(List<URL> urls){
 //		if(urls.isEmpty()){
@@ -130,7 +128,6 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
     
     /**
      * async
-     * @param urls
      */
     public void update(final List<URL> urls) {
         workLoop.execute(new Runnable(){

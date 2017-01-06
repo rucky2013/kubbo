@@ -13,7 +13,7 @@ public interface ExporterListener {
     /**
      * The exporter exported.
      * 
-     * @see kubbo.rpc.Protocol#export(Invoker)
+     * @see com.sogou.map.kubbo.rpc.Protocol#export(Invoker)
      * @param exporter
      * @throws RpcException
      */
@@ -22,7 +22,7 @@ public interface ExporterListener {
     /**
      * The exporter unexported.
      * 
-     * @see kubbo.rpc.Exporter#unexport()
+     * @see com.sogou.map.kubbo.rpc.Exporter#unexport()
      * @param exporter
      * @throws RpcException
      */

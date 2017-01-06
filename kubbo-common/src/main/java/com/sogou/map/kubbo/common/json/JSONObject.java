@@ -80,10 +80,10 @@ import java.util.Set;
  * the JSON syntax rules. The constructors are more forgiving in the texts they
  * will accept:
  * <ul>
- * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just
+ * <li>An extra <code>,</code>&nbsp;(comma) may appear just
  * before the closing brace.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
- * quote)</small>.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;(single
+ * quote).</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a
  * quote or single quote, and if they do not contain leading or trailing
  * spaces, and if they do not contain any of these characters:
@@ -308,9 +308,9 @@ public class JSONObject {
      * commonly used JSONObject constructor.
      *
      * @param source
-     *            A string beginning with <code>{</code>&nbsp;<small>(left
-     *            brace)</small> and ending with <code>}</code>
-     *            &nbsp;<small>(right brace)</small>.
+     *            A string beginning with <code>{</code>&nbsp;(left
+     *            brace) and ending with <code>}</code>
+     *            &nbsp;(right brace).
      * @exception JSONException
      *                If there is a syntax error in the source string or a
      *                duplicated key.
@@ -1382,7 +1382,7 @@ public class JSONObject {
 
     /**
      * Produce a string in double quotes with backslash sequences in all the
-     * right places. A backslash will be inserted within </, producing <\/,
+     * right places. A backslash will be inserted within &lt;/, producing &lt;\/,
      * allowing JSON text to be delivered in HTML. In JSON text, a string cannot
      * contain a control character or an unescaped quote or backslash.
      *
@@ -1619,9 +1619,9 @@ public class JSONObject {
      * Warning: This method assumes that the data structure is acyclical.
      *
      * @return a printable, displayable, portable, transmittable representation
-     *         of the object, beginning with <code>{</code>&nbsp;<small>(left
-     *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
-     *         brace)</small>.
+     *         of the object, beginning with <code>{</code>&nbsp;(left
+     *         brace) and ending with <code>}</code>&nbsp;(right
+     *         brace).
      */
     public String toString() {
         try {
@@ -1639,9 +1639,9 @@ public class JSONObject {
      * @param indentFactor
      *            The number of spaces to add to each level of indentation.
      * @return a printable, displayable, portable, transmittable representation
-     *         of the object, beginning with <code>{</code>&nbsp;<small>(left
-     *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
-     *         brace)</small>.
+     *         of the object, beginning with <code>{</code>&nbsp;(left
+     *         brace) and ending with <code>}</code>&nbsp;(right
+     *         brace).
      * @throws JSONException
      *             If the object contains an invalid number.
      */
@@ -1670,9 +1670,9 @@ public class JSONObject {
      * @param value
      *            The value to be serialized.
      * @return a printable, displayable, transmittable representation of the
-     *         object, beginning with <code>{</code>&nbsp;<small>(left
-     *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
-     *         brace)</small>.
+     *         object, beginning with <code>{</code>&nbsp;(left
+     *         brace) and ending with <code>}</code>&nbsp;(right
+     *         brace).
      * @throws JSONException
      *             If the value is or contains an invalid number.
      */

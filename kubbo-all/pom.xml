@@ -61,6 +61,7 @@
   
   <build>
     <plugins>
+      <!-- maven-shade-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -151,6 +152,25 @@
                   <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.Replication</resource>
             </transformer>
           </transformers>
+        </configuration>
+      </plugin>
+      <!-- maven-javadoc-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <includeDependencySources>true</includeDependencySources>
+          <dependencySourceIncludes>
+            <dependencySourceInclude>com.sogou.map:kubbo-common</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-remote-core</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-remote-netty4</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-rpc-core</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-rpc-kubbo</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-distributed</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-discovery-kubernetes</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-boot</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-bench</dependencySourceInclude>
+          </dependencySourceIncludes>
         </configuration>
       </plugin>
     </plugins>

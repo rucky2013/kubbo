@@ -157,10 +157,6 @@ public class Bootstrap {
     }
     
 
-    /**
-     * @param args
-     * @throws Throwable 
-     */
     public static void main(String[] args) throws Throwable{
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.start();

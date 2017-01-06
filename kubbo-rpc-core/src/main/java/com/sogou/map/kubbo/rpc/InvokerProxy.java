@@ -36,10 +36,10 @@ public interface InvokerProxy {
     
     /**
      * 
-     * @param proxyClazz
-     * @param typeClazz
+     * @param proxyInstance
+     * @param type
      * @param url
-     * @return
+     * @return invoker
      * @throws RpcException
      */
     @Adaptive({Constants.PROXY_KEY})

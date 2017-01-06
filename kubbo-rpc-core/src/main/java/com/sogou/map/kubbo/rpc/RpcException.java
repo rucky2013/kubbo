@@ -4,7 +4,6 @@ package com.sogou.map.kubbo.rpc;
  * RPC Exception. (API, Prototype, ThreadSafe)
  * 
  * @author liufuliang
- * @export
  */
 public final class RpcException extends RuntimeException {
 

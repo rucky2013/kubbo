@@ -1,7 +1,8 @@
 package com.sogou.map.kubbo.common.logger;
 
 /**
- * 日志接口 <p/> 声明：引用自commons-logging
+ * <p>日志接口 </p> 
+ * 声明：引用自commons-logging
  *
  * @author liufuliang
  */

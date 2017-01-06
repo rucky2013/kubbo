@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.remote.session.header.HeaderSessionLayer;
 
 /**
  * SessionLayer. (SPI, Singleton, ThreadSafe)
- * @see https://en.wikipedia.org/wiki/Session_layer
+ * @see <a href="https://en.wikipedia.org/wiki/Session_layer">Session_layer</a>
  * 
  * @author liufuliang
  */

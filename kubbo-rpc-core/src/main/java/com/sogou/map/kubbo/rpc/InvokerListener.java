@@ -13,7 +13,7 @@ public interface InvokerListener {
     /**
      * The invoker referred
      * 
-     * @see kubbo.rpc.Protocol#refer(Class, URL)
+     * @see com.sogou.map.kubbo.rpc.Protocol#refer(Class, URL)
      * @param invoker
      * @throws RpcException
      */
@@ -22,7 +22,7 @@ public interface InvokerListener {
     /**
      * The invoker destroyed.
      * 
-     * @see kubbo.rpc.Invoker#destroy()
+     * @see com.sogou.map.kubbo.rpc.Invoker#destroy()
      * @param invoker
      */
     void destroyed(Invoker<?> invoker);

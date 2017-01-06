@@ -63,7 +63,6 @@ public class Statistics {
     /**
      * the total tests
      * 
-     * @return
      */
     public int getRequestedNum() {
         return successCount.intValue() + badCount.intValue();
@@ -83,7 +82,6 @@ public class Statistics {
     /**
      * something like: 90% of tests done in 3 ms, 95% done in 4 ms
      * 
-     * @return
      */
     public TreeMap<Double, Long> getPercentInCertainTime() {
         TreeMap<Double, Long> map = new TreeMap<Double, Long>();

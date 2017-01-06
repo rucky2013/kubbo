@@ -42,7 +42,6 @@ public interface Attributable {
     /**
      * remove attribute.
      * 
-     * @param key key.
      */
     void removeAttributes();
 }

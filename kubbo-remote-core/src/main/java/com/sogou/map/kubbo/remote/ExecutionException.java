@@ -6,7 +6,6 @@ import java.net.InetSocketAddress;
  * ReceiveException
  * 
  * @author liufuliang
- * @export
  */
 public class ExecutionException extends RemotingException {
     

@@ -21,7 +21,6 @@ import java.lang.annotation.Target;
  * 获得条件的扩展。
  *
  * @author liufuliang
- * @export
  * @see SPI
  * @see ExtensionLoader
  */

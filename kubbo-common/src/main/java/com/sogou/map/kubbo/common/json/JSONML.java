@@ -241,7 +241,7 @@ public class JSONML {
      * attributes, then the second element will be JSONObject containing the
      * name/value pairs. If the tag contains children, then strings and
      * JSONArrays will represent the child tags.
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param string The source string.
      * @return A JSONArray containing the structured data from the XML string.
      * @throws JSONException Thrown on error converting to a JSONArray
@@ -261,7 +261,7 @@ public class JSONML {
      * As opposed to toJSONArray this method does not attempt to convert 
      * any text node or attribute value to any type 
      * but just leaves it as a string.
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param string The source string.
      * @param keepStrings If true, then values will not be coerced into boolean
      *  or numeric values and will instead be left as strings
@@ -283,7 +283,7 @@ public class JSONML {
      * As opposed to toJSONArray this method does not attempt to convert 
      * any text node or attribute value to any type 
      * but just leaves it as a string.
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param x An XMLTokener.
      * @param keepStrings If true, then values will not be coerced into boolean
      *  or numeric values and will instead be left as strings
@@ -302,7 +302,7 @@ public class JSONML {
      * attributes, then the second element will be JSONObject containing the
      * name/value pairs. If the tag contains children, then strings and
      * JSONArrays will represent the child content and tags.
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param x An XMLTokener.
      * @return A JSONArray containing the structured data from the XML string.
      * @throws JSONException Thrown on error converting to a JSONArray
@@ -320,7 +320,7 @@ public class JSONML {
      * contains children, the object will have a "childNodes" property which
      * will be an array of strings and JsonML JSONObjects.
 
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param string The XML source text.
      * @return A JSONObject containing the structured data from the XML string.
      * @throws JSONException Thrown on error converting to a JSONObject
@@ -338,7 +338,7 @@ public class JSONML {
      * contains children, the object will have a "childNodes" property which
      * will be an array of strings and JsonML JSONObjects.
 
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param string The XML source text.
      * @param keepStrings If true, then values will not be coerced into boolean
      *  or numeric values and will instead be left as strings
@@ -358,7 +358,7 @@ public class JSONML {
      * contains children, the object will have a "childNodes" property which
      * will be an array of strings and JsonML JSONObjects.
 
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param x An XMLTokener of the XML source text.
      * @return A JSONObject containing the structured data from the XML string.
      * @throws JSONException Thrown on error converting to a JSONObject
@@ -376,7 +376,7 @@ public class JSONML {
      * contains children, the object will have a "childNodes" property which
      * will be an array of strings and JsonML JSONObjects.
 
-     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+     * Comments, prologs, DTDs, and <code>&lt;[ [ ]]&gt;</code> are ignored.
      * @param x An XMLTokener of the XML source text.
      * @param keepStrings If true, then values will not be coerced into boolean
      *  or numeric values and will instead be left as strings
