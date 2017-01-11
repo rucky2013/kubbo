@@ -81,7 +81,12 @@ public class NettyServer extends AbstractServer implements Server {
 
         // bind
         ChannelFuture channelFuture = bootstrap.bind(getBindAddress());
-        serverChannel = channelFuture.awaitUninterruptibly().channel();
+        channelFuture.awaitUninterruptibly();
+        if(channelFuture.isSuccess()){
+            serverChannel = channelFuture.channel();
+        } else{
+            throw channelFuture.cause();
+        }
     }
 
     @Override

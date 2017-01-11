@@ -67,7 +67,7 @@ public class LoggerFactory {
     public static void setLoggerAdapter(LoggerAdapter loggerAdapter) {
         if (loggerAdapter != null) {
             Logger logger = loggerAdapter.getLogger(LoggerFactory.class.getName());
-            logger.info("using logger: " + loggerAdapter.getClass().getName());
+            logger.info("[Kubbo] using logger: " + loggerAdapter.getClass().getName());
             LoggerFactory.LOGGER_ADAPTER = loggerAdapter;
             for (Map.Entry<String, FailsafeLogger> entry : LOGGERS.entrySet()) {
                 entry.getValue().setLogger(LOGGER_ADAPTER.getLogger(entry.getKey()));
