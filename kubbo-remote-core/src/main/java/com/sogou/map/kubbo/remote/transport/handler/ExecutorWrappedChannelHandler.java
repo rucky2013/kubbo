@@ -32,7 +32,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void connected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemotingException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CONNECTED));
@@ -42,7 +42,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
     
     @Override
-    public void disconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemotingException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.DISCONNECTED));
@@ -52,7 +52,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void received(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemotingException {
         ExecutorService cexecutor = getExecutorSafely();
         try {
             cexecutor.execute(new ChannelEventRunnable(channel, handler, ChannelState.RECEIVED, message));
@@ -62,7 +62,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void caught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CAUGHT, exception));

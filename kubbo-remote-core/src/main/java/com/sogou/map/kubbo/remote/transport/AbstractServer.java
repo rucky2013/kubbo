@@ -180,25 +180,25 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     }
 
     @Override
-    public void connected(Channel ch) throws RemotingException {
+    public void onConnected(Channel ch) throws RemotingException {
         Collection<Channel> channels = getChannels();
         if (accepts > 0 && channels.size() > accepts) {
             logger.warn("Close channel " + ch + ", cause: The server " + ch.getLocalAddress() + " connections greater than max accepts " + accepts);
             ch.close();
             return;
         }
-        super.connected(ch);
+        super.onConnected(ch);
     }
     
     @Override
-    public void disconnected(Channel ch) throws RemotingException {
+    public void onDisconnected(Channel ch) throws RemotingException {
         Collection<Channel> channels = getChannels();
         if (channels.size() == 0){
             if(logger.isDebugEnabled()){
                 logger.warn("All clients has discontected from " + ch.getLocalAddress() + ". You can graceful shutdown now.");
             }
         }
-        super.disconnected(ch);
+        super.onDisconnected(ch);
     }
     
     protected abstract void doOpen() throws Throwable;

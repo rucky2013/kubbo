@@ -12,13 +12,15 @@ public interface Filter {
 
     /**
      * do invoke filter.
-     * 
+     * </br>
+     * <pre>
      * <code>
      * // before filter
      * Result result = invoker.invoke(invocation);
      * // after filter
      * return result;
      * </code>
+     * </pre>
      * 
      * @see com.sogou.map.kubbo.rpc.Invoker#invoke(Invocation)
      * @param invoker service

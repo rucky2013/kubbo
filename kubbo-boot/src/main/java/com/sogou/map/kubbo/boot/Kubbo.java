@@ -150,7 +150,7 @@ public class Kubbo {
     public static <T> Future<T> callAsync(Callable<T> callable) throws RpcException {
         try {
             try {
-                RpcContext.getContext().setAttachment(Constants.ASYNC_KEY, Constants.TRUE);
+                RpcContext.get().setAttachment(Constants.ASYNC_KEY, Constants.TRUE);
                 final T o = callable.call();
                 //local调用会直接返回结果.
                 if (o != null) {
@@ -167,7 +167,7 @@ public class Kubbo {
             } catch (Exception e) {
                 throw new RpcException(e);
             } finally {
-                RpcContext.getContext().removeAttachment(Constants.ASYNC_KEY);
+                RpcContext.get().removeAttachment(Constants.ASYNC_KEY);
             }
         } catch (final RpcException e) {
             return new Future<T>() {
@@ -190,7 +190,7 @@ public class Kubbo {
                 }
             };
         }
-        return ((Future<T>)RpcContext.getContext().getFuture());
+        return ((Future<T>)RpcContext.get().getFuture());
     }
     
     /**
@@ -200,12 +200,12 @@ public class Kubbo {
      */
     public static void callAsync(Runnable runable) throws RpcException {
         try {
-            RpcContext.getContext().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
+            RpcContext.get().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
             runable.run();
         } catch (Throwable e) {
             throw new RpcException("Oneway async call error. " + e.getMessage(), e);
         } finally {
-            RpcContext.getContext().removeAttachment(Constants.RETURN_KEY);
+            RpcContext.get().removeAttachment(Constants.RETURN_KEY);
         }
     }
     

@@ -87,11 +87,6 @@ public class KubboCodec extends SessionCodec implements Codec {
     @Override
     protected void encodeRequestData(Channel channel, ObjectOutput out, Object data) throws IOException {
         RpcInvocation inv = (RpcInvocation) data;
-
-//        out.writeUTF(inv.getAttachment(Constants.KUBBO_VERSION_KEY, KUBBO_VERSION));
-//        out.writeUTF(inv.getAttachment(Constants.PATH_KEY));
-//        out.writeUTF(inv.getAttachment(Constants.VERSION_KEY));
-
         out.writeUTF(inv.getMethodName());
         out.writeUTF(ReflectUtils.getDesc(inv.getParameterTypes()));
         Object[] args = inv.getArguments();

@@ -4,17 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.rpc.Invocation;
-import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcResult;
+import com.sogou.map.kubbo.rpc.ServiceInvoker;
 
 /**
  * InvokerWrapper
  * 
  * @author liufuliang
  */
-public abstract class AbstractServiceInvoker<T> implements Invoker<T> {
+public abstract class AbstractServiceInvoker<T> implements ServiceInvoker<T> {
     
     private final T service;
     

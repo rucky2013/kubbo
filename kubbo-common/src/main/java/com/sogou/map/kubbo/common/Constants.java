@@ -192,11 +192,13 @@ public class Constants {
 
     public static final String  PAYLOAD_KEY                        = "payload";
 
-    public static final String  REFERENCE_FILTER_KEY               = "reference.filter";
+    public static final String  FILTER_KEY                         = "filter";
+
+    //public static final String  REFERENCE_FILTER_KEY               = "reference.filter";
 
     public static final String  INVOKER_LISTENER_KEY               = "invoker.listener";
 
-    public static final String  SERVICE_FILTER_KEY                 = "service.filter";
+    //public static final String  SERVICE_FILTER_KEY                 = "service.filter";
 
     public static final String  EXPORTER_LISTENER_KEY              = "exporter.listener";
 
@@ -298,8 +300,7 @@ public class Constants {
 
     public static final String  COMMA_SEPARATOR                    = ",";
 
-    public static final Pattern COMMA_SPLIT_PATTERN                = Pattern
-                                                                           .compile("\\s*[,]+\\s*");
+    public static final Pattern COMMA_SPLIT_PATTERN                = Pattern.compile("\\s*[,]+\\s*");
 
     public final static String  PATH_SEPARATOR                     = "/";
 

@@ -7,28 +7,26 @@ import java.io.IOException;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Codec;
+import com.sogou.map.kubbo.remote.buffer.ChannelBuffer;
 import com.sogou.map.kubbo.remote.buffer.ChannelBuffers;
 import com.sogou.map.kubbo.remote.buffer.DynamicChannelBuffer;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * @author liufuliang
  *
  */
-public class NettyTransportDecoder extends SimpleChannelInboundHandler<ByteBuf> {
+public class NettyTransportDecoder extends io.netty.channel.SimpleChannelInboundHandler<io.netty.buffer.ByteBuf> {
     private final Codec        codec;
     
     private final URL            url;
     
     private final int            bufferSize;
     
-    private final com.sogou.map.kubbo.remote.ChannelHandler handler;
+    private final ChannelHandler handler;
 
-    public NettyTransportDecoder(Codec codec, URL url, com.sogou.map.kubbo.remote.ChannelHandler handler) {
+    public NettyTransportDecoder(Codec codec, URL url, ChannelHandler handler) {
         this.codec = codec;
         this.url = url;
         this.handler = handler;
@@ -36,16 +34,16 @@ public class NettyTransportDecoder extends SimpleChannelInboundHandler<ByteBuf> 
         this.bufferSize = bufferSize >= Constants.MIN_BUFFER_SIZE && bufferSize <= Constants.MAX_BUFFER_SIZE ? 
                 bufferSize : Constants.DEFAULT_BUFFER_SIZE;
     }
-    private com.sogou.map.kubbo.remote.buffer.ChannelBuffer buffer = ChannelBuffers.EMPTY_BUFFER;
+    private ChannelBuffer buffer = ChannelBuffers.EMPTY_BUFFER;
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, ByteBuf input) throws Exception {
+    public void channelRead0(io.netty.channel.ChannelHandlerContext ctx, io.netty.buffer.ByteBuf input) throws Exception {
         int readable = input.readableBytes();
         if (readable <= 0) {
             return;
         }
 
-        com.sogou.map.kubbo.remote.buffer.ChannelBuffer message;
+        ChannelBuffer message;
         if (buffer.readable()) {
             if (buffer instanceof DynamicChannelBuffer) {
                 buffer.writeBytes(input.nioBuffer());
@@ -105,7 +103,7 @@ public class NettyTransportDecoder extends SimpleChannelInboundHandler<ByteBuf> 
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(io.netty.channel.ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.fireExceptionCaught(cause);
     }
 

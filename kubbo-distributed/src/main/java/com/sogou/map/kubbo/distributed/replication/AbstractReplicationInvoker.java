@@ -16,7 +16,7 @@ import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
-import com.sogou.map.kubbo.rpc.utils.Rpcs;
+import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 
 /**
@@ -187,7 +187,7 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
         if (isInvokersEmpty(invokers)) {
             throw new RpcException("Failed to invoke the method "
                     + invocation.getMethodName() + " in the service " + getInterface().getName() 
-                    + ". No provider available for the service " + Rpcs.serviceKey(directory.getUrl())
+                    + ". No provider available for the service " + RpcHelper.serviceKey(directory.getUrl())
                     + " from discovery " + directory.getUrl().getAddress() 
                     + " on the consumer " + NetUtils.getLocalHost()
                     + ". Please check if the providers have been started and registered.");

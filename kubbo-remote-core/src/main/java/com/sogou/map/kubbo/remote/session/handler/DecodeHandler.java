@@ -22,7 +22,7 @@ public class DecodeHandler extends AbstractChannelHandlerDelegate {
         super(handler);
     }
 
-    public void received(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemotingException {
         if (message instanceof Decodeable) {
             decode(message);
         }
@@ -35,7 +35,7 @@ public class DecodeHandler extends AbstractChannelHandlerDelegate {
             decode( ((Response)message).getResult());
         }
 
-        handler.received(channel, message);
+        handler.onReceived(channel, message);
     }
 
     private void decode(Object data) {

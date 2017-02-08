@@ -33,32 +33,32 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void connected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemotingException {
         SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
         try {
-            handler.connected(sessionChannel);
+            handler.onConnected(sessionChannel);
         } finally {
             HeaderSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
 
     @Override
-    public void disconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemotingException {
         SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
         try {
-            handler.disconnected(sessionChannel);
+            handler.onDisconnected(sessionChannel);
         } finally {
             HeaderSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
 
     @Override
-    public void sent(Channel channel, Object message) throws RemotingException {
+    public void onSent(Channel channel, Object message) throws RemotingException {
         Throwable exception = null;
         try {
             SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
             try {
-                handler.sent(sessionChannel, message);
+                handler.onSent(sessionChannel, message);
             } finally {
                 HeaderSessionChannel.removeChannelIfDisconnected(channel);
             }
@@ -86,7 +86,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void received(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemotingException {
         SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
         try {
             if (message instanceof Request) {
@@ -98,16 +98,16 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
                     Response response = handleRequest(sessionChannel, request);
                     channel.send(response);
                 } else {
-                    handler.received(sessionChannel, request.getData());
+                    handler.onReceived(sessionChannel, request.getData());
                 }
             } else if (message instanceof Response) {
                 // handle response.
                 handleResponse(channel, (Response) message);
             } else if (message instanceof String) {
-                handler.received(sessionChannel, message);
+                handler.onReceived(sessionChannel, message);
             } else {
                 // handle none
-                handler.received(sessionChannel, message);
+                handler.onReceived(sessionChannel, message);
             }
         } finally {
             HeaderSessionChannel.removeChannelIfDisconnected(channel);
@@ -115,7 +115,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void caught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
         if (exception instanceof ExecutionException) {
             ExecutionException e = (ExecutionException) exception;
             Object msg = e.getRequest();
@@ -132,7 +132,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
         }
         SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
         try {
-            handler.caught(sessionChannel, exception);
+            handler.onExceptonCaught(sessionChannel, exception);
         } finally {
             HeaderSessionChannel.removeChannelIfDisconnected(channel);
         }

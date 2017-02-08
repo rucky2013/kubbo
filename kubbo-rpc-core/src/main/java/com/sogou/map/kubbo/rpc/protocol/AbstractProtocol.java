@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Protocol;
-import com.sogou.map.kubbo.rpc.utils.Rpcs;
+import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
  * abstract ProtocolSupport.
@@ -76,7 +76,7 @@ public abstract class AbstractProtocol implements Protocol {
     
     protected static String serviceKey(Invoker<?> invoker) {
         URL url = invoker.getUrl();
-        return Rpcs.serviceKey(url.getParameter(Constants.GROUP_KEY), 
+        return RpcHelper.serviceKey(url.getParameter(Constants.GROUP_KEY), 
                           url.getPath(), 
                           invoker.getInterface().getName(),
                           url.getParameter(Constants.VERSION_KEY));

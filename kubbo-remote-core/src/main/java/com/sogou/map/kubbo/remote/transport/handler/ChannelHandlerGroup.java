@@ -48,10 +48,10 @@ public class ChannelHandlerGroup implements ChannelHandler {
     }
 
     @Override
-    public void connected(Channel channel) {
+    public void onConnected(Channel channel) {
         for (ChannelHandler listener : channelHandlers) {
             try {
-                listener.connected(channel);
+                listener.onConnected(channel);
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);
             }
@@ -59,10 +59,10 @@ public class ChannelHandlerGroup implements ChannelHandler {
     }
 
     @Override
-    public void disconnected(Channel channel) {
+    public void onDisconnected(Channel channel) {
         for (ChannelHandler listener : channelHandlers) {
             try {
-                listener.disconnected(channel);
+                listener.onDisconnected(channel);
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);
             }
@@ -70,10 +70,10 @@ public class ChannelHandlerGroup implements ChannelHandler {
     }
 
     @Override
-    public void sent(Channel channel, Object message) {
+    public void onSent(Channel channel, Object message) {
         for (ChannelHandler listener : channelHandlers) {
             try {
-                listener.sent(channel, message);
+                listener.onSent(channel, message);
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);
             }
@@ -81,10 +81,10 @@ public class ChannelHandlerGroup implements ChannelHandler {
     }
 
     @Override
-    public void received(Channel channel, Object message) {
+    public void onReceived(Channel channel, Object message) {
         for (ChannelHandler listener : channelHandlers) {
             try {
-                listener.received(channel, message);
+                listener.onReceived(channel, message);
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);
             }
@@ -92,10 +92,10 @@ public class ChannelHandlerGroup implements ChannelHandler {
     }
 
     @Override
-    public void caught(Channel channel, Throwable exception) {
+    public void onExceptonCaught(Channel channel, Throwable exception) {
         for (ChannelHandler listener : channelHandlers) {
             try {
-                listener.caught(channel, exception);
+                listener.onExceptonCaught(channel, exception);
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);
             }

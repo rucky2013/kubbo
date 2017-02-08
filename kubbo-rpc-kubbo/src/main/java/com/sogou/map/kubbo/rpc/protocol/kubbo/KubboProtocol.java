@@ -22,7 +22,7 @@ import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.protocol.AbstractProtocol;
 import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
-import com.sogou.map.kubbo.rpc.utils.Rpcs;
+import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
  * kubbo protocol support.
@@ -57,7 +57,7 @@ public class KubboProtocol extends AbstractProtocol {
         String path = inv.getAttachment(Constants.PATH_KEY);
         String interfaceType = inv.getAttachment(Constants.INTERFACE_KEY);
         String version = inv.getAttachment(Constants.VERSION_KEY);
-        String serviceKey = Rpcs.serviceKey(group, path, interfaceType, version);
+        String serviceKey = RpcHelper.serviceKey(group, path, interfaceType, version);
 
         KubboExporter<?> exporter = (KubboExporter<?>) exporterMap.get(serviceKey);
         

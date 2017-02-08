@@ -66,7 +66,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
 
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {
-            handler.sent(channel, msg);
+            handler.onSent(channel, msg);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }
@@ -95,7 +95,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
             if (channel != null) {
                 channels.put(NetUtils.toAddressString((InetSocketAddress) ctx.channel().remoteAddress()), channel);
             }
-            handler.connected(channel);
+            handler.onConnected(channel);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }
@@ -106,7 +106,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {
             channels.remove(NetUtils.toAddressString((InetSocketAddress) ctx.channel().remoteAddress()));
-            handler.disconnected(channel);
+            handler.onDisconnected(channel);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }
@@ -117,7 +117,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
 
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {
-            handler.received(channel, msg);
+            handler.onReceived(channel, msg);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }
@@ -127,7 +127,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements ChannelOutbou
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
         try {
-            handler.caught(channel, cause);
+            handler.onExceptonCaught(channel, cause);
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.channel());
         }

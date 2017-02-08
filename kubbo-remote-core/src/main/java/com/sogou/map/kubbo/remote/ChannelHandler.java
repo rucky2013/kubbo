@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote;
 
 
 /**
- * ChannelHandler. (API, Prototype, ThreadSafe)
+ * ChannelHandler.
  * 
  * @author liufuliang
  */
@@ -13,14 +13,14 @@ public interface ChannelHandler {
      * 
      * @param channel channel.
      */
-    void connected(Channel channel) throws RemotingException;
+    void onConnected(Channel channel) throws RemotingException;
 
     /**
      * on channel disconnected.
      * 
      * @param channel channel.
      */
-    void disconnected(Channel channel) throws RemotingException;
+    void onDisconnected(Channel channel) throws RemotingException;
 
     /**
      * on message sent.
@@ -28,7 +28,7 @@ public interface ChannelHandler {
      * @param channel channel.
      * @param message message.
      */
-    void sent(Channel channel, Object message) throws RemotingException;
+    void onSent(Channel channel, Object message) throws RemotingException;
 
     /**
      * on message received.
@@ -36,7 +36,7 @@ public interface ChannelHandler {
      * @param channel channel.
      * @param message message.
      */
-    void received(Channel channel, Object message) throws RemotingException;
+    void onReceived(Channel channel, Object message) throws RemotingException;
 
     /**
      * on exception caught.
@@ -44,6 +44,6 @@ public interface ChannelHandler {
      * @param channel channel.
      * @param exception exception.
      */
-    void caught(Channel channel, Throwable exception) throws RemotingException;
+    void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException;
 
 }

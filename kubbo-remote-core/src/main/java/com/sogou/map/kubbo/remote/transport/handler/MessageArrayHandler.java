@@ -17,14 +17,14 @@ public class MessageArrayHandler extends AbstractChannelHandlerDelegate {
 
     
     @Override
-    public void received(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemotingException {
         if (message instanceof MessageArray) {
             MessageArray array = (MessageArray)message;
             for(Object obj : array) {
-                handler.received(channel, obj);
+                handler.onReceived(channel, obj);
             }
         } else {
-            handler.received(channel, message);
+            handler.onReceived(channel, message);
         }
     }
 }

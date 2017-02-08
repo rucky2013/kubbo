@@ -24,7 +24,7 @@ public class JDKFutureAdapter<V> implements Future<V> {
         this.future = future;
     }
 
-    public ResponseFuture getFuture() {
+    public ResponseFuture getResponseFuture() {
         return future;
     }
 

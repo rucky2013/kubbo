@@ -5,7 +5,7 @@ import java.util.concurrent.Future;
 import com.sogou.map.kubbo.rpc.protocol.AbstractAttachable;
 
 /**
- * Thread local context. (API, ThreadLocal, ThreadSafe)
+ * Thread local context.
  * 异步调用上下文
  * 
  * @author liufuliang
@@ -51,7 +51,7 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
      * 
      * @return context
      */
-    public static RpcContext getContext() {
+    public static RpcContext get() {
         return LOCAL.get();
     }
     
@@ -59,7 +59,7 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
      * remove context.
      * 
      */
-    public static void removeContext() {
+    public static void remove() {
         LOCAL.remove();
     }
 }

@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.Attributable;
 import com.sogou.map.kubbo.common.URL;
 
 /**
- * Endpoint. (API/SPI, Prototype, ThreadSafe)
+ * Endpoint.
  * @author liufuliang
  */
 public interface Endpoint extends Attributable{

@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * ListenerProtocol
+ * FilterWrappedProtocol
  * 
  * @author liufuliang
  */
@@ -26,12 +26,12 @@ public class FilterWrappedProtocol extends AbstractProtocolDelegate {
 
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
-        return protocol.export(wrapInvoker(invoker, Constants.SERVICE_FILTER_KEY, Constants.PROVIDER));
+        return protocol.export(wrapInvoker(invoker, Constants.FILTER_KEY, Constants.PROVIDER));
     }
 
     @Override
     public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {
-        return wrapInvoker(protocol.refer(type, url), Constants.REFERENCE_FILTER_KEY, Constants.CONSUMER);
+        return wrapInvoker(protocol.refer(type, url), Constants.FILTER_KEY, Constants.CONSUMER);
     }
 
     private static <T> Invoker<T> wrapInvoker(final Invoker<T> invoker, String filterKey, String group) {

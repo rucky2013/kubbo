@@ -42,21 +42,21 @@ public class ChannelEventRunnable implements Runnable {
         switch (state) {
             case CONNECTED:
                 try{
-                    handler.connected(channel);
+                    handler.onConnected(channel);
                 }catch (Exception e) {
                     logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is " + channel, e);
                 }
                 break;
             case DISCONNECTED:
                 try{
-                    handler.disconnected(channel);
+                    handler.onDisconnected(channel);
                 }catch (Exception e) {
                     logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is " + channel, e);
                 }
                 break;
             case SENT:
                 try{
-                    handler.sent(channel,message);
+                    handler.onSent(channel,message);
                 }catch (Exception e) {
                     logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is " + channel
                             + ", message is "+ message,e);
@@ -64,7 +64,7 @@ public class ChannelEventRunnable implements Runnable {
                 break;
             case RECEIVED:
                 try{
-                    handler.received(channel, message);
+                    handler.onReceived(channel, message);
                 }catch (Exception e) {
                     logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is " + channel
                             + ", message is "+ message,e);
@@ -72,7 +72,7 @@ public class ChannelEventRunnable implements Runnable {
                 break;
             case CAUGHT:
                 try{
-                    handler.caught(channel, exception);
+                    handler.onExceptonCaught(channel, exception);
                 }catch (Exception e) {
                     logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is "+ channel
                             + ", message is: " + message + ", exception is " + exception,e);

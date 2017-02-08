@@ -53,7 +53,7 @@ public class KubboTest {
 //	public static void main(String[] args){
 //		//rpc();
 //		try{
-//			exchage();
+//			rpc();
 //		} catch(Throwable t){
 //        	System.out.println(t);
 //        }

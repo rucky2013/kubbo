@@ -18,7 +18,7 @@ import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcInvocation;
 import com.sogou.map.kubbo.rpc.RpcResult;
-import com.sogou.map.kubbo.rpc.utils.Rpcs;
+import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
  * AbstractInvoker.
@@ -122,7 +122,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         }
         
         //context attachment
-        Map<String, String> context = RpcContext.getContext().getAttachments();
+        Map<String, String> context = RpcContext.get().getAttachments();
         if (context != null) {
             invocation.addAttachmentsIfAbsent(context);
         }
@@ -133,7 +133,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         }
         
         
-        Rpcs.attachInvocationIdIfAsync(getUrl(), invocation);
+        RpcHelper.attachInvocationIdIfAsync(getUrl(), invocation);
         
         
         try {

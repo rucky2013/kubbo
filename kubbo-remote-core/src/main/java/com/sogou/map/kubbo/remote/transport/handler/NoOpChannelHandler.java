@@ -11,19 +11,19 @@ import com.sogou.map.kubbo.remote.RemotingException;
  */
 public class NoOpChannelHandler implements ChannelHandler {
 
-    public void connected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemotingException {
     }
 
-    public void disconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemotingException {
     }
 
-    public void sent(Channel channel, Object message) throws RemotingException {
+    public void onSent(Channel channel, Object message) throws RemotingException {
     }
 
-    public void received(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemotingException {
     }
 
-    public void caught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
     }
 
 }

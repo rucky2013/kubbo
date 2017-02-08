@@ -84,28 +84,28 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     }
 
     @Override
-    public void connected(Channel ch) throws RemotingException {
+    public void onConnected(Channel ch) throws RemotingException {
         if (closed) {
             return;
         }
-        super.connected(ch);
+        super.onConnected(ch);
     }
 
 
     @Override
-    public void sent(Channel ch, Object msg) throws RemotingException {
+    public void onSent(Channel ch, Object msg) throws RemotingException {
         if (closed) {
             return;
         }
-        super.sent(ch, msg);
+        super.onSent(ch, msg);
     }
 
     @Override
-    public void received(Channel ch, Object msg) throws RemotingException {
+    public void onReceived(Channel ch, Object msg) throws RemotingException {
         if (closed) {
             return;
         }
-        super.received(ch, msg);
+        super.onReceived(ch, msg);
     }
     
     @Override

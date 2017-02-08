@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote;
 import java.net.InetSocketAddress;
 
 /**
- * Channel. (API/SPI, Prototype, ThreadSafe)
+ * Channel.
  *
  * @author liufuliang
  */

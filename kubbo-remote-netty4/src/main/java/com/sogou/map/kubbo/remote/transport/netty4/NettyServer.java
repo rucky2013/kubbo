@@ -9,7 +9,6 @@ import com.sogou.map.kubbo.common.utils.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.RemotingException;
-import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.transport.AbstractServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -28,7 +27,7 @@ import java.util.Map;
  * 
  * @author liufuliang
  */
-public class NettyServer extends AbstractServer implements Server {
+public class NettyServer extends AbstractServer {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyServer.class);
 

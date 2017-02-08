@@ -23,7 +23,7 @@ import com.sogou.map.kubbo.remote.session.ResponseCallback;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
 
 /**
- * DefaultResponseFuture.
+ * InternalResponseFuture.
  * 
  * @author liufuliang
  */

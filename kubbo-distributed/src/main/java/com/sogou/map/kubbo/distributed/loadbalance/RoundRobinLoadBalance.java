@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.utils.AtomicPositiveInteger;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
-import com.sogou.map.kubbo.rpc.utils.Rpcs;
+import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
  * Round robin load balance.
@@ -24,7 +24,7 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
 
     @Override
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        String key = Rpcs.serviceKey(invokers.get(0).getUrl()) + "." + invocation.getMethodName();
+        String key = RpcHelper.serviceKey(invokers.get(0).getUrl()) + "." + invocation.getMethodName();
         int length = invokers.size(); // 总个数
         
         //sequence

@@ -28,27 +28,27 @@ public abstract class AbstractChannelHandlerDelegate implements ChannelHandlerDe
     }
 
     @Override
-    public void connected(Channel channel) throws RemotingException {
-        handler.connected(channel);
+    public void onConnected(Channel channel) throws RemotingException {
+        handler.onConnected(channel);
     }
 
     @Override
-    public void disconnected(Channel channel) throws RemotingException {
-        handler.disconnected(channel);
+    public void onDisconnected(Channel channel) throws RemotingException {
+        handler.onDisconnected(channel);
     }
 
     @Override
-    public void sent(Channel channel, Object message) throws RemotingException {
-        handler.sent(channel, message);
+    public void onSent(Channel channel, Object message) throws RemotingException {
+        handler.onSent(channel, message);
     }
 
     @Override
-    public void received(Channel channel, Object message) throws RemotingException {
-        handler.received(channel, message);
+    public void onReceived(Channel channel, Object message) throws RemotingException {
+        handler.onReceived(channel, message);
     }
 
     @Override
-    public void caught(Channel channel, Throwable exception) throws RemotingException {
-        handler.caught(channel, exception);
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
+        handler.onExceptonCaught(channel, exception);
     }
 }

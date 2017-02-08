@@ -17,20 +17,20 @@ public interface Attributable {
     boolean hasAttribute(String key);
 
     /**
-     * get attribute.
-     * 
-     * @param key key.
-     * @return value.
-     */
-    Object getAttribute(String key);
-
-    /**
      * set attribute.
      * 
      * @param key key.
      * @param value value.
      */
     void setAttribute(String key,Object value);
+    
+    /**
+     * get attribute.
+     * 
+     * @param key key.
+     * @return value.
+     */
+    Object getAttribute(String key);
     
     /**
      * remove attribute.
@@ -41,7 +41,6 @@ public interface Attributable {
     
     /**
      * remove attribute.
-     * 
      */
     void removeAttributes();
 }

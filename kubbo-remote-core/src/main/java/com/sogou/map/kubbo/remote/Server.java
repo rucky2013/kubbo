@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.Collection;
 
 /**
- * Remoting Server. (API/SPI, Prototype, ThreadSafe)
+ * Remoting Server. 
  * 
  * @author liufuliang
  */

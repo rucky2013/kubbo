@@ -189,7 +189,7 @@ public class NetUtils {
                 return localAddress;
             }
         } catch (Throwable e) {
-            logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
+            logger.warn("Failed to retriving ip address, " + e.getMessage());
         }
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -206,45 +206,21 @@ public class NetUtils {
                                         return address;
                                     }
                                 } catch (Throwable e) {
-                                    logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
+                                    logger.warn("Failed to retriving ip address, " + e.getMessage());
                                 }
                             }
                         }
                     } catch (Throwable e) {
-                        logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
+                        logger.warn("Failed to retriving ip address, " + e.getMessage());
                     }
                 }
             }
         } catch (Throwable e) {
-            logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
+            logger.warn("Failed to retriving ip address, " + e.getMessage());
         }
         logger.error("Could not get local host ip address, will use 127.0.0.1 instead.");
         return localAddress;
     }
-    
-//    private static final Map<String, String> hostNameCache = new LRUCache<String, String>(1000);
-//
-//    public static String getHostName(String address) {
-//    	try {
-//    		int i = address.indexOf(':');
-//    		if (i > -1) {
-//    			address = address.substring(0, i);
-//    		}
-//    		String hostname = hostNameCache.get(address);
-//    		if (hostname != null && hostname.length() > 0) {
-//    			return hostname;
-//    		}
-//    		InetAddress inetAddress = InetAddress.getByName(address);
-//    		if (inetAddress != null) {
-//    			hostname = inetAddress.getHostName();
-//    			hostNameCache.put(address, hostname);
-//    			return hostname;
-//    		}
-//		} catch (Throwable e) {
-//			// ignore
-//		}
-//		return address;
-//    }
     
     /**
      * @param hostName
@@ -284,6 +260,12 @@ public class NetUtils {
             sb.append('/');
         sb.append(path);
         return sb.toString();
+    }
+    
+    public static void main(String[] args){
+        NetUtils.getLocalAddress0();
+        
+        
     }
     
 }

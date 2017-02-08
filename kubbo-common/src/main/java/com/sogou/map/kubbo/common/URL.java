@@ -48,8 +48,7 @@ import com.sogou.map.kubbo.common.utils.NetUtils;
  * @author liufuliang
  */
 public final class URL implements Serializable {
-
-    private static final long serialVersionUID = -1985165475234910535L;
+    private static final long serialVersionUID = 924229659203275199L;
 
     private final String protocol;
 
@@ -68,8 +67,6 @@ public final class URL implements Serializable {
     // ==== cache ====
     
     private volatile transient Map<String, Number> numbers;
-
-    private volatile transient Map<String, URL> urls;
 
     private volatile transient String ip;
 
@@ -330,9 +327,6 @@ public final class URL implements Serializable {
 
     public String getParameter(String key) {
         String value = parameters.get(key);
-//        if (value == null || value.length() == 0) {
-//            value = parameters.get(Constants.DEFAULT_KEY_PREFIX + key);
-//        }
         return value;
     }
 
@@ -357,27 +351,6 @@ public final class URL implements Serializable {
             numbers = new ConcurrentHashMap<String, Number>();
         }
         return numbers;
-    }
-
-    private Map<String, URL> getUrls() {
-        if (urls == null) { // 允许并发重复创建
-            urls = new ConcurrentHashMap<String, URL>();
-        }
-        return urls;
-    }
-
-    public URL getUrlParameter(String key) {
-        URL u = getUrls().get(key);
-        if (u != null) {
-            return u;
-        }
-        String value = getParameterAndDecoded(key);
-        if (value == null || value.length() == 0) {
-            return null;
-        }
-        u = URL.valueOf(value);
-        getUrls().put(key, u);
-        return u;
     }
 
     public double getParameter(String key, double defaultValue) {
@@ -983,6 +956,7 @@ public final class URL implements Serializable {
         return map;
     }
 
+    @Override
     public String toString() {
         if (string != null) {
             return string;

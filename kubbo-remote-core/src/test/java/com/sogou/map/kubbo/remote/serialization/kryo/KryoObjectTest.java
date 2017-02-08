@@ -13,6 +13,7 @@ import com.sogou.map.kubbo.remote.serialization.kryo.obj.Edge;
 import com.sogou.map.kubbo.remote.serialization.kryo.obj.Label;
 import com.sogou.map.kubbo.remote.serialization.kryo.obj.Topology;
 import com.sogou.map.kubbo.remote.serialization.kryo.obj.Vertext;
+import com.sogou.map.kubbo.remote.serialization.kryo.obj.ViaMethod;
 
 /**
  * @author liufuliang
@@ -26,7 +27,7 @@ public class KryoObjectTest {
      */
     public static void main(String[] args) throws IOException {
         int edgeID = 0;
-        //SerializableClassRegistry.registerClass(Topology.class);
+//        SerializableClassRegistry.registerClass(Topology.class);
         for(int j=0; j<100; ++j){
             ByteArrayOutputStream streamKryo = new ByteArrayOutputStream();
             KryoObjectOutput outKryo = new KryoObjectOutput(streamKryo);
@@ -55,7 +56,23 @@ public class KryoObjectTest {
 
             System.out.println(streamKryo.toByteArray().length + ", time " + (end1-start1)/1000 + "us");
             System.out.println(streamJava.toByteArray().length + ", time " + (end2-start2)/1000 + "us");
+            
+            
+            
         }
+        ByteArrayOutputStream streamKryo = new ByteArrayOutputStream();
+        KryoObjectOutput outKryo = new KryoObjectOutput(streamKryo);
+        ViaMethod via = ViaMethod.AVOID;
+        outKryo.writeObject(via);
+        outKryo.flushBuffer();
+        outKryo.release();
+        System.out.println(streamKryo.toByteArray().length);
+
+        
+        ByteArrayOutputStream streamJava = new ByteArrayOutputStream();
+        ObjectOutput outJava = new JavaObjectOutput(streamJava);
+        outJava.writeObject(via);
+        System.out.println(streamJava.toByteArray().length);
 
     }
 

@@ -20,7 +20,7 @@ public class CompatibleKryo extends Kryo {
             throw new IllegalArgumentException("type cannot be null.");
         }
 
-        if (!type.isArray() && !isZeroArgConstructorAvailable(type)) {
+        if (!type.isArray() && !type.isEnum() && !isZeroArgConstructorAvailable(type)) {
             if (logger.isWarnEnabled()) {
                 logger.warn(type.getName() + " has no zero-arg constructor and this will affect the serialization performance");
             }
