@@ -168,6 +168,13 @@ public class Kubernetes2Discovery {
     
     public void start(){
         while(!isDestroy()){
+            //etcd max cache window is 1000
+            long remoteMaxResourceVersion = kubernetesClient.fetchRemoteMaxResourceVersion();
+            if(kubernetesClient.getResourceVersion() > 0 && remoteMaxResourceVersion - kubernetesClient.getResourceVersion() >= 1000){
+                kubernetesClient.setResourceVersion(remoteMaxResourceVersion);
+            }
+            
+            // watch
             String selector = Constants.DEFAULT_KUBERNETES_LABEL_ROLE + "=" + Constants.PROVIDER;
             kubernetesClient.watchEndpoints(selector, new Watcher<JSONObject>(){
                 @Override
@@ -182,16 +189,17 @@ public class Kubernetes2Discovery {
                 }
 
                 @Override
-                public void exceptionCaught(KubboHttpException exception) {
-                    if(exception.getCause() instanceof IOException){
-                        retry.scale();
-                        logger.warn("Kubernetes discovery HTTP exception, will retry " + retry.interval()/1000 + " second later", exception);
-                    }
+                public void exceptionCaught(KubboHttpException exception) {                    
+                    retry.scale();
+                    logger.warn("Kubernetes discovery HTTP exception, will retry " + retry.interval()/1000 + " second later", exception);
+
                     if(retry.interval() > 0){
                         try { Thread.sleep(retry.interval()); } catch (InterruptedException e) {}
-                    }
+                    }                    
                 }
             });
+            
+            
         }
     }
     
