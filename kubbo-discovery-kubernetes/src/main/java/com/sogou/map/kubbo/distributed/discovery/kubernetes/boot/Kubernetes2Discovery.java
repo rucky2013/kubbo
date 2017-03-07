@@ -3,7 +3,6 @@
  */
 package com.sogou.map.kubbo.distributed.discovery.kubernetes.boot;
 
-import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
