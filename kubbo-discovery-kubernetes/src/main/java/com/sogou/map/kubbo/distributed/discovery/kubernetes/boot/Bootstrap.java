@@ -1,6 +1,5 @@
 package com.sogou.map.kubbo.distributed.discovery.kubernetes.boot;
 
-import com.sogou.map.kubbo.common.http.Const;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
