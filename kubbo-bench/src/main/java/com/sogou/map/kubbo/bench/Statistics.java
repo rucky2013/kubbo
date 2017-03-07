@@ -10,9 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Heavily inspired by apache ab
- * 
- * @author chenjianjx@gmail.com
- *
+ * @author liufuliang
  */
 public class Statistics {
     public static final int VFS = 25;
@@ -48,6 +46,9 @@ public class Statistics {
         this.timeTaken = timeTaken;
     }
 
+    public ExecuteState[] getExecuteStates(){
+        return this.executeStates;
+    }
 
     public void complete(long timeTaken) {
         executeStates[index.getAndIncrement()] = new ExecuteState(true, timeTaken);
@@ -175,45 +176,6 @@ public class Statistics {
         }
         sb.append(value);
         return sb.toString();
-    }
-
-
-    protected static class ExecuteState implements Comparable<ExecuteState> {
-        private boolean success;
-        private long timeTaken; //ns
-        
-        
-        
-        public ExecuteState(boolean success, long timeTaken) {
-            super();
-            this.success = success;
-            this.timeTaken = timeTaken;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public long getTimeTaken() {
-            return timeTaken;
-        }
-
-        public void setTimeTaken(long timeTaken) {
-            this.timeTaken = timeTaken;
-        }
-
-        /**
-         * sort by time taken
-         */
-        @Override
-        public int compareTo(ExecuteState o) {
-            return new Long(timeTaken).compareTo(new Long(o.getTimeTaken()));
-        }
-
     }
 
 }

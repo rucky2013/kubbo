@@ -24,7 +24,7 @@ public class BenchDemo {
                 @Override
                 public boolean execute() {
                     try{
-                        service.echo("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                        service.echo("xxxxx");
                         return true;
                     } catch(Throwable t){
                         return false;
@@ -32,7 +32,6 @@ public class BenchDemo {
                 }
             })
             .run();
-
     }
 
 }
