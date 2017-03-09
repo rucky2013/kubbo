@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;

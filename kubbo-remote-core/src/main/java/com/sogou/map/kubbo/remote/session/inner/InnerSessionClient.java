@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,13 +21,13 @@ import com.sogou.map.kubbo.remote.session.ResponseFuture;
 import com.sogou.map.kubbo.remote.transport.AbstractClientDelegate;
 
 /**
- * HeaderSessionClient
+ * InnerSessionClient
  * 
  * @author liufuliang
  */
-public class HeaderSessionClient extends AbstractClientDelegate implements SessionClient {
+public class InnerSessionClient extends AbstractClientDelegate implements SessionClient {
 
-    private static final Logger logger = LoggerFactory.getLogger( HeaderSessionClient.class );
+    private static final Logger logger = LoggerFactory.getLogger( InnerSessionClient.class );
 
     private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("KubboHeartbeat", true));
 
@@ -41,12 +41,12 @@ public class HeaderSessionClient extends AbstractClientDelegate implements Sessi
     
     private final SessionChannel sessionChannel;
 
-    public HeaderSessionClient(Client client){
+    public InnerSessionClient(Client client){
         super(client);
         if (client == null) {
             throw new IllegalArgumentException("client == NULL");
         }
-        this.sessionChannel = new HeaderSessionChannel(client);
+        this.sessionChannel = new InnerSessionChannel(client);
         this.heartbeat = client.getUrl().getParameter( Constants.HEARTBEAT_KEY, 0 );
         this.heartbeatTimeout = client.getUrl().getParameter( Constants.HEARTBEAT_TIMEOUT_KEY, heartbeat * 3 );
         if ( heartbeatTimeout < heartbeat * 2 ) {
@@ -86,7 +86,7 @@ public class HeaderSessionClient extends AbstractClientDelegate implements Sessi
             heatbeatTimer = scheduled.scheduleWithFixedDelay(
                     new HeartBeatTask( new HeartBeatTask.ChannelProvider() {
                         public Collection<Channel> getChannels() {
-                            return Collections.<Channel>singletonList( HeaderSessionClient.this );
+                            return Collections.<Channel>singletonList( InnerSessionClient.this );
                         }
                     }, heartbeat, heartbeatTimeout),
                     heartbeat, heartbeat, TimeUnit.MILLISECONDS );

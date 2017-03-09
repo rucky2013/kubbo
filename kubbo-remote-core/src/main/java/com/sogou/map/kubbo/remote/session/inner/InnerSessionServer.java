@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -25,11 +25,11 @@ import com.sogou.map.kubbo.remote.transport.AbstractServerDelegate;
 
 
 /**
- * HeaderSessionServer
+ * InnerSessionServer
  * 
  * @author liufuliang
  */
-public class HeaderSessionServer extends AbstractServerDelegate implements SessionServer {
+public class InnerSessionServer extends AbstractServerDelegate implements SessionServer {
     
     protected final Logger        logger = LoggerFactory.getLogger(getClass());
 
@@ -45,7 +45,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
     
     private volatile boolean closed = false;
 
-    public HeaderSessionServer(Server server) {
+    public InnerSessionServer(Server server) {
         super(server);
         this.heartbeat = server.getUrl().getParameter(Constants.HEARTBEAT_KEY, 0);
         this.heartbeatTimeout = server.getUrl().getParameter(Constants.HEARTBEAT_TIMEOUT_KEY, heartbeat * 3);
@@ -80,7 +80,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
             if (getUrl().getParameter(Constants.CHANNEL_SEND_READONLYEVENT_KEY, false)){
                 notifyChannelReadOnly();
             }
-            while (HeaderSessionServer.this.isRunning() 
+            while (InnerSessionServer.this.isRunning() 
                     && System.currentTimeMillis() - start < max) {
                 try {
                     Thread.sleep(10);
@@ -127,7 +127,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
         Collection<Channel> channels = getServer().getChannels();
         if (channels != null && channels.size() > 0) {
             for (Channel channel : channels) {
-                sessionChannels.add(HeaderSessionChannel.getOrAddChannel(channel));
+                sessionChannels.add(InnerSessionChannel.getOrAddChannel(channel));
             }
         }
         return sessionChannels;
@@ -135,7 +135,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
 
     public SessionChannel getSessionChannel(InetSocketAddress remoteAddress) {
         Channel channel = getServer().getChannel(remoteAddress);
-        return HeaderSessionChannel.getOrAddChannel(channel);
+        return InnerSessionChannel.getOrAddChannel(channel);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class HeaderSessionServer extends AbstractServerDelegate implements Sessi
                     new HeartBeatTask( new HeartBeatTask.ChannelProvider() {
                         public Collection<Channel> getChannels() {
                             return Collections.unmodifiableCollection(
-                                    HeaderSessionServer.this.getChannels() );
+                                    InnerSessionServer.this.getChannels() );
                         }
                     }, heartbeat, heartbeatTimeout),
                     heartbeat, heartbeat,TimeUnit.MILLISECONDS);

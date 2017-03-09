@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.rpc.protocol.kubbo;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.sogou.map.kubbo.remote.session.SessionClient;
-import com.sogou.map.kubbo.remote.session.header.AbstractSessionClientDelegate;
+import com.sogou.map.kubbo.remote.session.inner.AbstractSessionClientDelegate;
 
 /**
  * kubbo protocol support class.
