@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
@@ -14,17 +14,17 @@ import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
 
 /**
- * HeaderSessionHandler
+ * InnerSessionHandler
  * 
  * @author liufuliang
  */
-public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
+public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
 
-    protected static final Logger logger              = LoggerFactory.getLogger(HeaderSessionHandler.class);
+    protected static final Logger logger              = LoggerFactory.getLogger(InnerSessionHandler.class);
 
     private final SessionHandler handler;
 
-    public HeaderSessionHandler(SessionHandler handler){
+    public InnerSessionHandler(SessionHandler handler){
         super(handler);
         if (handler == null) {
             throw new IllegalArgumentException("handler == NULL");
@@ -34,21 +34,21 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
 
     @Override
     public void onConnected(Channel channel) throws RemotingException {
-        SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
+        SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             handler.onConnected(sessionChannel);
         } finally {
-            HeaderSessionChannel.removeChannelIfDisconnected(channel);
+            InnerSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
 
     @Override
     public void onDisconnected(Channel channel) throws RemotingException {
-        SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
+        SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             handler.onDisconnected(sessionChannel);
         } finally {
-            HeaderSessionChannel.removeChannelIfDisconnected(channel);
+            InnerSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
 
@@ -56,11 +56,11 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
     public void onSent(Channel channel, Object message) throws RemotingException {
         Throwable exception = null;
         try {
-            SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
+            SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
             try {
                 handler.onSent(sessionChannel, message);
             } finally {
-                HeaderSessionChannel.removeChannelIfDisconnected(channel);
+                InnerSessionChannel.removeChannelIfDisconnected(channel);
             }
         } catch (Throwable t) {
             exception = t;
@@ -87,7 +87,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
 
     @Override
     public void onReceived(Channel channel, Object message) throws RemotingException {
-        SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
+        SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             if (message instanceof Request) {
                 // handle request.
@@ -110,7 +110,7 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
                 handler.onReceived(sessionChannel, message);
             }
         } finally {
-            HeaderSessionChannel.removeChannelIfDisconnected(channel);
+            InnerSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
 
@@ -130,11 +130,11 @@ public class HeaderSessionHandler extends AbstractChannelHandlerDelegate {
                 }
             }
         }
-        SessionChannel sessionChannel = HeaderSessionChannel.getOrAddChannel(channel);
+        SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             handler.onExceptonCaught(sessionChannel, exception);
         } finally {
-            HeaderSessionChannel.removeChannelIfDisconnected(channel);
+            InnerSessionChannel.removeChannelIfDisconnected(channel);
         }
     }
     

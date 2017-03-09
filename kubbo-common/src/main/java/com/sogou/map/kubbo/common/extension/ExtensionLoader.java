@@ -39,9 +39,6 @@ import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
  * 
  * @author liufuliang
  *
- * @see com.sogou.map.kubbo.common.extension.SPI
- * @see com.sogou.map.kubbo.common.extension.Adaptive
- * @see com.sogou.map.kubbo.common.extension.Activate
  */
 public class ExtensionLoader<T> {
 
@@ -51,7 +48,7 @@ public class ExtensionLoader<T> {
 
     private static final String KUBBO_DIRECTORY = "META-INF/kubbo/";
     
-    private static final String KUBBO_INTERNAL_DIRECTORY = KUBBO_DIRECTORY + "internal/";
+    private static final String KUBBO_EXTENSION_DIRECTORY = KUBBO_DIRECTORY + "extension/";
 
     private static final Pattern NAME_SEPARATOR = Pattern.compile("\\s*[,]+\\s*");
     
@@ -536,7 +533,7 @@ public class ExtensionLoader<T> {
         }
         
         Map<String, Class<?>> extensionClasses = new HashMap<String, Class<?>>();
-        loadFile(extensionClasses, KUBBO_INTERNAL_DIRECTORY);
+        loadFile(extensionClasses, KUBBO_EXTENSION_DIRECTORY);
         loadFile(extensionClasses, KUBBO_DIRECTORY);
         loadFile(extensionClasses, SERVICES_DIRECTORY);
         return extensionClasses;

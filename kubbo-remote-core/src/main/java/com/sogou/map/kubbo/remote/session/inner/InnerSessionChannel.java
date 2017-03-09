@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
@@ -14,29 +14,29 @@ import com.sogou.map.kubbo.remote.transport.AbstractChannelDelegate;
 
 
 /**
- * HeaderSessionChannel
+ * InnerSessionChannel
  * 
  * @author liufuliang
  */
-final class HeaderSessionChannel extends AbstractChannelDelegate implements SessionChannel {
+final class InnerSessionChannel extends AbstractChannelDelegate implements SessionChannel {
 
-    private static final Logger logger      = LoggerFactory.getLogger(HeaderSessionChannel.class);
+    private static final Logger logger      = LoggerFactory.getLogger(InnerSessionChannel.class);
 
-    private static final String CHANNEL_KEY = HeaderSessionChannel.class.getName() + ".CHANNEL";
+    private static final String CHANNEL_KEY = InnerSessionChannel.class.getName() + ".CHANNEL";
 
     private volatile boolean    closed      = false;
 
-    HeaderSessionChannel(Channel channel){
+    InnerSessionChannel(Channel channel){
         super(channel);
     }
 
-    static HeaderSessionChannel getOrAddChannel(Channel ch) {
+    static InnerSessionChannel getOrAddChannel(Channel ch) {
         if (ch == null) {
             return null;
         }
-        HeaderSessionChannel ret = (HeaderSessionChannel) ch.getAttribute(CHANNEL_KEY);
+        InnerSessionChannel ret = (InnerSessionChannel) ch.getAttribute(CHANNEL_KEY);
         if (ret == null) {
-            ret = new HeaderSessionChannel(ch);
+            ret = new InnerSessionChannel(ch);
             if (ch.isConnected()) {
                 ch.setAttribute(CHANNEL_KEY, ret);
             }
@@ -124,7 +124,7 @@ final class HeaderSessionChannel extends AbstractChannelDelegate implements Sess
         closed = true;
         if (timeout > 0) {
             long start = System.currentTimeMillis();
-            while (InternalResponseFuture.hasFuture(HeaderSessionChannel.this) 
+            while (InternalResponseFuture.hasFuture(InnerSessionChannel.this) 
                     && System.currentTimeMillis() - start < timeout) {
                 try {
                     Thread.sleep(10);
@@ -155,7 +155,7 @@ final class HeaderSessionChannel extends AbstractChannelDelegate implements Sess
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        HeaderSessionChannel other = (HeaderSessionChannel) obj;
+        InnerSessionChannel other = (InnerSessionChannel) obj;
         if (channel == null) {
             if (other.channel != null) return false;
         } else if (!channel.equals(other.channel)) return false;

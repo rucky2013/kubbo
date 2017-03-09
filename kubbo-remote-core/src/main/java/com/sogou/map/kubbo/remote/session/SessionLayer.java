@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
 import com.sogou.map.kubbo.remote.RemotingException;
-import com.sogou.map.kubbo.remote.session.header.HeaderSessionLayer;
+import com.sogou.map.kubbo.remote.session.inner.InnerSessionLayer;
 
 /**
  * SessionLayer. (SPI, Singleton, ThreadSafe)
@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.remote.session.header.HeaderSessionLayer;
  * 
  * @author liufuliang
  */
-@SPI(HeaderSessionLayer.NAME)
+@SPI(InnerSessionLayer.NAME)
 public interface SessionLayer {
 
     /**

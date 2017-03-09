@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.RemotingException;
@@ -10,20 +10,20 @@ import com.sogou.map.kubbo.remote.session.handler.DecodeHandler;
 import com.sogou.map.kubbo.remote.transport.TransportLayers;
 
 /**
- * HeaderSessionLayer
+ * InnerSessionLayer
  * 
  * @author liufuliang
  */
-public class HeaderSessionLayer implements SessionLayer {
+public class InnerSessionLayer implements SessionLayer {
     
-    public static final String NAME = "header";
+    public static final String NAME = "inner";
 
     public SessionClient connect(URL url, SessionHandler handler) throws RemotingException {
-        return new HeaderSessionClient(TransportLayers.connect(url, new DecodeHandler(new HeaderSessionHandler(handler))));
+        return new InnerSessionClient(TransportLayers.connect(url, new DecodeHandler(new InnerSessionHandler(handler))));
     }
 
     public SessionServer bind(URL url, SessionHandler handler) throws RemotingException {
-        return new HeaderSessionServer(TransportLayers.bind(url, new DecodeHandler(new HeaderSessionHandler(handler))));
+        return new InnerSessionServer(TransportLayers.bind(url, new DecodeHandler(new InnerSessionHandler(handler))));
     }
 
 }

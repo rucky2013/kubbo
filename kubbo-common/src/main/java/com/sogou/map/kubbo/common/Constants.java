@@ -56,7 +56,7 @@ public class Constants {
 
     public static final String  DEFAULT_PROTOCOL                   = "kubbo";
 
-    public static final String  DEFAULT_SESSIONLAYER               = "header";
+    public static final String  DEFAULT_SESSIONLAYER               = "inner";
 
     public static final String  DEFAULT_TRANSPORTLAYER             = "netty4";
 

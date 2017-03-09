@@ -119,37 +119,37 @@
           </artifactSet>
           <transformers>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.common.compiler.Compiler</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.common.compiler.Compiler</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.common.threadpool.ThreadPool</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.common.threadpool.ThreadPool</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.Codec</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.remote.Codec</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.serialization.Serialization</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.remote.serialization.Serialization</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.transport.TransportLayer</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.remote.transport.TransportLayer</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.remote.session.SessionLayer</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.remote.session.SessionLayer</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.rpc.Protocol</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.rpc.Protocol</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.rpc.InvokerProxy</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.rpc.InvokerProxy</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.Discovery</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.distributed.Discovery</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.LoadBalance</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.distributed.LoadBalance</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                  <resource>META-INF/kubbo/internal/com.sogou.map.kubbo.distributed.Replication</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.distributed.Replication</resource>
             </transformer>
           </transformers>
         </configuration>

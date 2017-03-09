@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.session.header;
+package com.sogou.map.kubbo.remote.session.inner;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
