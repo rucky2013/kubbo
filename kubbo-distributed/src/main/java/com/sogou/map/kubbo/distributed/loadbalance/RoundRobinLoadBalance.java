@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.utils.AtomicPositiveInteger;
+import com.sogou.map.kubbo.common.concurrent.AtomicPositiveInteger;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.utils.RpcHelper;

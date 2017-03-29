@@ -20,11 +20,11 @@ public abstract class AbstractExporter<T> implements Exporter<T> {
 
     public AbstractExporter(Invoker<T> invoker) {
         if (invoker == null)
-            throw new IllegalStateException("service invoker == NULL");
+            throw new IllegalArgumentException("service invoker == NULL");
         if (invoker.getInterface() == null)
-            throw new IllegalStateException("service type == NULL");
+            throw new IllegalArgumentException("service type == NULL");
         if (invoker.getUrl() == null)
-            throw new IllegalStateException("service url == NULL");
+            throw new IllegalArgumentException("service url == NULL");
         this.invoker = invoker;
     }
 

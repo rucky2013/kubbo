@@ -19,9 +19,9 @@ import java.util.regex.Pattern;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.common.concurrent.ConcurrentHashSet;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ConcurrentHashSet;
 import com.sogou.map.kubbo.common.utils.Holder;
 import com.sogou.map.kubbo.common.utils.StringUtils;
 import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;

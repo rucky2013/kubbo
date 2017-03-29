@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import com.sogou.map.kubbo.common.io.Bytes;
+import com.sogou.map.kubbo.common.utils.StringUtils;
 
 /**
  * @author liufuliang
@@ -64,6 +65,11 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
             return param(key, value);
         }
         return this;
+    }
+    
+    @Override
+    public HttpRequestBuilder paramIfNotEmpty(String key, String value) {
+        return paramIf(key, value, !StringUtils.isBlank(value));
     }
     
     @Override

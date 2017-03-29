@@ -203,14 +203,11 @@ public class Kubbo {
             RpcContext.get().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
             runable.run();
         } catch (Throwable e) {
-            throw new RpcException("Oneway async call error. " + e.getMessage(), e);
+            throw new RpcException("callAsync runable error. " + e.getMessage(), e);
         } finally {
             RpcContext.get().removeAttachment(Constants.RETURN_KEY);
         }
     }
-    
-    
-    
     
     private static Protocol getProtocol(URL url) {
         String type = url.getParameter(Constants.PROTOCOL_KEY, Constants.DEFAULT_PROTOCOL);

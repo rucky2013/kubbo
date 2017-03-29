@@ -1,0 +1,1 @@
+influxdb=com.sogou.map.kubbo.metrics.influxdb.InfluxdbReporterFactory

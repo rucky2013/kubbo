@@ -92,7 +92,7 @@ public class PropertiesConfigurator{
     public static void configure(InputStream propertiesIn){
         KubboConfiguration configuration = KubboConfiguration.getInstance();
         PropertiesEnvWrapper wrapper = new PropertiesEnvWrapper();
-        wrapper.setEnvPrefix("kubbo");
+        wrapper.setEnvPrefix(Constants.DEFAULT_ENV_PREFIX);
         try {
             wrapper.wrap(propertiesIn);
         } catch (IOException e) {
@@ -110,7 +110,7 @@ public class PropertiesConfigurator{
                 configuration.setServerElement(server);
             }
         }
-        
+        wrapper.storeToSystemProperty();
         configuration.configured = true;
     }
     

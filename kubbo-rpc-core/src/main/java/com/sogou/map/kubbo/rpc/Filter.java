@@ -11,19 +11,9 @@ import com.sogou.map.kubbo.common.extension.SPI;
 public interface Filter {
 
     /**
-     * do invoke filter.
-     * </br>
-     * <pre>
-     * <code>
-     * // before filter
-     * Result result = invoker.invoke(invocation);
-     * // after filter
-     * return result;
-     * </code>
-     * </pre>
+     * invoke filter.
      * 
-     * @see com.sogou.map.kubbo.rpc.Invoker#invoke(Invocation)
-     * @param invoker service
+     * @param invoker invoker
      * @param invocation invocation.
      * @return invoke result.
      * @throws RpcException

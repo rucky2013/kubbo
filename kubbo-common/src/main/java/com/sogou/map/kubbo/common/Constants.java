@@ -13,28 +13,15 @@ public class Constants {
     public static final String  PROVIDER                           = "provider";
 
     public static final String  CONSUMER                           = "consumer";
-
-    public static final String  SUBSCRIBE                          = "subscribe";
-
-    public static final String  UNSUBSCRIBE                        = "unsubscribe";
         
     public static final String  DEFAULT_KUBERNETES_PORT_NAME       = "kubbo";
     
     public static final String  DEFAULT_KUBERNETES_LABEL_ROLE      = "kubbo/role";
 
     public static final String  DEFAULT_DISCOVERY_ETCD_ROOT        = "kubbo";
-
     
-
-    public static final String  ENABLED_KEY                        = "enabled";
-
-    public static final String  DISABLED_KEY                       = "disabled";
-
-    public static final String  VALIDATION_KEY                     = "validation";
-
-    public static final String  CACHE_KEY                          = "cache";
-
-    public static final String  DYNAMIC_KEY                        = "dynamic";
+    public static final String  DEFAULT_ENV_PREFIX                 = "kubbo";    
+    
     
     public static final String  $INVOKE                            = "$invoke";
 
@@ -46,8 +33,9 @@ public class Constants {
 
 
 
-
-
+    /*
+     * default extensions
+     */
     public static final String  DEFAULT_PROXY                      = "jdk";
 
     public static final String  DEFAULT_REPLICATION                = "failover";
@@ -63,8 +51,11 @@ public class Constants {
     public static final String  DEFAULT_REMOTE_CODEC               = "kubbo";
 
     public static final String  DEFAULT_REMOTE_SERIALIZATION       = "kryo";
+    
+    public static final String  DEFAULT_METRICES                   = "influxdb";
 
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
+   
 
     /*
      * threadpool
@@ -151,17 +142,11 @@ public class Constants {
 
     public static final String  LOADBALANCE_KEY                    = "loadbalance";
 
-    public static final String  MONITOR_KEY                        = "monitor";
-
     public static final String  SIDE_KEY                           = "side";
 
     public static final String  PROVIDER_SIDE                      = "provider";
 
     public static final String  CONSUMER_SIDE                      = "consumer";
-
-    public static final String  DIRECTORY_KEY                      = "directory";
-
-    public static final String  DEPRECATED_KEY                     = "deprecated";
 
     public static final String  ANYHOST_KEY                        = "anyhost";
 
@@ -175,16 +160,11 @@ public class Constants {
 
     public static final String  LOCAL_KEY                          = "local";
 
-    public static final String  STUB_KEY                           = "stub";
-
-    public static final String  MOCK_KEY                           = "mock";
-
     public static final String  PROTOCOL_KEY                       = "protocol";
 
     public static final String  PROXY_KEY                          = "proxy";
 
     public static final String  WEIGHT_KEY                         = "weight";
-       
 
     public static final String  EXECUTES_KEY                       = "executes";
 
@@ -194,15 +174,9 @@ public class Constants {
 
     public static final String  FILTER_KEY                         = "filter";
 
-    //public static final String  REFERENCE_FILTER_KEY               = "reference.filter";
-
     public static final String  INVOKER_LISTENER_KEY               = "invoker.listener";
 
-    //public static final String  SERVICE_FILTER_KEY                 = "service.filter";
-
     public static final String  EXPORTER_LISTENER_KEY              = "exporter.listener";
-
-    public static final String  ACCESS_LOG_KEY                     = "accesslog";
 
     public static final String  ACTIVES_KEY                        = "actives";
 
@@ -222,11 +196,13 @@ public class Constants {
 
     public static final String  RETRY_KEY                          = "retry";
 
-    public static final String  PROMPT_KEY                         = "prompt";
-
-    public static final String  DEFAULT_PROMPT                     = "kubbo>";
-
     public static final String  CODEC_KEY                          = "codec";
+    
+    public static final String  METRICS_KEY                        = "metrics";
+
+    public static final String  METRICS_APPLICATION_KEY            = "application";
+
+    public static final String  METRICS_INTERVAL_KEY               = "interval";
 
     public static final String  SERIALIZATION_KEY                  = "serialization";
 
@@ -270,8 +246,6 @@ public class Constants {
 
     public static final String  CHECK_KEY                          = "check";
 
-    public static final String  SUBSCRIBE_KEY                      = "subscribe";
-
     public static final String  GROUP_KEY                          = "group";
 
     public static final String  PATH_KEY                           = "path";
@@ -304,19 +278,9 @@ public class Constants {
 
     public final static String  PATH_SEPARATOR                     = "/";
 
-    public static final String  REGISTRY_SEPARATOR                 = "|";
-
-    public static final Pattern REGISTRY_SPLIT_PATTERN             = Pattern.compile("\\s*[|;]+\\s*");
-
     public static final String  SEMICOLON_SEPARATOR                = ";";
 
     public static final Pattern SEMICOLON_SPLIT_PATTERN            = Pattern.compile("\\s*[;]+\\s*");
-
-    public static final String  CONNECT_QUEUE_CAPACITY             = "connect.queue.capacity";
-
-    public static final String  CONNECT_QUEUE_WARNING_SIZE         = "connect.queue.warning.size";
-
-    public static final int     DEFAULT_CONNECT_QUEUE_WARNING_SIZE = 1000;
     
     
     //channel.readonly
@@ -326,126 +290,14 @@ public class Constants {
 
     public static final String  CHANNEL_SEND_READONLYEVENT_KEY     = "channel.readonly.send";
 
-    public static final String  COUNT_PROTOCOL                     = "count";
-
-    public static final String  TRACE_PROTOCOL                     = "trace";
-
-    public static final String  EMPTY_PROTOCOL                     = "empty";
-
-    public static final String  ADMIN_PROTOCOL                     = "admin";
-
-    public static final String  PROVIDER_PROTOCOL                  = "provider";
-
-    public static final String  CONSUMER_PROTOCOL                  = "consumer";
-
-    public static final String  ROUTE_PROTOCOL                     = "route";
-
-    public static final String  SCRIPT_PROTOCOL                    = "script";
-
-    public static final String  CONDITION_PROTOCOL                 = "condition";
-
-    public static final String  MOCK_PROTOCOL                      = "mock";
-
-    public static final String  RETURN_PREFIX                      = "return ";
-
-    public static final String  THROW_PREFIX                       = "throw";
-
-    public static final String  FAIL_PREFIX                        = "fail:";
-
-    public static final String  FORCE_PREFIX                       = "force:";
-
-    public static final String  FORCE_KEY                          = "force";
-
-    public static final String  MERGER_KEY                         = "merger";
-
-
-    /**
-     * callback inst id
-     */
-    public static final String  CALLBACK_SERVICE_KEY               = "callback.service.instid";
-
-    /**
-     * 每个客户端同一个接口 callback服务实例的限制
-     */
-    public static final String  CALLBACK_INSTANCES_LIMIT_KEY       = "callbacks";
-
-    /**
-     * 每个客户端同一个接口 callback服务实例的限制
-     */
-    public static final int     DEFAULT_CALLBACK_INSTANCES         = 1;
-
-    public static final String  CALLBACK_SERVICE_PROXY_KEY         = "callback.service.proxy";
-
-    public static final String  IS_CALLBACK_SERVICE                = "is_callback_service";
-
-    /**
-     * channel中callback的invokers
-     */
-    public static final String  CHANNEL_CALLBACK_KEY               = "channel.callback.invokers.key";
-
     public static final String  SHUTDOWN_WAIT_KEY                  = "kubbo.shutdown.wait";
-
-    public static final String  IS_SERVER_KEY                      = "isserver";
 
     /**
      * 默认值毫秒，避免重新计算.
      */
     public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT    = 10000;
-
-    public static final String  ON_CONNECT_KEY                     = "onconnect";
-
-    public static final String  ON_DISCONNECT_KEY                  = "ondisconnect";
-
-    public static final String  ON_INVOKE_METHOD_KEY               = "oninvoke.method";
-
-    public static final String  ON_RETURN_METHOD_KEY               = "onreturn.method";
-
-    public static final String  ON_THROW_METHOD_KEY                = "onthrow.method";
-
-    public static final String  ON_INVOKE_INSTANCE_KEY             = "oninvoke.instance";
-
-    public static final String  ON_RETURN_INSTANCE_KEY             = "onreturn.instance";
-
-    public static final String  ON_THROW_INSTANCE_KEY              = "onthrow.instance";
-
-    public static final String  OVERRIDE_PROTOCOL                  = "override";
-
-    public static final String  PRIORITY_KEY                       = "priority";
     
-    public static final String  RULE_KEY                           = "rule";
-
-    public static final String  TYPE_KEY                           = "type";
-
-    public static final String  RUNTIME_KEY                        = "runtime";
-
-    // when ROUTER_KEY's value is set to ROUTER_TYPE_CLEAR, RegistryDirectory will clean all current routers
-    public static final String  ROUTER_TYPE_CLEAR                  = "clean";
-
-    public static final String  DEFAULT_SCRIPT_TYPE_KEY            = "javascript";
-
-
-    //invocation attachment属性中如果有此值，则选择mock invoker
-    public static final String  INVOCATION_NEED_MOCK               = "invocation.need.mock";
-
-    public static final String LOCAL_PROTOCOL                      = "injvm";
-
     public static final String AUTO_ATTACH_INVOCATIONID_KEY 	   = "invocation.id.autoattach";
-    
-    public static final String SCOPE_KEY						   = "scope";
-    
-    public static final String SCOPE_LOCAL						   = "local";
-    
-    public static final String SCOPE_REMOTE						   = "remote";
-    
-    public static final String SCOPE_NONE						   = "none";
-    
-    public static final String RELIABLE_PROTOCOL				   = "napoli";
-    
-    public static final String TPS_LIMIT_RATE_KEY                  = "tps";
-
-    public static final String TPS_LIMIT_INTERVAL_KEY              = "tps.interval";
-
-    public static final long DEFAULT_TPS_LIMIT_INTERVAL            = 60 * 1000;
 
     public static final String DECODE_IN_IO_THREAD_KEY             = "decode.in.io";
 
@@ -475,7 +327,14 @@ public class Constants {
 
     public static final String DEFAULT_KUBBO_CONFIGURATION          = "kubbo.properties";
 
+    public static final String METRICS_ADDRESS_SYSTEM_PROPERTY      = "kubbo.metrics.address";
     
+    /*
+     * metrics
+     */
+    public static final int  DEFAULT_METRICS_INTERVAL              = 60 * 1000;
+
+
 
     private Constants(){ }     
 }

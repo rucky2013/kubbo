@@ -33,6 +33,25 @@ public final class SystemPropertyUtils {
     public static String get(String key) {
         return get(key, null);
     }
+    
+    
+    public static void set(final String key, final String value){
+        //system proprerty
+        try {
+            if (System.getSecurityManager() == null) {
+                System.setProperty(key, value);
+            } else {
+                AccessController.doPrivileged(new PrivilegedAction<String>() {
+                    @Override
+                    public String run() {
+                        return System.setProperty(key, value);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            logger.warn(String.format("Unable to set system property '{}'.", key), e);
+        }
+    }
 
     /**
      * Returns the value of the Java system property with the specified

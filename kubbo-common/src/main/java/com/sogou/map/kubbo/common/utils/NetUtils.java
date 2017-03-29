@@ -181,6 +181,11 @@ public class NetUtils {
         return address == null ? LOCALHOST : address.getHostAddress();
     }
     
+    public static String getHostName(){
+        InetAddress address = LOCAL_ADDRESS;
+        return address == null ? ANYHOST : address.getHostName();
+    }
+    
     private static InetAddress getLocalAddress0() {
         InetAddress localAddress = null;
         try {
@@ -263,7 +268,8 @@ public class NetUtils {
     }
     
     public static void main(String[] args){
-        NetUtils.getLocalAddress0();
+        System.out.println(NetUtils.LOCAL_ADDRESS.getHostAddress());
+        System.out.println(NetUtils.LOCAL_ADDRESS.getHostName());
         
         
     }

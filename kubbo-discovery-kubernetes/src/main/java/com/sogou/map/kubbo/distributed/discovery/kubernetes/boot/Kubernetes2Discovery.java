@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.common.json.JSONObject;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.impl.CachedThreadPool;
-import com.sogou.map.kubbo.common.utils.ExecutorUtil;
+import com.sogou.map.kubbo.common.utils.ExecutorUtils;
 import com.sogou.map.kubbo.common.utils.ProgressiveRetryState;
 import com.sogou.map.kubbo.distributed.discovery.kubernetes.client.EtcdClient;
 import com.sogou.map.kubbo.distributed.discovery.kubernetes.client.EtcdOprationException;
@@ -204,7 +204,7 @@ public class Kubernetes2Discovery {
     
     public void stop(){
         this.destroy = true;
-        ExecutorUtil.shutdownNow(workLoop, 2000);
+        ExecutorUtils.shutdownNow(workLoop, 2000);
     }
     
     public boolean isDestroy(){

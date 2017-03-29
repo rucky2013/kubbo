@@ -14,8 +14,8 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
  * @author liufuliang
  *
  */
-public class ExecutorUtil {
-    private static final Logger logger = LoggerFactory.getLogger(ExecutorUtil.class);
+public class ExecutorUtils {
+    private static final Logger logger = LoggerFactory.getLogger(ExecutorUtils.class);
     private static final ThreadPoolExecutor shutdownExecutor = new ThreadPoolExecutor(0, 1,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<Runnable>(100),

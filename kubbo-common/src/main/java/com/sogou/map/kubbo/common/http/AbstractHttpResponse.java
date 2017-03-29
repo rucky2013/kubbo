@@ -70,6 +70,7 @@ public abstract class AbstractHttpResponse implements HttpResponse{
      * first (check header values) and then have a short exit where the
      * response-code is not suitable for further normal processing.
      */
+    @Override
     public AbstractHttpResponse success() throws KubboHttpException {
         if (!isSuccess()) {
             throw new KubboHttpException("Request failed: " + statusCode + " "
@@ -99,7 +100,7 @@ public abstract class AbstractHttpResponse implements HttpResponse{
                 result = (T) responseBody;
             } else if (type == JSONObject.class) {
                 String json = new String(responseBody, Const.UTF8);
-                result = (T) new JSONObject(json);	
+                return json.isEmpty() ? (T) new JSONObject() : (T) new JSONObject(json); 
             } else if (type == JSONArray.class) {
                 String json = new String(responseBody, Const.UTF8);
                 result = (T) new JSONArray(json);

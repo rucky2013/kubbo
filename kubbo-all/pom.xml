@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.4-SNAPSHOT</version>
+	<version>0.4</version>
   </parent>
   
   <artifactId>kubbo-all</artifactId>
@@ -56,7 +56,17 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>kubbo-bench</artifactId>
       <version>${project.version}</version>
-    </dependency>     
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-metrics-core</artifactId>
+      <version>${project.version}</version>
+    </dependency> 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-metrics-influxdb</artifactId>
+      <version>${project.version}</version>
+    </dependency>    
   </dependencies>
   
   <build>
@@ -109,6 +119,8 @@
               <include>com.sogou.map:kubbo-discovery-kubernetes</include>
               <include>com.sogou.map:kubbo-boot</include>
               <include>com.sogou.map:kubbo-bench</include>
+              <include>com.sogou.map:kubbo-metrics-core</include>
+              <include>com.sogou.map:kubbo-metrics-influxdb</include>
               <include>org.javassist:javassist</include>
               <!--kryo-->
               <include>com.esotericsoftware:*</include>
@@ -151,6 +163,12 @@
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                 <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.distributed.Replication</resource>
             </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.metrics.ReporterFactory</resource>
+            </transformer>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.rpc.Filter</resource>
+            </transformer>
           </transformers>
         </configuration>
       </plugin>
@@ -170,6 +188,8 @@
             <dependencySourceInclude>com.sogou.map:kubbo-discovery-kubernetes</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-boot</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-bench</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-metrics-core</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-metrics-influxdb</dependencySourceInclude>
           </dependencySourceIncludes>
         </configuration>
       </plugin>

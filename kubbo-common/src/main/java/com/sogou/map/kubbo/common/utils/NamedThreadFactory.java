@@ -25,7 +25,7 @@ public class NamedThreadFactory implements ThreadFactory{
     }
 
     public NamedThreadFactory(String prefix){
-        this(prefix,false);
+        this(prefix, false);
     }
 
     public NamedThreadFactory(String prefix, boolean daemo){

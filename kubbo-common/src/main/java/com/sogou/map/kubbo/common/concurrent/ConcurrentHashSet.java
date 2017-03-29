@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.common.utils;
+package com.sogou.map.kubbo.common.concurrent;
 
 import java.util.AbstractSet;
 import java.util.ConcurrentModificationException;
