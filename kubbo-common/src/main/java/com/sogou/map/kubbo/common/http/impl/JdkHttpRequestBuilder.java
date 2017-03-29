@@ -52,7 +52,7 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
     protected HttpResponse doExecute() throws IOException {
         //query params
         String url = JdkHttpRequestBuilder.this.url;
-        if (! Method.isBodyAble(method) && hasParams()) {
+        if ( (!Method.isBodyAble(method) || hasBody()) && hasParams()) {
             url += (url.contains("?") ? "&" : "?") + Https.toQueryString(params);
         }
         //connection
@@ -111,7 +111,7 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
     
     private void writeBody(HttpURLConnection connection, Object body) throws IOException {
         byte[] requestBody = null;
-        if (hasParams()) {
+        if (hasParams() && ! hasBody()) {
             connection.setRequestProperty(Const.HDR_CONTENT_TYPE, Const.APP_FORM);
             requestBody = Https.toQueryString(params).getBytes(Const.UTF8);
         } else if (! hasBody()) {

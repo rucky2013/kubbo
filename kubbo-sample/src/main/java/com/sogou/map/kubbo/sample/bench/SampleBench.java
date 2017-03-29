@@ -19,7 +19,7 @@ public class SampleBench {
      */
     public static void main(String[] args) {
         int concurrency = 10;
-        int total = 100;
+        int total = 1000;
         if(args.length > 0){
             concurrency = Integer.parseInt(args[0]);
         }

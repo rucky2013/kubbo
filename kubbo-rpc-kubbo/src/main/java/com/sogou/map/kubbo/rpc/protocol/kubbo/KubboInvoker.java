@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.utils.AtomicPositiveInteger;
+import com.sogou.map.kubbo.common.concurrent.AtomicPositiveInteger;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.TimeoutException;
 import com.sogou.map.kubbo.remote.session.SessionClient;

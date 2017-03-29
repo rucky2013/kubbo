@@ -22,7 +22,7 @@ public interface Attributable {
      * @param key key.
      * @param value value.
      */
-    void setAttribute(String key,Object value);
+    void setAttribute(String key, Object value);
     
     /**
      * get attribute.

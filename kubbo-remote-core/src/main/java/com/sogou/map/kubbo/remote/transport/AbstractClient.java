@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ExecutorUtil;
+import com.sogou.map.kubbo.common.utils.ExecutorUtils;
 import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
 import com.sogou.map.kubbo.common.utils.NetUtils;
 import com.sogou.map.kubbo.common.utils.StringUtils;
@@ -97,7 +97,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
     }
 
     protected static ChannelHandler wrapChannelHandler(URL url, ChannelHandler handler) {
-        url = ExecutorUtil.setThreadName(url, CLIENT_THREAD_POOL_NAME);
+        url = ExecutorUtils.setThreadName(url, CLIENT_THREAD_POOL_NAME);
         url = url.addParameterIfAbsent(Constants.THREADPOOL_KEY, Constants.DEFAULT_CLIENT_THREADPOOL);
         return ChannelHandlers.wrap(handler, url);
     }
@@ -301,7 +301,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
         // close thread pool
         try {
             if (executor != null) {
-                ExecutorUtil.shutdownNow(executor, 100);
+                ExecutorUtils.shutdownNow(executor, 100);
             }
         } catch (Throwable e) {
             logger.warn(e.getMessage(), e);
@@ -331,7 +331,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     @Override
     public void close(int timeout) {
-        ExecutorUtil.shutdownGracefully(executor, timeout);
+        ExecutorUtils.shutdownGracefully(executor, timeout);
         close();
     }
 

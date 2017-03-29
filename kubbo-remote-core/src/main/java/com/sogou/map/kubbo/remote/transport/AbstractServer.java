@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ExecutorUtil;
+import com.sogou.map.kubbo.common.utils.ExecutorUtils;
 import com.sogou.map.kubbo.common.utils.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
@@ -64,7 +64,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     }
 
     protected static ChannelHandler wrapChannelHandler(URL url, ChannelHandler handler){
-        url = ExecutorUtil.setThreadName(url, SERVER_THREAD_POOL_NAME);
+        url = ExecutorUtils.setThreadName(url, SERVER_THREAD_POOL_NAME);
         url = url.addParameterIfAbsent(Constants.THREADPOOL_KEY, Constants.DEFAULT_SERVER_THREADPOOL);
         return ChannelHandlers.wrap(handler, url);
     }
@@ -141,7 +141,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
         if (logger.isInfoEnabled()) {
             logger.info("Close " + getClass().getSimpleName() + " bind " + getBindAddress());
         }
-        ExecutorUtil.shutdownNow(executor ,100);
+        ExecutorUtils.shutdownNow(executor ,100);
         try {
             super.close();
         } catch (Throwable e) {
@@ -158,7 +158,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     
     @Override
     public void close(int timeout) {
-        ExecutorUtil.shutdownGracefully(executor ,timeout);
+        ExecutorUtils.shutdownGracefully(executor ,timeout);
         close();
     }
 

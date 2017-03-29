@@ -9,7 +9,7 @@
 
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-parent</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.4</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>The parent project of kubbo</description>
@@ -25,6 +25,8 @@
     <module>kubbo-boot</module>
     <module>kubbo-all</module>
     <module>kubbo-bench</module>
+    <module>kubbo-metrics-core</module>
+    <module>kubbo-metrics-influxdb</module>
   </modules>
 
   <properties>
@@ -42,8 +44,7 @@
     <log4j2_version>2.7</log4j2_version>
     <!-- Test libs -->
     <junit_version>4.12</junit_version>
-    <easymock_version>3.0</easymock_version>
-    <jmockit_version>0.999.8</jmockit_version>
+    <jmockit_version>1.31</jmockit_version>
   </properties>
 
   <dependencyManagement>
@@ -103,21 +104,9 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.easymock</groupId>
-        <artifactId>easymock</artifactId>
-        <version>${easymock_version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.googlecode.jmockit</groupId>
+        <groupId>org.jmockit</groupId>
         <artifactId>jmockit</artifactId>
         <version>${jmockit_version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.easymock</groupId>
-        <artifactId>easymockclassextension</artifactId>
-        <version>${easymock_version}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
@@ -128,18 +117,10 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
     </dependency>
-    <!--<dependency>
-        <groupId>org.easymock</groupId>
-        <artifactId>easymock</artifactId>
-    </dependency>
     <dependency>
-        <groupId>org.easymock</groupId>
-        <artifactId>easymockclassextension</artifactId>
-    </dependency>
-        <dependency>
-        <groupId>com.googlecode.jmockit</groupId>
+        <groupId>org.jmockit</groupId>
         <artifactId>jmockit</artifactId>
-    </dependency>-->
+    </dependency>
   </dependencies>
 
   <profiles>

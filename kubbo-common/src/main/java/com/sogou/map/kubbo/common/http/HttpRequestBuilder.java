@@ -29,7 +29,6 @@ public interface HttpRequestBuilder {
      */
     HttpRequestBuilder param(String key, String value);
     
-    
     /**
      * Add a query key/value pair to the URL
      *
@@ -40,6 +39,16 @@ public interface HttpRequestBuilder {
      */
     HttpRequestBuilder paramIf(String key, String value, boolean condition);
 
+    
+    /**
+     * Add a query key/value pair to the URL
+     *
+     * @param key A key
+     * @param value A value
+     * @return this
+     */
+    HttpRequestBuilder paramIfNotEmpty(String key, String value);
+    
     /**
      * Set basic auth credentials
      *

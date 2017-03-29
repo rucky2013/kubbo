@@ -16,6 +16,6 @@ public enum Method {
 
 
     public static boolean isBodyAble(Method method){
-        return method == PUT || PUT == POST;
+        return method == PUT || method == POST;
     }
 }

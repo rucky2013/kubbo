@@ -3,6 +3,7 @@ package com.sogou.map.kubbo.boot.configuration;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
 
@@ -33,6 +34,25 @@ public class PropertiesEnvWrapper {
         properties = new Properties();
         properties.load(propertiesIn);
     }
+    
+    /**
+     * set system properties
+     */
+    public void storeToSystemProperty(){
+        Enumeration<Object> keys = properties.keys();
+        while(keys.hasMoreElements()){
+            String key = (String) keys.nextElement();
+            String value = properties.getProperty(key);
+            if(!getEnvPrefix().isEmpty()){
+                key = getEnvPrefix().toLowerCase() + "." + key;
+            }
+            if(SystemPropertyUtils.contains(key)){
+                continue;
+            }
+            SystemPropertyUtils.set(key, value);
+        }
+    }
+    
     private String getEnvConfiguration(String key){
         String envKey = key.toUpperCase().replaceAll("[^0-9A-Z]", "_");
         if(!getEnvPrefix().isEmpty()){

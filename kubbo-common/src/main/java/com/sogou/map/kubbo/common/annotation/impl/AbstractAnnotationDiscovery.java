@@ -4,6 +4,7 @@
 package com.sogou.map.kubbo.common.annotation.impl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -61,9 +62,13 @@ public abstract class AbstractAnnotationDiscovery implements AnnotationDiscovery
     public void discover() throws IOException {
         URL[] resources = findResources();		
         for (URL resource : resources) {
-            ResourceIterator iterator = getResourceIterator(resource, new PackageFilter());
-            if (iterator != null) {
-                doDiscover(iterator);
+            try{
+                ResourceIterator iterator = getResourceIterator(resource, new PackageFilter());
+                if (iterator != null) {
+                    doDiscover(iterator);
+                }
+            } catch(FileNotFoundException e){
+                continue;
             }
         }
     }
