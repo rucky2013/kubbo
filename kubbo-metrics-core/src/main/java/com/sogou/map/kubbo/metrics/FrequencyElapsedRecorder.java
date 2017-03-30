@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.common.AbstractAttributable;
  * @author liufuliang
  *
  */
-public class FrequencyElapsedRecorder extends AbstractAttributable implements Metric {
+public class FrequencyElapsedRecorder extends AbstractAttributable<String> implements Metric {
     Counter frequency;
     Counter elapsed;
     

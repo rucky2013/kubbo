@@ -3,11 +3,13 @@
  */
 package com.sogou.map.kubbo.common;
 
+import java.util.Map;
+
 /**
  * @author liufuliang
  *
  */
-public interface Attributable {
+public interface Attributable<T> {
     /**
      * has attribute.
      * 
@@ -22,7 +24,7 @@ public interface Attributable {
      * @param key key.
      * @param value value.
      */
-    void setAttribute(String key, Object value);
+    void setAttribute(String key, T value);
     
     /**
      * get attribute.
@@ -30,7 +32,25 @@ public interface Attributable {
      * @param key key.
      * @return value.
      */
-    Object getAttribute(String key);
+    T getAttribute(String key);
+    
+    
+    /**
+     * get attribute.
+     * 
+     * @param key key.
+     * @param defaultValue default value
+     * @return value.
+     */
+    T getAttribute(String key, T defaultValue);
+    
+    
+    /**
+     * get attributes.
+     *
+     * @return attributes.
+     */
+    Map<String, T> getAttributes();
     
     /**
      * remove attribute.

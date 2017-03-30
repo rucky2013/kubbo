@@ -132,9 +132,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
             invocation.setAttachment(Constants.ASYNC_KEY, "true");
         }
         
-        
         RpcHelper.attachInvocationIdIfAsync(getUrl(), invocation);
-        
         
         try {
             return doInvoke(invocation);

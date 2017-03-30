@@ -15,7 +15,7 @@ import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
 
 /**
- * AbstractPeer
+ * AbstractEndpoint
  * 
  * @author liufuliang
  */
@@ -120,7 +120,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
 
     @Override
     public void setAttribute(String key, Object value) {
-        if (value == null) { // The null value unallowed in the ConcurrentHashMap.
+        if (value == null) {
             attributes.remove(key);
         } else {
             attributes.put(key, value);
@@ -135,5 +135,22 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     @Override
     public void removeAttributes(){
         attributes.clear();
+    }
+    
+    @Override
+    public Object getAttribute(String key, Object defaultValue) {
+        if (attributes == null) {
+            return defaultValue;
+        }
+        Object value = attributes.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 }

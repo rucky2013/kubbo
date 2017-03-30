@@ -5,6 +5,7 @@ package com.sogou.map.kubbo.remote.transport;
 
 import java.net.InetSocketAddress;
 
+import com.sogou.map.kubbo.common.AbstractAttributableDelegate;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Endpoint;
@@ -16,13 +17,14 @@ import com.sogou.map.kubbo.remote.RemotingException;
  * @author liufuliang
  *
  */
-public class AbstractEndpointDelegate implements EndpointDelegate{
+public class AbstractEndpointDelegate extends AbstractAttributableDelegate<Object> implements EndpointDelegate{
     protected transient Endpoint endpoint;
     
     public AbstractEndpointDelegate() {
     }
 
     public AbstractEndpointDelegate(Endpoint endpoint){
+        super(endpoint);
         if (endpoint == null) {
             throw new IllegalArgumentException("endpoint == NULL");
         }
@@ -70,31 +72,4 @@ public class AbstractEndpointDelegate implements EndpointDelegate{
     public boolean isClosed() {
         return endpoint.isClosed();
     }
-
-    @Override
-    public boolean hasAttribute(String key) {
-        return endpoint.hasAttribute(key);
-    }
-
-    @Override
-    public Object getAttribute(String key) {
-        return endpoint.getAttribute(key);
-    }
-
-    @Override
-    public void setAttribute(String key, Object value) {
-        endpoint.setAttribute(key, value);
-        
-    }
-
-    @Override
-    public void removeAttribute(String key) {
-        endpoint.removeAttribute(key);		
-    }
-
-    @Override
-    public void removeAttributes() {
-        endpoint.removeAttributes();		
-    }
-
 }
