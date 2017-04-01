@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.session;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 
 /**
  * Request.

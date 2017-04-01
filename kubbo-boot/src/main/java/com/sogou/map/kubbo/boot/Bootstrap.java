@@ -48,8 +48,8 @@ public class Bootstrap {
     
     private void scanResources() throws IOException{
         logger.info("Scanning for Export And Hook classes in the CLASSPATH");
-        services = new ArrayList<String>();
-        hooks = new ArrayList<String>();
+        services = new ArrayList<String>(3);
+        hooks = new ArrayList<String>(3);
         AnnotationDiscovery discovery = getAnnotationDiscovery();
         discovery.addListener(new ClassAnnotationDiscoveryListener() {
             @Override

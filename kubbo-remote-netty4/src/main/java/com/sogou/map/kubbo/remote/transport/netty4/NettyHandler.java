@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.utils.NetUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 

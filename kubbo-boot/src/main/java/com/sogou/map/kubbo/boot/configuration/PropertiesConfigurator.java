@@ -14,8 +14,8 @@ import com.sogou.map.kubbo.boot.configuration.element.ServerElement;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.StringUtils;
-import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
+import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 
 /**

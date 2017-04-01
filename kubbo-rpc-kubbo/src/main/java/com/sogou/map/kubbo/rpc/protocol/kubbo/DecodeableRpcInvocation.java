@@ -6,8 +6,8 @@ import java.util.Map;
 
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ReflectUtils;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.ReflectUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Decodeable;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;

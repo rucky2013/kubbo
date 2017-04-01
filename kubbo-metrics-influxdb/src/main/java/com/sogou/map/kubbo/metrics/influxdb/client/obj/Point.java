@@ -207,7 +207,7 @@ public class Point {
     public Map<String, Object> getFields() {
         return fields;
     }
-
+    
     /**
      * calculate the lineprotocol entry for a single Point.
      *

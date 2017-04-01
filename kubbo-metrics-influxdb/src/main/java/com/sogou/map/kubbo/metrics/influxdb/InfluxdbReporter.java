@@ -120,9 +120,10 @@ public final class InfluxdbReporter extends ScheduledReporter {
     private Point buildFrequencyElapsedRecorderPoint(long now, FrequencyElapsedRecorder recorder){
         long frequency = recorder.frequency();
         long elapsed = recorder.elapsed();
-        if(recorder.frequency() == 0){
+        if(frequency == 0){
             return null;
         }
+        
         String measurement = recorder.getAttribute(Metric.MEASUREMENT_KEY);
         String tagMethod =  recorder.getAttribute(Metric.TAG_METHOD);
         

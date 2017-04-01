@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.concurrent.ConcurrentHashSet;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
+import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Protocol;

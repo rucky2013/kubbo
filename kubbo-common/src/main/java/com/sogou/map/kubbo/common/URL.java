@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.sogou.map.kubbo.common.utils.NetUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
 
 /**
  * URL - Uniform Resource Locator (Immutable, ThreadSafe)

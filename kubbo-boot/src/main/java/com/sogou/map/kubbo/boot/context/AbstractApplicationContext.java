@@ -5,7 +5,7 @@ package com.sogou.map.kubbo.boot.context;
 
 import com.sogou.map.kubbo.common.AbstractAttributable;
 import com.sogou.map.kubbo.common.Constants;
-import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
+import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 /**
  * @author fuliangliu

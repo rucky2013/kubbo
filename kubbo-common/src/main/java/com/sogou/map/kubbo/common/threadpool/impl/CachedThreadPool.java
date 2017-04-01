@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.threadpool.AbortPolicyWithReport;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * 此线程池可伸缩，线程空闲一分钟后回收，新请求重新创建线程，来源于：<code>Executors.newCachedThreadPool()</code>

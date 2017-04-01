@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.threadpool.AbortPolicyWithReport;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * 此线程池一直增长，直到上限，增长后不收缩。

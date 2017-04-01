@@ -16,7 +16,7 @@ import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.ExtensionLoader;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.InvokerProxy;
 import com.sogou.map.kubbo.rpc.Protocol;

@@ -7,7 +7,7 @@ import com.sogou.map.kubbo.common.http.AbstractHttpClient;
 import com.sogou.map.kubbo.common.http.Const;
 import com.sogou.map.kubbo.common.http.HttpRequestBuilder;
 import com.sogou.map.kubbo.common.http.Method;
-import com.sogou.map.kubbo.common.utils.PlatformDependent;
+import com.sogou.map.kubbo.common.util.PlatformDependent;
 
 /**
  * @author liufuliang

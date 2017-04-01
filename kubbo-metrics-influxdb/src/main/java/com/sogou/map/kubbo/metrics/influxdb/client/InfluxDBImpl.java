@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.http.impl.JdkHttpClient;
 import com.sogou.map.kubbo.common.json.JSONObject;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.metrics.influxdb.client.obj.BatchPoints;
 import com.sogou.map.kubbo.metrics.influxdb.client.obj.Pong;
 import com.sogou.map.kubbo.metrics.influxdb.client.obj.Query;

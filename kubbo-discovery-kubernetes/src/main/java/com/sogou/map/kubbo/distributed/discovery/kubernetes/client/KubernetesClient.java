@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.http.KubboHttpException;
 import com.sogou.map.kubbo.common.http.Watcher;
 import com.sogou.map.kubbo.common.http.impl.JdkHttpClient;
 import com.sogou.map.kubbo.common.json.JSONObject;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 
 /**
  * @author liufuliang

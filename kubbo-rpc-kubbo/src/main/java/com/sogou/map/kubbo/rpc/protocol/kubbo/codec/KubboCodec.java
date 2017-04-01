@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.Version;
-import com.sogou.map.kubbo.common.utils.ReflectUtils;
+import com.sogou.map.kubbo.common.util.ReflectUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Codec;
 import com.sogou.map.kubbo.remote.buffer.ChannelBuffer;

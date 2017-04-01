@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.common.utils;
+package com.sogou.map.kubbo.common.util;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

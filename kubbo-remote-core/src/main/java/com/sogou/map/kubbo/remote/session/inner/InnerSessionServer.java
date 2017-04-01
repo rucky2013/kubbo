@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.Server;
@@ -31,7 +31,7 @@ import com.sogou.map.kubbo.remote.transport.AbstractServerDelegate;
  */
 public class InnerSessionServer extends AbstractServerDelegate implements SessionServer {
     
-    protected final Logger        logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1, new NamedThreadFactory( "KubboHeartbeat", true));
 
@@ -39,9 +39,9 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
     private ScheduledFuture<?> heatbeatTimer;
 
     // 心跳超时，毫秒。缺省0，不会执行心跳。
-    private int                            heartbeat;
+    private int heartbeat;
 
-    private int                            heartbeatTimeout;
+    private int heartbeatTimeout;
     
     private volatile boolean closed = false;
 
@@ -54,7 +54,6 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
         }
         startHeatbeatTimer();
     }
-
     
     private boolean isRunning() {
         Collection<Channel> channels = getChannels();
