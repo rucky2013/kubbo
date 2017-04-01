@@ -1,6 +1,6 @@
 package com.sogou.map.kubbo.common.logger;
 
-import com.sogou.map.kubbo.common.utils.NetUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
 
 public class FailsafeLogger implements Logger {
 

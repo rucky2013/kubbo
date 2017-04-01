@@ -8,7 +8,7 @@ import com.sogou.map.kubbo.common.extension.ExtensionLoader;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.ExecutionException;

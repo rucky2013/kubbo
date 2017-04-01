@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.common.utils;
+package com.sogou.map.kubbo.common.util;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

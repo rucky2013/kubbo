@@ -29,7 +29,7 @@ import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 
-import com.sogou.map.kubbo.common.utils.ClassHelper;
+import com.sogou.map.kubbo.common.util.ClassHelper;
 
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardJavaFileManager;

@@ -8,7 +8,7 @@ import java.util.Set;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.NetUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.distributed.Directory;
 import com.sogou.map.kubbo.distributed.LoadBalance;
 import com.sogou.map.kubbo.rpc.Invocation;

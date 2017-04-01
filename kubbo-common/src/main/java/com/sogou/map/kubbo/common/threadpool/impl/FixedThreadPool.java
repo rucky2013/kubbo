@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.threadpool.AbortPolicyWithReport;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * 此线程池启动时即创建固定大小的线程数，不做任何伸缩，来源于：<code>Executors.newFixedThreadPool()</code>

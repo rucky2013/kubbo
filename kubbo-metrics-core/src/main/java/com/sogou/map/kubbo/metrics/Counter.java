@@ -11,7 +11,7 @@ import com.sogou.map.kubbo.common.AbstractAttributable;
  * @author liufuliang
  *
  */
-public class Counter extends AbstractAttributable implements Metric, Countable{
+public class Counter extends AbstractAttributable<String> implements Metric, Countable{
     private final AtomicLong adder;
 
     public Counter() {

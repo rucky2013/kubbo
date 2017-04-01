@@ -10,6 +10,6 @@ import com.sogou.map.kubbo.common.Attributable;
  * @author liufuliang
  *
  */
-public interface ApplicationContext extends Attributable{
+public interface ApplicationContext extends Attributable<Object>{
     String getApplicationHome();
 }

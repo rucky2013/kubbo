@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sogou.map.kubbo.common.utils.ClassHelper;
+import com.sogou.map.kubbo.common.util.ClassHelper;
 
 import javassist.ClassPool;
 import javassist.CtClass;

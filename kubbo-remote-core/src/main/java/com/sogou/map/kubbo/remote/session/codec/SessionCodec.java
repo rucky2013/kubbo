@@ -8,7 +8,7 @@ import com.sogou.map.kubbo.common.io.Bytes;
 import com.sogou.map.kubbo.common.io.StreamUtils;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.buffer.ChannelBuffer;

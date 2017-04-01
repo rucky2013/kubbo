@@ -9,8 +9,8 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.NetUtils;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
@@ -132,9 +132,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
             invocation.setAttachment(Constants.ASYNC_KEY, "true");
         }
         
-        
         RpcHelper.attachInvocationIdIfAsync(getUrl(), invocation);
-        
         
         try {
             return doInvoke(invocation);

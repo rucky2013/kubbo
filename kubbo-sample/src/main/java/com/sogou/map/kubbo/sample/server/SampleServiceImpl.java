@@ -4,7 +4,7 @@
 package com.sogou.map.kubbo.sample.server;
 
 import com.sogou.map.kubbo.boot.annotation.Export;
-import com.sogou.map.kubbo.common.utils.NetUtils;
+import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.sample.api.SampleService;
 
 /**

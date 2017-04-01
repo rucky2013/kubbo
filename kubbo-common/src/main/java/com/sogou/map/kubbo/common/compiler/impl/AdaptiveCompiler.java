@@ -4,7 +4,7 @@ package com.sogou.map.kubbo.common.compiler.impl;
 import com.sogou.map.kubbo.common.compiler.Compiler;
 import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.ExtensionLoader;
-import com.sogou.map.kubbo.common.utils.StringUtils;
+import com.sogou.map.kubbo.common.util.StringUtils;
 
 /**
  * AdaptiveCompiler. (SPI, Singleton, ThreadSafe)

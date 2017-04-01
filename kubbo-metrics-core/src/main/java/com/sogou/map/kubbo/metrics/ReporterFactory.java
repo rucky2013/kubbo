@@ -18,5 +18,5 @@ public interface ReporterFactory {
      * @param address remote collector
      * @return Reporter
      */
-    Reporter create(URL address);
+    Reporter create(MetricRegistry registry, URL address);
 }

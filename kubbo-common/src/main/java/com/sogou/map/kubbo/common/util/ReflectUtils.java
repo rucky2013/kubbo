@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.common.utils;
+package com.sogou.map.kubbo.common.util;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;

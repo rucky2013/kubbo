@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.common.utils;
+package com.sogou.map.kubbo.common.util;
 
 /**
  * @author liufuliang

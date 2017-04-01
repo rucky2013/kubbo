@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.common.URL;
  * Endpoint.
  * @author liufuliang
  */
-public interface Endpoint extends Attributable{
+public interface Endpoint extends Attributable<Object>{
     /**
      * get url.
      * 

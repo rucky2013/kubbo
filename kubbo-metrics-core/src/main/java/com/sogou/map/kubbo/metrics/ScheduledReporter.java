@@ -7,8 +7,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ExecutorUtils;
-import com.sogou.map.kubbo.common.utils.NamedThreadFactory;
+import com.sogou.map.kubbo.common.util.ExecutorUtils;
+import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * abstract scheduled reporters 
@@ -38,25 +38,13 @@ public abstract class ScheduledReporter implements Reporter {
 //        this.durationUnit = durationUnit.toString().toLowerCase(Locale.US);
     }
 
-    /**
-     * Starts the reporter polling at the given period.
-     *
-     * @param period the amount of time between polls
-     * @param unit   the unit for {@code period}
-     */
     @Override
     public void start(long period, TimeUnit unit) {
        start(period, period, unit);
     }
 
-    /**
-     * Starts the reporter polling at the given period.
-     *
-     * @param initialDelay the time to delay the first execution
-     * @param period       the amount of time between polls
-     * @param unit         the unit for {@code period}
-     */
-    synchronized protected void start(long initialDelay, long period, TimeUnit unit) {
+    @Override
+    public synchronized void start(long initialDelay, long period, TimeUnit unit) {
       if (this.scheduledFuture != null) {
           throw new IllegalArgumentException("Reporter already started");
       }

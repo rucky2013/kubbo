@@ -7,7 +7,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
 
-import com.sogou.map.kubbo.common.utils.SystemPropertyUtils;
+import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 
 /**

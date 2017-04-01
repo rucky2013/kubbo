@@ -16,7 +16,7 @@ import com.sogou.map.kubbo.common.json.JSONException;
 import com.sogou.map.kubbo.common.json.JSONObject;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.utils.ProgressiveRetryState;
+import com.sogou.map.kubbo.common.util.ProgressiveRetryState;
 import com.sogou.map.kubbo.distributed.discovery.AbstractDiscoveryDirectory;
 
 /**
