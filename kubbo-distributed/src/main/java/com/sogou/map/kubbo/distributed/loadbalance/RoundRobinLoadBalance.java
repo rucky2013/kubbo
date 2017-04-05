@@ -27,7 +27,9 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
         String key = RpcHelper.serviceKey(invokers.get(0).getUrl()) + "." + invocation.getMethodName();
         int length = invokers.size(); // 总个数
         
-        //sequence
+        /*
+         * sequence number
+         */
         AtomicPositiveInteger sequence = sequences.get(key);
         if (sequence == null) {
             sequences.putIfAbsent(key, new AtomicPositiveInteger());
@@ -35,25 +37,32 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
         }
         int currentSequence = sequence.getAndIncrement();
         
-        //weight
+        /*
+         * weight
+         */
         int maxWeight = 0; // 最大权重
-        int minWeight = Integer.MAX_VALUE; // 最小权重
-        List<IntegerWrapper> weights = new ArrayList<IntegerWrapper>(invokers.size());
-        int weightSum = 0;
+        int minWeight = Integer.MAX_VALUE; // 最小权重        
         for (int i = 0; i < length; i++) {
             int weight = getWeight(invokers.get(i), invocation);
             maxWeight = Math.max(maxWeight, weight); // 累计最大权重
             minWeight = Math.min(minWeight, weight); // 累计最小权重
-            weights.add(new IntegerWrapper(weight));
-            weightSum += weight;
         }
 
-        //select by weight
+        /*
+         * select by weight
+         */
         if (maxWeight > 0 && minWeight < maxWeight) { // 权重不一样
+            int weightSum = 0;
+            List<IntegerWrapper> weights = new ArrayList<IntegerWrapper>(invokers.size());
+            for (int i = 0; i < length; i++) {
+                int weight = getWeight(invokers.get(i), invocation);
+                weights.add(new IntegerWrapper(weight));
+                weightSum += weight;
+            }
             int mod = currentSequence % weightSum;
-            for (int i = 0; i < maxWeight; i++) {
+            for (int i = 0; i < maxWeight; ++i) {
                 for (int w=0; w < weights.size(); ++w) {
-                    IntegerWrapper weigth = weights.get(i);
+                    IntegerWrapper weigth = weights.get(w);
                     if (mod == 0 && weigth.getValue() > 0) {
                         return invokers.get(w);
                     }
