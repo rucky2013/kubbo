@@ -26,6 +26,12 @@ import com.sogou.map.kubbo.distributed.discovery.AbstractDiscoveryDirectory;
 public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
     private static final Logger logger = LoggerFactory.getLogger(EtcdDiscoveryDirectory.class);
     
+    private static final String DEFAULT_KUBERNETES_NAMESPACE = "default";
+    private static final String DEFAULT_ETCD_KUBBO_DIRECTORY = "/v2/keys/kubbo/provider/";
+    private static final String  DEFAULT_KUBERNETES_PORT_NAME = "kubbo";
+    private static final String  DEFAULT_SERVICE_PATH = "/";
+
+    
     long waitIndex = -1;
     String api;
     HttpClient etcdClient;
@@ -35,9 +41,9 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
         super(type, url);
         String servicekey = url.getPath();
         if(servicekey.indexOf("/") < 0){
-            servicekey = "default/" + servicekey;
+            servicekey = DEFAULT_KUBERNETES_NAMESPACE + "/" + servicekey;
         }
-        this.api = "http://" + url.getAddress() + "/v2/keys/kubbo/provider/" + servicekey;
+        this.api = "http://" + url.getAddress() + DEFAULT_ETCD_KUBBO_DIRECTORY + servicekey;
         etcdClient = new JdkHttpClient();
         if(logger.isDebugEnabled()){
             logger.debug("Etcd api: " + api);
@@ -80,7 +86,7 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                     int port = 0;
                     for(int j = 0; j < portsArray.length(); ++j){
                         JSONObject portObj = portsArray.getJSONObject(j);
-                        if(portObj.optString("name").equalsIgnoreCase(Constants.DEFAULT_KUBERNETES_PORT_NAME)){
+                        if(portObj.optString("name").equalsIgnoreCase(DEFAULT_KUBERNETES_PORT_NAME)){
                             port = portObj.optInt("port");
                             break;
                         } else if(port == 0){
@@ -92,7 +98,7 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                         JSONObject addressObj = addressesArray.getJSONObject(j);
                         String ip = addressObj.optString("ip");
                         if(!ip.isEmpty()){
-                            URL url = new URL("tcp", ip, port);
+                            URL url = new URL(Constants.DEFAULT_PROTOCOL, ip, port, DEFAULT_SERVICE_PATH);
                             urls.add(url);
                         }
                     }

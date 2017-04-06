@@ -2,10 +2,8 @@ package com.sogou.map.kubbo.distributed.discovery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -28,10 +26,12 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * @author liufuliang
  */
 public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T> {
+    private static final String DISCOVERY_POOL_NAME = "Kubbo-discovery";
+    
     protected volatile List<Invoker<T>> invokers;
     
     protected Executor workLoop = CachedThreadPool.getExecutor(2, 2, 3, TimeUnit.MINUTES, 
-            new LinkedBlockingQueue<Runnable>(), "Kubbo-discovery", true);
+            new LinkedBlockingQueue<Runnable>(), DISCOVERY_POOL_NAME, true);
     
     protected AbstractDiscoveryDirectory(Class<T> type, URL url) {
         super(type, url);
@@ -90,38 +90,42 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
 //			return;
 //		}
         List<Invoker<T>> copyinvokers = invokers;
-        //notify addresses
-        Set<String> notifyAddresses = new HashSet<String>();
+        //notify identity -> URL
+        Map<String, URL> notifyAddresses = new HashMap<String, URL>();
         for(URL url : urls){
-            notifyAddresses.add(url.getAddress());
+            notifyAddresses.put(url.toIdentityString(), url);
         }
-        //address -> invoker
-        Map<String, Invoker<T>> addressAndInvokers = new HashMap<String, Invoker<T>>();
+        //current identity -> invoker
+        Map<String, Invoker<T>> identityAndInvokers = new HashMap<String, Invoker<T>>();
         for(Invoker<T> invoker : copyinvokers){
-            addressAndInvokers.put(invoker.getUrl().getAddress(), invoker);
+            identityAndInvokers.put(invoker.getUrl().toIdentityString(), invoker);
         }
         //keep & del
-        List<Invoker<T>> newinvokers = new ArrayList<Invoker<T>>();
-        List<Invoker<T>> delinvokers = new ArrayList<Invoker<T>>();
-        for(Map.Entry<String, Invoker<T>> entry :  addressAndInvokers.entrySet()){
-            if(notifyAddresses.contains(entry.getKey())){
-                newinvokers.add(entry.getValue());
+        List<Invoker<T>> lastestInvokers = new ArrayList<Invoker<T>>();
+        List<Invoker<T>> delInvokers = new ArrayList<Invoker<T>>();
+        for(Map.Entry<String, Invoker<T>> entry :  identityAndInvokers.entrySet()){
+            String identity = entry.getKey();
+            Invoker<T> invoker = entry.getValue();
+            if(notifyAddresses.containsKey(identity)){
+                lastestInvokers.add(invoker);
             } else{
-                delinvokers.add(entry.getValue());
+                delInvokers.add(invoker);
             }
         }
         //add
-        for(String address : notifyAddresses){
-            if(!addressAndInvokers.containsKey(address)){
-                URL invokeUrl = url.setAddress(address);
+        for(Map.Entry<String, URL> entry :  notifyAddresses.entrySet()){
+            String identity = entry.getKey();
+            URL notifyAddress = entry.getValue();
+            if(!identityAndInvokers.containsKey(identity)){
+                URL invokeUrl = notifyAddress.addParametersIfAbsent(url.getParameters());
                 Protocol protocol = getProtocol(invokeUrl);
                 Invoker<T> invoker = protocol.refer(type, invokeUrl);
-                newinvokers.add(invoker);
+                lastestInvokers.add(invoker);
             }
-        }	
-        invokers = newinvokers;
+        }
+        invokers = lastestInvokers;
         //clean up
-        for(Invoker<T> invoker : delinvokers){
+        for(Invoker<T> invoker : delInvokers){
             invoker.destroy();
         }
     }

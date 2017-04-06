@@ -884,13 +884,6 @@ public final class URL implements Serializable {
         return addParameters(map);
     }
     
-//    public URL addParameterString(String query) {
-//        if (query == null || query.length() == 0) {
-//            return this;
-//        }
-//        return addParameters(StringUtils.parseQueryString(query));
-//    }
-    
     public URL removeParameter(String key) {
         if (key == null || key.length() == 0) {
             return this;
