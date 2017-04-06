@@ -13,9 +13,7 @@ public class Constants {
     public static final String  PROVIDER                           = "provider";
 
     public static final String  CONSUMER                           = "consumer";
-        
-    public static final String  DEFAULT_KUBERNETES_PORT_NAME       = "kubbo";
-    
+            
     public static final String  DEFAULT_KUBERNETES_LABEL_ROLE      = "kubbo/role";
 
     public static final String  DEFAULT_DISCOVERY_ETCD_ROOT        = "kubbo";

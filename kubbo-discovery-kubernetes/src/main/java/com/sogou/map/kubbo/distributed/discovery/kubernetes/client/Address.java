@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.distributed.kubernetes;
+package com.sogou.map.kubbo.distributed.discovery.kubernetes.client;
 
 import com.sogou.map.kubbo.common.json.JSONBean;
 

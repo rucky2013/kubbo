@@ -50,12 +50,12 @@ public class Benchmark {
         ExecutorService threadPool = Executors.newFixedThreadPool(options.getConcurrency(), new NamedThreadFactory("Kubbobench"));
         
         System.out.println("Benchmark start (be patient)");
-        //JIT warmup
+        // JIT warmup
         int index = 0;
-        for(int i=0; i < 10; ++i){
+        for(int i=0; i < 20; ++i){
             Job job = jobs.get((index++)%jobs.size());
             job.execute();
-            try{ Thread.sleep(200); } catch(Exception e){}
+            try{ Thread.sleep(100); } catch(Exception e){}
         }
         // job
         long start = System.nanoTime();
