@@ -4,7 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 
 /**
- * An abstraction for how time passes. It is passed to {@link Timer} to track timing.
+ * An abstraction for how time passes.
  * @author liufuliang
  */
 public abstract class Clock {

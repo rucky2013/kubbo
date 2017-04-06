@@ -16,10 +16,8 @@ public class Query {
 
 
     /**
-     * @param command
-     * @param database
-     * @param requiresPost
-     *            true if the command requires a POST instead of GET to influxdb
+     * @param command influxdb command
+     * @param database influxdb database
      */
     public Query(String command, String database) {
         this.command = command;

@@ -155,8 +155,8 @@ public class Point {
         /**
          * Add a time to this point.
          *
-         * @param precisionToSet
-         * @param timeToSet
+         * @param time time
+         * @param precision precision
          * @return the Builder instance.
          */
         public Builder time(final long time, final TimeUnit precision) {

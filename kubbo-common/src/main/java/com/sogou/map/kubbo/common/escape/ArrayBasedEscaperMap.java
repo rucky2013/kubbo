@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * An implementation-specific parameter class suitable for initializing
- * {@link ArrayBasedCharEscaper} or {@link ArrayBasedUnicodeEscaper} instances.
+ * {@link ArrayBasedCharEscaper} instances.
  * This class should be used when more than one escaper is created using the
  * same character replacement mapping to allow the underlying (implementation
  * specific) data structures to be shared.

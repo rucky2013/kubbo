@@ -36,8 +36,6 @@ public class BatchPoints {
      * Create a new BatchPoints build to create a new BatchPoints in a fluent
      * manner.
      *
-     * @param database
-     *            the name of the Database
      * @return the Builder to be able to add further Builder calls.
      */
     public static Builder builder() {
