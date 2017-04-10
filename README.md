@@ -12,11 +12,11 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
 <dependency>
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-all</artifactId>
-  <version>0.4</version>
+  <version>0.5</version>
 </dependency>
 ```
 
-建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.4.jar和netty-all-4.1.6.Final.jar包导入工程里  
+建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.5.jar和netty-all-4.1.6.Final.jar包导入工程里  
 
 ### *定义API接口*  
 ```
@@ -54,7 +54,7 @@ public class SampleLifecycleHook implements LifecycleHook {
 ```
 
 服务端部署  
-下载[kubbo-boot](http://release.mssp.sogou/kubbo/kubbo-boot-0.4.tar.gz) 解压  
+下载[kubbo-boot](http://release.mssp.sogou/kubbo/kubbo-boot-0.5.tar.gz) 解压  
 将程序打包放到lib目录下, 运行 bin/run.sh  
 如果需要, 可以在kubbo.propertie中对服务参数进行具体配置, 具体配置项可参考配置详解  
 
