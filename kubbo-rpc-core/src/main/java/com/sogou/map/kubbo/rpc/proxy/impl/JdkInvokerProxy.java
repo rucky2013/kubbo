@@ -2,8 +2,10 @@ package com.sogou.map.kubbo.rpc.proxy.impl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.common.lang.Defaults;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.proxy.AbstractInvokerProxy;
@@ -30,8 +32,7 @@ public class JdkInvokerProxy extends AbstractInvokerProxy {
             protected Object doInvoke(T proxy, String methodName, 
                                       Class<?>[] parameterTypes, 
                                       Object[] arguments) throws Throwable {
-                Method method = proxy.getClass().getMethod(methodName, parameterTypes);
-                return method.invoke(proxy, arguments);
+                return invokeMatchedMethod(proxy, methodName, parameterTypes, arguments);
             }
         };
     }
@@ -39,13 +40,47 @@ public class JdkInvokerProxy extends AbstractInvokerProxy {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public Invoker<?> getGenericInvoker(Object proxy, Class<?> typeClazz, URL url) throws RpcException {
+        
         return new AbstractServiceInvoker(proxy, typeClazz, url) {
             @Override
             protected Object doInvoke(Object proxy, String methodName, Class[] parameterTypes, Object[] arguments) throws Throwable{
-                Method method = proxy.getClass().getMethod(methodName, parameterTypes);
-                return method.invoke(proxy, arguments);
+                return invokeMatchedMethod(proxy, methodName, parameterTypes, arguments);
             }
         };
+    }
+
+    private Object invokeMatchedMethod(Object proxy, String methodName, Class<?>[] parameterTypes, Object[] arguments) throws Exception{
+        try{
+            Method method = proxy.getClass().getMethod(methodName, parameterTypes);
+            return method.invoke(proxy, arguments);
+        } catch(NoSuchMethodException e){
+            Method[] proxyMethods = proxy.getClass().getMethods();
+            for(Method proxyMethod : proxyMethods){
+                Class<?>[] types = proxyMethod.getParameterTypes();
+                if(isTypesMatchPrefix(parameterTypes, types)){
+                    Object[] invokeArguments = Arrays.copyOf(arguments, types.length);
+                    for(int i = arguments.length; i < invokeArguments.length; ++i){
+                        invokeArguments[i] = Defaults.defaultValue(types[i]);
+                    }
+                    return proxyMethod.invoke(proxy, invokeArguments);
+                }
+            }
+            throw e;
+        }
+    }
+    
+    private boolean isTypesMatchPrefix(Class<?>[] toBeMatchedTypes, Class<?>[] types){
+        if(toBeMatchedTypes.length >= types.length){
+            return false;
+        }
+        for(int i=0; i < toBeMatchedTypes.length; ++i){
+            Class<?> toBeMatchedType = toBeMatchedTypes[i];
+            Class<?> type = types[i];
+            if(!toBeMatchedType.getName().equals(type.getName())){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

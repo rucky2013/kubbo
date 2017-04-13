@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.Version;
-import com.sogou.map.kubbo.common.util.ReflectUtils;
+import com.sogou.map.kubbo.common.lang.Reflects;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Codec;
 import com.sogou.map.kubbo.remote.buffer.ChannelBuffer;
@@ -88,7 +88,7 @@ public class KubboCodec extends SessionCodec implements Codec {
     protected void encodeRequestData(Channel channel, ObjectOutput out, Object data) throws IOException {
         RpcInvocation inv = (RpcInvocation) data;
         out.writeUTF(inv.getMethodName());
-        out.writeUTF(ReflectUtils.getDesc(inv.getParameterTypes()));
+        out.writeUTF(Reflects.getDesc(inv.getParameterTypes()));
         Object[] args = inv.getArguments();
         if (args != null)
             for (int i = 0; i < args.length; i++){
