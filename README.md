@@ -18,14 +18,13 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
 建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.6.jar和netty-all-4.1.6.Final.jar包导入工程里  
 
 ### *定义API接口*  
+关于自定义数据类型规范, 请阅读[序列化](docs/serialization.md)
 ```
 public interface SampleService {
     String echo(String message);
 }
 ```
-- 自定义数据类型必须显式实现java.io.Serializable接口
-- 支持增加或删减字段, 但字段名称不能重复使用
-- 接口方法的参数列表支持增加，单不能删减
+
 
 ### *服务端*    
 rpc接口实现  
@@ -84,6 +83,7 @@ kubbo.properties路径可以通过以下任意一种方法指定, 推荐使用JA
 ## More
 - [kubbo.properties](docs/configuration.md)
 - [异步调用](docs/async.md)
+- [序列化](docs/serialization.md)
 - [压力测试](docs/benchmark.md)
 - [架构](docs/architecture.md)
 - [FAQ](docs/faq.md)
