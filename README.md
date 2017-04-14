@@ -54,7 +54,7 @@ public class SampleLifecycleHook implements LifecycleHook {
 ```
 
 服务端部署  
-下载[kubbo-boot](http://release.mssp.sogou/kubbo/kubbo-boot-0.5.tar.gz) 解压  
+下载[kubbo-boot](http://release.mssp.sogou/kubbo/kubbo-boot-0.6.tar.gz) 解压  
 将程序打包放到lib目录下, 运行 bin/run.sh  
 如果需要, 可以在kubbo.propertie中对服务参数进行具体配置, 具体配置项可参考配置详解  
 
