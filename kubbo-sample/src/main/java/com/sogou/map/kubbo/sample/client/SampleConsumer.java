@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import com.sogou.map.kubbo.boot.Kubbo;
+import com.sogou.map.kubbo.sample.api.Message;
 import com.sogou.map.kubbo.sample.api.SampleService;
 
 
@@ -23,14 +24,14 @@ public class SampleConsumer {
                 long start = System.currentTimeMillis();
 //        		byte[] data = new byte[100 * 1024 * 1024];
 //        		service.update(data);//500m
-                Future<String> response = Kubbo.callAsync(new Callable<String>() {
-                    public String call() throws Exception {
-                        return service.echo("async call");
+                Future<Message> response = Kubbo.callAsync(new Callable<Message>() {
+                    public Message call() throws Exception {
+                        return service.echo(new Message("async call"));
                     }
                 });
-                String result = response.get();
+                Message result = response.get();
                 long end = System.currentTimeMillis();
-                System.out.println(result + ", time " + (end - start) + "ms");
+                System.out.println(result.getValue() + ", time " + (end - start) + "ms");
             } catch(Throwable t){
                 System.out.println(t);
             }

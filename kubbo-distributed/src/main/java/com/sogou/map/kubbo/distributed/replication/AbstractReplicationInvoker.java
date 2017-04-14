@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.distributed.Directory;
 import com.sogou.map.kubbo.distributed.LoadBalance;
+import com.sogou.map.kubbo.distributed.LoadBalances;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
@@ -20,12 +19,11 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 
 /**
- * AbstractClusterInvoker
+ * AbstractReplicationInvoker
  * 
  * @author liufuliang
  */
 public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
-
     private static final Logger logger = LoggerFactory.getLogger(AbstractReplicationInvoker.class);
     
     protected final Directory<T> directory;
@@ -76,7 +74,8 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
 
         //loadbalance
         LoadBalance loadbalance = (invokers != null && invokers.size() > 0) ? 
-                getLoadBalance(invokers.get(0).getUrl(), invocation.getMethodName()) : getDefaultLoadBalance();
+                LoadBalances.getExtension(invokers.get(0).getUrl(), invocation.getMethodName()) : 
+                    LoadBalances.getDefaultExtension();
         //doInvoke
         return doInvoke(invocation, invokers, loadbalance);
     }
@@ -193,18 +192,7 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
                     + ". Please check if the providers have been started and registered.");
         }
     }
-    
-    private LoadBalance getLoadBalance(URL url, String methodName){
-        LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(
-                url.getMethodParameter(methodName, Constants.LOADBALANCE_KEY, Constants.DEFAULT_LOADBALANCE));
-        return loadbalance;
-    }
-    
-    private LoadBalance getDefaultLoadBalance(){
-        LoadBalance loadbalance = ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(Constants.DEFAULT_LOADBALANCE);
-        return loadbalance;
-    }
-    
+
     protected abstract Result doInvoke(Invocation invocation, List<Invoker<T>> invokers,
                                        LoadBalance loadbalance) throws RpcException;
     

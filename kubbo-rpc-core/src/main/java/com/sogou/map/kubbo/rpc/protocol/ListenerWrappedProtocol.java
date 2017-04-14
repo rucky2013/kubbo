@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.ExporterListener;
 import com.sogou.map.kubbo.rpc.Invoker;
@@ -35,11 +35,9 @@ public class ListenerWrappedProtocol extends AbstractProtocolDelegate {
     }
     
     private List<ExporterListener> getExporterListeners(URL url){
-        return Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(ExporterListener.class)
-                .getActivateExtension(url, Constants.EXPORTER_LISTENER_KEY));
+        return Collections.unmodifiableList(Extensions.getActivateExtension(url, Constants.EXPORTER_LISTENER_KEY, ExporterListener.class));
     }
     private List<InvokerListener> getInvokerListeners(URL url){
-        return Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(InvokerListener.class)
-                .getActivateExtension(url, Constants.INVOKER_LISTENER_KEY));
+        return Collections.unmodifiableList(Extensions.getActivateExtension(url, Constants.INVOKER_LISTENER_KEY, InvokerListener.class));
     }
 }

@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.remote.serialization.kryo;
+package com.sogou.map.kubbo.remote.serialization.hessian;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,26 +10,25 @@ import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.Serialization;
 
 /**
- * TODO for now kryo serialization doesn't deny classes that don't implement the serializable interface
- *
  * @author liufuliang
  */
-public class KryoSerialization implements Serialization {
-    public static final String NAME = "kryo";
+public class HessianSerialization implements Serialization {
+    public static final String NAME = "hessian";
 
     public byte getContentTypeId() {
-        return 2;
+        return 3;
     }
 
     public String getContentType() {
-        return "x-application/kryo";
+        return "x-application/hessian";
     }
 
     public ObjectOutput serialize(URL url, OutputStream out) throws IOException {
-        return new KryoObjectOutput(out);
+        return new HessianObjectOutput(out);
     }
 
-    public ObjectInput deserialize(URL url, InputStream in) throws IOException {
-        return new KryoObjectInput(in);
+    public ObjectInput deserialize(URL url, InputStream is) throws IOException {
+        return new HessianObjectInput(is);
     }
+
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.Filter;
 import com.sogou.map.kubbo.rpc.Invocation;
@@ -54,7 +54,7 @@ public class FilterWrappedProtocol extends AbstractProtocolDelegate {
     }
     
     private static List<Filter> getFilters(URL url, String filterKey, String group){
-        return ExtensionLoader.getExtensionLoader(Filter.class).getActivateExtension(url, filterKey, group);
+        return Extensions.getActivateExtension(url, filterKey, group, Filter.class);
     }
     
 }

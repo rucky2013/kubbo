@@ -25,7 +25,7 @@ public interface TransportLayer {
      * @return server
      * @throws RemotingException 
      */
-    @Adaptive({Constants.TRANSPORTLAYER_KEY})
+    @Adaptive(Constants.TRANSPORTLAYER_KEY)
     Server bind(URL url, ChannelHandler handler) throws RemotingException;
 
     /**
@@ -36,7 +36,7 @@ public interface TransportLayer {
      * @return client
      * @throws RemotingException 
      */
-    @Adaptive({Constants.TRANSPORTLAYER_KEY})
+    @Adaptive(Constants.TRANSPORTLAYER_KEY)
     Client connect(URL url, ChannelHandler handler) throws RemotingException;
 
 }

@@ -1,7 +1,7 @@
 package com.sogou.map.kubbo.remote.transport;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Client;
 import com.sogou.map.kubbo.remote.RemotingException;
@@ -56,7 +56,7 @@ public class TransportLayers {
     }
 
     public static TransportLayer getTransportLayer() {
-        return ExtensionLoader.getExtensionLoader(TransportLayer.class).getAdaptiveExtension();
+        return Extensions.getAdaptiveExtension(TransportLayer.class);
     }
 
     private TransportLayers(){

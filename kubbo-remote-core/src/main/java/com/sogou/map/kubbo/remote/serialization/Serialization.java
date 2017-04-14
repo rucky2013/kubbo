@@ -7,13 +7,14 @@ import java.io.OutputStream;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
+import com.sogou.map.kubbo.remote.serialization.hessian.HessianSerialization;
 
 /**
  * Serialization. (SPI, Singleton, ThreadSafe)
  * 
  * @author liufuliang
  */
-@SPI("kryo")
+@SPI(HessianSerialization.NAME)
 public interface Serialization {
 
     /**

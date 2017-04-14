@@ -29,32 +29,8 @@ public class Constants {
 
     public static final boolean DEFAULT_SEND_BLOCKING              = false;
 
-
-
-    /*
-     * default extensions
-     */
-    public static final String  DEFAULT_PROXY                      = "jdk";
-
-    public static final String  DEFAULT_REPLICATION                = "failover";
-
-    public static final String  DEFAULT_LOADBALANCE                = "roundrobin";
-
-    public static final String  DEFAULT_PROTOCOL                   = "kubbo";
-
-    public static final String  DEFAULT_SESSIONLAYER               = "inner";
-
-    public static final String  DEFAULT_TRANSPORTLAYER             = "netty4";
-
-    public static final String  DEFAULT_REMOTE_CODEC               = "kubbo";
-
-    public static final String  DEFAULT_REMOTE_SERIALIZATION       = "kryo";
-    
-    public static final String  DEFAULT_METRICES                   = "influxdb";
-
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
    
-
     /*
      * threadpool
      */
@@ -139,12 +115,6 @@ public class Constants {
     public static final String  DEFAULT_KEY                        = "default";
 
     public static final String  LOADBALANCE_KEY                    = "loadbalance";
-
-    public static final String  SIDE_KEY                           = "side";
-
-    public static final String  PROVIDER_SIDE                      = "provider";
-
-    public static final String  CONSUMER_SIDE                      = "consumer";
 
     public static final String  ANYHOST_KEY                        = "anyhost";
 

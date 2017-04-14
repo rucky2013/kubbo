@@ -12,11 +12,10 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
 <dependency>
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-all</artifactId>
-  <version>0.5</version>
+  <version>0.6</version>
 </dependency>
 ```
-
-建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.5.jar和netty-all-4.1.6.Final.jar包导入工程里  
+建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.6.jar和netty-all-4.1.6.Final.jar包导入工程里  
 
 ### *定义API接口*  
 ```
@@ -24,7 +23,9 @@ public interface SampleService {
     String echo(String message);
 }
 ```
-
+- 自定义数据类型必须显式实现java.io.Serializable接口
+- 支持增加或删减字段, 但字段名称不能重复使用
+- 接口方法的参数列表支持增加，单不能删减
 
 ### *服务端*    
 rpc接口实现  

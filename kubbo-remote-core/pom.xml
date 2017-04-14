@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.5</version>
+	<version>0.6</version>
   </parent>
 
   <artifactId>kubbo-remote-core</artifactId>
@@ -29,5 +29,9 @@
       <groupId>de.javakaffee</groupId>
       <artifactId>kryo-serializers</artifactId>
     </dependency>
+   <dependency>
+     <groupId>com.caucho</groupId>
+     <artifactId>hessian</artifactId>
+   </dependency>
   </dependencies>
 </project>

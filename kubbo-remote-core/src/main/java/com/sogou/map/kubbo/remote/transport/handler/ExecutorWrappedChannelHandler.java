@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
@@ -28,7 +28,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     public ExecutorWrappedChannelHandler(ChannelHandler handler, URL url) {
         super(handler);
         this.url = url;
-        executor = (ExecutorService) ExtensionLoader.getExtensionLoader(ThreadPool.class).getAdaptiveExtension().getExecutor(url);
+        executor = (ExecutorService) Extensions.getAdaptiveExtension(ThreadPool.class).getExecutor(url);
     }
 
     @Override
@@ -70,7 +70,6 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
             throw new ExecutionException("caught event", channel, getClass()+" error when process caught event ." , t);
         }
     }
-    
     
     protected ExecutorService getExecutorSafely() {
         ExecutorService cexecutor = executor;

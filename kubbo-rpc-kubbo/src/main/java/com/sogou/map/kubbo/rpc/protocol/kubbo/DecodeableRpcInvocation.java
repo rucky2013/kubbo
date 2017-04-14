@@ -4,9 +4,9 @@ package com.sogou.map.kubbo.rpc.protocol.kubbo;
 import java.io.IOException;
 import java.util.Map;
 
+import com.sogou.map.kubbo.common.lang.Reflects;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.ReflectUtils;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Decodeable;
@@ -83,7 +83,7 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
                 pts = KubboCodec.EMPTY_CLASS_ARRAY;
                 args = KubboCodec.EMPTY_OBJECT_ARRAY;
             } else {
-                pts = ReflectUtils.desc2classArray(desc);
+                pts = Reflects.desc2classArray(desc);
                 args = new Object[pts.length];
                 for (int i = 0; i < args.length; i++) {
                     try {

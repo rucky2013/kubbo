@@ -4,7 +4,7 @@
 package com.sogou.map.kubbo.distributed.protocol;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.distributed.Directory;
 import com.sogou.map.kubbo.distributed.Discovery;
 import com.sogou.map.kubbo.distributed.Replication;
@@ -20,7 +20,6 @@ import com.sogou.map.kubbo.rpc.protocol.AbstractProtocol;
  */
 public class DiscoveryProtocol extends AbstractProtocol {
     public static final String NAME = "discovery";
-    
     public static final int DEFAULT_PORT = 40660;
     
     protected Protocol protocol;
@@ -34,7 +33,7 @@ public class DiscoveryProtocol extends AbstractProtocol {
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
         if(protocol == null){
-            protocol = getAdaptiveProtocol();
+            protocol = Extensions.getAdaptiveExtension(Protocol.class);
         }
         return protocol.export(invoker);
     }
@@ -42,10 +41,10 @@ public class DiscoveryProtocol extends AbstractProtocol {
     @Override
     public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {		
         //discovery
-        Discovery discovery = getAdaptiveDiscovery();
+        Discovery discovery = Extensions.getAdaptiveExtension(Discovery.class);
         Directory<T> directory = discovery.subscribe(type, url);
         // replication
-        Replication replica = getAdaptiveReplication();
+        Replication replica = Extensions.getAdaptiveExtension(Replication.class);
         return replica.join(directory);
     }
     
@@ -55,17 +54,5 @@ public class DiscoveryProtocol extends AbstractProtocol {
             protocol.destroy();
         }
         super.destroy();
-    }
-    
-    private Replication getAdaptiveReplication() {
-        return ExtensionLoader.getExtensionLoader(Replication.class).getAdaptiveExtension();
-    }
-    
-    private Protocol getAdaptiveProtocol() {
-        return ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();
-    }
-    
-    private Discovery getAdaptiveDiscovery() {
-        return ExtensionLoader.getExtensionLoader(Discovery.class).getAdaptiveExtension();
     }
 }

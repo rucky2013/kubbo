@@ -287,7 +287,7 @@ public class ExtensionLoader<T> {
     @SuppressWarnings("unchecked")
     public T getExtension(String name) {
         if (StringUtils.isBlank(name))
-            throw new IllegalArgumentException("Extension name == null");
+            throw new IllegalArgumentException("Extension name == NULL");
         if ("true".equals(name)) {
             return getDefaultExtension();
         }

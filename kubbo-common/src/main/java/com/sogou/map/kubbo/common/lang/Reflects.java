@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.common.util;
+package com.sogou.map.kubbo.common.lang;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -21,6 +21,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sogou.map.kubbo.common.util.ClassHelper;
+import com.sogou.map.kubbo.common.util.StringUtils;
+
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
@@ -31,7 +34,7 @@ import javassist.NotFoundException;
  * 
  * @author liufuliang
  */
-public final class ReflectUtils {
+public final class Reflects {
     
     /**
      * void(V).
@@ -797,7 +800,7 @@ public final class ReflectUtils {
         } else {
             Class<?>[] types = new Class<?>[parameterTypes.length];
             for (int i = 0; i < parameterTypes.length; i ++) {
-                types[i] = ReflectUtils.name2class(parameterTypes[i]);
+                types[i] = Reflects.name2class(parameterTypes[i]);
             }
             method = clazz.getMethod(methodName, types);
             
@@ -1009,5 +1012,5 @@ public final class ReflectUtils {
         return properties;
     }
 
-    private ReflectUtils(){}
+    private Reflects(){}
 }

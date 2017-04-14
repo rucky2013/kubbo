@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
+
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionClient;
 import com.sogou.map.kubbo.remote.session.SessionServer;
@@ -18,10 +20,11 @@ import com.sogou.map.kubbo.remote.session.handler.SessionHandlerAdapter;
  *
  */
 public class SessionLayersTest {
-    static class Message{
+    static class Message implements Serializable{
         /**
          * 
          */
+        private static final long serialVersionUID = 1L;
         String value = "message";
         int age = 30;
         long[] extra = {1,2,3,4};
@@ -40,7 +43,7 @@ public class SessionLayersTest {
 
         });
 
-        SessionClient client = SessionLayers.connect("kubbo://localhost:8080?transportlayer=netty4&timeout=3000");
+        SessionClient client = SessionLayers.connect("kubbo://localhost:8080?transportlayer=netty4&timeout=10000");
 
         ResponseFuture Response = client.request(new Message());
         

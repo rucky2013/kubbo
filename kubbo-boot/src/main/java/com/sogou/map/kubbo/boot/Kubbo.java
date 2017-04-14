@@ -15,11 +15,12 @@ import com.sogou.map.kubbo.boot.configuration.KubboConfiguration;
 import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.InvokerProxy;
 import com.sogou.map.kubbo.rpc.Protocol;
+import com.sogou.map.kubbo.rpc.Protocols;
 import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
 
@@ -210,19 +211,18 @@ public class Kubbo {
     }
     
     private static Protocol getProtocol(URL url) {
-        String type = url.getParameter(Constants.PROTOCOL_KEY, Constants.DEFAULT_PROTOCOL);
+        String type = Protocols.getExtensionType(url);
         return getProtocol(type);
     }
 
     private static Protocol getProtocol(String type) {
-        Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension(type);
+        Protocol protocol = Protocols.getExtension(type);
         protocols.putIfAbsent(type, protocol);
         return protocol;
     }
-
     
     private static InvokerProxy getAdaptiveInvokerProxy() {
-        return ExtensionLoader.getExtensionLoader(InvokerProxy.class).getAdaptiveExtension();
+        return Extensions.getAdaptiveExtension(InvokerProxy.class);
     }
     
     private Kubbo(){}

@@ -6,6 +6,7 @@ package com.sogou.map.kubbo.sample.bench;
 import com.sogou.map.kubbo.bench.Benchmark;
 import com.sogou.map.kubbo.bench.Job;
 import com.sogou.map.kubbo.boot.Kubbo;
+import com.sogou.map.kubbo.sample.api.Message;
 import com.sogou.map.kubbo.sample.api.SampleService;
 
 /**
@@ -35,7 +36,7 @@ public class SampleBench {
                 @Override
                 public boolean execute() {
                     try{
-                        service.echo("aaaaaaaaaaaaaaaaa");
+                        service.echo(new Message("hello"));
                         return true;
                     } catch(Throwable t){
                         return false;
