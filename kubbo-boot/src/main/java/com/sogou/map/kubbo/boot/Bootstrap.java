@@ -18,7 +18,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.annotation.AnnotationDiscovery;
 import com.sogou.map.kubbo.common.annotation.ClassAnnotationDiscoveryListener;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 
@@ -129,7 +129,7 @@ public class Bootstrap {
     }
     
     private AnnotationDiscovery getAnnotationDiscovery(){
-        AnnotationDiscovery discovery = ExtensionLoader.getExtensionLoader(AnnotationDiscovery.class).getDefaultExtension();
+        AnnotationDiscovery discovery = Extensions.getDefaultExtension(AnnotationDiscovery.class);
         return discovery;
     }
     

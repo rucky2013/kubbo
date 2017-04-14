@@ -107,6 +107,10 @@
               <pattern>org.objenesis.</pattern>
               <shadedPattern>com.sogou.map.shade.org.objenesis.</shadedPattern>
             </relocation>
+            <relocation>
+              <pattern>com.caucho.</pattern>
+              <shadedPattern>com.sogou.map.shade.com.caucho.</shadedPattern>
+            </relocation>
           </relocations>
           <artifactSet>
             <includes>
@@ -127,6 +131,8 @@
               <include>de.javakaffee:*</include>
               <include>org.ow2.asm:asm</include>
               <include>org.objenesis:objenesis</include>
+              <!-- hessian -->
+              <include>com.caucho:hessian</include>
             </includes>
           </artifactSet>
           <transformers>

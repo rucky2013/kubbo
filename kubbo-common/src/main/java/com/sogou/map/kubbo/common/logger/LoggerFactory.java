@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.impl.JdkLoggerAdapter;
 import com.sogou.map.kubbo.common.logger.impl.Log4jLoggerAdapter;
 import com.sogou.map.kubbo.common.logger.impl.Slf4jLoggerAdapter;
@@ -54,7 +54,7 @@ public class LoggerFactory {
     
     public static void setLoggerAdapter(String loggerAdapter) {
         if (loggerAdapter != null && loggerAdapter.length() > 0) {
-            setLoggerAdapter(ExtensionLoader.getExtensionLoader(LoggerAdapter.class).getExtension(loggerAdapter));
+            setLoggerAdapter(Extensions.getExtension(loggerAdapter, LoggerAdapter.class));
         }
     }
 

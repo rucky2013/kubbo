@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
@@ -39,12 +39,7 @@ public class SharedMetricsRegistry {
     }
 
     public static ReporterFactory getReporterFactory(URL url) {
-        String type = url.getParameter(Constants.METRICS_KEY, Constants.DEFAULT_METRICES);
-        return getReporterFactory(type);
-    }
-
-    public static ReporterFactory getReporterFactory(String type) {
-        return ExtensionLoader.getExtensionLoader(ReporterFactory.class).getExtension(type);
+        return Extensions.getExtension(url, Constants.METRICS_KEY, ReporterFactory.class);
     }
 
     private static void initReporter(MetricRegistry registry){

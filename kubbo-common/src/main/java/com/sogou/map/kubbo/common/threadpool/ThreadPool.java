@@ -22,7 +22,7 @@ public interface ThreadPool {
      * @param url 线程参数
      * @return 线程池
      */
-    @Adaptive({Constants.THREADPOOL_KEY})
+    @Adaptive(Constants.THREADPOOL_KEY)
     Executor getExecutor(URL url);
 
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 
@@ -15,18 +15,14 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
  * @author liufuliang
  */
 public class Serializations {
-
     private static final Logger logger = LoggerFactory.getLogger(Serializations.class);
-
-    private Serializations() {
-    }
 
     private static Map<Byte, Serialization> ID_SERIALIZATION_MAP = new HashMap<Byte, Serialization>();
 
     static {
-        Set<String> supportedExtensions = ExtensionLoader.getExtensionLoader(Serialization.class).getSupportedExtensions();
+        Set<String> supportedExtensions = Extensions.getSupportedExtensions(Serialization.class);
         for (String name : supportedExtensions) {
-            Serialization serialization = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(name);
+            Serialization serialization = Extensions.getExtension(name, Serialization.class);
             byte idByte = serialization.getContentTypeId();
             if (ID_SERIALIZATION_MAP.containsKey(idByte)) {
                 logger.error("Serialization extension " + serialization.getClass().getName()
@@ -39,14 +35,8 @@ public class Serializations {
         }
     }
 
-    public static Serialization getSerializationById(Byte id) {
-        return ID_SERIALIZATION_MAP.get(id);
-    }
-
     public static Serialization getSerialization(URL url) {
-        Serialization s = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
-            url.getParameter(Constants.SERIALIZATION_KEY, Constants.DEFAULT_REMOTE_SERIALIZATION));
-        return s;
+        return Extensions.getExtension(url, Constants.SERIALIZATION_KEY, Serialization.class);
     }
 
     public static Serialization getSerialization(URL url, Byte id) {
@@ -56,5 +46,10 @@ public class Serializations {
         }
         return result;
     }
-
+    
+    public static Serialization getSerializationById(Byte id) {
+        return ID_SERIALIZATION_MAP.get(id);
+    }
+    
+    private Serializations() {}
 }

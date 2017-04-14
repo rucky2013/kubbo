@@ -6,7 +6,6 @@ package com.sogou.map.kubbo.distributed.discovery.kubernetes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.http.HttpClient;
 import com.sogou.map.kubbo.common.http.KubboHttpException;
@@ -18,6 +17,7 @@ import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.ProgressiveRetryState;
 import com.sogou.map.kubbo.distributed.discovery.AbstractDiscoveryDirectory;
+import com.sogou.map.kubbo.rpc.Protocols;
 
 /**
  * @author liufuliang
@@ -98,7 +98,7 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                         JSONObject addressObj = addressesArray.getJSONObject(j);
                         String ip = addressObj.optString("ip");
                         if(!ip.isEmpty()){
-                            URL url = new URL(Constants.DEFAULT_PROTOCOL, ip, port, DEFAULT_SERVICE_PATH);
+                            URL url = new URL(Protocols.getExtensionType(getUrl()), ip, port, DEFAULT_SERVICE_PATH);
                             urls.add(url);
                         }
                     }

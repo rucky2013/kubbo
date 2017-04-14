@@ -8,14 +8,13 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
 import com.sogou.map.kubbo.common.threadpool.impl.CachedThreadPool;
 import com.sogou.map.kubbo.distributed.directory.AbstractDirectory;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Protocol;
+import com.sogou.map.kubbo.rpc.Protocols;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
@@ -118,7 +117,7 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
             URL notifyAddress = entry.getValue();
             if(!identityAndInvokers.containsKey(identity)){
                 URL invokeUrl = notifyAddress.addParametersIfAbsent(url.getParameters());
-                Protocol protocol = getProtocol(invokeUrl);
+                Protocol protocol = Protocols.getExtension(invokeUrl);
                 Invoker<T> invoker = protocol.refer(type, invokeUrl);
                 lastestInvokers.add(invoker);
             }
@@ -141,12 +140,4 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
             }
         });
     }
-    
-    private static Protocol getProtocol(URL url) {
-        String type = url.getParameter(Constants.PROTOCOL_KEY, Constants.DEFAULT_PROTOCOL);
-        Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension(type);
-        return protocol;
-    }
-
-
 }

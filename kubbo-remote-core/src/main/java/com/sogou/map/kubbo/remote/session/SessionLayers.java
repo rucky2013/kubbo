@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.session;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.codec.SessionCodec;
 import com.sogou.map.kubbo.remote.session.handler.NoOpSessionHandler;
@@ -55,12 +55,6 @@ public class SessionLayers {
     }
 
     public static SessionLayer getSessionLayer(URL url) {
-        String type = url.getParameter(Constants.SESSIONLAYER_KEY, Constants.DEFAULT_SESSIONLAYER);
-        return getSessionLayer(type);
+        return Extensions.getExtension(url, Constants.SESSIONLAYER_KEY, SessionLayer.class);
     }
-
-    public static SessionLayer getSessionLayer(String type) {
-        return ExtensionLoader.getExtensionLoader(SessionLayer.class).getExtension(type);
-    }
-
 }

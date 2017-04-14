@@ -36,6 +36,7 @@
     <!-- Common libs -->
     <javassist_version>3.20.0-GA</javassist_version>
     <netty_version>4.1.6.Final</netty_version>
+    <hessian_version>4.0.38</hessian_version>
     <kryo_version>4.0.0</kryo_version>
     <kryo_serializers_version>0.41</kryo_serializers_version>
     <!-- Log libs -->
@@ -69,6 +70,11 @@
         <groupId>de.javakaffee</groupId>
         <artifactId>kryo-serializers</artifactId>
         <version>${kryo_serializers_version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.caucho</groupId>
+        <artifactId>hessian</artifactId>
+        <version>${hessian_version}</version>
       </dependency>
       <!-- Log libs -->
       <dependency>

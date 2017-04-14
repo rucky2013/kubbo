@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Defaults {
-    private Defaults() {
-    }
-
     private static final Map<Class<?>, Object> DEFAULTS;
 
     static {
@@ -46,5 +43,7 @@ public final class Defaults {
         T t = (T) DEFAULTS.get(type);
         return t;
     }
+    
+    private Defaults() {}
 
 }

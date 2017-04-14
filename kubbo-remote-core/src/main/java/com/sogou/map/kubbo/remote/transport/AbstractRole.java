@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.transport;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.ChannelHandler;
@@ -38,7 +38,7 @@ public abstract class AbstractRole extends AbstractEndpoint implements Resetable
 
     protected static Codec getChannelCodec(URL url) {
         String codecName = url.getParameter(Constants.CODEC_KEY, SessionCodec.NAME);
-        Codec codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(codecName);
+        Codec codec = Extensions.getExtension(codecName, Codec.class);
         if (codec == null) {
             throw new IllegalArgumentException("codec == NULL");
         }

@@ -1,2 +1,3 @@
 java=com.sogou.map.kubbo.remote.serialization.java.JavaSerialization
 kryo=com.sogou.map.kubbo.remote.serialization.kryo.KryoSerialization
+hessian=com.sogou.map.kubbo.remote.serialization.hessian.HessianSerialization

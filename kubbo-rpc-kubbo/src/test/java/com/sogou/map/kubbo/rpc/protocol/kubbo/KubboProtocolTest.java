@@ -6,8 +6,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.ExtensionLoader;
+import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.rpc.Protocol;
+import com.sogou.map.kubbo.rpc.Protocols;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.InvokerProxy;
 
@@ -16,8 +17,8 @@ import com.sogou.map.kubbo.rpc.InvokerProxy;
  *
  */
 public class KubboProtocolTest {
-    private static Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.class).getExtension("kubbo");
-    private static InvokerProxy proxy = ExtensionLoader.getExtensionLoader(InvokerProxy.class).getAdaptiveExtension();
+    private static Protocol protocol = Protocols.getExtension("kubbo");
+    private static InvokerProxy proxy = Extensions.getAdaptiveExtension(InvokerProxy.class);
 
     public static void main(String[] args){
         new KubboProtocolTest().testSampleService();

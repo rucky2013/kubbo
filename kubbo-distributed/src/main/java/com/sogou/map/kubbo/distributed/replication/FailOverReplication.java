@@ -13,7 +13,6 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * @author liufuliang
  */
 public class FailOverReplication implements Replication {
-
     public final static String NAME = "failover";
 
     public <T> Invoker<T> join(Directory<T> directory) throws RpcException {

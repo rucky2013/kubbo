@@ -57,8 +57,7 @@ public class KubboProtocol extends AbstractProtocol {
         String path = inv.getAttachment(Constants.PATH_KEY);
         String interfaceType = inv.getAttachment(Constants.INTERFACE_KEY);
         String version = inv.getAttachment(Constants.VERSION_KEY);
-        String serviceKey = RpcHelper.serviceKey(group, path, interfaceType, version);
-
+        String serviceKey = RpcHelper.serviceKey(group, path, interfaceType, version);        
         KubboExporter<?> exporter = (KubboExporter<?>) exporterMap.get(serviceKey);
         
         if (exporter == null)

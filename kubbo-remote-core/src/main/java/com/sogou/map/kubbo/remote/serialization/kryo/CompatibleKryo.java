@@ -26,6 +26,7 @@ public class CompatibleKryo extends Kryo {
             }
             return new JavaSerializer();
         }
+        //return new CompatibleFieldSerializer(this, type) ;
         return super.getDefaultSerializer(type);
     }
     
