@@ -1,6 +1,7 @@
 package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.Constants;
+import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
@@ -69,7 +70,7 @@ final class InnerSessionChannel extends AbstractChannelDelegate implements Sessi
             channel.send(message, blocking);
         } else {
             Request request = new Request();
-            request.setVersion(Constants.DEFAULT_VERSION);
+            request.setVersion(Version.getVersion());
             request.setTwoWay(false);
             request.setData(message);
             channel.send(request, blocking);
@@ -88,7 +89,7 @@ final class InnerSessionChannel extends AbstractChannelDelegate implements Sessi
         }
         // create request.
         Request req = new Request();
-        req.setVersion(Constants.DEFAULT_VERSION);
+        req.setVersion(Version.getVersion());
         req.setTwoWay(true);
         req.setData(request);
         InternalResponseFuture future = new InternalResponseFuture(channel, req, timeout);

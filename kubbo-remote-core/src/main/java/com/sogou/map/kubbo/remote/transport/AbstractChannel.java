@@ -11,6 +11,7 @@ import com.sogou.map.kubbo.remote.RemotingException;
  * @author liufuliang
  */
 public abstract class AbstractChannel extends AbstractEndpoint implements Channel {	
+
     public AbstractChannel(URL url, ChannelHandler handler){
         super(url, handler);
     }
@@ -28,7 +29,4 @@ public abstract class AbstractChannel extends AbstractEndpoint implements Channe
     public String toString() {
         return getLocalAddress() + " -> " + getRemoteAddress();
     }
-    
-
-
 }

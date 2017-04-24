@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote.session.codec;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.sogou.map.kubbo.common.Constants;
+import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.io.Bytes;
 import com.sogou.map.kubbo.common.io.StreamUtils;
 import com.sogou.map.kubbo.common.logger.Logger;
@@ -297,7 +297,7 @@ public class SessionCodec extends TransportCodec {
             } else {
                 // decode request.
                 Request req = new Request(id);
-                req.setVersion(Constants.DEFAULT_VERSION);
+                req.setVersion(Version.getVersion());
                 req.setTwoWay((flag & FLAG_TWOWAY) != 0);
                 if ((flag & FLAG_EVENT) != 0) {
                     req.setEvent(true);

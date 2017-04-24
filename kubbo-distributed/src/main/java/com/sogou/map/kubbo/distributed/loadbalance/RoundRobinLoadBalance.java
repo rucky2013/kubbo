@@ -14,10 +14,9 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 /**
  * Round robin load balance.
  *
- * @author liuliang
+ * @author liufuliang
  */
 public class RoundRobinLoadBalance extends AbstractLoadBalance {
-
     public static final String NAME = "roundrobin";
 
     private final ConcurrentMap<String, AtomicPositiveInteger> sequences = new ConcurrentHashMap<String, AtomicPositiveInteger>();

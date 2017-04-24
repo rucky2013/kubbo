@@ -669,6 +669,7 @@ public class ExtensionLoader<T> {
         return compiler.compile(code, classLoader);
     }
     
+    //TODO javapoet generate
     private String createAdaptiveExtensionClassCode() {
         StringBuilder codeBuidler = new StringBuilder();
         Method[] methods = type.getMethods();

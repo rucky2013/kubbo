@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.heartbeat;
 
 import java.util.Collection;
 
-import com.sogou.map.kubbo.common.Constants;
+import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
@@ -19,9 +19,9 @@ public final class HeartBeatTask implements Runnable {
 
     private ChannelProvider channelProvider;
 
-    private int             heartbeat;
+    private int heartbeat;
 
-    private int             heartbeatTimeout;
+    private int heartbeatTimeout;
 
     public HeartBeatTask( ChannelProvider provider, int heartbeat, int heartbeatTimeout ) {
         this.channelProvider = provider;
@@ -43,7 +43,7 @@ public final class HeartBeatTask implements Runnable {
                     if ( ( lastRead != null && now - lastRead > heartbeat )
                             || ( lastWrite != null && now - lastWrite > heartbeat ) ) {
                         Request req = new Request();
-                        req.setVersion(Constants.DEFAULT_VERSION);
+                        req.setVersion(Version.getVersion());
                         req.setTwoWay(true);
                         req.setEvent(Request.HEARTBEAT_EVENT);
                         channel.send(req);

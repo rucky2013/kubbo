@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.remote.RemotingException;
  * @author liufuliang
  */
 public class AbstractClientDelegate extends AbstractEndpointDelegate implements ClientDelegate {
-    
+
     protected transient Client client;
 
     public AbstractClientDelegate() {

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.NamedThreadFactory;
@@ -96,7 +97,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
         Request request = new Request();
         request.setEvent(Request.READONLY_EVENT);
         request.setTwoWay(false);
-        request.setVersion(Constants.DEFAULT_VERSION);
+        request.setVersion(Version.getVersion());
         
         Collection<Channel> channels = getChannels();
         for (Channel channel : channels) {

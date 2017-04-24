@@ -16,8 +16,6 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
  */
 public final class Version {
 
-    private Version() {}
-
     private static final Logger logger = LoggerFactory.getLogger(Version.class);
 
     private static final String VERSION = getVersion(Version.class, Constants.DEFAULT_VERSION);
@@ -26,6 +24,8 @@ public final class Version {
         // 检查是否存在重复的jar包
         Version.checkDuplicate(Version.class);
     }
+    
+    private Version() {}
 
     public static String getVersion(){
         return VERSION;

@@ -7,7 +7,7 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
 下面以SampleService接口为例, 说明如何实现rpc接口的无缝调用。  
 
 ### *添加依赖*  
-按照[maven全局配置](http://git.sogou-inc.com/mssp/commons/blob/master/README.md)配置好maven, 然后添加以下工程依赖
+maven仓库地址配置请参照[maven配置](docs/env/maven.md)
 ```
 <dependency>
   <groupId>com.sogou.map</groupId>
@@ -15,7 +15,6 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
   <version>0.6</version>
 </dependency>
 ```
-建议使用maven管理工程, 如果不使用maven, 可以到[Maven仓库](http://repo.mssp.sogou/maven/)直接下载kubbo-all-0.6.jar和netty-all-4.1.6.Final.jar包导入工程里  
 
 ### *定义API接口*  
 关于自定义数据类型规范, 请阅读[序列化](docs/serialization.md)
@@ -82,6 +81,7 @@ kubbo.properties路径可以通过以下任意一种方法指定, 推荐使用JA
 
 ## More
 - [kubbo.properties](docs/configuration.md)
+- [使用kubbo-rpc工程模板](docs/env/maven-archetype-kubbo-rpc.md)
 - [异步调用](docs/async.md)
 - [序列化](docs/serialization.md)
 - [压力测试](docs/benchmark.md)
