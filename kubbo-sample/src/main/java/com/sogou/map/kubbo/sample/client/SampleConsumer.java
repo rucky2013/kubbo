@@ -36,7 +36,9 @@ public class SampleConsumer {
                 System.out.println(t);
             }
             
+            
             try { Thread.sleep(r.nextInt(5000)); } catch (InterruptedException e) {}
+            break;
         }
         
 
