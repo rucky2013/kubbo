@@ -150,6 +150,8 @@ public class KubboProtocol extends AbstractProtocol {
     
     /**
      *获取共享连接 
+     * @param url server url
+     * @return SessionClient
      */
     private SessionClient getSharedClient(URL url){
         String key = url.getAddress();
@@ -171,6 +173,8 @@ public class KubboProtocol extends AbstractProtocol {
 
     /**
      * 创建新连接.
+     * @param url server url
+     * @return SessionClient
      */
     private SessionClient initClient(URL url) {
         //默认开启heartbeat
