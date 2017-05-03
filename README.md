@@ -8,6 +8,7 @@ Kubbo是一个分布式高性能rpc框架, 支持异步调用, 底层基于kuber
 
 ### *添加依赖*  
 maven仓库地址配置请参照[maven配置](docs/env/maven.md)
+在pom.xml中添加依赖
 ```
 <dependency>
   <groupId>com.sogou.map</groupId>
@@ -55,7 +56,7 @@ public class SampleLifecycleHook implements LifecycleHook {
 服务端部署  
 下载[kubbo-boot](http://release.mssp.sogou/kubbo/kubbo-boot-latest.tar.gz) 解压  
 将程序打包放到lib目录下, 运行 bin/run.sh  
-如果需要, 可以在kubbo.propertie中对服务参数进行具体配置, 具体配置项可参考[配置详解](docs/configuration.md)
+可以在kubbo.properties中对服务参数进行具体配置, 具体配置项可参考[配置详解](docs/configuration.md)
 
 
 ### *客户端*

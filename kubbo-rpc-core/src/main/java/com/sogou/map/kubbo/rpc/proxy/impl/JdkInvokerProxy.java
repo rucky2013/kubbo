@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.rpc.proxy.AbstractServiceInvoker;
 import com.sogou.map.kubbo.rpc.proxy.InvokerInvocationHandler;
 
 /**
- * JavaassistRpcProxyFactory
+ * JdkInvokerProxy
 
  * @author liufuliang
  */
