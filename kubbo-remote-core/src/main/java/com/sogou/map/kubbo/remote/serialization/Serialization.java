@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
 import com.sogou.map.kubbo.remote.serialization.hessian.HessianSerialization;
 
 /**
- * Serialization. (SPI, Singleton, ThreadSafe)
+ * Serialization.
  * 
  * @author liufuliang
  */
@@ -33,23 +31,19 @@ public interface Serialization {
 
     /**
      * create serializer
-     * @param url 
-     * @param output
-     * @return serializer
+     * @param output 输出流
+     * @return 序列化对象输出
      * @throws IOException
      */
-    @Adaptive
-    ObjectOutput serialize(URL url, OutputStream output) throws IOException;
+    ObjectOutput serialize(OutputStream output) throws IOException;
 
     /**
      * create deserializer
-     * @param url 
-     * @param input
-     * @return deserializer
+     * @param input 输入流
+     * @return 反序列化器输入
      * @throws IOException
      */
-    @Adaptive
-    ObjectInput deserialize(URL url, InputStream input) throws IOException;
+    ObjectInput deserialize(InputStream input) throws IOException;
 
 
 }

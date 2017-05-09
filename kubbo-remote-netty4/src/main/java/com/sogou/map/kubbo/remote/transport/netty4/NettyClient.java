@@ -53,7 +53,7 @@ public class NettyClient extends AbstractClient {
     private static final EventLoopGroup WORKER_GROUP = new NioEventLoopGroup(DEFAULT_EVENT_LOOP_THREADS, new NamedThreadFactory("NettyClientEventLoopGroup", true));
     
     @Override
-    protected void doOpen() throws Throwable {
+    protected void start() throws Throwable {
         NettyLoggerAdapter.setNettyLoggerFactory();
         bootstrap = new Bootstrap();
         // config
@@ -140,7 +140,7 @@ public class NettyClient extends AbstractClient {
     }
     
     @Override
-    protected void doClose() throws Throwable {
+    protected void stop() throws Throwable {
         //WORKER_GROUP.shutdownGracefully();
     }
 

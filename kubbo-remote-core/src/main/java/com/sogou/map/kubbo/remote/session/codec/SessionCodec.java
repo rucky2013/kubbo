@@ -97,7 +97,7 @@ public class SessionCodec extends TransportCodec {
         buffer.writerIndex(savedWriteIndex + HEADER_LENGTH);
         ChannelBufferOutputStream bos = new ChannelBufferOutputStream(buffer);
 
-        ObjectOutput out = serialization.serialize(channel.getUrl(), bos);
+        ObjectOutput out = serialization.serialize(bos);
         try{
             if(req.isEvent()){
                 encodeData(channel, out, req.getData());
@@ -146,7 +146,7 @@ public class SessionCodec extends TransportCodec {
             int savedWriteIndex = buffer.writerIndex();
             buffer.writerIndex(savedWriteIndex + HEADER_LENGTH);
             ChannelBufferOutputStream bos = new ChannelBufferOutputStream(buffer);
-            ObjectOutput out = serialization.serialize(channel.getUrl(), bos);
+            ObjectOutput out = serialization.serialize(bos);
             try {
                 // encode response data or error message.
                 if (res.isOK()) {
@@ -261,7 +261,7 @@ public class SessionCodec extends TransportCodec {
         byte flag = header[2];
         byte serializationId = (byte) (flag & SERIALIZATION_MASK);
         Serialization serialization = Serializations.getSerialization(channel.getUrl(), serializationId);
-        ObjectInput in = serialization.deserialize(channel.getUrl(), is);
+        ObjectInput in = serialization.deserialize(is);
         try{
             // get request id.
             long id = Bytes.bytes2long(header, 4);

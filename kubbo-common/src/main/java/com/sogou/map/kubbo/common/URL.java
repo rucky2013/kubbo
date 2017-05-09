@@ -48,7 +48,8 @@ import com.sogou.map.kubbo.common.util.NetUtils;
  * @author liufuliang
  */
 public final class URL implements Serializable {
-    private static final long serialVersionUID = 924229659203275199L;
+
+    private static final long serialVersionUID = 4227282099870403192L;
 
     private final String protocol;
 

@@ -18,7 +18,9 @@ public final class Version {
 
     private static final Logger logger = LoggerFactory.getLogger(Version.class);
 
-    private static final String VERSION = getVersion(Version.class, Constants.DEFAULT_VERSION);
+    public static final String DEFAULT_VERSION = "1.0.0";
+
+    private static final String VERSION = getVersion(Version.class, DEFAULT_VERSION);
 
     static {
         // 检查是否存在重复的jar包

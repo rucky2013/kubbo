@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;
 import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.Serialization;
@@ -25,11 +24,11 @@ public class KryoSerialization implements Serialization {
         return "x-application/kryo";
     }
 
-    public ObjectOutput serialize(URL url, OutputStream out) throws IOException {
+    public ObjectOutput serialize(OutputStream out) throws IOException {
         return new KryoObjectOutput(out);
     }
 
-    public ObjectInput deserialize(URL url, InputStream in) throws IOException {
+    public ObjectInput deserialize(InputStream in) throws IOException {
         return new KryoObjectInput(in);
     }
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;
 import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.Serialization;
@@ -21,11 +20,11 @@ public class JavaSerialization implements Serialization  {
         return "x-application/java";
     }
 
-    public ObjectOutput serialize(URL url, OutputStream output) throws IOException {
+    public ObjectOutput serialize(OutputStream output) throws IOException {
         return new JavaObjectOutput(output);
     }
 
-    public ObjectInput deserialize(URL url, InputStream input) throws IOException {
+    public ObjectInput deserialize(InputStream input) throws IOException {
         return new JavaObjectInput(input);
     }
 }

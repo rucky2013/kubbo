@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.6</version>
+	<version>0.7-SNAPSHOT</version>
   </parent>
   
   <artifactId>kubbo-all</artifactId>
@@ -117,8 +117,8 @@
               <include>com.sogou.map:kubbo-common</include>
               <include>com.sogou.map:kubbo-remote-core</include>
               <include>com.sogou.map:kubbo-remote-netty4</include>
-              <include>com.sogou.map:kubbo-rpc-core</include>
-              <include>com.sogou.map:kubbo-rpc-kubbo</include>
+              <include>com.sogou.map:kubbo-protocol-core</include>
+              <include>com.sogou.map:kubbo-protocol-kubbo</include>
               <include>com.sogou.map:kubbo-distributed</include>
               <include>com.sogou.map:kubbo-discovery-kubernetes</include>
               <include>com.sogou.map:kubbo-boot</include>

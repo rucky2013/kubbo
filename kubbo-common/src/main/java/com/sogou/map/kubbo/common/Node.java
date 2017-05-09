@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.common;
 
 
 /**
- * Node. (API/SPI, Prototype, ThreadSafe)
+ * Node
  * 
  * @author liufuliang
  */

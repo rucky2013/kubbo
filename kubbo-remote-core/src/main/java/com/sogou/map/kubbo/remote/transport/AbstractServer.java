@@ -48,7 +48,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
         this.accepts = url.getParameter(Constants.ACCEPTS_KEY, Constants.DEFAULT_ACCEPTS);
         this.idleTimeout = url.getParameter(Constants.IDLE_TIMEOUT_KEY, Constants.DEFAULT_IDLE_TIMEOUT);
         try {
-            doOpen();
+            start();
             if (logger.isInfoEnabled()) {
                 logger.info("Start " + getClass().getSimpleName() 
                         + " bind " + getBindAddress() 
@@ -150,7 +150,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
         
         //extra
         try {
-            doClose();
+            stop();
         } catch (Throwable e) {
             logger.warn(e.getMessage(), e);
         }
@@ -201,7 +201,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
         super.onDisconnected(ch);
     }
     
-    protected abstract void doOpen() throws Throwable;
+    protected abstract void start() throws Throwable;
     
-    protected abstract void doClose() throws Throwable;
+    protected abstract void stop() throws Throwable;
 }

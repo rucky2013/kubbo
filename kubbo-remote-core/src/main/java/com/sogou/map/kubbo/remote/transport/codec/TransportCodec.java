@@ -24,7 +24,7 @@ public class TransportCodec extends AbstractCodec {
     @Override
     public void encode(Channel channel, ChannelBuffer buffer, Object message) throws IOException {
         OutputStream output = new ChannelBufferOutputStream(buffer);
-        ObjectOutput objectOutput = Serializations.getSerialization(channel.getUrl()).serialize(channel.getUrl(), output);
+        ObjectOutput objectOutput = Serializations.getSerialization(channel.getUrl()).serialize(output);
         encodeData(channel, objectOutput, message);
         objectOutput.flushBuffer();
         if (objectOutput instanceof Releasable) {
@@ -34,7 +34,7 @@ public class TransportCodec extends AbstractCodec {
     @Override
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
         InputStream input = new ChannelBufferInputStream(buffer);
-        ObjectInput objectInput = Serializations.getSerialization(channel.getUrl()).deserialize(channel.getUrl(), input);
+        ObjectInput objectInput = Serializations.getSerialization(channel.getUrl()).deserialize(input);
         Object data = decodeData(channel, objectInput);
         if (objectInput instanceof Releasable) {
             ((Releasable) objectInput).release();

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;
 import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
 import com.sogou.map.kubbo.remote.serialization.Serialization;
@@ -23,11 +22,11 @@ public class HessianSerialization implements Serialization {
         return "x-application/hessian";
     }
 
-    public ObjectOutput serialize(URL url, OutputStream out) throws IOException {
+    public ObjectOutput serialize(OutputStream out) throws IOException {
         return new HessianObjectOutput(out);
     }
 
-    public ObjectInput deserialize(URL url, InputStream is) throws IOException {
+    public ObjectInput deserialize(InputStream is) throws IOException {
         return new HessianObjectInput(is);
     }
 

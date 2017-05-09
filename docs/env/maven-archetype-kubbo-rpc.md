@@ -1,5 +1,6 @@
 ## 使用脚手架创建工程  
 以eclipse为例，其他ide类似  
+maven仓库地址配置请参照[maven配置](maven.md)
 #### 1. 使用sogou-archetype-kubbo-rpc模板创建工程见下图  
 ![创建Maven工程](new-maven-project.png)  
 

@@ -54,7 +54,7 @@ public class NettyServer extends AbstractServer {
     }
 
     @Override
-    protected void doOpen() throws Throwable {
+    protected void start() throws Throwable {
         NettyLoggerAdapter.setNettyLoggerFactory();
         
         final NettyHandler nettyHandler = new NettyHandler(getUrl(), NettyServer.this);
@@ -89,7 +89,7 @@ public class NettyServer extends AbstractServer {
     }
 
     @Override
-    protected void doClose() throws Throwable {
+    protected void stop() throws Throwable {
         try {
             if (serverChannel != null) {
                 // unbind.

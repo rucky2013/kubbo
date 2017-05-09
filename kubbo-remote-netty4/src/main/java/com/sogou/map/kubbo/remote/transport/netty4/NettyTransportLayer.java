@@ -8,6 +8,8 @@ import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.transport.TransportLayer;
 
 /**
+ * NettyTransportLayer
+ * 
  * @author liufuliang
  */
 public class NettyTransportLayer implements TransportLayer {

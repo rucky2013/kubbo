@@ -55,7 +55,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
         // Open, initialize
         try {
-            doOpen();
+            start();
         } catch (Throwable t) {
             close();
             throw new RemotingException(url.toInetSocketAddress(), null,
@@ -323,7 +323,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
         // extra close
         try {
-            doClose();
+            stop();
         } catch (Throwable e) {
             logger.warn(e.getMessage(), e);
         }
@@ -341,18 +341,18 @@ public abstract class AbstractClient extends AbstractRole implements Client {
     }
 
     /**
-     * Open client.
+     * start client.
      * 
      * @throws Throwable
      */
-    protected abstract void doOpen() throws Throwable;
+    protected abstract void start() throws Throwable;
 
     /**
-     * Close client.
+     * stop client.
      * 
      * @throws Throwable
      */
-    protected abstract void doClose() throws Throwable;
+    protected abstract void stop() throws Throwable;
 
     /**
      * Connect to server.
