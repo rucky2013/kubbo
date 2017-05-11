@@ -29,6 +29,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
  *
  */
 public class Bootstrap {
+    
     private static Logger logger = LoggerFactory.getLogger(Bootstrap.class);
     
     private ApplicationContext applicationContext = new AbstractApplicationContext();

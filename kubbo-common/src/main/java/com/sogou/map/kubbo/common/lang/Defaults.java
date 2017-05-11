@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Defaults
+ * @author liufuliang
+ */
 public final class Defaults {
     private static final Map<Class<?>, Object> DEFAULTS;
 
@@ -26,10 +30,9 @@ public final class Defaults {
     }
 
     /**
-     * Returns the default value of {@code type} as defined by JLS --- {@code 0}
-     * for numbers, {@code
-     * false} for {@code boolean} and {@code '\0'} for {@code char}. For
-     * non-primitive types and {@code void}, {@code null} is returned.
+     * Returns the default value of {@code type}
+     * @param type class type
+     * @return default value
      */
     public static <T> T defaultValue(Class<T> type) {
         if (type == null) {
