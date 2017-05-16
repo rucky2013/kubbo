@@ -7,10 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sogou.map.kubbo.boot.Bootstrap;
-import com.sogou.map.kubbo.boot.configuration.element.ReferenceElement;
-import com.sogou.map.kubbo.boot.configuration.element.ServerElement;
+import com.sogou.map.kubbo.boot.configuration.element.ApplicationConfiguration;
+import com.sogou.map.kubbo.boot.configuration.element.ReferenceConfiguration;
+import com.sogou.map.kubbo.boot.configuration.element.ServerConfiguration;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
@@ -43,50 +46,61 @@ public class PropertiesConfigurator{
         }
     }
         
-    private static ReferenceElement parseReferenceElement(String key, PropertiesEnvWrapper wrapper){
-        //key
-        if(! key.startsWith("reference.")){
-            return null;
-        }
-        //value
-        String value = wrapper.getString(key, "");
-        if(value.isEmpty()){ 
-            return null;
-        }
-        key = StringUtils.trimHead(key, "reference.");
-        if(key.endsWith(".interface")){   //two line style
-            String name = StringUtils.trimTail(key, ".interface");
-            String address = wrapper.getString("reference." + name + ".address", "");
-            if(!address.isEmpty()){
-                ReferenceElement reference = new ReferenceElement();
-                reference.setName(name);
-                reference.setInterfaceType(value);
-                reference.setAddress(address);
-                return reference;
+    private static List<ReferenceConfiguration> parseReference(PropertiesEnvWrapper wrapper){
+        String header = ReferenceConfiguration.TAG + ".";
+        List<ReferenceConfiguration> references = new ArrayList<ReferenceConfiguration>();
+        for(String key : wrapper.keys()){
+            //key
+            if(! key.startsWith(header)){
+                continue;
             }
-        } else if(! key.endsWith(".address")){ //single line style
-            ReferenceElement reference = new ReferenceElement();
-            reference.setInterfaceType(key);
-            reference.setAddress(value);
-            return reference;
+            //value
+            String value = wrapper.getString(key, "");
+            if(value.isEmpty()){ 
+                continue;
+            }
+            key = StringUtils.trimHead(key, header);
+            if(key.endsWith(".interface")){   //two line style
+                String name = StringUtils.trimTail(key, ".interface");
+                String address = wrapper.getString(header + name + ".address", "");
+                if(!address.isEmpty()){
+                    ReferenceConfiguration reference = new ReferenceConfiguration();
+                    reference.setName(name);
+                    reference.setInterfaceType(value);
+                    reference.setAddress(address);
+                    references.add(reference);
+                }
+            } else if(! key.endsWith(".address")){ //single line style
+                ReferenceConfiguration reference = new ReferenceConfiguration();
+                reference.setInterfaceType(key);
+                reference.setAddress(value);
+                references.add(reference);
+            }
         }
-        return null;
+
+        return references;
     }
     
-    private static ServerElement parseServerElement(String key, PropertiesEnvWrapper wrapper){
-        //key
-        if(! key.startsWith("server")){
-            return null;
+    private static ServerConfiguration parseServer(PropertiesEnvWrapper wrapper){
+        ServerConfiguration server = new ServerConfiguration();
+        String bind = wrapper.getString(ServerConfiguration.TAG + ".bind", "");
+        if(!bind.isEmpty()){
+            server.setBind(bind);
         }
-        //value
-        String value = wrapper.getString(key, "");
-        if(value.isEmpty()){ 
-            return null;
-        }
-        
-        ServerElement server = new ServerElement();
-        server.setBind(value);
         return server;
+    }
+    
+    private static ApplicationConfiguration parseApplication(PropertiesEnvWrapper wrapper){
+        ApplicationConfiguration application = new ApplicationConfiguration();
+        String name = wrapper.getString(ApplicationConfiguration.TAG + ".name", "");
+        if(!name.isEmpty()){
+            application.setName(name);
+        }
+        String home = wrapper.getString(ApplicationConfiguration.TAG + ".home", "");
+        if(!home.isEmpty()){
+            application.setHome(home);
+        }
+        return application;
     }
     
     public static void configure(InputStream propertiesIn){
@@ -100,16 +114,24 @@ public class PropertiesConfigurator{
             return;
         }
         
-        for(String key : wrapper.keys()){
-            ReferenceElement reference = parseReferenceElement(key, wrapper);
-            if(reference != null){
-                configuration.addReferenceElement(reference);
-            }
-            ServerElement server = parseServerElement(key, wrapper);
-            if(server != null){
-                configuration.setServerElement(server);
-            }
+        // reference
+        List<ReferenceConfiguration> references = parseReference(wrapper);
+        if(references != null){
+            configuration.addReferenceElements(references);
         }
+        
+        // server
+        ServerConfiguration server = parseServer(wrapper);
+        if(server != null){
+            configuration.setServerElement(server);
+        }
+        
+        // application
+        ApplicationConfiguration application = parseApplication(wrapper);
+        if(application != null){
+            configuration.setApplication(application);
+        }
+        
         wrapper.storeToSystemProperty();
         configuration.configured = true;
     }

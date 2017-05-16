@@ -142,6 +142,8 @@ public class Constants {
 
     public static final String  FILTER_KEY                         = "filter";
 
+    public static final String  ACCESSLOG_KEY                      = "accesslog";
+
     public static final String  INVOKER_LISTENER_KEY               = "invoker.listener";
 
     public static final String  EXPORTER_LISTENER_KEY              = "exporter.listener";
@@ -167,8 +169,6 @@ public class Constants {
     public static final String  CODEC_KEY                          = "codec";
     
     public static final String  METRICS_KEY                        = "metrics";
-
-    public static final String  METRICS_APPLICATION_KEY            = "application";
 
     public static final String  METRICS_INTERVAL_KEY               = "interval";
 
@@ -277,22 +277,24 @@ public class Constants {
 
     public static final String EXECUTOR_SERVICE_COMPONENT_KEY      = ExecutorService.class.getName();
     
-    public static final String TRUE                                  = "true";
+    public static final String TRUE                                = "true";
     
-    public static final String FALSE                                  = "false";    
+    public static final String FALSE                               = "false";    
     
     /*
-     * env & system property
+     * global env & system property
+     * 列在这里, 用于全局使用
      */
-    public static final String DEFAULT_SERVER_BIND                  = "kubbo://0.0.0.0:40660";
-    
-    public static final String APPLICATION_HOME_SYSTEM_PROPERTY     = "kubbo.application.home";
-    
     public static final String KUBBO_CONFIGURATION_KEY              = "kubbo.configuration";
 
     public static final String DEFAULT_KUBBO_CONFIGURATION          = "kubbo.properties";
 
-    public static final String METRICS_ADDRESS_SYSTEM_PROPERTY      = "kubbo.metrics.address";
+    public static final String GLOBAL_APPLICATION_NAME              = "kubbo.application.name";
+    
+    public static final String GLOBAL_APPLICATION_HOME              = "kubbo.application.home";
+
+    public static final String GLOBAL_METRICS_ADDRESS               = "kubbo.metrics.address";
+
     
     /*
      * metrics

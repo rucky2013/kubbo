@@ -113,12 +113,12 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             if (!isConnected()) {
                 throw new RemotingException(this,
                         "Failed connect to server " + getRemoteAddress() + " from " + getClass().getSimpleName() + " "
-                                + NetUtils.getLocalHost() + ", cause: Connect wait timeout: " + getConnectTimeout()
+                                + NetUtils.getHostAddress() + ", cause: Connect wait timeout: " + getConnectTimeout()
                                 + "ms.");
             } else {
                 if (logger.isInfoEnabled()) {
                     logger.info("Successfully connect to server " + getRemoteAddress() + " from "
-                            + getClass().getSimpleName() + " " + NetUtils.getLocalHost() + ", channel is "
+                            + getClass().getSimpleName() + " " + NetUtils.getHostAddress() + ", channel is "
                             + this.getChannel() + ", kubbo version " + Version.getVersion());
                 }
             }
@@ -127,7 +127,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             throw e;
         } catch (Throwable e) {
             throw new RemotingException(this, "Failed connect to server " + getRemoteAddress() + " from "
-                    + getClass().getSimpleName() + " " + NetUtils.getLocalHost() + ", cause: " + e.getMessage(), e);
+                    + getClass().getSimpleName() + " " + NetUtils.getHostAddress() + ", cause: " + e.getMessage(), e);
         } finally {
             connectLock.unlock();
         }
@@ -234,7 +234,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
     public InetSocketAddress getLocalAddress() {
         Channel channel = getChannel();
         if (channel == null)
-            return InetSocketAddress.createUnresolved(NetUtils.getLocalHost(), 0);
+            return InetSocketAddress.createUnresolved(NetUtils.getHostAddress(), 0);
         return channel.getLocalAddress();
     }
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.configuration.element;
+package com.sogou.map.kubbo.boot.configuration;
 
 import java.io.Serializable;
 

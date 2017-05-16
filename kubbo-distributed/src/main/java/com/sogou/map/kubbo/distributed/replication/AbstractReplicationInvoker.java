@@ -177,7 +177,7 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
 
     private void assertNotDestroyed() {
         if(destroyed){
-            throw new RpcException("Rpc Replication invoker for " + getInterface() + " on consumer " + NetUtils.getLocalHost()
+            throw new RpcException("Rpc Replication invoker for " + getInterface() + " on consumer " + NetUtils.getHostAddress()
                     + " is now destroyed! Can not invoke any more.");
         }
     }
@@ -188,7 +188,7 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
                     + invocation.getMethodName() + " in the service " + getInterface().getName() 
                     + ". No provider available for the service " + RpcHelper.serviceKey(directory.getUrl())
                     + " from discovery " + directory.getUrl().getAddress() 
-                    + " on the consumer " + NetUtils.getLocalHost()
+                    + " on the consumer " + NetUtils.getHostAddress()
                     + ". Please check if the providers have been started and registered.");
         }
     }

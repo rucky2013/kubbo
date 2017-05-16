@@ -14,7 +14,6 @@ import com.sogou.map.kubbo.boot.annotation.Export;
 import com.sogou.map.kubbo.boot.context.AbstractApplicationContext;
 import com.sogou.map.kubbo.boot.context.ApplicationContext;
 import com.sogou.map.kubbo.boot.hook.LifecycleHook;
-import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.annotation.AnnotationDiscovery;
 import com.sogou.map.kubbo.common.annotation.ClassAnnotationDiscoveryListener;
@@ -25,6 +24,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 
 
 /**
+ * Bootstrap
  * @author liufuliang
  *
  */
@@ -35,16 +35,11 @@ public class Bootstrap {
     private ApplicationContext applicationContext = new AbstractApplicationContext();
     private URL bind;
     private List<String> services;
-    private List<String> hooks;
+    private List<String> hooks;    
     
     private void configure(){
         PropertiesConfigurator.configure();
-        KubboConfiguration kubboConfiguration = KubboConfiguration.getInstance();
-        if(kubboConfiguration.isConfigured()){
-            this.bind = URL.valueOf(KubboConfiguration.getInstance().getServerBind());
-        } else{
-            this.bind = URL.valueOf(Constants.DEFAULT_SERVER_BIND);
-        }
+        this.bind = URL.valueOf(KubboConfiguration.getInstance().getServerBind());
     }
     
     private void scanResources() throws IOException{

@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 public class AbstractApplicationContext extends AbstractAttributable<Object> implements ApplicationContext{
     @Override
     public String getApplicationHome() {
-        return SystemPropertyUtils.get(Constants.APPLICATION_HOME_SYSTEM_PROPERTY, ".");
+        return SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_HOME, ".");
 
     }
 }

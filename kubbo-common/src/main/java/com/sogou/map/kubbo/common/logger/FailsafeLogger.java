@@ -19,7 +19,7 @@ public class FailsafeLogger implements Logger {
     }
 
     private String appendContextMessage(String msg) {
-        return "[Kubbo] " + "<" + NetUtils.getLogHost() + "> " + msg;
+        return "[Kubbo] " + "<" + NetUtils.getHostAddress() + "> " + msg;
     }
 
     public void trace(String msg, Throwable e) {

@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.rpc.RpcResult;
  * 
  * @author liufuliang
  */
-@Activate(group = Constants.PROVIDER, order = -110000)
+@Activate(group = Constants.PROVIDER, order = -10000)
 public class EchoFilter implements Filter {
 
     public Result invoke(Invoker<?> invoker, Invocation inv) throws RpcException {

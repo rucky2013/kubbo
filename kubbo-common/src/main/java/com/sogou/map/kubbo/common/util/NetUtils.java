@@ -134,11 +134,6 @@ public class NetUtils {
                 && IP_PATTERN.matcher(name).matches());
     }
     
-    public static String getLocalHost(){
-        InetAddress address = getLocalAddress();
-        return address == null ? LOCALHOST : address.getHostAddress();
-    }
-    
     public static String filterLocalHost(String host) {
         if (StringUtils.isBlank(host)) {
             return host;
@@ -146,16 +141,16 @@ public class NetUtils {
         if (host.contains("://")) {
             URL u = URL.valueOf(host);
             if (NetUtils.isInvalidLocalHost(u.getHost())) {
-                return u.setHost(NetUtils.getLocalHost()).toFullString();
+                return u.setHost(NetUtils.getHostAddress()).toFullString();
             }
         } else if (host.contains(":")) {
             int i = host.lastIndexOf(':');
             if (NetUtils.isInvalidLocalHost(host.substring(0, i))) {
-                return NetUtils.getLocalHost() + host.substring(i);
+                return NetUtils.getHostAddress() + host.substring(i);
             }
         } else {
             if (NetUtils.isInvalidLocalHost(host)) {
-                return NetUtils.getLocalHost();
+                return NetUtils.getHostAddress();
             }
         }
         return host;
@@ -176,14 +171,14 @@ public class NetUtils {
         return localAddress;
     }
     
-    public static String getLogHost() {
-        InetAddress address = LOCAL_ADDRESS;
-        return address == null ? LOCALHOST : address.getHostAddress();
+    public static String getHostName(){
+        InetAddress address = getLocalAddress();
+        return address == null ? ANYHOST : address.getHostName();
     }
     
-    public static String getHostName(){
-        InetAddress address = LOCAL_ADDRESS;
-        return address == null ? ANYHOST : address.getHostName();
+    public static String getHostAddress(){
+        InetAddress address = getLocalAddress();
+        return address == null ? LOCALHOST : address.getHostAddress();
     }
     
     private static InetAddress getLocalAddress0() {

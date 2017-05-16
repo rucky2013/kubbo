@@ -3,11 +3,13 @@
  */
 package com.sogou.map.kubbo.boot.configuration.element;
 
+import com.sogou.map.kubbo.boot.configuration.Configuration;
+
 /**
  * @author liufuliang
  *
  */
-public class ReferenceElement implements Configuration{
+public class ReferenceConfiguration implements Configuration{
     private static final long serialVersionUID = 1L;
     public static final String TAG = "reference";
     

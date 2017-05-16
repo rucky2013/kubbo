@@ -4,16 +4,18 @@
 package com.sogou.map.kubbo.boot.configuration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import com.sogou.map.kubbo.boot.configuration.element.Configuration;
-import com.sogou.map.kubbo.boot.configuration.element.ReferenceElement;
-import com.sogou.map.kubbo.boot.configuration.element.ServerElement;
+import com.sogou.map.kubbo.boot.configuration.element.ApplicationConfiguration;
+import com.sogou.map.kubbo.boot.configuration.element.ReferenceConfiguration;
+import com.sogou.map.kubbo.boot.configuration.element.ServerConfiguration;
 
 /**
  * -Dkubbo.configuration=xxx
  * classpath根目录
  * setConfiguration()
+ * 配置文件中的内容可以被环境变量和系统变量覆盖
  * @author liufuliang
  *
  */
@@ -23,18 +25,28 @@ public class KubboConfiguration implements Configuration{
     
     volatile boolean configured = false;
     
-    List<ReferenceElement> references = new ArrayList<ReferenceElement>(10);
-    ServerElement server;
+    List<ReferenceConfiguration> references = new ArrayList<ReferenceConfiguration>(10);
+    ServerConfiguration server = new ServerConfiguration();
+    ApplicationConfiguration application = new ApplicationConfiguration();
     
-    public void addReferenceElement(ReferenceElement reference){
+    public void addReferenceElement(ReferenceConfiguration reference){
         references.add(reference);
     }
+    public void addReferenceElements(Collection<ReferenceConfiguration> reference){
+        references.addAll(reference);
+    }
     
-    public void setServerElement(ServerElement server){
+    public void setServerElement(ServerConfiguration server){
         this.server = server;
     }
     public String getServerBind(){
         return server == null ? null : server.getBind();
+    }
+    public ApplicationConfiguration getApplication() {
+        return application;
+    }
+    public void setApplication(ApplicationConfiguration application) {
+        this.application = application;
     }
     public boolean isConfigured(){
         return this.configured;
@@ -44,7 +56,7 @@ public class KubboConfiguration implements Configuration{
     }
     
     public String getReferenceAddress(String interfaceType, String name){
-        for(ReferenceElement reference : references){
+        for(ReferenceConfiguration reference : references){
             if(reference.getInterfaceType().equals(interfaceType)){
                 if(name == null 
                         || (reference.getName() !=null && reference.getName().equals(name))){

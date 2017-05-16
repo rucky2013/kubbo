@@ -121,7 +121,7 @@ public class NettyClient extends AbstractClient {
                 throw new RemotingException(this, "client(url: " + getUrl() + ") failed to connect to server "
                         + getRemoteAddress() + " client-side timeout "
                         + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
-                        + NetUtils.getLocalHost());
+                        + NetUtils.getHostAddress());
             }
         }finally{
             if (! isConnected()) {

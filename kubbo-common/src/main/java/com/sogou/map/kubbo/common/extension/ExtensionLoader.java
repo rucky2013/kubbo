@@ -240,7 +240,7 @@ public class ExtensionLoader<T> {
                 String k = entry.getKey();
                 String v = entry.getValue();
                 if ((k.equals(key) || k.endsWith("." + key))
-                        && !SystemPropertyUtils.isNaV(v)) {
+                        && !SystemPropertyUtils.isNaV(v) && !"false".equalsIgnoreCase(v)) {
                     return true;
                 }
             }

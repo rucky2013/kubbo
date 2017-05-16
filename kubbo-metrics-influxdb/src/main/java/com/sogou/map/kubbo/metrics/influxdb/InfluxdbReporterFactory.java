@@ -33,7 +33,7 @@ public class InfluxdbReporterFactory implements ReporterFactory {
             return reporters.get(address.getAddress());
         }
         InfluxDB influxdb = InfluxDBFactory.connect(address);
-        String application = address.getParameter(Constants.METRICS_APPLICATION_KEY, NetUtils.getHostName());        
+        String application = address.getParameter(Constants.APPLICATION_KEY, NetUtils.getHostAddress());        
         InfluxdbReporter reporter = InfluxdbReporter.registry(registry)
                 .rateUnit(TimeUnit.SECONDS)
                 .durationUnit(TimeUnit.MILLISECONDS)

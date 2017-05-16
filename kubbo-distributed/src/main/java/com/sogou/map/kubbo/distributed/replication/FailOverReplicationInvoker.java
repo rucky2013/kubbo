@@ -64,7 +64,7 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
                             + ", but there have been failed providers " + providers 
                             + " (" + providers.size() + "/" + copyinvokers.size()
                             + ") from the discovery " + directory.getUrl().getAddress()
-                            + " on the consumer " + NetUtils.getLocalHost()
+                            + " on the consumer " + NetUtils.getHostAddress()
                             + " Last error is: " + exception.getMessage(), exception);
                 }
                 return result;
@@ -85,7 +85,7 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
                 + ". Tried " + tries + " times of the providers " + providers 
                 + " (" + providers.size() + "/" + copyinvokers.size() 
                 + ") from the discovery " + directory.getUrl().getAddress()
-                + " on the consumer " + NetUtils.getLocalHost()
+                + " on the consumer " + NetUtils.getHostAddress()
                 + ". Last error is: " + exception.getMessage(), exception);
         }
 

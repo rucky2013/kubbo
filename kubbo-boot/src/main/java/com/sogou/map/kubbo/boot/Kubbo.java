@@ -17,6 +17,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.util.StringUtils;
+import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.InvokerProxy;
 import com.sogou.map.kubbo.rpc.Protocol;
@@ -84,12 +85,15 @@ public class Kubbo {
             return (T) services.get(referKey);
         }
         
+        String applicationName = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME);
+        URL referURL = url.addParameterIfAbsent(Constants.APPLICATION_KEY, applicationName);
+        
         if("discovery".equalsIgnoreCase(url.getProtocol())){
             return getAdaptiveInvokerProxy().getProxy(
-                    getProtocol("discovery").refer(type, url));
+                    getProtocol("discovery").refer(type, referURL));
         }
         T service = getAdaptiveInvokerProxy().getProxy(
-                getProtocol(url).refer(type, url));
+                getProtocol(url).refer(type, referURL));
         
         services.putIfAbsent(referKey, service);
         return service;

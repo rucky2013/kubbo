@@ -33,7 +33,7 @@ public class KubboProtocol extends AbstractProtocol {
 
     public static final String NAME = "kubbo";
     
-    public static final int DEFAULT_PORT = 30660;
+    public static final int DEFAULT_PORT = 40660;
         
     private final Map<String, SessionServer> serverMap = new ConcurrentHashMap<String, SessionServer>(); // <host:port,SessionServer>
     
@@ -48,7 +48,7 @@ public class KubboProtocol extends AbstractProtocol {
                 return invoker.invoke(inv);
             }
             throw new RemotingException(channel, "Unsupported request: " + message == null ? null : 
-                        (message.getClass().getName() + ": " + message) + ", channel: consumer: " + channel.getRemoteAddress() + " --> provider: " + channel.getLocalAddress());
+                        (message.getClass().getName() + ": " + message) + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress());
         }
     };
     

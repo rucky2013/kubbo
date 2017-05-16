@@ -27,11 +27,11 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  */
 public class KubboInvoker<T> extends AbstractInvoker<T> {
 
-    private final SessionClient[]      sessions;
+    private final SessionClient[] sessions;
 
     private final AtomicPositiveInteger index = new AtomicPositiveInteger();
             
-    private final ReentrantLock     destroyLock = new ReentrantLock();
+    private final ReentrantLock destroyLock = new ReentrantLock();
     
     private final Set<Invoker<?>> invokers;
     

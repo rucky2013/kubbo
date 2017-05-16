@@ -17,16 +17,16 @@ import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
  * @author liufuliang
  */
 public class DecodeableRpcResult extends RpcResult implements Decodeable {
+    
+    private static final Logger log = LoggerFactory.getLogger(DecodeableRpcResult.class);
 
     private static final long serialVersionUID = -4446367169516521258L;
 
-    private static final Logger log = LoggerFactory.getLogger(DecodeableRpcResult.class);
-
-    private Channel     channel;
+    private Channel channel;
 
     private ObjectInput input;
 
-    private Response    response;
+    private Response response;
 
     private volatile boolean hasDecoded;
 

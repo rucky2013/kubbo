@@ -211,7 +211,6 @@ public final class SystemPropertyUtils {
                 || "null".equalsIgnoreCase(value) 
                 || "N/A".equalsIgnoreCase(value);
     }
-    
 
     private SystemPropertyUtils() {
         // Unused

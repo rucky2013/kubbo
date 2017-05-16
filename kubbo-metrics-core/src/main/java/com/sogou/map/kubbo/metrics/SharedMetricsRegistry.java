@@ -18,7 +18,7 @@ import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
  */
 public class SharedMetricsRegistry {
     private static final Logger LOG = LoggerFactory.getLogger(SharedMetricsRegistry.class);
-    private static final String metricsAddress = SystemPropertyUtils.get(Constants.METRICS_ADDRESS_SYSTEM_PROPERTY, "");
+    private static final String metricsAddress = SystemPropertyUtils.get(Constants.GLOBAL_METRICS_ADDRESS, "");
 
     private SharedMetricsRegistry() {}
     
@@ -47,9 +47,16 @@ public class SharedMetricsRegistry {
             return;
         }
         /*
-         * create reporter
+         * metrics address
          */
         URL metrics = URL.valueOf(metricsAddress);
+        String applicationName = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, "");
+        if(! applicationName.isEmpty()){
+            metrics = metrics.addParameterIfAbsent(Constants.APPLICATION_KEY, applicationName);
+        }
+        /*
+         * create reporter
+         */
         ReporterFactory reporterFactory = getReporterFactory(metrics);
         Reporter reporter = reporterFactory.create(registry, metrics);
         
@@ -62,6 +69,6 @@ public class SharedMetricsRegistry {
         long nextMinute = ((millis / 60000) + 1) * 60000;
         long delay = (nextMinute - System.currentTimeMillis());
         reporter.start(delay, interval, TimeUnit.MILLISECONDS);
-        LOG.info("Metrics report to " + metricsAddress);
+        LOG.info("Metrics report to " + metrics.toFullString());
     }
 }

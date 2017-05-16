@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.rpc.protocol.AbstractExporter;
  */
 public class KubboExporter<T> extends AbstractExporter<T> {
 
-    private final String                        key;
+    private final String key;
 
     private final Map<String, Exporter<?>> exporterMap;
 

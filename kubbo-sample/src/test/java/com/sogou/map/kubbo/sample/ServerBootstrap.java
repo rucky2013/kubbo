@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.boot.Bootstrap;
 
 
 /**
- * SampleConsumer
+ * ServerBootstrap
  * 
  * @author liufuliang
  */
