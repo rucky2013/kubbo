@@ -1,1 +1,2 @@
 echo=com.sogou.map.kubbo.rpc.echo.EchoFilter
+accesslog=com.sogou.map.kubbo.rpc.filters.AccessLogFilter

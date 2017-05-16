@@ -1,0 +1,44 @@
+package com.sogou.map.kubbo.rpc.filters;
+
+import com.sogou.map.kubbo.common.Constants;
+import com.sogou.map.kubbo.common.extension.Activate;
+import com.sogou.map.kubbo.common.json.JSONArray;
+import com.sogou.map.kubbo.common.json.JSONException;
+import com.sogou.map.kubbo.common.logger.Logger;
+import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.rpc.Filter;
+import com.sogou.map.kubbo.rpc.Invocation;
+import com.sogou.map.kubbo.rpc.Invoker;
+import com.sogou.map.kubbo.rpc.Result;
+import com.sogou.map.kubbo.rpc.RpcException;
+
+/**
+ * AccessLogFilter
+ * 
+ * @author liufuliang
+ */
+@Activate(group = Constants.PROVIDER, order = 9999, value = Constants.ACCESSLOG_KEY)
+public class AccessLogFilter implements Filter {
+    
+    private static final Logger logger = LoggerFactory.getLogger("accesslog");
+
+    public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
+        String source = invocation.getAttachment(Constants.APPLICATION_KEY, "unknown");
+        String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
+        String arguments = "";
+        try {
+            JSONArray obj = new JSONArray(invocation.getArguments());
+            arguments = obj.toString();
+        } catch (JSONException e) {}
+        
+        StringBuffer log = new StringBuffer();
+        log.append("Req,").append(method).append(" ").append(source).append(" ").append(arguments);
+        
+        if(logger.isInfoEnabled()){
+            logger.info(log.toString());
+        }
+        
+        return invoker.invoke(invocation);
+    }
+
+}

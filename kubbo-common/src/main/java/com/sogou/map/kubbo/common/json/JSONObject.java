@@ -1128,14 +1128,12 @@ public class JSONObject {
     }
 
     private void populateMap(Object bean) {
-        Class<?> klass = bean.getClass();
+        Class<?> clazz = bean.getClass();
 
-// If klass is a System class then set includeSuperClass to false.
+        // If clazz is a System class then set includeSuperClass to false.
+        boolean includeSuperClass = clazz.getClassLoader() != null;
 
-        boolean includeSuperClass = klass.getClassLoader() != null;
-
-        Method[] methods = includeSuperClass ? klass.getMethods() : klass
-                .getDeclaredMethods();
+        Method[] methods = includeSuperClass ? clazz.getMethods() : clazz.getDeclaredMethods();
         for (int i = 0; i < methods.length; i += 1) {
             try {
                 Method method = methods[i];
@@ -1143,8 +1141,7 @@ public class JSONObject {
                     String name = method.getName();
                     String key = "";
                     if (name.startsWith("get")) {
-                        if ("getClass".equals(name)
-                                || "getDeclaringClass".equals(name)) {
+                        if ("getClass".equals(name) || "getDeclaringClass".equals(name)) {
                             key = "";
                         } else {
                             key = name.substring(3);
@@ -1158,8 +1155,7 @@ public class JSONObject {
                         if (key.length() == 1) {
                             key = key.toLowerCase();
                         } else if (!Character.isUpperCase(key.charAt(1))) {
-                            key = key.substring(0, 1).toLowerCase()
-                                    + key.substring(1);
+                            key = key.substring(0, 1).toLowerCase() + key.substring(1);
                         }
 
                         Object result = method.invoke(bean, (Object[]) null);
@@ -1737,7 +1733,7 @@ public class JSONObject {
                     || object instanceof Long || object instanceof Boolean
                     || object instanceof Float || object instanceof Double
                     || object instanceof String || object instanceof BigInteger
-                    || object instanceof BigDecimal) {
+                    || object instanceof BigDecimal || object.getClass().isEnum()) {
                 return object;
             }
 
@@ -1753,8 +1749,7 @@ public class JSONObject {
                 return new JSONObject(map);
             }
             Package objectPackage = object.getClass().getPackage();
-            String objectPackageName = objectPackage != null ? objectPackage
-                    .getName() : "";
+            String objectPackageName = objectPackage != null ? objectPackage.getName() : "";
             if (objectPackageName.startsWith("java.")
                     || objectPackageName.startsWith("javax.")
                     || object.getClass().getClassLoader() == null) {

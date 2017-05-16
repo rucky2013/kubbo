@@ -4,11 +4,13 @@
 ```
 server.bind = kubbo://0.0.0.0:40660?corethreads=10&maxthreads=100&queues=200
 ```
-corethreads: 处理线程池初始大小  
-maxthreads: 处理线程池最大数量  
-queues: 请求处理队列  
-当处理线程数大于corethreads, 超过1分钟的空闲线程会自动释放  
-当处理线程数达到maxthreads, 新的请求将被插入处理队列等待处理。  
+- corethreads: 处理线程池初始大小  
+- maxthreads: 处理线程池最大数量  
+- queues: 请求处理队列  
+  当处理线程数大于corethreads, 超过1分钟的空闲线程会自动释放  
+  当处理线程数达到maxthreads, 新的请求将被插入处理队列等待处理。  
+- accesslog: 是否开启访问日志记录, true/false 默认为false  
+  注意: 开启accesslog会影响程序的性能, 开启前请做好性能测试。  
 
 ## 客户端配置 
 #### *单行配置方式*

@@ -3,6 +3,8 @@ package com.sogou.map.kubbo.common.logger;
 import com.sogou.map.kubbo.common.util.NetUtils;
 
 public class FailsafeLogger implements Logger {
+    
+    private static final String LOG_HEADER = "[Kubbo] " + "<" + NetUtils.getHostAddress() + "> ";
 
     private Logger logger;
 
@@ -18,13 +20,13 @@ public class FailsafeLogger implements Logger {
         this.logger = logger;
     }
 
-    private String appendContextMessage(String msg) {
-        return "[Kubbo] " + "<" + NetUtils.getHostAddress() + "> " + msg;
+    private String appendLogHeader(String msg) {
+        return LOG_HEADER + msg;
     }
 
     public void trace(String msg, Throwable e) {
         try {
-            logger.trace(appendContextMessage(msg), e);
+            logger.trace(appendLogHeader(msg), e);
         } catch (Throwable t) {
         }
     }
@@ -38,14 +40,14 @@ public class FailsafeLogger implements Logger {
 
     public void trace(String msg) {
         try {
-            logger.trace(appendContextMessage(msg));
+            logger.trace(appendLogHeader(msg));
         } catch (Throwable t) {
         }
     }
 
     public void debug(String msg, Throwable e) {
         try {
-            logger.debug(appendContextMessage(msg), e);
+            logger.debug(appendLogHeader(msg), e);
         } catch (Throwable t) {
         }
     }
@@ -59,49 +61,49 @@ public class FailsafeLogger implements Logger {
 
     public void debug(String msg) {
         try {
-            logger.debug(appendContextMessage(msg));
+            logger.debug(appendLogHeader(msg));
         } catch (Throwable t) {
         }
     }
 
     public void info(String msg, Throwable e) {
         try {
-            logger.info(appendContextMessage(msg), e);
+            logger.info(appendLogHeader(msg), e);
         } catch (Throwable t) {
         }
     }
 
     public void info(String msg) {
         try {
-            logger.info(appendContextMessage(msg));
+            logger.info(appendLogHeader(msg));
         } catch (Throwable t) {
         }
     }
 
     public void warn(String msg, Throwable e) {
         try {
-            logger.warn(appendContextMessage(msg), e);
+            logger.warn(appendLogHeader(msg), e);
         } catch (Throwable t) {
         }
     }
 
     public void warn(String msg) {
         try {
-            logger.warn(appendContextMessage(msg));
+            logger.warn(appendLogHeader(msg));
         } catch (Throwable t) {
         }
     }
 
     public void error(String msg, Throwable e) {
         try {
-            logger.error(appendContextMessage(msg), e);
+            logger.error(appendLogHeader(msg), e);
         } catch (Throwable t) {
         }
     }
 
     public void error(String msg) {
         try {
-            logger.error(appendContextMessage(msg));
+            logger.error(appendLogHeader(msg));
         } catch (Throwable t) {
         }
     }

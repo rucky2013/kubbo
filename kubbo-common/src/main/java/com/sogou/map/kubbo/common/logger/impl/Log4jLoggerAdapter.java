@@ -13,7 +13,7 @@ import com.sogou.map.kubbo.common.logger.LoggerAdapter;
 
 public class Log4jLoggerAdapter implements LoggerAdapter {
 
-    private File            file;
+    private File file;
 
     @SuppressWarnings("unchecked")
     public Log4jLoggerAdapter() {
