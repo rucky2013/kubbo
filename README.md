@@ -13,7 +13,7 @@ maven仓库地址配置请参照[maven配置](docs/env/maven.md)
 <dependency>
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-all</artifactId>
-  <version>0.6</version>
+  <version>0.7</version>
 </dependency>
 ```
 
