@@ -7,3 +7,7 @@
 
 - **客户端refer出来的远程接口对象支持多线程并发调用吗**  
 支持, 推荐把远程接口对象做成单例
+
+- **kubbo-boot如何支持log4j2**  
+kubbo框架本身支持log4j/log4j2/slf4j/jdk-logging  
+kubbo-boot默认使用log4j, 如果要支持log4j2, 请下载[kubbo-boot-log4j2](http://release.mssp.sogou/kubbo/kubbo-boot-log4j2-latest.tar.gz)  
