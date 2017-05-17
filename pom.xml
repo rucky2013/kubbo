@@ -9,7 +9,7 @@
 
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-parent</artifactId>
-  <version>0.7-SNAPSHOT</version>
+  <version>0.7</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>The parent project of kubbo</description>
@@ -40,9 +40,9 @@
     <kryo_version>4.0.0</kryo_version>
     <kryo_serializers_version>0.41</kryo_serializers_version>
     <!-- Log libs -->
-    <slf4j_version>1.6.2</slf4j_version>
+    <slf4j_version>1.7.25</slf4j_version>
     <log4j_version>1.2.17</log4j_version>
-    <log4j2_version>2.7</log4j2_version>
+    <log4j2_version>2.3</log4j2_version>
     <!-- Test libs -->
     <junit_version>4.12</junit_version>
     <jmockit_version>1.31</jmockit_version>

@@ -23,7 +23,7 @@ public class AccessLogFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger("accesslog");
 
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        String source = invocation.getAttachment(Constants.APPLICATION_KEY, "unknown");
+        String source = invocation.getAttachment(Constants.APPLICATION_KEY, "-");
         String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
         String arguments = "";
         try {

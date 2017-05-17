@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <!-- Appenders -->
+  <Appenders>
+    <!-- console appender -->
+    <Console name="Console">
+      <PatternLayout pattern="%d [%p] %m%n"/>
+    </Console>
+  </Appenders>
+
+  <!-- Loggers -->
+  <Loggers>
+    <!-- root logger -->
+    <Root level="INFO">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers> 
+</Configuration>
