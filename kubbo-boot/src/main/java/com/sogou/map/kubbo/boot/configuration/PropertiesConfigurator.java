@@ -33,7 +33,7 @@ public class PropertiesConfigurator{
         //system property
         String kubboConfigurationFile = SystemPropertyUtils.get(Constants.KUBBO_CONFIGURATION_KEY);
         if(! StringUtils.isBlank(kubboConfigurationFile)){
-            logger.info("Use configuration: " + kubboConfigurationFile);
+            logger.info("Using configuration: " + kubboConfigurationFile);
             configure(kubboConfigurationFile);
             return;
         } 
@@ -41,7 +41,7 @@ public class PropertiesConfigurator{
         //classpath root
         InputStream in = Bootstrap.class.getResourceAsStream("/" + Constants.DEFAULT_KUBBO_CONFIGURATION);
         if(in != null){
-            logger.info("Use configuration: kubbo.properties in CLASSPATH root.");
+            logger.info("Using configuration: kubbo.properties in CLASSPATH root.");
             configure(in);
         }
     }
