@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
     <artifactId>parent</artifactId>
-    <version>1</version>
+    <version>2</version>
   </parent>
 
   <groupId>com.sogou.map</groupId>
@@ -15,6 +15,7 @@
   <description>The parent project of kubbo</description>
 
   <modules>
+    <module>kubbo-all</module>
     <module>kubbo-common</module>
     <module>kubbo-remote-core</module>
     <module>kubbo-remote-netty4</module>
@@ -23,7 +24,6 @@
     <module>kubbo-distributed</module>
     <module>kubbo-discovery-kubernetes</module>
     <module>kubbo-boot</module>
-    <module>kubbo-all</module>
     <module>kubbo-bench</module>
     <module>kubbo-metrics-core</module>
     <module>kubbo-metrics-influxdb</module>
