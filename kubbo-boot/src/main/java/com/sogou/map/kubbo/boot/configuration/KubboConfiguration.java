@@ -23,7 +23,7 @@ public class KubboConfiguration implements Configuration{
 
     private static final long serialVersionUID = 1L;
     
-    volatile boolean configured = false;
+    private volatile boolean configured = false;
     
     List<ReferenceConfiguration> references = new ArrayList<ReferenceConfiguration>(10);
     ServerConfiguration server = new ServerConfiguration();
@@ -50,6 +50,10 @@ public class KubboConfiguration implements Configuration{
     }
     public boolean isConfigured(){
         return this.configured;
+    }
+    
+    public void setConfigured(boolean configured) {
+        this.configured = configured;
     }
     public String getReferenceAddress(String interfaceType){
         return getReferenceAddress(interfaceType, null);
