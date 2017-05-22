@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.distributed.discovery.kubernetes.client;
+package com.sogou.map.kubbo.common.etcd;
 
 import com.sogou.map.kubbo.common.KubboException;
 

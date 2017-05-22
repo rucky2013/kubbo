@@ -162,7 +162,7 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
         HttpRequest request = build();
         try {
             return request.execute();
-        } catch (IOException e) {
+        } catch (Throwable e) {
             throw new KubboHttpException(e);
         }
     }
@@ -180,7 +180,7 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
         try {
             HttpResponse response = request.execute();
             return response.asType(asType);
-        } catch (IOException e) {
+        } catch (Throwable e) {
             throw new KubboHttpException(e);
         }
     }

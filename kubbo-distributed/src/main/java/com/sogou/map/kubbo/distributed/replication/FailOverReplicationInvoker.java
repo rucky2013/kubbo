@@ -8,7 +8,6 @@ import java.util.Set;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.distributed.Directory;
 import com.sogou.map.kubbo.distributed.LoadBalance;
 import com.sogou.map.kubbo.rpc.Invocation;
@@ -58,14 +57,11 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
             try {
                 Result result = invoker.invoke(invocation);
                 if (exception != null && logger.isWarnEnabled()) {
-                    logger.warn("Although retry the method " + invocation.getMethodName()
-                            + " in the service " + getInterface().getName()
-                            + " was successful by the provider " + invoker.getUrl().getAddress()
-                            + ", but there have been failed providers " + providers 
-                            + " (" + providers.size() + "/" + copyinvokers.size()
-                            + ") from the discovery " + directory.getUrl().getAddress()
-                            + " on the consumer " + NetUtils.getHostAddress()
-                            + " Last error is: " + exception.getMessage(), exception);
+                    logger.warn("Failover for " + getInterface().getName() + "." + invocation.getMethodName()
+                            + ", invoked server " + invoker.getUrl().getAddress()
+                            + ", failed servers " + providers + " (" + providers.size() + "/" + copyinvokers.size() + ")"
+                            + ", discovery is " + directory.getUrl().getAddress()
+                            + ", last error is: " + exception.getMessage(), exception);
                 }
                 return result;
             } catch (RpcException e) {
@@ -80,13 +76,10 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
             }
         }
         throw new RpcException(exception.getCode(), 
-                "Failed to invoke the method "+ invocation.getMethodName() 
-                + " in the service " + getInterface().getName() 
-                + ". Tried " + tries + " times of the providers " + providers 
-                + " (" + providers.size() + "/" + copyinvokers.size() 
-                + ") from the discovery " + directory.getUrl().getAddress()
-                + " on the consumer " + NetUtils.getHostAddress()
-                + ". Last error is: " + exception.getMessage(), exception);
+                "Failed to invoke  " + getInterface().getName() + "." + invocation.getMethodName() 
+                + ", failed servers " + providers + " (" + providers.size() + "/" + copyinvokers.size() + ")"
+                + ", discovery is " + directory.getUrl().getAddress()
+                + ", last error is: " + exception.getMessage(), exception);
         }
 
 }

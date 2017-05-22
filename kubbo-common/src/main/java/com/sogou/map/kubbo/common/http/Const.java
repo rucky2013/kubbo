@@ -4,7 +4,7 @@ package com.sogou.map.kubbo.common.http;
  * Constant values and strings.
  */
 public class Const {
-    public static final String DEFAULT_USER_AGENT = "kubbo-common/http:1.0";
+    public static final String DEFAULT_USER_AGENT = "kubbo-common/http:v1";
     public static final String DEFAULT_COMPRESS = "gzip";
     public static final String AUTHORIZATION_BASIC = "Basic";
     public static final String AUTHORIZATION_TOKEN = "Bearer";

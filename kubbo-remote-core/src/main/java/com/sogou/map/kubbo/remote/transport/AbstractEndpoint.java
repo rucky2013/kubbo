@@ -20,6 +20,7 @@ import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelega
  * @author liufuliang
  */
 public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate implements Endpoint {
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractEndpoint.class);
 
     private volatile URL         url;

@@ -65,6 +65,7 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
             try{
                 JSONObject etcdObj = etcdClient.get(api)
                         .paramIf("wait", "true", waitIndex >= 0)
+                        .paramIf("waitIndex", String.valueOf(waitIndex), waitIndex >= 0)
                         .watch()
                         .success()
                         .asType(JSONObject.class);	
@@ -103,21 +104,24 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                         }
                     }
                 }
-                waitIndex = nodeObj.getLong("modifiedIndex");
+                waitIndex = nodeObj.getLong("modifiedIndex") + 1;
                 retry.reset();
                 break;
             } catch(KubboHttpException e){
                 retry.scale();
-                logger.warn("Etcd discovery HTTP exception, will retry " + retry.interval()/1000 + " second later", e);
+                logger.warn("Etcd discovery HTTP exception, will retry " + retry.interval()/1000 + " second later.", e);
             } catch (JSONException e) {
                 retry.scale();
-                logger.warn("Etcd discovery Parse exception, will retry " + retry.interval()/1000 + "second later", e);
-            }
+                logger.warn("Etcd discovery Parse exception, will retry " + retry.interval()/1000 + "second later." , e);
+            } 
             
             if(retry.interval() > 0){
                 urls.clear();
                 try { Thread.sleep(retry.interval()); } catch (InterruptedException e) {}
             }
+        }
+        if(logger.isDebugEnabled()){
+            logger.debug("Discovery addresses fetch: " + urls);
         }
         return urls;
     }

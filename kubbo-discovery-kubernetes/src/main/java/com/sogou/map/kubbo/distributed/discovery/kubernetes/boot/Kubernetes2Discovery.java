@@ -7,6 +7,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.Constants;
+import com.sogou.map.kubbo.common.etcd.EtcdClient;
+import com.sogou.map.kubbo.common.etcd.EtcdOprationException;
 import com.sogou.map.kubbo.common.http.KubboHttpException;
 import com.sogou.map.kubbo.common.http.Watcher;
 import com.sogou.map.kubbo.common.json.JSONException;
@@ -16,8 +18,6 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.impl.CachedThreadPool;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
 import com.sogou.map.kubbo.common.util.ProgressiveRetryState;
-import com.sogou.map.kubbo.distributed.discovery.kubernetes.client.EtcdClient;
-import com.sogou.map.kubbo.distributed.discovery.kubernetes.client.EtcdOprationException;
 import com.sogou.map.kubbo.distributed.discovery.kubernetes.client.KubernetesClient;
 
 /**

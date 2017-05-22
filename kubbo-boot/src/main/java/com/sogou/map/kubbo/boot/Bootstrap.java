@@ -6,7 +6,6 @@ package com.sogou.map.kubbo.boot;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.sogou.map.kubbo.boot.annotation.Hook;
 import com.sogou.map.kubbo.boot.configuration.KubboConfiguration;
 import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
@@ -36,6 +35,7 @@ public class Bootstrap {
     private URL bind;
     private List<String> services;
     private List<String> hooks;    
+    private volatile boolean destroyed = false;
     
     private void configure(){
         PropertiesConfigurator.configure();
@@ -79,7 +79,10 @@ public class Bootstrap {
         }
     }
     
-    private void destroy() throws Throwable{
+    synchronized private void destroy() throws Throwable{
+        if(destroyed){
+            return;
+        }
         Kubbo.destroy();
         if(hooks == null){
             return;
@@ -91,6 +94,7 @@ public class Bootstrap {
                 ((LifecycleHook)hookInstance).destroy(applicationContext);
             }
         }
+        destroyed = true;
     }
     
     private void shutdownHook(){
@@ -129,7 +133,7 @@ public class Bootstrap {
         return discovery;
     }
     
-    public void start() throws Throwable {
+    private void start(boolean loop) throws Throwable {
         //configure
         configure();
         
@@ -146,13 +150,19 @@ public class Bootstrap {
         shutdownHook();
         
         //loop
-        loop();
-        
-        //hook: destroy
-        destroy();
+        if(loop){ 
+            loop();
+        }
     }
     
+    public void start() throws Throwable{
+        start(true);
+    }
 
+//    public void stop() throws Throwable{
+//        destroy();
+//    }
+    
     public static void main(String[] args) throws Throwable{
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.start();

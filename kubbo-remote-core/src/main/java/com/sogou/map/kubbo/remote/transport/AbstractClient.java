@@ -60,17 +60,13 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             close();
             throw new RemotingException(url.toInetSocketAddress(), null,
                     "Failed to start " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress()
-                            + " connect to the server " + getRemoteAddress() + ", cause: " + t.getMessage(),
-                    t);
+                    + " connect to the server " + getRemoteAddress() 
+                    + ", cause: " + t.getMessage(), t);
         }
 
         // Connect
         try {
             connect();
-            if (logger.isInfoEnabled()) {
-                logger.info("Start " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress()
-                        + " connect to the server " + getRemoteAddress());
-            }
         } catch (RemotingException t) {
             if (url.getParameter(Constants.CHECK_KEY, true)) {
                 close();
@@ -84,8 +80,8 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             close();
             throw new RemotingException(url.toInetSocketAddress(), null,
                     "Failed to start " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress()
-                            + " connect to the server " + getRemoteAddress() + ", cause: " + t.getMessage(),
-                    t);
+                    + " connect to the server " + getRemoteAddress() 
+                    + ", cause: " + t.getMessage(), t);
         }
 
         // 保留线程池, 用于关闭
@@ -112,22 +108,25 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             startConnectionStateCheckTask();
             if (!isConnected()) {
                 throw new RemotingException(this,
-                        "Failed connect to server " + getRemoteAddress() + " from " + getClass().getSimpleName() + " "
-                                + NetUtils.getHostAddress() + ", cause: Connect wait timeout: " + getConnectTimeout()
-                                + "ms.");
+                        "Failed connect to server " + getRemoteAddress() 
+                            + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
+                            + ", cause: Connect wait timeout: " + getConnectTimeout() + "ms.");
             } else {
                 if (logger.isInfoEnabled()) {
-                    logger.info("Successfully connect to server " + getRemoteAddress() + " from "
-                            + getClass().getSimpleName() + " " + NetUtils.getHostAddress() + ", channel is "
-                            + this.getChannel() + ", kubbo version " + Version.getVersion());
+                    logger.info("Successfully connect to server " + getRemoteAddress() 
+                                    + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
+                                    + ", channel is " + this.getChannel() 
+                                    + ", kubbo version " + Version.getVersion());
                 }
             }
             connectionState.reset();
         } catch (RemotingException e) {
             throw e;
         } catch (Throwable e) {
-            throw new RemotingException(this, "Failed connect to server " + getRemoteAddress() + " from "
-                    + getClass().getSimpleName() + " " + NetUtils.getHostAddress() + ", cause: " + e.getMessage(), e);
+            throw new RemotingException(this, 
+                    "Failed connect to server " + getRemoteAddress() 
+                        + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
+                        + ", cause: " + e.getMessage(), e);
         } finally {
             connectLock.unlock();
         }

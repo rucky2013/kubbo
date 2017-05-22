@@ -47,8 +47,9 @@ public class KubboProtocol extends AbstractProtocol {
                 Invoker<?> invoker = getInvoker(channel, inv);
                 return invoker.invoke(inv);
             }
-            throw new RemotingException(channel, "Unsupported request: " + message == null ? null : 
-                        (message.getClass().getName() + ": " + message) + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress());
+            throw new RemotingException(channel, 
+                    "Unsupported request: " + message == null ? null : (message.getClass().getName() + ": " + message) 
+                    + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress());
         }
     };
     
@@ -61,7 +62,11 @@ public class KubboProtocol extends AbstractProtocol {
         KubboExporter<?> exporter = (KubboExporter<?>) exporterMap.get(serviceKey);
         
         if (exporter == null)
-            throw new RemotingException(channel, "Not found exported service: " + serviceKey + " in " + exporterMap.keySet() + ", may be (group, path, version) mismatch " + ", channel: consumer: " + channel.getRemoteAddress() + " --> provider: " + channel.getLocalAddress() + ", message:" + inv);
+            throw new RemotingException(channel, 
+                    "Not found exported service: " + serviceKey + " in " + exporterMap.keySet() 
+                    + ", may be (group, path, version) mismatch " 
+                    + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress() 
+                    + ", message:" + inv);
 
         return exporter.getInvoker();
     }
@@ -115,7 +120,7 @@ public class KubboProtocol extends AbstractProtocol {
             SessionServer server = SessionLayers.bind(url, requestHandler);
             return server;
         } catch (RemotingException e) {
-            throw new RpcException("Fail to start server(url: " + url + ") " + e.getMessage(), e);
+            throw new RpcException("Fail to start sesseion server(" + url + ") " + e.getMessage(), e);
         }
     }
 
@@ -188,7 +193,7 @@ public class KubboProtocol extends AbstractProtocol {
             SessionClient client = SessionLayers.connect(url ,requestHandler);
             return client;
         } catch (RemotingException e) {
-            throw new RpcException("Fail to create remoting client for service(" + url + "): " + e.getMessage(), e);
+            throw new RpcException("Fail to create session client for service(" + url + "): " + e.getMessage(), e);
         }
         
     }
@@ -201,7 +206,7 @@ public class KubboProtocol extends AbstractProtocol {
             if (client != null) {
                 try {
                     if (logger.isInfoEnabled()) {
-                        logger.info("Close kubbo connect: " + client.getLocalAddress() + "-->" + client.getRemoteAddress());
+                        logger.info("Close kubbo connection: " + client.getLocalAddress() + "->" + client.getRemoteAddress());
                     }
                     client.close();
                 } catch (Throwable t) {
