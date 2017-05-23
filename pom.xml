@@ -9,7 +9,7 @@
 
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-parent</artifactId>
-  <version>0.8-SNAPSHOT</version>
+  <version>0.8</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>The parent project of kubbo</description>
