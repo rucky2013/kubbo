@@ -21,16 +21,17 @@ import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 /**
- * Non-ThreadSafe
+ * PropertiesConfigurator
  * 
  * @author liufuliang
  *
  */
 public class PropertiesConfigurator {
+    
     private static final Logger logger = LoggerFactory.getLogger(PropertiesConfigurator.class);
 
     public static void configure() {
-        // system property
+        // system property / system env
         String kubboConfigurationFile = SystemPropertyUtils.get(Constants.KUBBO_CONFIGURATION_KEY);
         if (!StringUtils.isBlank(kubboConfigurationFile)) {
             logger.info("Using configuration: " + kubboConfigurationFile);
@@ -59,7 +60,7 @@ public class PropertiesConfigurator {
     synchronized public static void configure(InputStream propertiesIn) {
         KubboConfiguration configuration = KubboConfiguration.getInstance();
         if(configuration.isConfigured()){
-            throw new IllegalStateException("Kubbo already configured!");
+            throw new IllegalStateException("Kubbo already configured, don't configure it again.");
         }
         PropertiesEnvWrapper wrapper = new PropertiesEnvWrapper();
         wrapper.setEnvPrefix(Constants.DEFAULT_ENV_PREFIX);
