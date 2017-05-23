@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.annotation;
+package com.sogou.map.kubbo.boot.sample;
 
 import com.sogou.map.kubbo.boot.annotation.Export;
 
