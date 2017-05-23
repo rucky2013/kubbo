@@ -3,6 +3,8 @@ package com.sogou.map.kubbo.common;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
+import com.sogou.map.kubbo.common.util.NetUtils;
+
 /**
  * Constants
  * 
@@ -30,6 +32,9 @@ public class Constants {
     public static final boolean DEFAULT_SEND_BLOCKING              = false;
 
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
+
+    public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getHostAddress();
+    
    
     /*
      * threadpool

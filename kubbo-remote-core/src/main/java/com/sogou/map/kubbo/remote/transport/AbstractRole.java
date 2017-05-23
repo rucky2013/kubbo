@@ -11,16 +11,17 @@ import com.sogou.map.kubbo.remote.Resetable;
 import com.sogou.map.kubbo.remote.session.codec.SessionCodec;
 
 /**
- * AbstractEndpoint
+ * AbstractRole
  * 
  * @author liufuliang
  */
 public abstract class AbstractRole extends AbstractEndpoint implements Resetable{
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractRole.class);
 
-    private Codec              	codec;
+    private Codec codec;
 
-    private int                   connectTimeout;
+    private int connectTimeout;
     
     public AbstractRole(URL url, ChannelHandler handler) {
         super(url, handler);

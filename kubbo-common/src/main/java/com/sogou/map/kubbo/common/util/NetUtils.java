@@ -11,19 +11,15 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 import com.sogou.map.kubbo.common.URL;
-import com.sogou.map.kubbo.common.logger.Logger;
-import com.sogou.map.kubbo.common.logger.LoggerFactory;
 
 /**
- * IP and Port Helper for RPC, 
+ * Network Helper for RPC, 
  * 
  * @author liufuliang
  */
 
 public class NetUtils {
     
-    private static final Logger logger = LoggerFactory.getLogger(NetUtils.class);
-
     public static final String LOCALHOST = "127.0.0.1";
 
     public static final String ANYHOST = "0.0.0.0";
@@ -189,7 +185,7 @@ public class NetUtils {
                 return localAddress;
             }
         } catch (Throwable e) {
-            logger.warn("Failed to retriving ip address, " + e.getMessage());
+            System.err.println("Failed to retriving ip address, " + e.getMessage());
         }
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -206,19 +202,19 @@ public class NetUtils {
                                         return address;
                                     }
                                 } catch (Throwable e) {
-                                    logger.warn("Failed to retriving ip address, " + e.getMessage());
+                                    System.err.println("Failed to retriving ip address, " + e.getMessage());
                                 }
                             }
                         }
                     } catch (Throwable e) {
-                        logger.warn("Failed to retriving ip address, " + e.getMessage());
+                        System.err.println("Failed to retriving ip address, " + e.getMessage());
                     }
                 }
             }
         } catch (Throwable e) {
-            logger.warn("Failed to retriving ip address, " + e.getMessage());
+            System.err.println("Failed to retriving ip address, " + e.getMessage());
         }
-        logger.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+        System.err.println("Could not get local host ip address, will use 127.0.0.1 instead.");
         return localAddress;
     }
     

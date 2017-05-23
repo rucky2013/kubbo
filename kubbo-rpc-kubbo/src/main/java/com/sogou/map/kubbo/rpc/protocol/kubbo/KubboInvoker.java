@@ -97,7 +97,7 @@ public class KubboInvoker<T> extends AbstractInvoker<T> {
             return false;
         for (SessionClient client : sessions){
             if (client.isConnected() && !client.hasAttribute(Constants.CHANNEL_ATTRIBUTE_READONLY_KEY)){
-                return true ;
+                return true;
             }
         }
         return false;

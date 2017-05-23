@@ -4,7 +4,7 @@
 package com.sogou.map.kubbo.boot.configuration.element;
 
 import com.sogou.map.kubbo.boot.configuration.Configuration;
-import com.sogou.map.kubbo.common.util.NetUtils;
+import com.sogou.map.kubbo.common.Constants;
 
 /**
  * @author liufuliang
@@ -14,9 +14,10 @@ public class ApplicationConfiguration implements Configuration{
     private static final long serialVersionUID = 1L;
     public static final String TAG = "application";
     
-    /** 应用名称, 如果没有提供, 默认值为机器IP地址 */
-    String name = NetUtils.getHostAddress();
+    /** 应用名称 */
+    String name = Constants.DEFAULT_APPLICATION_NAME;
 
+    /** 应用根目录 */
     String home;
     
     public String getName() {

@@ -64,13 +64,15 @@ public class Kubbo {
     }
     
     public static <T> Exporter<T> export(T service, Class<T> type, URL url) throws RpcException {
+        URL exportURL = attachApplicationName(url);
         return getProtocol(url).export(
-                getAdaptiveInvokerProxy().getInvoker(service, type, url)
+                getAdaptiveInvokerProxy().getInvoker(service, type, exportURL)
                 );
     }
     public static Exporter<?> exportGeneric(Object service, Class<?> type, URL url) throws RpcException {
+        URL exportURL = attachApplicationName(url);
         return getProtocol(url).export(
-                getAdaptiveInvokerProxy().getGenericInvoker(service, type, url)
+                getAdaptiveInvokerProxy().getGenericInvoker(service, type, exportURL)
                 );
     }
     
@@ -85,8 +87,7 @@ public class Kubbo {
             return (T) services.get(referKey);
         }
         
-        String applicationName = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME);
-        URL referURL = url.addParameterIfAbsent(Constants.APPLICATION_KEY, applicationName);
+        URL referURL = attachApplicationName(url);
         
         if("discovery".equalsIgnoreCase(url.getProtocol())){
             return getAdaptiveInvokerProxy().getProxy(
@@ -212,6 +213,11 @@ public class Kubbo {
         } finally {
             RpcContext.get().removeAttachment(Constants.RETURN_KEY);
         }
+    }
+    
+    private static URL attachApplicationName(URL url){
+        String application = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, Constants.DEFAULT_APPLICATION_NAME);
+        return url.addParameterIfAbsent(Constants.APPLICATION_KEY, application);
     }
     
     private static Protocol getProtocol(URL url) {

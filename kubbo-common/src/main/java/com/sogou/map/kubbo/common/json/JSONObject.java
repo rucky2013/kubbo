@@ -835,7 +835,7 @@ public class JSONObject {
         if (number == null) {
             throw new JSONException("Null pointer");
         }
-        testValidity(number);
+        //testValidity(number);
 
 // Shave off trailing zeros and decimal point, if possible.
 
@@ -1166,7 +1166,7 @@ public class JSONObject {
                 }
             } catch (Exception ignore) {
             }
-        }
+        }        
     }
 
     /**

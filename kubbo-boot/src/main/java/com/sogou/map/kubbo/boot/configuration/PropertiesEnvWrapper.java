@@ -11,11 +11,12 @@ import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 
 /**
- * @author liufuliang
  * 优先读取系统环境变量的配置, 环境变量以"_"代替所有非字母和数字
  * 次优读取系统变量的配置
+ * @author liufuliang
  */
 public class PropertiesEnvWrapper {
+    
     Properties properties;
     String envPrefix = "";
     
