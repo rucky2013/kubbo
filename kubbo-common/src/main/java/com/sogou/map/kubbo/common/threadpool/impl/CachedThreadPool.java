@@ -23,6 +23,7 @@ import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 public class CachedThreadPool implements ThreadPool {
     public static final String NAME = "cached";
 
+    @Override
     public Executor getExecutor(URL url) {
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
         int cores = url.getParameter(Constants.CORE_THREADS_KEY, 0);

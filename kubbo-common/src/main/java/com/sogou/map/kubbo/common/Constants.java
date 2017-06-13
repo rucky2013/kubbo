@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.util.NetUtils;
  * 
  * @author liufuliang
  */
-public class Constants {
+public final class Constants {
 
     public static final String  PROVIDER                           = "provider";
 
@@ -33,7 +33,7 @@ public class Constants {
 
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
 
-    public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getHostAddress();
+    public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getLocalAddress().toString();
     
    
     /*
@@ -172,10 +172,6 @@ public class Constants {
     public static final String  RETRY_KEY                          = "retry";
 
     public static final String  CODEC_KEY                          = "codec";
-    
-    public static final String  METRICS_KEY                        = "metrics";
-
-    public static final String  METRICS_INTERVAL_KEY               = "interval";
 
     public static final String  SERIALIZATION_KEY                  = "serialization";
 
@@ -193,7 +189,7 @@ public class Constants {
 
     public static final String  ASYNC_KEY                          = "async";
 
-    public static final String  RETURN_KEY                         = "return";
+    public static final String  ONEWAY_KEY                         = "oneway";
 
     public static final String  TOKEN_KEY                          = "token";
 
@@ -255,6 +251,8 @@ public class Constants {
 
     public static final Pattern SEMICOLON_SPLIT_PATTERN            = Pattern.compile("\\s*[;]+\\s*");
     
+    public static final String  INTERVAL_KEY                       = "interval";
+    
     
     //channel.readonly
     public static final String  CHANNEL_ATTRIBUTE_READONLY_KEY     = "channel.readonly";
@@ -300,12 +298,22 @@ public class Constants {
 
     public static final String GLOBAL_METRICS_ADDRESS               = "kubbo.metrics.address";
 
+    public static final String GLOBAL_TRACE_ADDRESS                 = "kubbo.trace.address";
+
     
     /*
      * metrics
      */
     public static final int  DEFAULT_METRICS_INTERVAL              = 60 * 1000;
+    
+    public static final String  REPORTER_KEY                       = "reporter";
 
+    
+    /**
+     * trace
+     */
+    public static final String SAMPLER_KEY                         = "sampler";
+    
 
 
     private Constants(){ }     

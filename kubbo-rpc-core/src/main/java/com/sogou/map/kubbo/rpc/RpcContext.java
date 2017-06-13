@@ -1,7 +1,8 @@
 package com.sogou.map.kubbo.rpc;
 
 import java.util.HashMap;
-import java.util.concurrent.Future;
+
+import com.sogou.map.kubbo.rpc.concurrent.ListenableFuture;
 import com.sogou.map.kubbo.rpc.protocol.AbstractAttachable;
 
 /**
@@ -11,7 +12,7 @@ import com.sogou.map.kubbo.rpc.protocol.AbstractAttachable;
  * @author liufuliang
  */
 public class RpcContext extends AbstractAttachable<RpcContext>{
-    private Future<?> future;
+    private ListenableFuture<?> future;
 
     
     protected RpcContext() {
@@ -25,8 +26,8 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
      * @return future
      */
     @SuppressWarnings("unchecked")
-    public <T> Future<T> getFuture() {
-        return (Future<T>) future;
+    public <T> ListenableFuture<T> getFuture() {
+        return (ListenableFuture<T>) future;
     }
 
     /**
@@ -34,7 +35,7 @@ public class RpcContext extends AbstractAttachable<RpcContext>{
      * 
      * @param future
      */
-    public void setFuture(Future<?> future) {
+    public void setFuture(ListenableFuture<?> future) {
         this.future = future;
     }
     

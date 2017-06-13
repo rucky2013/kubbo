@@ -4,17 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.rpc.Invocation;
+import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcResult;
-import com.sogou.map.kubbo.rpc.ServiceInvoker;
 
 /**
- * InvokerWrapper
+ * AbstractProvider
  * 
  * @author liufuliang
  */
-public abstract class AbstractServiceInvoker<T> implements ServiceInvoker<T> {
+public abstract class AbstractProviderInvoker<T> implements Invoker<T> {
     
     private final T service;
     
@@ -22,7 +22,7 @@ public abstract class AbstractServiceInvoker<T> implements ServiceInvoker<T> {
     
     private final URL url;
 
-    public AbstractServiceInvoker(T service, Class<T> type, URL url){
+    public AbstractProviderInvoker(T service, Class<T> type, URL url){
         if (service == null) {
             throw new IllegalArgumentException("service == NULL");
         }
@@ -36,7 +36,12 @@ public abstract class AbstractServiceInvoker<T> implements ServiceInvoker<T> {
         this.type = type;
         this.url = url;
     }
-
+    
+    @Override
+    public Reside reside(){
+        return Reside.PROVIDER;
+    }
+    
     @Override
     public Class<T> getInterface() {
         return type;
@@ -64,7 +69,7 @@ public abstract class AbstractServiceInvoker<T> implements ServiceInvoker<T> {
         } catch (InvocationTargetException e) {
             return new RpcResult(e.getTargetException());
         } catch (Throwable e) {
-            throw new RpcException("Failed to invoke remote proxy method " + invocation.getMethodName() + " to " + getUrl() + ", cause: " + e.getMessage(), e);
+            throw new RpcException("Failed to invoke proxy method " + invocation.getMethodName() + " to " + getUrl() + ", cause: " + e.getMessage(), e);
         }
     }
     

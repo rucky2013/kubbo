@@ -11,15 +11,20 @@ import com.sogou.map.kubbo.common.threadpool.ThreadPool;
 import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.ExecutionException;
+import com.sogou.map.kubbo.remote.RemoteExecutionException;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.transport.handler.ChannelEventRunnable.ChannelState;
 
-
+/**
+ * ExecutorWrappedChannelHandler
+ * @author liufuliang
+ *
+ */
 public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegate {
+
     protected static final Logger logger = LoggerFactory.getLogger(ExecutorWrappedChannelHandler.class);
 
-    protected static final ExecutorService SHARED_EXECUTOR = Executors.newCachedThreadPool(new NamedThreadFactory("KubboSharedHandler", true));
+    protected static final ExecutorService SHARED_EXECUTOR = Executors.newCachedThreadPool(new NamedThreadFactory("kubbo-shared-handler", true));
     
     protected final ExecutorService executor;
     
@@ -37,7 +42,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CONNECTED));
         }catch (Throwable t) {
-            throw new ExecutionException("connect event", channel, getClass()+" error when process connected event ." , t);
+            throw new RemoteExecutionException("onConnected event", channel, getClass() + " error when process onConnected event ." , t);
         }
     }
     
@@ -47,7 +52,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.DISCONNECTED));
         }catch (Throwable t) {
-            throw new ExecutionException("disconnect event", channel, getClass()+" error when process disconnected event ." , t);
+            throw new RemoteExecutionException("onDisconnected event", channel, getClass() + " error when process onDisconnected event ." , t);
         }
     }
 
@@ -57,7 +62,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
         try {
             cexecutor.execute(new ChannelEventRunnable(channel, handler, ChannelState.RECEIVED, message));
         } catch (Throwable t) {
-            throw new ExecutionException(message, channel, getClass() + " error when process received event .", t);
+            throw new RemoteExecutionException(message, channel, getClass() + " error when process onReceived event .", t);
         }
     }
 
@@ -67,7 +72,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CAUGHT, exception));
         }catch (Throwable t) {
-            throw new ExecutionException("caught event", channel, getClass()+" error when process caught event ." , t);
+            throw new RemoteExecutionException("onExceptonCaught event", channel, getClass() + " error when process onExceptonCaught event ." , t);
         }
     }
     

@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.remote.transport.handler.ChannelHandlerGroup;
 import com.sogou.map.kubbo.remote.transport.handler.NoOpChannelHandler;
 
 /**
- * TransportLayer facade. (API, Static, ThreadSafe)
+ * TransportLayers
  * 
  * @author liufuliang
  */

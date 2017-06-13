@@ -18,11 +18,11 @@ import com.sogou.map.kubbo.remote.buffer.DynamicChannelBuffer;
  *
  */
 public class NettyTransportDecoder extends io.netty.channel.SimpleChannelInboundHandler<io.netty.buffer.ByteBuf> {
-    private final Codec        codec;
+    private final Codec codec;
     
-    private final URL            url;
+    private final URL url;
     
-    private final int            bufferSize;
+    private final int bufferSize;
     
     private final ChannelHandler handler;
 

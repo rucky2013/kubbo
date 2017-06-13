@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.8</version>
+	<version>0.9-SNAPSHOT</version>
   </parent>
 
   <artifactId>kubbo-rpc-core</artifactId>
@@ -19,6 +19,11 @@
     <dependency>
       <groupId>com.sogou.map</groupId>
       <artifactId>kubbo-common</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sogou.map</groupId>
+      <artifactId>kubbo-remote-core</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
   </dependencies>

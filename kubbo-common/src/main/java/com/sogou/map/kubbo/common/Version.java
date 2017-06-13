@@ -97,13 +97,13 @@ public final class Version {
                 if (url != null) {
                     String file = url.getFile();
                     if (file != null && file.length() > 0) {
-                        files.add(file);
+                        files.add(file.split("[!]")[0]);
                     }
                 }
             }
             // 如果有多个，就表示重复
             if (files.size() > 1) {
-                String error = "Duplicate class " + path + " in " + files.size() + " jar " + files;
+                String error = "Duplicate jars " + files;
                 if (failOnError) {
                     throw new IllegalStateException(error);
                 } else {
@@ -111,7 +111,7 @@ public final class Version {
                 }
             }
         } catch (Throwable e) { // 防御性容错
-            logger.error(e.getMessage(), e);
+            logger.error(e);
         }
     }
 

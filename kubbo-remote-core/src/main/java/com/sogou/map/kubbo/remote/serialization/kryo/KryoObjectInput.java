@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 public class KryoObjectInput implements ObjectInput, Releasable {
 
     private Kryo kryo = Kryos.getKryo();
+
     private Input input;
 
     public KryoObjectInput(InputStream inputStream) {

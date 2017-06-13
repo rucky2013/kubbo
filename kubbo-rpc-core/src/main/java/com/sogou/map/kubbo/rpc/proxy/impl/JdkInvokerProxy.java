@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.common.lang.Defaults;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.proxy.AbstractInvokerProxy;
-import com.sogou.map.kubbo.rpc.proxy.AbstractServiceInvoker;
+import com.sogou.map.kubbo.rpc.proxy.AbstractProviderInvoker;
 import com.sogou.map.kubbo.rpc.proxy.InvokerInvocationHandler;
 
 /**
@@ -27,7 +27,7 @@ public class JdkInvokerProxy extends AbstractInvokerProxy {
 
     @Override
     public <T> Invoker<T> getInvoker(T proxy, Class<T> type, URL url) {
-        return new AbstractServiceInvoker<T>(proxy, type, url) {
+        return new AbstractProviderInvoker<T>(proxy, type, url) {
             @Override
             protected Object doInvoke(T proxy, String methodName, 
                                       Class<?>[] parameterTypes, 
@@ -41,7 +41,7 @@ public class JdkInvokerProxy extends AbstractInvokerProxy {
     @Override
     public Invoker<?> getGenericInvoker(Object proxy, Class<?> typeClazz, URL url) throws RpcException {
         
-        return new AbstractServiceInvoker(proxy, typeClazz, url) {
+        return new AbstractProviderInvoker(proxy, typeClazz, url) {
             @Override
             protected Object doInvoke(Object proxy, String methodName, Class[] parameterTypes, Object[] arguments) throws Throwable{
                 return invokeMatchedMethod(proxy, methodName, parameterTypes, arguments);

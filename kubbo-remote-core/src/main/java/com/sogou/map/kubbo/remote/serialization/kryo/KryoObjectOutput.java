@@ -14,6 +14,7 @@ import java.io.OutputStream;
 public class KryoObjectOutput implements ObjectOutput, Releasable{
 
     private Kryo kryo = Kryos.getKryo();
+
     private Output output;
 
     public KryoObjectOutput(OutputStream outputStream) {

@@ -114,13 +114,12 @@ public class NettyClient extends AbstractClient {
                 }
             } 
             else if (future.cause() != null) {
-                throw new RemotingException(this, "client(url: " + getUrl() + ") failed to connect to server "
-                        + getRemoteAddress() + ", error message is:" + future.cause().getMessage(), future.cause());
+                throw new RemotingException(this, "Failed to connect to server "
+                        + getRemoteAddress() + ", " + future.cause().getMessage(), future.cause());
             } 
             else {
-                throw new RemotingException(this, "client(url: " + getUrl() + ") failed to connect to server "
-                        + getRemoteAddress() + " client-side timeout "
-                        + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
+                throw new RemotingException(this, "Failed to connect to server " + getRemoteAddress()
+                        + ", connection timeout " + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
                         + NetUtils.getHostAddress());
             }
         }finally{

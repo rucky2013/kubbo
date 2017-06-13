@@ -18,10 +18,12 @@ public class InnerSessionLayer implements SessionLayer {
     
     public static final String NAME = "inner";
 
+    @Override
     public SessionClient connect(URL url, SessionHandler handler) throws RemotingException {
         return new InnerSessionClient(TransportLayers.connect(url, new DecodeHandler(new InnerSessionHandler(handler))));
     }
 
+    @Override
     public SessionServer bind(URL url, SessionHandler handler) throws RemotingException {
         return new InnerSessionServer(TransportLayers.bind(url, new DecodeHandler(new InnerSessionHandler(handler))));
     }

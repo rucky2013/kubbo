@@ -28,6 +28,7 @@ public class JavaObjectOutput implements ObjectOutput {
         return outputStream;
     }
 
+    @Override
     public void writeObject(Object obj) throws IOException{
         if( obj == null ){
             outputStream.writeByte(0);
@@ -38,34 +39,42 @@ public class JavaObjectOutput implements ObjectOutput {
         }
     }
 
+    @Override
     public void writeBool(boolean v) throws IOException {
         outputStream.writeBoolean(v);
     }
 
+    @Override
     public void writeByte(byte v) throws IOException {
         outputStream.writeByte(v);
     }
 
+    @Override
     public void writeShort(short v) throws IOException {
         outputStream.writeShort(v);
     }
 
+    @Override
     public void writeInt(int v) throws IOException {
         outputStream.writeInt(v);
     }
 
+    @Override
     public void writeLong(long v) throws IOException {
         outputStream.writeLong(v);
     }
 
+    @Override
     public void writeFloat(float v) throws IOException {
         outputStream.writeFloat(v);
     }
 
+    @Override
     public void writeDouble(double v) throws IOException {
         outputStream.writeDouble(v);
     }
     
+    @Override
     public void writeUTF(String v) throws IOException{
         if( v == null ){
             getObjectOutputStream().writeInt(-1);
@@ -76,7 +85,7 @@ public class JavaObjectOutput implements ObjectOutput {
         }
     }
 
-
+    @Override
     public void writeBytes(byte[] v) throws IOException {
         if (v == null) {
             outputStream.writeInt(-1);
@@ -85,6 +94,7 @@ public class JavaObjectOutput implements ObjectOutput {
         }
     }
 
+    @Override
     public void writeBytes(byte[] v, int off, int len) throws IOException {
         if (v == null) {
             outputStream.writeInt(-1);
@@ -94,6 +104,7 @@ public class JavaObjectOutput implements ObjectOutput {
         }
     }
 
+    @Override
     public void flushBuffer() throws IOException {
         outputStream.flush();
     }

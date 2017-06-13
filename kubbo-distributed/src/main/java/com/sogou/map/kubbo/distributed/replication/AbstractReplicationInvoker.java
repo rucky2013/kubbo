@@ -42,6 +42,11 @@ public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
     }
 
     @Override
+    public Reside reside(){
+        return Reside.CONSUMER;
+    }
+    
+    @Override
     public Class<T> getInterface() {
         return directory.getInterface();
     }

@@ -50,7 +50,7 @@ public class Response {
     public static final byte SERVER_ERROR      = 80;
 
     /**
-     * internal server error.
+     * internal client error.
      */
     public static final byte CLIENT_ERROR      = 90;
 

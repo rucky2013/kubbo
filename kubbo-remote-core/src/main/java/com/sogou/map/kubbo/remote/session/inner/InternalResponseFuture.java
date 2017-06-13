@@ -1,7 +1,10 @@
 package com.sogou.map.kubbo.remote.session.inner;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadFactory;
@@ -19,8 +22,8 @@ import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.TimeoutException;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.session.Response;
-import com.sogou.map.kubbo.remote.session.ResponseCallback;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
+import com.sogou.map.kubbo.remote.session.ResponseListener;
 
 /**
  * InternalResponseFuture.
@@ -29,43 +32,47 @@ import com.sogou.map.kubbo.remote.session.ResponseFuture;
  */
 public class InternalResponseFuture implements ResponseFuture {
 
-    private static final Logger                   logger = LoggerFactory.getLogger(InternalResponseFuture.class);
+    private static final Logger logger = LoggerFactory.getLogger(InternalResponseFuture.class);
 
-    private static final Map<Long, Channel>       CHANNELS   = new ConcurrentHashMap<Long, Channel>();
+    private static final Map<Long, Channel> CHANNELS = new ConcurrentHashMap<Long, Channel>();
 
-    private static final Map<Long, InternalResponseFuture> FUTURES   = new ConcurrentHashMap<Long, InternalResponseFuture>();
+    private static final Map<Long, InternalResponseFuture> FUTURES = new ConcurrentHashMap<Long, InternalResponseFuture>();
+
+    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     // invoke id.
-    private final long                            id;
+    private final long id;
 
-    private final Channel                         channel;
-    
-    private final Request                         request;
+    private final Channel channel;
 
-    private final int                             timeout;
+    private final Request request;
 
-    private final Lock                            lock = new ReentrantLock();
+    private final int timeout;
 
-    private final Condition                       done = lock.newCondition();
+    private final Lock lock = new ReentrantLock();
 
-    private final long                            start = System.currentTimeMillis();
+    private final Condition done = lock.newCondition();
 
-    private volatile long                         sent;
-    
-    private volatile Response                     response;
+    private final long start = System.currentTimeMillis();
 
-    private volatile ResponseCallback             callback;
+    private volatile long sent;
 
-    public InternalResponseFuture(Channel channel, Request request, int timeout){
+    private volatile Response response;
+
+    private List<ResponseListener> listeners;
+
+    public InternalResponseFuture(Channel channel, Request request, int timeout) {
         this.channel = channel;
         this.request = request;
         this.id = request.getId();
-        this.timeout = timeout > 0 ? timeout : channel.getUrl().getPositiveParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
+        this.timeout = timeout > 0 ? timeout
+                : channel.getUrl().getPositiveParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
+        this.listeners = new ArrayList<ResponseListener>(2);
         // put into waiting map.
         FUTURES.put(id, this);
         CHANNELS.put(id, channel);
     }
-    
+
     @Override
     public Object get() throws RemotingException {
         return get(timeout);
@@ -91,19 +98,19 @@ public class InternalResponseFuture implements ResponseFuture {
             } finally {
                 lock.unlock();
             }
-            
+
             if (!isDone()) {
                 throw new TimeoutException(sent > 0, channel, getTimeoutMessage(false));
             }
         }
         return createResult();
     }
-    
+
     @Override
-    public void cancel(){
+    public void cancel() {
         Response errorResult = new Response(id);
         errorResult.setErrorMessage("request future has been canceled.");
-        response = errorResult ;
+        response = errorResult;
         FUTURES.remove(id);
         CHANNELS.remove(id);
     }
@@ -114,56 +121,68 @@ public class InternalResponseFuture implements ResponseFuture {
     }
 
     @Override
-    public void setCallback(ResponseCallback callback) {
+    public void addListener(ResponseListener listener) {
         if (isDone()) {
-            invokeCallback(callback);
+            notifyListener(listener);
         } else {
             boolean isdone = false;
             lock.lock();
-            try{
+            try {
                 if (!isDone()) {
-                    this.callback = callback;
+                    this.listeners.add(listener);
                 } else {
                     isdone = true;
                 }
-            }finally {
+            } finally {
                 lock.unlock();
             }
-            if (isdone){
-                invokeCallback(callback);
+            if (isdone) {
+                notifyListener(listener);
             }
         }
     }
-    private void invokeCallback(ResponseCallback c){
-        ResponseCallback callbackCopy = c;
-        if (callbackCopy == null){
-            throw new NullPointerException("callback cannot be null.");
+
+    private void notifyListeners(){
+        if(listeners.isEmpty()){
+            return;
         }
-        c = null;
+        
+        for(ResponseListener listener : listeners){
+            notifyListener(listener);
+        }
+    }
+    
+    private void notifyListener(ResponseListener listener){
+        ResponseListener listenerCopy = listener;
+        if (listenerCopy == null) {
+            throw new NullPointerException("listener == NULL");
+        }
+        listener = null;
         Response res = response;
         if (res == null) {
             throw new IllegalStateException("response cannot be null. url: " + channel.getUrl());
         }
-        
+
         if (res.getStatus() == Response.OK) {
             try {
-                callbackCopy.done(res.getResult());
+                listenerCopy.done(res);
             } catch (Exception e) {
-                logger.error("callback invoke error. reasult: " + res.getResult() + ", url: " + channel.getUrl(), e);
+                logger.error("Response listener invoke error. reasult: " + res.getResult() + ", url: " + channel.getUrl(), e);
             }
         } else if (res.getStatus() == Response.CLIENT_TIMEOUT || res.getStatus() == Response.SERVER_TIMEOUT) {
             try {
-                TimeoutException te = new TimeoutException(res.getStatus() == Response.SERVER_TIMEOUT, channel, res.getErrorMessage());
-                callbackCopy.caught(te);
+                TimeoutException te = new TimeoutException(res.getStatus() == Response.SERVER_TIMEOUT, channel,
+                        res.getErrorMessage());
+                listenerCopy.caught(te);
             } catch (Exception e) {
-                logger.error("callback invoke error, url: " + channel.getUrl(), e);
+                logger.error("Response invoke error, url: " + channel.getUrl(), e);
             }
         } else {
             try {
                 RuntimeException re = new RuntimeException(res.getErrorMessage());
-                callbackCopy.caught(re);
+                listenerCopy.caught(re);
             } catch (Exception e) {
-                logger.error("callback invoke error, url: " + channel.getUrl(), e);
+                logger.error("Response invoke error, url: " + channel.getUrl(), e);
             }
         }
     }
@@ -185,11 +204,11 @@ public class InternalResponseFuture implements ResponseFuture {
     private long getId() {
         return id;
     }
-    
+
     private Channel getChannel() {
         return channel;
     }
-    
+
     private boolean isSent() {
         return sent > 0;
     }
@@ -208,29 +227,23 @@ public class InternalResponseFuture implements ResponseFuture {
 
     private String getTimeoutMessage(boolean scan) {
         long nowTimestamp = System.currentTimeMillis();
-        
         return new StringBuffer(32)
-            .append(sent > 0 ? "Waiting server-side response timeout" : "Sending request timeout in client-side")
-            .append(scan ? " by scan timer." : ".")
-            .append(" start time: ")
-            .append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(start))).append(",") 
-            .append(" end time: ")
-            .append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date())).append(",") 
-            .append((sent > 0 ? " client elapsed: " + (sent - start) + " ms, server elapsed: " + (nowTimestamp - sent)
-                    : " elapsed: " + (nowTimestamp - start)) + " ms,")
-            .append(" timeout: ")
-            .append(timeout).append("ms,")
-            .append(" request: ")
-            .append(request).append(",")
-            .append(" channel: ")
-            .append(channel.getLocalAddress()).append(" -> ").append(channel.getRemoteAddress())
-            .toString();
+                .append(sent > 0 ? "Waiting serverresponse timeout" : "Sending request timeout in client")
+                .append(scan ? " by scan timer." : ".").append(" start time: ")
+                .append(TIME_FORMAT.format(new Date(start))).append(",").append(" end time: ")
+                .append(TIME_FORMAT.format(new Date())).append(",")
+                .append((sent > 0
+                        ? " client elapsed: " + (sent - start) + " ms, server elapsed: " + (nowTimestamp - sent)
+                        : " elapsed: " + (nowTimestamp - start)) + " ms,")
+                .append(" timeout: ").append(timeout).append("ms,").append(" request: ").append(request).append(",")
+                .append(" channel: ").append(channel.getLocalAddress()).append(" -> ")
+                .append(channel.getRemoteAddress()).toString();
     }
-    
+
     private void doSent() {
         sent = System.currentTimeMillis();
     }
-    
+
     private void doReceived(Response res) {
         lock.lock();
         try {
@@ -241,12 +254,11 @@ public class InternalResponseFuture implements ResponseFuture {
         } finally {
             lock.unlock();
         }
-        if (callback != null) {
-            invokeCallback(callback);
-        }
+        
+        notifyListeners();
     }
-    
-    //================================
+
+    // ================================
     public static InternalResponseFuture getFuture(long id) {
         return FUTURES.get(id);
     }
@@ -261,19 +273,18 @@ public class InternalResponseFuture implements ResponseFuture {
             future.doSent();
         }
     }
+    
     public static void received(Channel channel, Response response) {
         try {
             InternalResponseFuture future = FUTURES.remove(response.getId());
             if (future != null) {
                 future.doReceived(response);
             } else {
-                String msg = new StringBuffer(32)
-                    .append("The timeout response finally returned at ")
-                    .append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date())).append(", ")
-                    .append(" response: ")
-                    .append(response)
-                    .append(channel == null ? "" : ", channel: " + channel.getLocalAddress() + " -> " + channel.getRemoteAddress())
-                    .toString();
+                String msg = new StringBuffer(32).append("The timeout response finally returned at ")
+                        .append(TIME_FORMAT.format(new Date())).append(", ").append(" response: ").append(response)
+                        .append(channel == null ? ""
+                                : ", channel: " + channel.getLocalAddress() + " -> " + channel.getRemoteAddress())
+                        .toString();
                 logger.warn(msg);
             }
         } finally {
@@ -282,6 +293,7 @@ public class InternalResponseFuture implements ResponseFuture {
     }
 
     private static class RemoteInvocationTimeoutScan implements Runnable {
+        @Override
         public void run() {
             while (true) {
                 try {
@@ -308,7 +320,7 @@ public class InternalResponseFuture implements ResponseFuture {
     }
 
     static {
-        ThreadFactory factory = new NamedThreadFactory("KubboResponseTimer", true);
+        ThreadFactory factory = new NamedThreadFactory("kubbo-response-timer", true);
         factory.newThread(new RemoteInvocationTimeoutScan()).start();
     }
 

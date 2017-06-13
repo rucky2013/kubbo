@@ -1,30 +1,34 @@
-package com.sogou.map.kubbo.rpc.protocol.kubbo;
+package com.sogou.map.kubbo.rpc.concurrent;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
+import com.sogou.map.kubbo.remote.session.ResponseListener;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * JDKFutureAdapter
  * 
  * @author liufuliang
  */
-public class JDKFutureAdapter<V> implements Future<V> {
+public class DefaultListenableFuture<V> implements ListenableFuture<V> {
     
     private final ResponseFuture future;
-
-    public JDKFutureAdapter(ResponseFuture future){
+    
+    public DefaultListenableFuture(){
+        future = null;
+    }
+    
+    public DefaultListenableFuture(ResponseFuture future){
         this.future = future;
     }
 
-    public ResponseFuture getResponseFuture() {
+    protected ResponseFuture getResponseFuture() {
         return future;
     }
 
@@ -68,6 +72,24 @@ public class JDKFutureAdapter<V> implements Future<V> {
         } catch (Throwable e) {
             throw new RpcException(e);
         }
+    }  
+    
+    @Override
+    public ListenableFuture<V> addListener(final FutureListener<V> listener){
+        ResponseListener l = new ResponseListener(){
+            @SuppressWarnings("unchecked")
+            @Override
+            public void done(Response response) {
+                listener.done((V)response.getResult());
+            }
+
+            @Override
+            public void caught(Throwable exception) {
+                listener.caught(exception);
+            }
+        };
+        future.addListener(l);
+        return this;
     }
 
 }

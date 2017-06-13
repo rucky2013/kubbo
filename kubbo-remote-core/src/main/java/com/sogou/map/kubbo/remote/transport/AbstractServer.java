@@ -25,15 +25,16 @@ import com.sogou.map.kubbo.remote.transport.handler.ExecutorWrappedChannelHandle
  * @author liufuliang
  */
 public abstract class AbstractServer extends AbstractRole implements Server {
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractServer.class);
 
-    private InetSocketAddress              localAddress;
+    private InetSocketAddress localAddress;
 
-    private InetSocketAddress              bindAddress;
+    private InetSocketAddress bindAddress;
 
-    private int                            accepts;
+    private int accepts;
 
-    private int                            idleTimeout = Constants.DEFAULT_IDLE_TIMEOUT; //600 seconds
+    private int idleTimeout = Constants.DEFAULT_IDLE_TIMEOUT; //600 seconds
     
     protected static final String SERVER_THREAD_POOL_NAME  ="KubboServerHandler";
     

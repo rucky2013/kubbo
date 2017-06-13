@@ -21,9 +21,9 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 
 @ChannelHandler.Sharable
 public class NettyTransportEncoder extends MessageToMessageEncoder<Object> {
-    private final Codec        codec;
+    private final Codec codec;
     
-    private final URL            url;
+    private final URL url;
         
     private final com.sogou.map.kubbo.remote.ChannelHandler handler;
 
@@ -37,6 +37,7 @@ public class NettyTransportEncoder extends MessageToMessageEncoder<Object> {
     protected void encode(ChannelHandlerContext ctx, Object msg, List<Object> out) throws Exception {
         com.sogou.map.kubbo.remote.buffer.ChannelBuffer buffer = ChannelBuffers.dynamicBuffer(1024);
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
+               
         try {
             codec.encode(channel, buffer, msg);
         } finally {
@@ -44,5 +45,15 @@ public class NettyTransportEncoder extends MessageToMessageEncoder<Object> {
         }
 
         out.add(Unpooled.wrappedBuffer(buffer.toByteBuffer()));
+    }
+    
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        NettyChannel channel = NettyChannel.getOrAddChannel(ctx.channel(), url, handler);
+        try {
+            handler.onExceptonCaught(channel, cause);
+        } finally {
+            NettyChannel.removeChannelIfDisconnected(ctx.channel());
+        }
     }
 }

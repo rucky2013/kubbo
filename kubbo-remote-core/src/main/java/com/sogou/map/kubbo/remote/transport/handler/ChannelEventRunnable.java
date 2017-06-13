@@ -38,6 +38,7 @@ public class ChannelEventRunnable implements Runnable {
         this.exception = exception;
     }
     
+    @Override
     public void run() {
         switch (state) {
             case CONNECTED:

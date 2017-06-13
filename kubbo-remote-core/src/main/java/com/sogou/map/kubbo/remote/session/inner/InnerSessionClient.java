@@ -54,6 +54,17 @@ public class InnerSessionClient extends AbstractClientDelegate implements Sessio
         }
         startHeatbeatTimer();
     }
+    
+    @Override
+    public void send(Object message) throws RemotingException {
+        sessionChannel.send(message);
+    }
+    
+    @Override
+    public void send(Object message, boolean sent) throws RemotingException {
+        sessionChannel.send(message, sent);
+    }
+    
     @Override
     public ResponseFuture request(Object request) throws RemotingException {
         return sessionChannel.request(request);

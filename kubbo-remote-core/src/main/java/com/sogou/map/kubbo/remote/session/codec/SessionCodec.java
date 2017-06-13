@@ -29,28 +29,28 @@ import com.sogou.map.kubbo.remote.transport.codec.TransportCodec;
  * @author liufuliang
  */
 public class SessionCodec extends TransportCodec {
-    private static final Logger     logger             = LoggerFactory.getLogger(SessionCodec.class);
+    private static final Logger logger = LoggerFactory.getLogger(SessionCodec.class);
 
     public static final String NAME = "session";
 
     // header length.
-    protected static final int      HEADER_LENGTH      = 16;
+    protected static final int HEADER_LENGTH = 16;
 
     // magic header.
-    protected static final short    MAGIC              = (short) 0xdabb;
+    protected static final short MAGIC = (short) 0xdabb;
     
-    protected static final byte     MAGIC_HIGH         = Bytes.short2bytes(MAGIC)[0];
+    protected static final byte MAGIC_HIGH = Bytes.short2bytes(MAGIC)[0];
     
-    protected static final byte     MAGIC_LOW          = Bytes.short2bytes(MAGIC)[1];
+    protected static final byte MAGIC_LOW = Bytes.short2bytes(MAGIC)[1];
 
     // message flag.
-    protected static final byte     FLAG_REQUEST       = (byte) 0x80;
+    protected static final byte FLAG_REQUEST = (byte) 0x80;
 
-    protected static final byte     FLAG_TWOWAY        = (byte) 0x40;
+    protected static final byte FLAG_TWOWAY = (byte) 0x40;
 
-    protected static final byte     FLAG_EVENT     = (byte) 0x20;
+    protected static final byte FLAG_EVENT = (byte) 0x20;
 
-    protected static final int      SERIALIZATION_MASK = 0x1f;
+    protected static final int SERIALIZATION_MASK = 0x1f;
 
     public Short getMagicCode() {
         return MAGIC;

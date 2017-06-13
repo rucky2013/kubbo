@@ -17,7 +17,7 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * 
  * @author liufuliang
  */
-@Activate(group = { Constants.PROVIDER }, order = 10000)
+@Activate(group = { Constants.PROVIDER }, order = 1)
 public class MetricsFilter implements Filter {
     private static final ConcurrentHashMap<String, FrequencyElapsedRecorder> RECORDERS = new ConcurrentHashMap<String, FrequencyElapsedRecorder>();
 

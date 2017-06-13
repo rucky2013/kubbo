@@ -12,18 +12,22 @@ public class JavaSerialization implements Serialization  {
 
     public static final String NAME = "java";
 
+    @Override
     public byte getContentTypeId() {
         return 1;
     }
 
+    @Override
     public String getContentType() {
         return "x-application/java";
     }
 
+    @Override
     public ObjectOutput serialize(OutputStream output) throws IOException {
         return new JavaObjectOutput(output);
     }
 
+    @Override
     public ObjectInput deserialize(InputStream input) throws IOException {
         return new JavaObjectInput(input);
     }

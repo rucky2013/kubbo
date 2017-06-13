@@ -108,12 +108,12 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             startConnectionStateCheckTask();
             if (!isConnected()) {
                 throw new RemotingException(this,
-                        "Failed connect to server " + getRemoteAddress() 
+                        "Failed to establish connection with server " + getRemoteAddress() 
                             + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
-                            + ", cause: Connect wait timeout: " + getConnectTimeout() + "ms.");
+                            + ", cause: Connection wait timeout: " + getConnectTimeout() + "ms.");
             } else {
                 if (logger.isInfoEnabled()) {
-                    logger.info("Successfully connect to server " + getRemoteAddress() 
+                    logger.info("Successfully establish connection with server " + getRemoteAddress() 
                                     + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
                                     + ", channel is " + this.getChannel() 
                                     + ", kubbo version " + Version.getVersion());
@@ -124,7 +124,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             throw e;
         } catch (Throwable e) {
             throw new RemotingException(this, 
-                    "Failed connect to server " + getRemoteAddress() 
+                    "Failed to establish connection with server " + getRemoteAddress() 
                         + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
                         + ", cause: " + e.getMessage(), e);
         } finally {

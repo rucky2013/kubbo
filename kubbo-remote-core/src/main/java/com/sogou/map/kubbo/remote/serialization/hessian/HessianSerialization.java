@@ -12,20 +12,25 @@ import com.sogou.map.kubbo.remote.serialization.Serialization;
  * @author liufuliang
  */
 public class HessianSerialization implements Serialization {
+
     public static final String NAME = "hessian";
 
+    @Override
     public byte getContentTypeId() {
         return 3;
     }
 
+    @Override
     public String getContentType() {
         return "x-application/hessian";
     }
 
+    @Override
     public ObjectOutput serialize(OutputStream out) throws IOException {
         return new HessianObjectOutput(out);
     }
 
+    @Override
     public ObjectInput deserialize(InputStream is) throws IOException {
         return new HessianObjectInput(is);
     }
