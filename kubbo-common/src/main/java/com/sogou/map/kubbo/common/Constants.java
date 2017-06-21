@@ -1,6 +1,5 @@
 package com.sogou.map.kubbo.common;
 
-import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 import com.sogou.map.kubbo.common.util.NetUtils;
@@ -53,7 +52,7 @@ public final class Constants {
     
     public static final String  ALIVE_KEY                          = "alive";
 
-    public static final String  DEFAULT_THREAD_NAME                = "Kubbo";
+    public static final String  DEFAULT_THREAD_NAME                = "kubbo";
 
     public static final String  DEFAULT_THREADPOOL                 = "limited";
 
@@ -86,7 +85,6 @@ public final class Constants {
      */
     public static final int     DEFAULT_IO_THREADS                 = Runtime.getRuntime().availableProcessors() + 1;
 
-
     public static final int     DEFAULT_CONNECTIONS                = 0;
 
     public static final int     DEFAULT_ACCEPTS                    = 0;
@@ -101,15 +99,9 @@ public final class Constants {
 
     public static final int     DEFAULT_RETRY                      = 2;
     
-    public static final int     DEFAULT_PAYLOAD                    = 8 * 1024 * 1024; // 默认8m
+    public static final int     DEFAULT_MAX_PAYLOAD                = 8 * 1024 * 1024; // 默认8m
    
     public static final int     DEFAULT_WEIGHT                     = 100;
-    
-    public static final int     DEFAULT_BUFFER_SIZE                = 8 * 1024; // default buffer size is 8k.
-
-    public static final int     MAX_BUFFER_SIZE                    = 16 * 1024;
-
-    public static final int     MIN_BUFFER_SIZE                    = 1 * 1024;
 
     public static final String  REMOVE_VALUE_PREFIX                = "-";
 
@@ -141,9 +133,7 @@ public final class Constants {
 
     public static final String  EXECUTES_KEY                       = "executes";
 
-    public static final String  BUFFER_KEY                         = "buffer";
-
-    public static final String  PAYLOAD_KEY                        = "payload";
+    public static final String  MAX_PAYLOAD_KEY                    = "payload.max";
 
     public static final String  FILTER_KEY                         = "filter";
 
@@ -170,10 +160,6 @@ public final class Constants {
     public static final String  TIMEOUT_KEY                        = "timeout";
 
     public static final String  RETRY_KEY                          = "retry";
-
-    public static final String  CODEC_KEY                          = "codec";
-
-    public static final String  SERIALIZATION_KEY                  = "serialization";
 
     public static final String  SESSIONLAYER_KEY                   = "sessionlayer";
 
@@ -266,23 +252,17 @@ public final class Constants {
     /**
      * 默认值毫秒，避免重新计算.
      */
-    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT    = 10000;
+    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT       = 10000;
     
-    public static final String AUTO_ATTACH_INVOCATIONID_KEY 	   = "invocation.id.autoattach";
-
-    public static final String DECODE_IN_IO_THREAD_KEY             = "decode.in.io";
-
-    public static final boolean DEFAULT_DECODE_IN_IO_THREAD        = true;
+    public static final String AUTO_ATTACH_INVOCATIONID_KEY 	      = "invocation.id.autoattach";
     
-    public static final String INPUT_KEY                           = "input";
+    public static final String INPUT_KEY                              = "input";
     
-    public static final String OUTPUT_KEY                          = "output";
-
-    public static final String EXECUTOR_SERVICE_COMPONENT_KEY      = ExecutorService.class.getName();
+    public static final String OUTPUT_KEY                             = "output";
     
-    public static final String TRUE                                = "true";
+    public static final String TRUE                                   = "true";
     
-    public static final String FALSE                               = "false";    
+    public static final String FALSE                                  = "false";    
     
     /*
      * global env & system property
@@ -300,21 +280,41 @@ public final class Constants {
 
     public static final String GLOBAL_TRACE_ADDRESS                 = "kubbo.trace.address";
 
-    
     /*
      * metrics
      */
-    public static final int  DEFAULT_METRICS_INTERVAL              = 60 * 1000;
+    public static final int  DEFAULT_METRICS_INTERVAL               = 60 * 1000;
     
-    public static final String  REPORTER_KEY                       = "reporter";
-
+    public static final String  REPORTER_KEY                        = "reporter";
     
     /**
      * trace
      */
-    public static final String SAMPLER_KEY                         = "sampler";
+    public static final String SAMPLER_KEY                          = "sampler";
     
+    /**
+     * codec
+     */
+    public static final String  CODEC_KEY                            = "codec";
 
+    public static final String  SERIALIZATION_KEY                    = "serialization";
+    
+    public static final String DECODE_EXECUTE_IN_TASK_THREAD_KEY     = "decode.execute.task";
+
+    public static final boolean DEFAULT_DECODE_EXECUTE_IN_TASK_THREAD = false;
+
+    public static final String  DECODE_BUFFER_KEY                    = "decode.buffer";
+    
+    public static final int     DEFAULT_DECODE_BUFFER_SIZE           = 8 * 1024; // default decode buffer size is 8k.
+    
+    public static final String  ENCODE_BUFFER_KEY                    = "encode.buffer";
+    
+    public static final int     DEFAULT_ENCODE_BUFFER_SIZE           = 1 * 1024; // default encode buffer size is 8k.
+    
+    public static final int     MAX_BUFFER_SIZE                      = 1024 * 1024; // 1M
+
+    public static final int     MIN_BUFFER_SIZE                      = 1 * 1024;    //1K
+    
 
     private Constants(){ }     
 }

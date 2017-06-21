@@ -7,8 +7,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * abstract scheduled reporters 

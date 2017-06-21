@@ -22,6 +22,7 @@ public class AccessLogFilter implements Filter {
     
     private static final Logger logger = LoggerFactory.getLogger("kubbo.accesslog");
 
+    @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         String source = invocation.getAttachment(Constants.APPLICATION_KEY, "-");
         String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();

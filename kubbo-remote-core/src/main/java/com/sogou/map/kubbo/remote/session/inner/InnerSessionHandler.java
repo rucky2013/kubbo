@@ -1,8 +1,6 @@
 package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.Constants;
-import com.sogou.map.kubbo.common.logger.Logger;
-import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemoteExecutionException;
@@ -19,8 +17,6 @@ import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelega
  * @author liufuliang
  */
 public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
-
-    protected static final Logger logger = LoggerFactory.getLogger(InnerSessionHandler.class);
 
     private final SessionHandler handler;
 
@@ -169,7 +165,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
         } catch (Throwable e) {
             res.setStatus(Response.SERVICE_ERROR);
             res.setErrorMessage(StringUtils.toString(e));
-        }
+        } 
         return res;
     }
 

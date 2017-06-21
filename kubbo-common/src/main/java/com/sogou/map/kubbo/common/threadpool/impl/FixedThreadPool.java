@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.threadpool.AbortPolicyWithReport;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * 此线程池启动时即创建固定大小的线程数，不做任何伸缩，来源于：<code>Executors.newFixedThreadPool()</code>
@@ -21,8 +21,10 @@ import com.sogou.map.kubbo.common.util.NamedThreadFactory;
  * @author liufuliang
  */
 public class FixedThreadPool implements ThreadPool {
+
     public static final String NAME = "fixed";
 
+    @Override
     public Executor getExecutor(URL url) {
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
         int threads = url.getParameter(Constants.MAX_THREADS_KEY, Constants.DEFAULT_MAX_THREADS);

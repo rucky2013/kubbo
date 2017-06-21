@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 
 import brave.sampler.Sampler;
 

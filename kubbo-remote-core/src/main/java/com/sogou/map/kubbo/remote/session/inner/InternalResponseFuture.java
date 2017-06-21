@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.TimeoutException;

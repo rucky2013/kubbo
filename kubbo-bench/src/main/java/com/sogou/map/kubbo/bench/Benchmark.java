@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 
 /**
  * 

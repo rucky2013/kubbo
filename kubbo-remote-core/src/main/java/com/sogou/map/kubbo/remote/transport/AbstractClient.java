@@ -14,8 +14,8 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
@@ -34,7 +34,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
 
-    protected static final String CLIENT_THREAD_POOL_NAME = "KubboClientHandler";
+    protected static final String CLIENT_THREAD_POOL_NAME = "KubboClientTaskHandler";
 
     private final Lock connectLock = new ReentrantLock();
 

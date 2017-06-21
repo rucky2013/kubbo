@@ -11,7 +11,7 @@ import com.sogou.map.kubbo.remote.buffer.ChannelBufferInputStream;
 import com.sogou.map.kubbo.remote.buffer.ChannelBufferOutputStream;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;
 import com.sogou.map.kubbo.remote.serialization.ObjectOutput;
-import com.sogou.map.kubbo.remote.serialization.Releasable;
+import com.sogou.map.kubbo.remote.serialization.Serialization;
 import com.sogou.map.kubbo.remote.serialization.Serializations;
 import com.sogou.map.kubbo.remote.transport.AbstractCodec;
 
@@ -21,37 +21,50 @@ import com.sogou.map.kubbo.remote.transport.AbstractCodec;
  * @author liufuliang
  */
 public class TransportCodec extends AbstractCodec {
+    
+    public static final String NAME = "transport";
+
     @Override
     public void encode(Channel channel, ChannelBuffer buffer, Object message) throws IOException {
         OutputStream output = new ChannelBufferOutputStream(buffer);
-        ObjectOutput objectOutput = Serializations.getSerialization(channel.getUrl()).serialize(output);
-        encodeData(channel, objectOutput, message);
-        objectOutput.flushBuffer();
-        if (objectOutput instanceof Releasable) {
-            ((Releasable) objectOutput).release();
-        }
+        Serialization s = Serializations.getSerialization(channel.getUrl());
+        encodeData(channel, s, output, message);
     }
+    
     @Override
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
         InputStream input = new ChannelBufferInputStream(buffer);
-        ObjectInput objectInput = Serializations.getSerialization(channel.getUrl()).deserialize(input);
-        Object data = decodeData(channel, objectInput);
-        if (objectInput instanceof Releasable) {
-            ((Releasable) objectInput).release();
-        }
-        return data;
+        Serialization s = Serializations.getSerialization(channel.getUrl());
+        return decodeData(channel, s, input);
     }
 
+    protected void encodeData(Channel channel, Serialization serialization, OutputStream output, Object message) throws IOException {
+        ObjectOutput objectOutput = serialization.serialize(output);
+        encodeData(objectOutput, message);
+        objectOutput.flushBuffer();
+        Serializations.releaseSafely(objectOutput);
+    }
+    
+    protected Object decodeData(Channel channel, Serialization serialization, InputStream input) throws IOException {
+        ObjectInput objectInput = serialization.deserialize(input);
+        Object data = decodeData(objectInput);
+        Serializations.releaseSafely(objectInput);
+        return data;
+    }
+    
     protected void encodeData(Channel channel, ObjectOutput output, Object message) throws IOException {
         encodeData(output, message);
     }
+    
     protected Object decodeData(Channel channel, ObjectInput input) throws IOException {
         return decodeData(input);
     }
+    
 
     protected void encodeData(ObjectOutput output, Object message) throws IOException {
         output.writeObject(message);
     }
+    
     protected Object decodeData(ObjectInput input) throws IOException {
         try {
             return input.readObject();

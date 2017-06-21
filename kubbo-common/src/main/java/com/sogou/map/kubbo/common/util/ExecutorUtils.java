@@ -10,6 +10,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 /**
  * @author liufuliang
  *

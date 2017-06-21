@@ -19,6 +19,7 @@ import com.sogou.map.kubbo.remote.session.handler.SessionHandlerAdapter;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
+import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.protocol.AbstractProtocol;
 import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
@@ -45,7 +46,8 @@ public class KubboProtocol extends AbstractProtocol {
             if (message instanceof Invocation) {
                 Invocation inv = (Invocation) message;
                 Invoker<?> invoker = getInvoker(channel, inv);
-                return invoker.invoke(inv);
+                Result result = invoker.invoke(inv);
+                return result;
             }
             throw new RemotingException(channel, 
                     "Unsupported request: " + message == null ? null : (message.getClass().getName() + ": " + message) 
@@ -136,7 +138,7 @@ public class KubboProtocol extends AbstractProtocol {
         //是否共享连接
         boolean serviceShareConnection = false;
         //如果connections不配置，则共享连接，否则每服务每连接
-        int connections = url.getParameter(Constants.CONNECTIONS_KEY, 0);
+        int connections = url.getParameter(Constants.CONNECTIONS_KEY, Constants.DEFAULT_CONNECTIONS);
         if (connections == 0){
             serviceShareConnection = true;
             connections = 1;

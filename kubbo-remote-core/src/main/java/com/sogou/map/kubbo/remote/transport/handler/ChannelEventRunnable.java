@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.remote.ChannelHandler;
  *
  */
 public class ChannelEventRunnable implements Runnable {
-    private static final Logger logger             = LoggerFactory.getLogger(ChannelEventRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelEventRunnable.class);
 
     private final ChannelHandler handler;
     private final Channel channel;

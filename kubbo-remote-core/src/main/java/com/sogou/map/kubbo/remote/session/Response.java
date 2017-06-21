@@ -6,9 +6,14 @@ package com.sogou.map.kubbo.remote.session;
  * @author liufuliang
  */
 public class Response {
-    public static final String HEARTBEAT_EVENT = null;
-    public static final String READONLY_EVENT = "R";
 
+    /*
+     * event
+     */
+    public static final String HEARTBEAT_EVENT = null;
+
+    public static final String READONLY_EVENT = "R";
+    
     /**
      * ok.
      */
@@ -54,13 +59,13 @@ public class Response {
      */
     public static final byte CLIENT_ERROR      = 90;
 
-    private long             id               = 0;
+    private long             id                = 0;
 
     private String           version;
 
     private byte             status           = OK;
 
-    private boolean          event         = false;
+    private boolean          event            = false;
 
     private String           errorMsg;
 
