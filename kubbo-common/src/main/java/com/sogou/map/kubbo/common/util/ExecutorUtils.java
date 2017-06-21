@@ -20,7 +20,7 @@ public class ExecutorUtils {
     private static final ThreadPoolExecutor shutdownExecutor = new ThreadPoolExecutor(0, 1,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<Runnable>(100),
-            new NamedThreadFactory("Close-ExecutorService-Timer", true)); 
+            new NamedThreadFactory("kubbo-close-executor-timer", true)); 
 
     public static boolean isShutdown(Executor executor) {
         if (executor instanceof ExecutorService) {

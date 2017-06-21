@@ -21,7 +21,7 @@ public class NamedThreadFactory implements ThreadFactory{
     private final ThreadGroup group;
 
     public NamedThreadFactory(){
-        this("pool-" + POOL_SEQ.getAndIncrement(),false);
+        this("kubbo-pool-" + POOL_SEQ.getAndIncrement(),false);
     }
 
     public NamedThreadFactory(String prefix){

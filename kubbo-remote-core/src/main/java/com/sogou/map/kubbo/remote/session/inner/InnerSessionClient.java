@@ -29,7 +29,7 @@ public class InnerSessionClient extends AbstractClientDelegate implements Sessio
 
     private static final Logger logger = LoggerFactory.getLogger( InnerSessionClient.class );
 
-    private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("KubboHeartbeat", true));
+    private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("kubbo-client-heartbeat", true));
 
     // 心跳定时器
     private ScheduledFuture<?> heatbeatTimer;

@@ -40,7 +40,7 @@ public class FrequencySampler extends Sampler{
     
     public FrequencySampler(int interval){
         this.interval = interval;
-        this.executor = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("kubbo-frequency-trace-sampler", true));
+        this.executor = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("kubbo-trace-frequency-sampler", true));
         
         executor.scheduleAtFixedRate(new Runnable() {
             @Override

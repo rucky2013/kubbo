@@ -34,12 +34,12 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
 
-    protected static final String CLIENT_THREAD_POOL_NAME = "KubboClientTaskHandler";
+    protected static final String CLIENT_THREAD_POOL_NAME = "kubbo-client-task-pool";
 
     private final Lock connectLock = new ReentrantLock();
 
     private static final ScheduledThreadPoolExecutor reconnectExecutorService = new ScheduledThreadPoolExecutor(2,
-            new NamedThreadFactory("KubboClientReconnectTimer", true));
+            new NamedThreadFactory("kubbo-client-connection-active-checker", true));
 
     private volatile ScheduledFuture<?> reconnectExecutorFuture = null;
 

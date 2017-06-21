@@ -34,7 +34,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
     
     private static final Logger logger = LoggerFactory.getLogger(InnerSessionServer.class);
 
-    private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1, new NamedThreadFactory( "KubboHeartbeat", true));
+    private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1, new NamedThreadFactory( "kubbo-server-heartbeat", true));
 
     // 心跳定时器
     private ScheduledFuture<?> heatbeatTimer;

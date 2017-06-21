@@ -24,7 +24,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
 
     protected static final Logger logger = LoggerFactory.getLogger(ExecutorWrappedChannelHandler.class);
 
-    protected static final ExecutorService SHARED_EXECUTOR = Executors.newCachedThreadPool(new NamedThreadFactory("kubbo-shared-handler", true));
+    protected static final ExecutorService SHARED_EXECUTOR = Executors.newCachedThreadPool(new NamedThreadFactory("kubbo-shared-pool", true));
     
     protected final ExecutorService executor;
     

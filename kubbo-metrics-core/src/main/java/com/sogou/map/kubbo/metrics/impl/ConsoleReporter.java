@@ -25,7 +25,7 @@ public class ConsoleReporter extends ScheduledReporter {
 
     private ConsoleReporter(MetricRegistry registry, PrintStream output, Locale locale, Clock clock, TimeZone timeZone,
             TimeUnit rateUnit, TimeUnit durationUnit) {
-        super(registry, "console-reporter", rateUnit, durationUnit);
+        super(registry, "kubbo-console-reporter", rateUnit, durationUnit);
         this.output = output;
         this.locale = locale;
         this.clock = clock;
