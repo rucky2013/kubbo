@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.common.logger.Logger;
+import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
@@ -31,6 +33,8 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * @author liufuliang
  */
 public class KubboProtocol extends AbstractProtocol {
+
+    private static final Logger logger = LoggerFactory.getLogger(KubboProtocol.class);
 
     public static final String NAME = "kubbo";
     
@@ -129,8 +133,11 @@ public class KubboProtocol extends AbstractProtocol {
     @Override
     public <T> Invoker<T> refer(Class<T> serviceType, URL url) throws RpcException {
         // create rpc invoker.
+        
         KubboInvoker<T> invoker = new KubboInvoker<T>(serviceType, url, getClients(url), invokers);
         invokers.add(invoker);
+        
+        logger.info("Reference " + serviceType.getCanonicalName() + " attached to  " + url.getAddress());
         return invoker;
     }
     
