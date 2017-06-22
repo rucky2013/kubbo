@@ -3,6 +3,7 @@
  */
 package com.sogou.map.kubbo.distributed.discovery.kubernetes;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,9 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                 JSONObject etcdObj = etcdClient.get(api)
                         .paramIf("wait", "true", waitIndex >= 0)
                         .paramIf("waitIndex", String.valueOf(waitIndex), waitIndex >= 0)
-                        .watch()
+                        //.watch()
+                        .readTimeout(24 * 60 * 60 * 1000) // 24h TODO etcd 2.2.5 bug? long time(7days) watch not work
+                        .execute()
                         .success()
                         .asType(JSONObject.class);	
                 JSONObject nodeObj = etcdObj.getJSONObject("node");
@@ -108,6 +111,12 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                 retry.reset();
                 break;
             } catch(KubboHttpException e){
+                // ignore read timeout
+                Throwable cause = e.getCause();
+                if(cause instanceof SocketTimeoutException && "Read timed out".equalsIgnoreCase(cause.getMessage())){
+                    logger.debug("Read timed out, watch with timeout again.");
+                    continue;
+                }
                 retry.scale();
                 logger.warn("Etcd discovery HTTP exception, will retry " + retry.interval()/1000 + " second later.", e);
             } catch (JSONException e) {

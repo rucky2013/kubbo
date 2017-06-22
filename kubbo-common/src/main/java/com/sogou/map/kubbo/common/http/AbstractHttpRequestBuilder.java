@@ -18,6 +18,7 @@ import com.sogou.map.kubbo.common.util.StringUtils;
  *
  */
 public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
+    
     protected int connectTimeout = 3000;
     protected int readTimeout = 5000;
     protected boolean cache = false;
@@ -33,7 +34,6 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
     protected SSLSocketFactory sslSocketFactory;
     protected HostnameVerifier hostnameVerifier;
     protected ChunkedHandler chunkedHandler;
-    
     
     protected final Method method;
     public AbstractHttpRequestBuilder(Method method, String url) {
@@ -152,7 +152,7 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
     
     @Override
     public HttpResponse watch() throws KubboHttpException {
-        readTimeout(-1);
+        readTimeout(0);
         return execute();
     }
 
@@ -169,7 +169,7 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
 
     @Override
     public <T> T watch(Class<T> asType) throws KubboHttpException {
-        readTimeout(-1);
+        readTimeout(0);
         return execute(asType);
     }
 
@@ -187,7 +187,7 @@ public abstract class AbstractHttpRequestBuilder implements HttpRequestBuilder {
     
     @Override
     public <T> void watch(Class<T> asType, Watcher<T> watcher) {
-        readTimeout(-1);
+        readTimeout(0);
         try{
             HttpResponse response = execute();
             response.success();

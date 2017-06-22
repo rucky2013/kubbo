@@ -25,6 +25,7 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * @author liufuliang
  */
 public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T> {
+
     private static final String DISCOVERY_POOL_NAME = "kubbo-discovery";
     
     protected volatile List<Invoker<T>> invokers;

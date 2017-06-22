@@ -40,7 +40,7 @@ public class Kubernetes2Discovery {
     }
     
     protected Executor workLoop = CachedThreadPool.getExecutor(3, 100, 5, TimeUnit.MINUTES, 
-            new SynchronousQueue<Runnable>(), "Kubbo-discovery", true);
+            new SynchronousQueue<Runnable>(), "kubbo-discovery", true);
     
     
     private void loadVersion(){
@@ -68,8 +68,8 @@ public class Kubernetes2Discovery {
             retry.reset();
             break;
         }
-
     }
+    
     private void upgradeVersion(long resourceVersion) {
         //local
         kubernetesClient.setResourceVersion(resourceVersion);
