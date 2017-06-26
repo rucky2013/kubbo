@@ -9,6 +9,10 @@
   <artifactId>kubbo-trace-zipkin</artifactId>
   <name>kubbo-trace-zipkin</name>
   
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+  
   <dependencies>
     <dependency>
       <groupId>com.sogou.map</groupId>
