@@ -870,9 +870,6 @@ public class ExtensionLoader<T> {
             codeBuidler.append("\n}");
         }
         codeBuidler.append("\n}");
-        if (logger.isDebugEnabled()) {
-            logger.debug(codeBuidler.toString());
-        }
         return codeBuidler.toString();
     }
 

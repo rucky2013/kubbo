@@ -137,7 +137,7 @@ public class KubboProtocol extends AbstractProtocol {
         KubboInvoker<T> invoker = new KubboInvoker<T>(serviceType, url, getClients(url), invokers);
         invokers.add(invoker);
         
-        logger.info("Reference " + serviceType.getCanonicalName() + " attached to  " + url.getAddress());
+        logger.info("Reference " + serviceType.getCanonicalName() + " attached to " + url.getAddress());
         return invoker;
     }
     

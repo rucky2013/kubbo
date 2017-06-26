@@ -48,28 +48,30 @@ public final class HeartBeatTask implements Runnable {
                         req.setEvent(Request.HEARTBEAT_EVENT);
                         channel.send(req);
                         if ( logger.isDebugEnabled() ) {
-                            logger.debug( "Send heartbeat to remote channel " + channel.getRemoteAddress()
-                                                  + ", cause: The channel has no data-transmission exceeds a heartbeat period: " + heartbeat + "ms" );
+                            logger.debug( "Heartbeat to remote " + channel.getRemoteAddress()
+                                                  + ", because the channel has no data-transmission in " + heartbeat + "ms" );
                         }
                     }
                     if ( lastRead != null && now - lastRead > heartbeatTimeout ) {
-                        logger.warn( "Close channel " + channel + ", because heartbeat read idle time out: " + heartbeatTimeout + "ms" );
+                        logger.warn( "Close channel " + channel + ", because heartbeat timed out with " + heartbeatTimeout + "ms" );
                         if (channel instanceof Client) {
+                            // reconnect channel on client side
                             try {
                                 ((Client)channel).reconnect();
                             }catch (Exception e) {
                                 //do nothing
                             }
                         } else {
+                            // close channel on server side
                             channel.close();
                         }
                     }
                 } catch ( Throwable t ) {
-                    logger.warn( "Exception when heartbeat to remote channel " + channel.getRemoteAddress(), t );
+                    logger.warn( "Exception when heartbeat to remote " + channel.getRemoteAddress(), t );
                 }
             }
         } catch ( Throwable t ) {
-            logger.warn( "Unhandled exception when heartbeat, cause: " + t.getMessage(), t );
+            logger.warn( "Unhandled exception when heartbeat to remote, cause: " + t.getMessage(), t );
         }
     }
 

@@ -198,7 +198,15 @@ public class Kubbo {
      */
     public static Trace trace(String operationName){
         return KubboTrace.trace(operationName);
-    }    
+    }
+    
+    /**
+     * 获取当前traceId, 用这个traceId可以把业务日志与trace系统相关联
+     * @return traceId
+     */
+    public static String traceId(){
+        return KubboTrace.traceId();
+    }
     
     private static URL attachApplicationName(URL url){
         String application = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, Constants.DEFAULT_APPLICATION_NAME);
