@@ -17,11 +17,12 @@ import com.sogou.map.kubbo.rpc.RpcException;
  * 
  * @author liufuliang
  */
-@Activate(group = Constants.PROVIDER, order = 9999, value = Constants.ACCESSLOG_KEY)
+@Activate(group = Constants.PROVIDER, order = 3, value = Constants.ACCESSLOG_KEY)
 public class AccessLogFilter implements Filter {
     
-    private static final Logger logger = LoggerFactory.getLogger("accesslog");
+    private static final Logger logger = LoggerFactory.getLogger("kubbo.accesslog");
 
+    @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         String source = invocation.getAttachment(Constants.APPLICATION_KEY, "-");
         String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();

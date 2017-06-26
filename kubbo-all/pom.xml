@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.8</version>
+	<version>0.9</version>
   </parent>
   
   <artifactId>kubbo-all</artifactId>
@@ -66,7 +66,12 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>kubbo-metrics-influxdb</artifactId>
       <version>${project.version}</version>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-trace-zipkin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
   
   <build>
@@ -111,10 +116,20 @@
               <pattern>com.caucho.</pattern>
               <shadedPattern>com.sogou.map.shade.com.caucho.</shadedPattern>
             </relocation>
+            <relocation>
+              <pattern>zipkin.</pattern>
+              <shadedPattern>com.sogou.map.shade.zipkin.</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>brave.</pattern>
+              <shadedPattern>com.sogou.map.shade.brave.</shadedPattern>
+            </relocation>
           </relocations>
           <artifactSet>
             <includes>
               <include>com.sogou.map:kubbo-common</include>
+              <include>com.sogou.map:kubbo-boot</include>
+              <include>com.sogou.map:kubbo-bench</include>
               <include>com.sogou.map:kubbo-remote-core</include>
               <include>com.sogou.map:kubbo-remote-netty4</include>
               <include>com.sogou.map:kubbo-rpc-core</include>
@@ -123,10 +138,9 @@
               <include>com.sogou.map:kubbo-protocol-kubbo</include>
               <include>com.sogou.map:kubbo-distributed</include>
               <include>com.sogou.map:kubbo-discovery-kubernetes</include>
-              <include>com.sogou.map:kubbo-boot</include>
-              <include>com.sogou.map:kubbo-bench</include>
               <include>com.sogou.map:kubbo-metrics-core</include>
               <include>com.sogou.map:kubbo-metrics-influxdb</include>
+              <include>com.sogou.map:kubbo-trace-zipkin</include>
               <include>org.javassist:javassist</include>
               <!--kryo-->
               <include>com.esotericsoftware:*</include>
@@ -135,6 +149,8 @@
               <include>org.objenesis:objenesis</include>
               <!-- hessian -->
               <include>com.caucho:hessian</include>
+              <!--zipkin-->
+              <include>io.zipkin*:*</include>
             </includes>
           </artifactSet>
           <transformers>
@@ -188,16 +204,17 @@
           <includeDependencySources>true</includeDependencySources>
           <dependencySourceIncludes>
             <dependencySourceInclude>com.sogou.map:kubbo-common</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-boot</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-bench</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-remote-core</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-remote-netty4</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-rpc-core</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-rpc-kubbo</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-distributed</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-discovery-kubernetes</dependencySourceInclude>
-            <dependencySourceInclude>com.sogou.map:kubbo-boot</dependencySourceInclude>
-            <dependencySourceInclude>com.sogou.map:kubbo-bench</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-metrics-core</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-metrics-influxdb</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-trace-zipkin</dependencySourceInclude>
           </dependencySourceIncludes>
         </configuration>
       </plugin>

@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.RemotingException;
@@ -50,7 +50,7 @@ public class NettyClient extends AbstractClient {
         }
     }
 
-    private static final EventLoopGroup WORKER_GROUP = new NioEventLoopGroup(DEFAULT_EVENT_LOOP_THREADS, new NamedThreadFactory("NettyClientEventLoopGroup", true));
+    private static final EventLoopGroup WORKER_GROUP = new NioEventLoopGroup(DEFAULT_EVENT_LOOP_THREADS, new NamedThreadFactory("NettyClientNioEventLoop", true));
     
     @Override
     protected void start() throws Throwable {
@@ -114,13 +114,12 @@ public class NettyClient extends AbstractClient {
                 }
             } 
             else if (future.cause() != null) {
-                throw new RemotingException(this, "client(url: " + getUrl() + ") failed to connect to server "
-                        + getRemoteAddress() + ", error message is:" + future.cause().getMessage(), future.cause());
+                throw new RemotingException(this, "Failed to connect to server "
+                        + getRemoteAddress() + ", " + future.cause().getMessage(), future.cause());
             } 
             else {
-                throw new RemotingException(this, "client(url: " + getUrl() + ") failed to connect to server "
-                        + getRemoteAddress() + " client-side timeout "
-                        + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
+                throw new RemotingException(this, "Failed to connect to server " + getRemoteAddress()
+                        + ", connection timeout " + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
                         + NetUtils.getHostAddress());
             }
         }finally{

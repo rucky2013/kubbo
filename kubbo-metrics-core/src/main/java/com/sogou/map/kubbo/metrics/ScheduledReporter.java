@@ -7,24 +7,22 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * abstract scheduled reporters 
  * @author liufuliang
  */
 public abstract class ScheduledReporter implements Reporter {
+
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledReporter.class);
     
     private final MetricRegistry registry;
-    private final ScheduledExecutorService executor;
-    private ScheduledFuture<?> scheduledFuture;
     
-//    private final double durationFactor;
-//    private final String durationUnit;
-//    private final double rateFactor;
-//    private final String rateUnit;
+    private final ScheduledExecutorService executor;
+    
+    private ScheduledFuture<?> scheduledFuture;
 
     protected ScheduledReporter(MetricRegistry registry,
                                 String name,
@@ -32,10 +30,6 @@ public abstract class ScheduledReporter implements Reporter {
                                 TimeUnit durationUnit) {
         this.registry = registry;
         this.executor = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory(name, true));
-//        this.rateFactor = rateUnit.toSeconds(1);
-//        this.rateUnit = calculateRateUnit(rateUnit);
-//        this.durationFactor = 1.0 / durationUnit.toNanos(1);
-//        this.durationUnit = durationUnit.toString().toLowerCase(Locale.US);
     }
 
     @Override
@@ -85,28 +79,5 @@ public abstract class ScheduledReporter implements Reporter {
     }
     
     protected abstract void report(MetricRegistry registry);
-
-    
-    
-//    protected String getRateUnit() {
-//        return rateUnit;
-//    }
-//
-//    protected String getDurationUnit() {
-//        return durationUnit;
-//    }
-//
-//    protected double convertDuration(double duration) {
-//        return duration * durationFactor;
-//    }
-//
-//    protected double convertRate(double rate) {
-//        return rate * rateFactor;
-//    }
-//
-//    private String calculateRateUnit(TimeUnit unit) {
-//        final String s = unit.toString().toLowerCase(Locale.US);
-//        return s.substring(0, s.length() - 1);
-//    }
 
 }

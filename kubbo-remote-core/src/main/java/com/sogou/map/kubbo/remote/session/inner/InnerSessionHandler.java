@@ -1,11 +1,9 @@
 package com.sogou.map.kubbo.remote.session.inner;
 
 import com.sogou.map.kubbo.common.Constants;
-import com.sogou.map.kubbo.common.logger.Logger;
-import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.ExecutionException;
+import com.sogou.map.kubbo.remote.RemoteExecutionException;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionHandler;
@@ -19,8 +17,6 @@ import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelega
  * @author liufuliang
  */
 public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
-
-    protected static final Logger logger              = LoggerFactory.getLogger(InnerSessionHandler.class);
 
     private final SessionHandler handler;
 
@@ -98,7 +94,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
                     Response response = handleRequest(sessionChannel, request);
                     channel.send(response);
                 } else {
-                    handler.onReceived(sessionChannel, request.getData());
+                    handleRequest(sessionChannel, request);
                 }
             } else if (message instanceof Response) {
                 // handle response.
@@ -116,8 +112,8 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
 
     @Override
     public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
-        if (exception instanceof ExecutionException) {
-            ExecutionException e = (ExecutionException) exception;
+        if (exception instanceof RemoteExecutionException) {
+            RemoteExecutionException e = (RemoteExecutionException) exception;
             Object msg = e.getRequest();
             if (msg instanceof Request) {
                 Request req = (Request) msg;
@@ -169,7 +165,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
         } catch (Throwable e) {
             res.setStatus(Response.SERVICE_ERROR);
             res.setErrorMessage(StringUtils.toString(e));
-        }
+        } 
         return res;
     }
 

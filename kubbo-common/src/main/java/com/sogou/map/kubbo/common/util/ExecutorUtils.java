@@ -10,6 +10,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 /**
  * @author liufuliang
  *
@@ -19,7 +20,7 @@ public class ExecutorUtils {
     private static final ThreadPoolExecutor shutdownExecutor = new ThreadPoolExecutor(0, 1,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<Runnable>(100),
-            new NamedThreadFactory("Close-ExecutorService-Timer", true)); 
+            new NamedThreadFactory("kubbo-close-executor-timer", true)); 
 
     public static boolean isShutdown(Executor executor) {
         if (executor instanceof ExecutorService) {

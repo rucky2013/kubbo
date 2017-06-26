@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.remote.ChannelHandler;
  *
  */
 public class ChannelEventRunnable implements Runnable {
-    private static final Logger logger             = LoggerFactory.getLogger(ChannelEventRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChannelEventRunnable.class);
 
     private final ChannelHandler handler;
     private final Channel channel;
@@ -38,6 +38,7 @@ public class ChannelEventRunnable implements Runnable {
         this.exception = exception;
     }
     
+    @Override
     public void run() {
         switch (state) {
             case CONNECTED:

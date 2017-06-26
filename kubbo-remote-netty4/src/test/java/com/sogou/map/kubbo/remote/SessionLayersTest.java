@@ -43,7 +43,7 @@ public class SessionLayersTest {
 
         });
 
-        SessionClient client = SessionLayers.connect("kubbo://localhost:8080?transportlayer=netty4&timeout=10000");
+        SessionClient client = SessionLayers.connect("kubbo://localhost:8080?transportlayer=netty4&timeout=1000000");
 
         ResponseFuture Response = client.request(new Message());
         

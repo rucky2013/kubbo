@@ -3,11 +3,12 @@ package com.sogou.map.kubbo.rpc.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import com.sogou.map.kubbo.common.lang.Defaults;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcInvocation;
 
 /**
- * InvokerHandler
+ * InvokerInvocationHandler
  * 
  * @author liufuliang
  */
@@ -19,6 +20,7 @@ public class InvokerInvocationHandler implements InvocationHandler {
         this.invoker = handler;
     }
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         String methodName = method.getName();
         Class<?>[] parameterTypes = method.getParameterTypes();
@@ -34,7 +36,17 @@ public class InvokerInvocationHandler implements InvocationHandler {
         if ("equals".equals(methodName) && parameterTypes.length == 1) {
             return invoker.equals(args[0]);
         }
-        return invoker.invoke(new RpcInvocation(method, args)).recreate();
+                
+        Object result = invoker.invoke(new RpcInvocation(method, args)).recreate();
+        if(result == null){
+            // 异步调用会直接返回null, 对于原始类型, 需要返回默认值.
+            Class<?> returnType = method.getReturnType();
+            if(returnType.isPrimitive()){
+                return Defaults.defaultValue(returnType);
+            }
+        }
+        
+        return result;
     }
 
 }

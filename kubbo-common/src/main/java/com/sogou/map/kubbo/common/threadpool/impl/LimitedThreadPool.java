@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.threadpool.AbortPolicyWithReport;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.threadpool.ThreadPool;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 
 /**
  * 此线程池一直增长，直到上限，增长后不收缩。
@@ -20,8 +20,10 @@ import com.sogou.map.kubbo.common.util.NamedThreadFactory;
  * @author liufuliang
  */
 public class LimitedThreadPool implements ThreadPool {
+
     public static final String NAME = "limited";
 
+    @Override
     public Executor getExecutor(URL url) {
         String name = url.getParameter(Constants.THREAD_NAME_KEY, Constants.DEFAULT_THREAD_NAME);
         int cores = url.getParameter(Constants.CORE_THREADS_KEY, Constants.DEFAULT_CORE_THREADS);

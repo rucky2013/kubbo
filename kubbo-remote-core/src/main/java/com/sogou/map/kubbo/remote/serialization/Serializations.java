@@ -19,6 +19,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
  * @author liufuliang
  */
 public class Serializations {
+    
     private static final Logger logger = LoggerFactory.getLogger(Serializations.class);
 
     private static Map<Byte, Serialization> ID_SERIALIZATION_MAP = new HashMap<Byte, Serialization>();
@@ -73,6 +74,10 @@ public class Serializations {
      */
     public static byte[] serialize(String type, Object obj) throws IOException{
         Serialization serialization = getSerialization(type);
+        return serialize(serialization, obj);
+    }
+    
+    public static byte[] serialize(Serialization serialization, Object obj) throws IOException{
         ByteArrayOutputStream ostream = new ByteArrayOutputStream();
         
         ObjectOutput ouput = serialization.serialize(ostream);
@@ -107,5 +112,17 @@ public class Serializations {
         return obj;
     }
         
+    public static void releaseSafely(ObjectInput input){
+        if (input instanceof Releasable) {
+            ((Releasable) input).release();
+        }
+    }
+    
+    public static void releaseSafely(ObjectOutput output){
+        if (output instanceof Releasable) {
+            ((Releasable) output).release();
+        }
+    }
+    
     private Serializations() {}
 }

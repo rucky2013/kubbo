@@ -5,12 +5,6 @@
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import com.sogou.map.kubbo.boot.configuration.KubboConfiguration;
 import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
 import com.sogou.map.kubbo.common.Constants;
@@ -18,12 +12,17 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
+import com.sogou.map.kubbo.distributed.Distributions;
+import com.sogou.map.kubbo.metrics.KubboMetrics;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.InvokerProxy;
 import com.sogou.map.kubbo.rpc.Protocol;
 import com.sogou.map.kubbo.rpc.Protocols;
 import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
+import com.sogou.map.kubbo.rpc.concurrent.ExceptionWrappedListenableFuture;
+import com.sogou.map.kubbo.trace.KubboTrace;
+import com.sogou.map.kubbo.trace.Trace;
 
 /**
  * <h3>Kubbo分层架构</h3>
@@ -90,8 +89,7 @@ public class Kubbo {
         URL referURL = attachApplicationName(url);
         
         if("discovery".equalsIgnoreCase(url.getProtocol())){
-            return getAdaptiveInvokerProxy().getProxy(
-                    getProtocol("discovery").refer(type, referURL));
+            return getAdaptiveInvokerProxy().getProxy(Distributions.refer(type, referURL));
         }
         T service = getAdaptiveInvokerProxy().getProxy(
                 getProtocol(url).refer(type, referURL));
@@ -126,7 +124,7 @@ public class Kubbo {
         
         String address = configuration.getReferenceAddress(type.getName(), name);
         if(StringUtils.isBlank(address)){
-            throw new IllegalArgumentException("Not found interface implements for " + type.getName());
+            throw new IllegalArgumentException("Reference not found in configuration, interface: " + type.getName());
         }
         return refer(type, address);
     }
@@ -152,51 +150,20 @@ public class Kubbo {
      * @return 通过future.get()获取返回结果.
      * @exception RpcException rpc调用异常
      */
-    @SuppressWarnings("unchecked")
-    public static <T> Future<T> callAsync(Callable<T> callable) throws RpcException {
+    public static <T> java.util.concurrent.Future<T> callAsync(Callable<T> callable) throws RpcException {
         try {
             try {
                 RpcContext.get().setAttachment(Constants.ASYNC_KEY, Constants.TRUE);
-                final T o = callable.call();
-                //local调用会直接返回结果.
-                if (o != null) {
-                    FutureTask<T> f = new FutureTask<T>(new Callable<T>() {
-                        public T call() throws Exception {
-                            return o;
-                        }
-                    });
-                    f.run();
-                    return f;
-                } else {
-                    
-                }
+                callable.call();
             } catch (Exception e) {
                 throw new RpcException(e);
             } finally {
                 RpcContext.get().removeAttachment(Constants.ASYNC_KEY);
             }
         } catch (final RpcException e) {
-            return new Future<T>() {
-                public boolean cancel(boolean mayInterruptIfRunning) {
-                    return false;
-                }
-                public boolean isCancelled() {
-                    return false;
-                }
-                public boolean isDone() {
-                    return true;
-                }
-                public T get() throws InterruptedException, ExecutionException {
-                    throw new ExecutionException(e.getCause());
-                }
-                public T get(long timeout, TimeUnit unit)
-                        throws InterruptedException, ExecutionException,
-                        TimeoutException {
-                    return get();
-                }
-            };
+            return new ExceptionWrappedListenableFuture<T>(e);
         }
-        return ((Future<T>)RpcContext.get().getFuture());
+        return RpcContext.get().getFuture();
     }
     
     /**
@@ -206,13 +173,39 @@ public class Kubbo {
      */
     public static void callAsync(Runnable runable) throws RpcException {
         try {
-            RpcContext.get().setAttachment(Constants.RETURN_KEY, Constants.FALSE);
+            RpcContext.get().setAttachment(Constants.ONEWAY_KEY, Constants.TRUE);
             runable.run();
         } catch (Throwable e) {
             throw new RpcException("callAsync runable error. " + e.getMessage(), e);
         } finally {
-            RpcContext.get().removeAttachment(Constants.RETURN_KEY);
+            RpcContext.get().removeAttachment(Constants.ONEWAY_KEY);
         }
+    }
+    
+    /**
+     * 监控
+     * @param method 监控项名称, 可以使用方法名或者http路径 
+     * @param time 本次耗时
+     */
+    public static void metrics(String method, long time){
+        KubboMetrics.elapse(method, time);
+    }
+    
+    /**
+     * trace跟踪
+     * @param operationName　本次调用的名称
+     * @return 返回Trace对象,　用于关闭
+     */
+    public static Trace trace(String operationName){
+        return KubboTrace.trace(operationName);
+    }
+    
+    /**
+     * 获取当前traceId, 用这个traceId可以把业务日志与trace系统相关联
+     * @return traceId
+     */
+    public static String traceId(){
+        return KubboTrace.traceId();
     }
     
     private static URL attachApplicationName(URL url){

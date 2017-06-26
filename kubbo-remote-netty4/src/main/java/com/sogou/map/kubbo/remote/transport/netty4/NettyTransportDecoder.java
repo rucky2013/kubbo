@@ -18,11 +18,13 @@ import com.sogou.map.kubbo.remote.buffer.DynamicChannelBuffer;
  *
  */
 public class NettyTransportDecoder extends io.netty.channel.SimpleChannelInboundHandler<io.netty.buffer.ByteBuf> {
-    private final Codec        codec;
+    private final Codec codec;
     
-    private final URL            url;
+    private final URL url;
     
-    private final int            bufferSize;
+    private final int bufferSize;
+    
+    private ChannelBuffer buffer = ChannelBuffers.EMPTY_BUFFER;
     
     private final ChannelHandler handler;
 
@@ -30,11 +32,11 @@ public class NettyTransportDecoder extends io.netty.channel.SimpleChannelInbound
         this.codec = codec;
         this.url = url;
         this.handler = handler;
-        int bufferSize = url.getPositiveParameter(Constants.BUFFER_KEY, Constants.DEFAULT_BUFFER_SIZE);
-        this.bufferSize = bufferSize >= Constants.MIN_BUFFER_SIZE && bufferSize <= Constants.MAX_BUFFER_SIZE ? 
-                bufferSize : Constants.DEFAULT_BUFFER_SIZE;
+        int size = url.getPositiveParameter(Constants.DECODE_BUFFER_KEY, Constants.DEFAULT_DECODE_BUFFER_SIZE);
+        this.bufferSize = size >= Constants.MIN_BUFFER_SIZE && size <= Constants.MAX_BUFFER_SIZE ? 
+                size : Constants.DEFAULT_DECODE_BUFFER_SIZE;
     }
-    private ChannelBuffer buffer = ChannelBuffers.EMPTY_BUFFER;
+    
 
     @Override
     public void channelRead0(io.netty.channel.ChannelHandlerContext ctx, io.netty.buffer.ByteBuf input) throws Exception {

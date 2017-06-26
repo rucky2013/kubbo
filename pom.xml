@@ -9,7 +9,7 @@
 
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-parent</artifactId>
-  <version>0.8</version>
+  <version>0.9</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>The parent project of kubbo</description>
@@ -27,6 +27,7 @@
     <module>kubbo-bench</module>
     <module>kubbo-metrics-core</module>
     <module>kubbo-metrics-influxdb</module>
+    <module>kubbo-trace-zipkin</module>
   </modules>
 
   <properties>
@@ -46,6 +47,9 @@
     <!-- Test libs -->
     <junit_version>4.12</junit_version>
     <jmockit_version>1.31</jmockit_version>
+    <!-- Trace libs -->
+    <brave_version>4.3.3</brave_version>
+    <zipkin_reporter_version>0.10.0</zipkin_reporter_version>
   </properties>
 
   <dependencyManagement>
@@ -114,6 +118,23 @@
         <artifactId>jmockit</artifactId>
         <version>${jmockit_version}</version>
         <scope>test</scope>
+      </dependency>
+      
+      <!-- Trace libs -->
+      <dependency>
+        <groupId>io.opentracing</groupId>
+        <artifactId>opentracing-api</artifactId>
+        <version>${opentracing_version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.zipkin.brave</groupId>
+        <artifactId>brave</artifactId>
+        <version>${brave_version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.zipkin.reporter</groupId>
+        <artifactId>zipkin-sender-urlconnection</artifactId>
+        <version>${zipkin_reporter_version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -52,30 +52,37 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
         setIndex(readerIndex, writerIndex);
     }
 
+    @Override
     public boolean isDirect() {
         return false;
     }
 
+    @Override
     public int capacity() {
         return array.length;
     }
 
+    @Override
     public boolean hasArray() {
         return true;
     }
 
+    @Override
     public byte[] array() {
         return array;
     }
 
+    @Override
     public int arrayOffset() {
         return 0;
     }
 
+    @Override
     public byte getByte(int index) {
         return array[index];
     }
-
+    
+    @Override
     public void getBytes(int index, ChannelBuffer dst, int dstIndex, int length) {
         if (dst instanceof HeapChannelBuffer) {
             getBytes(index, ((HeapChannelBuffer) dst).array, dstIndex, length);
@@ -83,15 +90,18 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
             dst.setBytes(dstIndex, array, index, length);
         }
     }
-
+    
+    @Override
     public void getBytes(int index, byte[] dst, int dstIndex, int length) {
         System.arraycopy(array, index, dst, dstIndex, length);
     }
 
+    @Override
     public void getBytes(int index, ByteBuffer dst) {
         dst.put(array, index, Math.min(capacity() - index, dst.remaining()));
     }
 
+    @Override
     public void getBytes(int index, OutputStream out, int length)
         throws IOException {
         out.write(array, index, length);
@@ -102,10 +112,12 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
         return out.write(ByteBuffer.wrap(array, index, length));
     }
 
+    @Override
     public void setByte(int index, int value) {
         array[index] = (byte) value;
     }
 
+    @Override
     public void setBytes(int index, ChannelBuffer src, int srcIndex, int length) {
         if (src instanceof HeapChannelBuffer) {
             setBytes(index, ((HeapChannelBuffer) src).array, srcIndex, length);
@@ -114,14 +126,17 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
         }
     }
 
+    @Override
     public void setBytes(int index, byte[] src, int srcIndex, int length) {
         System.arraycopy(src, srcIndex, array, index, length);
     }
 
+    @Override
     public void setBytes(int index, ByteBuffer src) {
         src.get(array, index, src.remaining());
     }
 
+    @Override
     public int setBytes(int index, InputStream in, int length) throws IOException {
         int readBytes = 0;
         do {

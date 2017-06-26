@@ -25,13 +25,13 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * 
  * @author liufuliang
  */
-public abstract class AbstractInvoker<T> implements Invoker<T> {
+public abstract class AbstractConsumerInvoker<T> implements Invoker<T> {
 
-    protected final Logger   logger    = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final URL        url;
+    private final URL url;
 
-    private final Class<T>   type;
+    private final Class<T> type;
 
     private final Map<String, String> attachments;
 
@@ -39,15 +39,15 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
 
     private volatile boolean destroyed = false;
     
-    public AbstractInvoker(Class<T> type, URL url){
+    public AbstractConsumerInvoker(Class<T> type, URL url){
         this(type, url, (Map<String, String>) null);
     }
     
-    public AbstractInvoker(Class<T> type, URL url, String[] attachmentKeys) {
+    public AbstractConsumerInvoker(Class<T> type, URL url, String[] attachmentKeys) {
         this(type, url, convertAttachment(url, attachmentKeys));
     }
 
-    public AbstractInvoker(Class<T> type, URL url, Map<String, String> attachments) {
+    public AbstractConsumerInvoker(Class<T> type, URL url, Map<String, String> attachments) {
         if (type == null)
             throw new IllegalArgumentException("service type == NULL");
         if (url == null)
@@ -69,6 +69,11 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
             }
         }
         return attachments;
+    }
+    
+    @Override
+    public Reside reside(){
+        return Reside.CONSUMER;
     }
     
     @Override
@@ -108,6 +113,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         return getInterface() + " -> " + (getUrl() == null ? "" : getUrl().toString());
     }
 
+    @Override
     public Result invoke(Invocation inv) throws RpcException {
         if(destroyed) {
             throw new RpcException("Rpc invoker for service " + this + " on consumer " + NetUtils.getHostAddress() 

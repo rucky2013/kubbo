@@ -13,7 +13,7 @@ maven仓库地址配置请参照[maven配置](docs/env/maven.md)
 <dependency>
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-all</artifactId>
-  <version>0.8</version>
+  <version>0.9</version>
 </dependency>
 ```
 
@@ -64,7 +64,8 @@ public class SampleLifecycleHook implements LifecycleHook {
 SampleService service = Kubbo.refer(SampleService.class);
 String result = service.echo("helloworld");
 ```
-- 同一个远程接口应该refer一次后重复使用, 多次refer会降低程序性能。
+- refer生成的接口对象是线程安全的.  
+- 同一个远程接口应该refer一次后重复使用(线程安全), 多次refer会降低程序性能。
 - 远程服务接口地址在kubbo.properties中配置, 具体配置项可参考[配置详解](docs/configuration.md)
 - 客户端可以进行[异步调用](docs/async.md)
 

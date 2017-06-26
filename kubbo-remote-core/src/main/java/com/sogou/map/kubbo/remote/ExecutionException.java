@@ -3,14 +3,14 @@ package com.sogou.map.kubbo.remote;
 import java.net.InetSocketAddress;
 
 /**
- * ReceiveException
+ * ExecutionException
  * 
  * @author liufuliang
  */
 public class ExecutionException extends RemotingException {
     
-    private static final long serialVersionUID = -2531085236111056860L;
-    
+    private static final long serialVersionUID = -8457605237515280837L;
+
     private final Object request;
 
     public ExecutionException(Object request, Channel channel, String message, Throwable cause){

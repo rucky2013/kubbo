@@ -23,7 +23,7 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  */
 public abstract class AbstractProtocol implements Protocol {
 
-    protected final Logger logger = LoggerFactory.getLogger(AbstractProtocol.class);
+    protected static final Logger logger = LoggerFactory.getLogger(AbstractProtocol.class);
 
     protected final Map<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>(); // group/path:version -> exporter
 

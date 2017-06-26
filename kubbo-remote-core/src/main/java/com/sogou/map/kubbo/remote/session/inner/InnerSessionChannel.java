@@ -21,11 +21,11 @@ import com.sogou.map.kubbo.remote.transport.AbstractChannelDelegate;
  */
 final class InnerSessionChannel extends AbstractChannelDelegate implements SessionChannel {
 
-    private static final Logger logger      = LoggerFactory.getLogger(InnerSessionChannel.class);
+    private static final Logger logger = LoggerFactory.getLogger(InnerSessionChannel.class);
 
     private static final String CHANNEL_KEY = InnerSessionChannel.class.getName() + ".CHANNEL";
 
-    private volatile boolean    closed      = false;
+    private volatile boolean closed = false;
 
     InnerSessionChannel(Channel channel){
         super(channel);

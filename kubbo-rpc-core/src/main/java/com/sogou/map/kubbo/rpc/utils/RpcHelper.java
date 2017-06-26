@@ -6,9 +6,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.rpc.Invocation;
-import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcInvocation;
-import com.sogou.map.kubbo.rpc.ServiceInvoker;
 
 /**
  * RpcUtils
@@ -83,21 +81,13 @@ public class RpcHelper {
     public static boolean isOneway(URL url, Invocation inv) {
         boolean isOneway ;
         //如果Java代码中设置优先.
-        if (Constants.FALSE.equals(inv.getAttachment(Constants.RETURN_KEY))) {
+        if (Constants.TRUE.equals(inv.getAttachment(Constants.ONEWAY_KEY))) {
             isOneway = true;
         } else {
-            isOneway = !url.getMethodParameter(getMethodName(inv), Constants.RETURN_KEY, true);
+            isOneway = url.getMethodParameter(getMethodName(inv), Constants.ONEWAY_KEY, false);
         }
         return isOneway;
     }
-    
-    public static boolean isRemoteInvoker(Invoker<?> invoker){
-        if(invoker instanceof ServiceInvoker){
-            return false;
-        }
-        return true;
-    }
-
     
     public static String serviceKey(URL url){
         return serviceKey(url.getParameter(Constants.GROUP_KEY),

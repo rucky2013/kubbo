@@ -3,13 +3,13 @@ package com.sogou.map.kubbo.rpc;
 import com.sogou.map.kubbo.common.extension.SPI;
 
 /**
- * Filter. (SPI, Singleton, ThreadSafe)
+ * Filter.
  * 
  * @author liufuliang
  */
 @SPI
 public interface Filter {
-
+    
     /**
      * invoke filter.
      * 

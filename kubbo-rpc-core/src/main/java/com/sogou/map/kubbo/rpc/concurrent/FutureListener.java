@@ -1,18 +1,19 @@
-package com.sogou.map.kubbo.remote.session;
+/**
+ * 
+ */
+package com.sogou.map.kubbo.rpc.concurrent;
 
 /**
- * ResponseCallback
- * 
  * @author liufuliang
+ *
  */
-public interface ResponseCallback {
-
+public interface FutureListener<V> {
     /**
      * done.
      * 
      * @param response
      */
-    void done(Object response);
+    void done(V result);
 
     /**
      * caught exception.
@@ -20,5 +21,4 @@ public interface ResponseCallback {
      * @param exception
      */
     void caught(Throwable exception);
-
 }

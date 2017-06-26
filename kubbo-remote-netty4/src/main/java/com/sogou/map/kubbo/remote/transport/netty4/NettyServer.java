@@ -4,7 +4,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
@@ -60,8 +60,10 @@ public class NettyServer extends AbstractServer {
         final NettyHandler nettyHandler = new NettyHandler(getUrl(), NettyServer.this);
         channels = nettyHandler.getChannels();
 
-        bossGroup = new NioEventLoopGroup(1, new NamedThreadFactory("NettyServerBoss", true));
-        workerGroup = new NioEventLoopGroup(getUrl().getPositiveParameter(Constants.IO_THREADS_KEY, DEFAULT_EVENT_LOOP_THREADS), new NamedThreadFactory("NettyServerEventLoopGroup", true));
+        bossGroup = new NioEventLoopGroup(1, new NamedThreadFactory("NettyServerAcceptor", true));
+        workerGroup = new NioEventLoopGroup(getUrl().getPositiveParameter(Constants.IO_THREADS_KEY, DEFAULT_EVENT_LOOP_THREADS), new NamedThreadFactory("NettyServerNioEventLoop", true));
+        ((NioEventLoopGroup)workerGroup).setIoRatio(SystemPropertyUtil.getInt("kubbo.io.netty.ioratio", 50));
+        
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)

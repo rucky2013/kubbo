@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote;
 import java.net.InetSocketAddress;
 
 /**
- * RemotingException. (API, Prototype, ThreadSafe)
+ * RemotingException.
  * 
  * @author liufuliang
  */

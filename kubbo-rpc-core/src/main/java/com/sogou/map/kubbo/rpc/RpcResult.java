@@ -12,13 +12,15 @@ import com.sogou.map.kubbo.rpc.protocol.AbstractAttachable;
  */
 public class RpcResult extends AbstractAttachable<RpcResult> implements Result, Serializable {
 
-    private static final long        serialVersionUID = -6925924956850004727L;
+    private static final long serialVersionUID = -6925924956850004727L;
     
     public static final RpcResult NULL = new RpcResult();
+    public static final RpcResult ASYNC = new RpcResult();
+    public static final RpcResult ONEWAY = new RpcResult();
 
-    private Object                   result;
+    private Object result;
     
-    private Throwable                exception;
+    private Throwable exception;
 
     public RpcResult(){
         super(new HashMap<String, String>());

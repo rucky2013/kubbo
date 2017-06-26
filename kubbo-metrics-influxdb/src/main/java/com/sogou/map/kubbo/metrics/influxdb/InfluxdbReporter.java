@@ -17,24 +17,23 @@ import com.sogou.map.kubbo.metrics.influxdb.client.obj.Point;
 
 
 public final class InfluxdbReporter extends ScheduledReporter {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbReporter.class);
     
     private final InfluxDB influxdb;
+
     private Map<String, String> tags;
 
-    
     private InfluxdbReporter(MetricRegistry registry, InfluxDB influxDb, Map<String, String> tags,
                              TimeUnit rateUnit, TimeUnit durationUnit) {
-        super(registry, "influxdb-reporter", rateUnit, durationUnit);
+        super(registry, "kubbo-influxdb-reporter", rateUnit, durationUnit);
         this.influxdb = influxDb;
         this.tags = tags;
-
     }
 
     public static Builder registry(MetricRegistry registry) {
         return new Builder(registry);
     }
-    
     
     public static final class Builder {
         private final MetricRegistry registry;

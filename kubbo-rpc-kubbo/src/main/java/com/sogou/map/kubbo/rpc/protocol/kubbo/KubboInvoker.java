@@ -17,7 +17,8 @@ import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcInvocation;
 import com.sogou.map.kubbo.rpc.RpcResult;
-import com.sogou.map.kubbo.rpc.protocol.AbstractInvoker;
+import com.sogou.map.kubbo.rpc.concurrent.DefaultListenableFuture;
+import com.sogou.map.kubbo.rpc.protocol.AbstractConsumerInvoker;
 import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
@@ -25,7 +26,7 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * 
  * @author liufuliang
  */
-public class KubboInvoker<T> extends AbstractInvoker<T> {
+public class KubboInvoker<T> extends AbstractConsumerInvoker<T> {
 
     private final SessionClient[] sessions;
 
@@ -75,19 +76,20 @@ public class KubboInvoker<T> extends AbstractInvoker<T> {
                 boolean blocking = getUrl().getMethodParameter(methodName, Constants.SEND_BLOCKING_KEY, Constants.DEFAULT_SEND_BLOCKING);
                 session.send(inv, blocking);
                 RpcContext.get().setFuture(null);
-                return RpcResult.NULL;
+                return RpcResult.ONEWAY;
             } else if (isAsync) {
-                ResponseFuture future = session.request(inv, timeout);
-                RpcContext.get().setFuture(new JDKFutureAdapter<Object>(future));
-                return RpcResult.NULL;
+                ResponseFuture internalFuture = session.request(inv, timeout);
+                RpcContext.get().setFuture(new DefaultListenableFuture<Object>(internalFuture));
+                return RpcResult.ASYNC;
             } else {
+                ResponseFuture internalFuture = session.request(inv, timeout);
                 RpcContext.get().setFuture(null);
-                return (Result) session.request(inv, timeout).get();
+                return (Result)internalFuture.get();
             }
         } catch (TimeoutException e) {
-            throw new RpcException(RpcException.TIMEOUT_EXCEPTION, "Invoke remote method timeout. method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
+            throw new RpcException(RpcException.TIMEOUT_EXCEPTION, "Invocation timeout. method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
         } catch (RemotingException e) {
-            throw new RpcException(RpcException.NETWORK_EXCEPTION, "Failed to invoke remote method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
+            throw new RpcException(RpcException.NETWORK_EXCEPTION, "Invocation error. method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
         }
     }
     

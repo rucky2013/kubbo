@@ -7,7 +7,17 @@ import com.sogou.map.kubbo.common.Node;
  * @author liufuliang
  */
 public interface Invoker<T> extends Node {
+    /*
+     * consumer-side or provider-side
+     */
+    public enum Reside {
+        NONE,
+        CONSUMER,
+        PROVIDER
+    }
 
+    Reside reside();
+    
     /**
      * get service interface.
      * 

@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
+import com.sogou.map.kubbo.common.logger.Logger;
+import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
@@ -19,6 +21,7 @@ import com.sogou.map.kubbo.remote.session.handler.SessionHandlerAdapter;
 import com.sogou.map.kubbo.rpc.Exporter;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
+import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.protocol.AbstractProtocol;
 import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
@@ -30,6 +33,8 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * @author liufuliang
  */
 public class KubboProtocol extends AbstractProtocol {
+
+    private static final Logger logger = LoggerFactory.getLogger(KubboProtocol.class);
 
     public static final String NAME = "kubbo";
     
@@ -45,7 +50,8 @@ public class KubboProtocol extends AbstractProtocol {
             if (message instanceof Invocation) {
                 Invocation inv = (Invocation) message;
                 Invoker<?> invoker = getInvoker(channel, inv);
-                return invoker.invoke(inv);
+                Result result = invoker.invoke(inv);
+                return result;
             }
             throw new RemotingException(channel, 
                     "Unsupported request: " + message == null ? null : (message.getClass().getName() + ": " + message) 
@@ -127,8 +133,11 @@ public class KubboProtocol extends AbstractProtocol {
     @Override
     public <T> Invoker<T> refer(Class<T> serviceType, URL url) throws RpcException {
         // create rpc invoker.
+        
         KubboInvoker<T> invoker = new KubboInvoker<T>(serviceType, url, getClients(url), invokers);
         invokers.add(invoker);
+        
+        logger.info("Reference " + serviceType.getCanonicalName() + " attached to " + url.getAddress());
         return invoker;
     }
     
@@ -136,7 +145,7 @@ public class KubboProtocol extends AbstractProtocol {
         //是否共享连接
         boolean serviceShareConnection = false;
         //如果connections不配置，则共享连接，否则每服务每连接
-        int connections = url.getParameter(Constants.CONNECTIONS_KEY, 0);
+        int connections = url.getParameter(Constants.CONNECTIONS_KEY, Constants.DEFAULT_CONNECTIONS);
         if (connections == 0){
             serviceShareConnection = true;
             connections = 1;

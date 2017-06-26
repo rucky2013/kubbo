@@ -16,11 +16,11 @@ public class RpcInvocation extends AbstractAttachable<RpcInvocation> implements 
 
     private static final long serialVersionUID = -4355285085441097045L;
 
-    private String               methodName;
+    private String methodName;
 
-    private Class<?>[]           parameterTypes;
+    private Class<?>[] parameterTypes;
 
-    private Object[]             arguments;
+    private Object[] arguments;
 
     private transient Invoker<?> invoker;
 

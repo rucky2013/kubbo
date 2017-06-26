@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Client;
 import com.sogou.map.kubbo.remote.RemotingException;
@@ -29,7 +29,7 @@ public class InnerSessionClient extends AbstractClientDelegate implements Sessio
 
     private static final Logger logger = LoggerFactory.getLogger( InnerSessionClient.class );
 
-    private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("KubboHeartbeat", true));
+    private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("kubbo-client-heartbeat", true));
 
     // 心跳定时器
     private ScheduledFuture<?> heatbeatTimer;
@@ -54,6 +54,17 @@ public class InnerSessionClient extends AbstractClientDelegate implements Sessio
         }
         startHeatbeatTimer();
     }
+    
+    @Override
+    public void send(Object message) throws RemotingException {
+        sessionChannel.send(message);
+    }
+    
+    @Override
+    public void send(Object message, boolean sent) throws RemotingException {
+        sessionChannel.send(message, sent);
+    }
+    
     @Override
     public ResponseFuture request(Object request) throws RemotingException {
         return sessionChannel.request(request);

@@ -14,20 +14,25 @@ import com.sogou.map.kubbo.remote.serialization.Serialization;
  * @author liufuliang
  */
 public class KryoSerialization implements Serialization {
+
     public static final String NAME = "kryo";
 
+    @Override
     public byte getContentTypeId() {
         return 2;
     }
 
+    @Override
     public String getContentType() {
         return "x-application/kryo";
     }
 
+    @Override
     public ObjectOutput serialize(OutputStream out) throws IOException {
         return new KryoObjectOutput(out);
     }
 
+    @Override
     public ObjectInput deserialize(InputStream in) throws IOException {
         return new KryoObjectInput(in);
     }

@@ -1,6 +1,5 @@
 package com.sogou.map.kubbo.common;
 
-import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 import com.sogou.map.kubbo.common.util.NetUtils;
@@ -10,7 +9,7 @@ import com.sogou.map.kubbo.common.util.NetUtils;
  * 
  * @author liufuliang
  */
-public class Constants {
+public final class Constants {
 
     public static final String  PROVIDER                           = "provider";
 
@@ -33,7 +32,7 @@ public class Constants {
 
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
 
-    public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getHostAddress();
+    public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getLocalAddress().toString();
     
    
     /*
@@ -53,7 +52,7 @@ public class Constants {
     
     public static final String  ALIVE_KEY                          = "alive";
 
-    public static final String  DEFAULT_THREAD_NAME                = "Kubbo";
+    public static final String  DEFAULT_THREAD_NAME                = "kubbo";
 
     public static final String  DEFAULT_THREADPOOL                 = "limited";
 
@@ -86,7 +85,6 @@ public class Constants {
      */
     public static final int     DEFAULT_IO_THREADS                 = Runtime.getRuntime().availableProcessors() + 1;
 
-
     public static final int     DEFAULT_CONNECTIONS                = 0;
 
     public static final int     DEFAULT_ACCEPTS                    = 0;
@@ -101,15 +99,9 @@ public class Constants {
 
     public static final int     DEFAULT_RETRY                      = 2;
     
-    public static final int     DEFAULT_PAYLOAD                    = 8 * 1024 * 1024; // 默认8m
+    public static final int     DEFAULT_MAX_PAYLOAD                = 8 * 1024 * 1024; // 默认8m
    
     public static final int     DEFAULT_WEIGHT                     = 100;
-    
-    public static final int     DEFAULT_BUFFER_SIZE                = 8 * 1024; // default buffer size is 8k.
-
-    public static final int     MAX_BUFFER_SIZE                    = 16 * 1024;
-
-    public static final int     MIN_BUFFER_SIZE                    = 1 * 1024;
 
     public static final String  REMOVE_VALUE_PREFIX                = "-";
 
@@ -141,9 +133,7 @@ public class Constants {
 
     public static final String  EXECUTES_KEY                       = "executes";
 
-    public static final String  BUFFER_KEY                         = "buffer";
-
-    public static final String  PAYLOAD_KEY                        = "payload";
+    public static final String  MAX_PAYLOAD_KEY                    = "payload.max";
 
     public static final String  FILTER_KEY                         = "filter";
 
@@ -171,14 +161,6 @@ public class Constants {
 
     public static final String  RETRY_KEY                          = "retry";
 
-    public static final String  CODEC_KEY                          = "codec";
-    
-    public static final String  METRICS_KEY                        = "metrics";
-
-    public static final String  METRICS_INTERVAL_KEY               = "interval";
-
-    public static final String  SERIALIZATION_KEY                  = "serialization";
-
     public static final String  SESSIONLAYER_KEY                   = "sessionlayer";
 
     public static final String  TRANSPORTLAYER_KEY                 = "transportlayer";
@@ -193,7 +175,7 @@ public class Constants {
 
     public static final String  ASYNC_KEY                          = "async";
 
-    public static final String  RETURN_KEY                         = "return";
+    public static final String  ONEWAY_KEY                         = "oneway";
 
     public static final String  TOKEN_KEY                          = "token";
 
@@ -255,6 +237,8 @@ public class Constants {
 
     public static final Pattern SEMICOLON_SPLIT_PATTERN            = Pattern.compile("\\s*[;]+\\s*");
     
+    public static final String  INTERVAL_KEY                       = "interval";
+    
     
     //channel.readonly
     public static final String  CHANNEL_ATTRIBUTE_READONLY_KEY     = "channel.readonly";
@@ -268,23 +252,17 @@ public class Constants {
     /**
      * 默认值毫秒，避免重新计算.
      */
-    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT    = 10000;
+    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT       = 10000;
     
-    public static final String AUTO_ATTACH_INVOCATIONID_KEY 	   = "invocation.id.autoattach";
-
-    public static final String DECODE_IN_IO_THREAD_KEY             = "decode.in.io";
-
-    public static final boolean DEFAULT_DECODE_IN_IO_THREAD        = true;
+    public static final String AUTO_ATTACH_INVOCATIONID_KEY 	      = "invocation.id.autoattach";
     
-    public static final String INPUT_KEY                           = "input";
+    public static final String INPUT_KEY                              = "input";
     
-    public static final String OUTPUT_KEY                          = "output";
-
-    public static final String EXECUTOR_SERVICE_COMPONENT_KEY      = ExecutorService.class.getName();
+    public static final String OUTPUT_KEY                             = "output";
     
-    public static final String TRUE                                = "true";
+    public static final String TRUE                                   = "true";
     
-    public static final String FALSE                               = "false";    
+    public static final String FALSE                                  = "false";    
     
     /*
      * global env & system property
@@ -300,13 +278,43 @@ public class Constants {
 
     public static final String GLOBAL_METRICS_ADDRESS               = "kubbo.metrics.address";
 
-    
+    public static final String GLOBAL_TRACE_ADDRESS                 = "kubbo.trace.address";
+
     /*
      * metrics
      */
-    public static final int  DEFAULT_METRICS_INTERVAL              = 60 * 1000;
+    public static final int  DEFAULT_METRICS_INTERVAL               = 60 * 1000;
+    
+    public static final String  REPORTER_KEY                        = "reporter";
+    
+    /**
+     * trace
+     */
+    public static final String SAMPLER_KEY                          = "sampler";
+    
+    /**
+     * codec
+     */
+    public static final String  CODEC_KEY                            = "codec";
 
+    public static final String  SERIALIZATION_KEY                    = "serialization";
+    
+    public static final String DECODE_EXECUTE_IN_TASK_THREAD_KEY     = "decode.execute.task";
 
+    public static final boolean DEFAULT_DECODE_EXECUTE_IN_TASK_THREAD = false;
+
+    public static final String  DECODE_BUFFER_KEY                    = "decode.buffer";
+    
+    public static final int     DEFAULT_DECODE_BUFFER_SIZE           = 8 * 1024; // default decode buffer size is 8k.
+    
+    public static final String  ENCODE_BUFFER_KEY                    = "encode.buffer";
+    
+    public static final int     DEFAULT_ENCODE_BUFFER_SIZE           = 1 * 1024; // default encode buffer size is 8k.
+    
+    public static final int     MAX_BUFFER_SIZE                      = 1024 * 1024; // 1M
+
+    public static final int     MIN_BUFFER_SIZE                      = 1 * 1024;    //1K
+    
 
     private Constants(){ }     
 }

@@ -7,7 +7,7 @@ import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * Replication (SPI Singleton ThreadSafe)
+ * Replication
  * 服务集群, 对应kubernetes的rc
  * @author liufuliang
  */

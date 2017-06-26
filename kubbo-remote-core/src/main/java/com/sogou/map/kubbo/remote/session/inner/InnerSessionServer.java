@@ -14,7 +14,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 import com.sogou.map.kubbo.remote.Server;
@@ -32,9 +32,9 @@ import com.sogou.map.kubbo.remote.transport.AbstractServerDelegate;
  */
 public class InnerSessionServer extends AbstractServerDelegate implements SessionServer {
     
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(InnerSessionServer.class);
 
-    private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1, new NamedThreadFactory( "KubboHeartbeat", true));
+    private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1, new NamedThreadFactory( "kubbo-server-heartbeat", true));
 
     // 心跳定时器
     private ScheduledFuture<?> heatbeatTimer;

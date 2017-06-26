@@ -4,7 +4,7 @@ import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemotingException;
 
 /**
- * SessionChannel. (API/SPI, Prototype, ThreadSafe)
+ * SessionChannel.
  * 
  * @author liufuliang
  */

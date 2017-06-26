@@ -13,11 +13,15 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
 
 /**
+ * SharedMetricsRegistry
+ * 
  * @author liufuliang
  *
  */
 public class SharedMetricsRegistry {
+    
     private static final Logger LOG = LoggerFactory.getLogger(SharedMetricsRegistry.class);
+    
     private static final String metricsAddress = SystemPropertyUtils.get(Constants.GLOBAL_METRICS_ADDRESS, "");
 
     private SharedMetricsRegistry() {}
@@ -39,11 +43,11 @@ public class SharedMetricsRegistry {
     }
 
     public static ReporterFactory getReporterFactory(URL url) {
-        return Extensions.getExtension(url, Constants.METRICS_KEY, ReporterFactory.class);
+        return Extensions.getExtension(url, Constants.REPORTER_KEY, ReporterFactory.class);
     }
 
     private static void initReporter(MetricRegistry registry){
-        if(metricsAddress.isEmpty()){
+        if(!isReportEnabled()){
             return;
         }
         /*
@@ -63,7 +67,7 @@ public class SharedMetricsRegistry {
         /*
          *  start reporter
          */
-        int interval = metrics.getParameter(Constants.METRICS_INTERVAL_KEY, Constants.DEFAULT_METRICS_INTERVAL);
+        int interval = metrics.getParameter(Constants.INTERVAL_KEY, Constants.DEFAULT_METRICS_INTERVAL);
         // Calculating next minute.
         long millis = System.currentTimeMillis();
         long nextMinute = ((millis / 60000) + 1) * 60000;

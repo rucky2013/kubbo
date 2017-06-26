@@ -24,6 +24,11 @@ public class AbstractInvokerDelegate<T> implements InvokerDelegate<T> {
     }
 
     @Override
+    public Reside reside() {
+        return invoker.reside();
+    }
+    
+    @Override
     public Class<T> getInterface() {
         return invoker.getInterface();
     }

@@ -2,6 +2,7 @@
 package com.sogou.map.kubbo.rpc.protocol.kubbo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import com.sogou.map.kubbo.common.lang.Reflects;
@@ -11,6 +12,8 @@ import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Decodeable;
 import com.sogou.map.kubbo.remote.serialization.ObjectInput;
+import com.sogou.map.kubbo.remote.serialization.Serialization;
+import com.sogou.map.kubbo.remote.serialization.Serializations;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.rpc.RpcInvocation;
 import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
@@ -24,34 +27,41 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
 
     private static final Logger log = LoggerFactory.getLogger(DecodeableRpcInvocation.class);
 
-    private Channel     channel;
+    private Channel channel;
 
-    private ObjectInput input;
+    private Serialization serialization;
+    
+    private InputStream input;
 
-    private Request     request;
+    private Request request;
 
     private volatile boolean hasDecoded;
 
-    public DecodeableRpcInvocation(Channel channel, ObjectInput input, Request request) {
+    public DecodeableRpcInvocation(Channel channel, Serialization serialization, InputStream input, Request request) {
         if (channel == null) {
             throw new IllegalArgumentException("channel == NULL");
         }
         if (request == null) {
             throw new IllegalArgumentException("request == NULL");
         }
+        if (serialization == null) {
+            throw new IllegalArgumentException("serialization == NULL");
+        }
         if (input == null) {
             throw new IllegalArgumentException("input == NULL");
         }
+        
         this.channel = channel;
         this.request = request;
+        this.serialization = serialization;
         this.input = input;
     }
 
     @Override
     public void decode(){
-        if (!hasDecoded && channel != null && input != null) {
+        if (!hasDecoded) {
             try {
-                decode(channel, input);
+                decode(channel, serialization, input);
             } catch (Throwable e) {
                 if (log.isWarnEnabled()) {
                     log.warn("Decode rpc invocation failed: " + e.getMessage(), e);
@@ -69,16 +79,13 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
         
     }
 
-    public Object decode(Channel channel, ObjectInput in) throws IOException {
-//        setAttachment(Constants.KUBBO_VERSION_KEY, in.readUTF());
-//        setAttachment(Constants.PATH_KEY, in.readUTF());
-//        setAttachment(Constants.VERSION_KEY, in.readUTF());
-
-        setMethodName(in.readUTF());
+    public Object decode(Channel channel, Serialization serialization, InputStream input) throws IOException {
+        ObjectInput objectInput = serialization.deserialize(input);
+        setMethodName(objectInput.readUTF());
         try {
             Object[] args;
             Class<?>[] pts;
-            String desc = in.readUTF();
+            String desc = objectInput.readUTF();
             if (desc.length() == 0) {
                 pts = KubboCodec.EMPTY_CLASS_ARRAY;
                 args = KubboCodec.EMPTY_OBJECT_ARRAY;
@@ -87,7 +94,7 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
                 args = new Object[pts.length];
                 for (int i = 0; i < args.length; i++) {
                     try {
-                        args[i] = in.readObject(pts[i]);
+                        args[i] = objectInput.readObject(pts[i]);
                     } catch (Exception e) {
                         if (log.isWarnEnabled()) {
                             log.warn("Decode argument failed: " + e.getMessage(), e);
@@ -99,11 +106,13 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Decodeable
             setArguments(args);
 
             @SuppressWarnings("unchecked")
-            Map<String, String> attachment = (Map<String, String>) in.readObject(Map.class);
+            Map<String, String> attachment = (Map<String, String>) objectInput.readObject(Map.class);
             setAttachments(attachment);
 
         } catch (ClassNotFoundException e) {
             throw new IOException(StringUtils.toString("Read invocation data failed.", e));
+        } finally {
+            Serializations.releaseSafely(objectInput);
         }
         return this;
     }

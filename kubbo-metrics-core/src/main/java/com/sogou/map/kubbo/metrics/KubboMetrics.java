@@ -7,10 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
+ * KubboMetrics
  * @author liufuliang
  *
  */
 public class KubboMetrics {
+    
     private static final ConcurrentHashMap<String, FrequencyElapsedRecorder> RECORDERS = new ConcurrentHashMap<String, FrequencyElapsedRecorder>();
 
     private KubboMetrics(){}

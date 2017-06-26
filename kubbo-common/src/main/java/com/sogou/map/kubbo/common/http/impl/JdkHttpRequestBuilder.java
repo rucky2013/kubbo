@@ -67,11 +67,11 @@ public class JdkHttpRequestBuilder extends AbstractHttpRequestBuilder {
         //cache
         connection.setUseCaches(cache);
         //connect timeout
-        if(connectTimeout > 0){
+        if(connectTimeout >= 0){
             connection.setConnectTimeout(connectTimeout);
         }
         //read timeout
-        if(readTimeout > 0){
+        if(readTimeout >= 0){
             connection.setReadTimeout(readTimeout);
         }
         //ifModifiedSince

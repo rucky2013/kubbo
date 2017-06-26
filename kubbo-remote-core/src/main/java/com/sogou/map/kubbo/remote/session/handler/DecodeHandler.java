@@ -12,6 +12,7 @@ import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
 
 /**
+ * DecodeHandler
  * @author liufuliang
  */
 public class DecodeHandler extends AbstractChannelHandlerDelegate {
@@ -22,6 +23,7 @@ public class DecodeHandler extends AbstractChannelHandlerDelegate {
         super(handler);
     }
 
+    @Override
     public void onReceived(Channel channel, Object message) throws RemotingException {
         if (message instanceof Decodeable) {
             decode(message);

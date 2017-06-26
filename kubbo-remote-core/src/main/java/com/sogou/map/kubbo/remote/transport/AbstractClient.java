@@ -14,8 +14,8 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
@@ -34,12 +34,12 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
 
-    protected static final String CLIENT_THREAD_POOL_NAME = "KubboClientHandler";
+    protected static final String CLIENT_THREAD_POOL_NAME = "kubbo-client-task-pool";
 
     private final Lock connectLock = new ReentrantLock();
 
     private static final ScheduledThreadPoolExecutor reconnectExecutorService = new ScheduledThreadPoolExecutor(2,
-            new NamedThreadFactory("KubboClientReconnectTimer", true));
+            new NamedThreadFactory("kubbo-client-connection-active-checker", true));
 
     private volatile ScheduledFuture<?> reconnectExecutorFuture = null;
 
@@ -108,9 +108,9 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             startConnectionStateCheckTask();
             if (!isConnected()) {
                 throw new RemotingException(this,
-                        "Failed connect to server " + getRemoteAddress() 
+                        "Failed to connect to server " + getRemoteAddress() 
                             + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
-                            + ", cause: Connect wait timeout: " + getConnectTimeout() + "ms.");
+                            + ", cause: Connection wait timeout: " + getConnectTimeout() + "ms.");
             } else {
                 if (logger.isInfoEnabled()) {
                     logger.info("Successfully connect to server " + getRemoteAddress() 
@@ -124,7 +124,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             throw e;
         } catch (Throwable e) {
             throw new RemotingException(this, 
-                    "Failed connect to server " + getRemoteAddress() 
+                    "Failed to connect to server " + getRemoteAddress() 
                         + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
                         + ", cause: " + e.getMessage(), e);
         } finally {

@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.sogou.map.kubbo.common.util.NamedThreadFactory;
+import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class Benchmark {
             throw new IllegalArgumentException("no job");
         }
         statistics = new Statistics(options);
-        ExecutorService threadPool = Executors.newFixedThreadPool(options.getConcurrency(), new NamedThreadFactory("Kubbobench"));
+        ExecutorService threadPool = Executors.newFixedThreadPool(options.getConcurrency(), new NamedThreadFactory("kubbo-bench-pool"));
         
         System.out.println("Benchmark start (be patient)");
         // JIT warmup

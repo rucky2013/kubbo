@@ -92,5 +92,9 @@ public class ChannelBufferInputStream extends InputStream {
         buffer.skipBytes(nBytes);
         return nBytes;
     }
+    
+    public boolean isDirect(){
+        return buffer.isDirect();
+    }
 
 }

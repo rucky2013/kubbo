@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote.session;
 import com.sogou.map.kubbo.remote.RemotingException;
 
 /**
- * ResponseFuture. (API/SPI, Prototype, ThreadSafe)
+ * ResponseFuture.
  * 
 * @author liufuliang
  */
@@ -25,11 +25,11 @@ public interface ResponseFuture {
     Object get(int timeoutInMillis) throws RemotingException;
 
     /**
-     * set callback.
+     * add listener.
      * 
-     * @param callback
-     */
-    void setCallback(ResponseCallback callback);
+     * @param listener response listener
+     */    
+    void addListener(ResponseListener listener);
     
     /**
      * check is done.
@@ -38,8 +38,8 @@ public interface ResponseFuture {
      */
     boolean isDone();
     
-    /*
-     * 
+    /**
+     * concal the future
      */
     void cancel();
 
