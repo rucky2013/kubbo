@@ -4,7 +4,7 @@
   <parent>
     <artifactId>kubbo-parent</artifactId>
     <groupId>com.sogou.map</groupId>
-    <version>0.10-SNAPSHOT</version>
+    <version>0.9</version>
   </parent>
   <artifactId>kubbo-trace-zipkin</artifactId>
   <name>kubbo-trace-zipkin</name>

@@ -1,7 +1,6 @@
 package com.sogou.map.kubbo.distributed.discovery;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,9 +71,6 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
             public void run() {
                 while(!isDestroyed()){
                     List<URL> urls = fetch();
-                    // 打乱服务端点顺序, 
-                    // 防止客户端通过轮询负载算法将相同的接口请求都分发到相同的服务端点
-                    Collections.shuffle(urls);
                     update(urls);
                 }
                 
