@@ -5,6 +5,7 @@ package com.sogou.map.kubbo.distributed.discovery.kubernetes;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.sogou.map.kubbo.common.URL;
@@ -132,6 +133,10 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
         if(logger.isDebugEnabled()){
             logger.debug("Discovery addresses fetch: " + urls);
         }
+        
+        // 打乱服务端点顺序, 
+        // 防止客户端通过轮询负载算法将相同的接口请求都分发到相同的服务端点
+        Collections.shuffle(urls);
         return urls;
     }
 }
