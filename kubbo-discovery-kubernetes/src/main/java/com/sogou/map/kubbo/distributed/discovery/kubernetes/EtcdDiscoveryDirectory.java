@@ -65,14 +65,24 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
         List<URL> urls = new ArrayList<URL>();
         while(!isDestroyed()){
             try{
+                int[] acceptCodes = new int[]{400};
                 JSONObject etcdObj = etcdClient.get(api)
                         .paramIf("wait", "true", waitIndex >= 0)
                         .paramIf("waitIndex", String.valueOf(waitIndex), waitIndex >= 0)
                         //.watch()
                         .readTimeout(24 * 60 * 60 * 1000) // 24h TODO etcd 2.2.5 bug? long time(7days) watch not work
                         .execute()
-                        .success()
+                        .success(acceptCodes)
                         .asType(JSONObject.class);	
+                //EventIndexCleared
+                if(etcdObj != null && etcdObj.has("errorCode")){
+                    int code = etcdObj.optInt("errorCode", 0);
+                    if(code == 401){
+                        waitIndex = etcdObj.optInt("index", -1);
+                        continue;
+                    }
+                }
+                
                 JSONObject nodeObj = etcdObj.getJSONObject("node");
 
                 JSONObject kubernetesEndpointsObj = new JSONObject(nodeObj.optString("value"));
@@ -139,4 +149,5 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
         Collections.shuffle(urls);
         return urls;
     }
+    
 }
