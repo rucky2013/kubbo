@@ -63,13 +63,6 @@ public abstract class AbstractHttpResponse implements HttpResponse{
         }
     }
     
-    /**
-     * A shortcut to check for successful status codes and throw exception in
-     * case of non-2xx status codes. <br>
-     * there might be cases where you want to inspect the response-object
-     * first (check header values) and then have a short exit where the
-     * response-code is not suitable for further normal processing.
-     */
     @Override
     public AbstractHttpResponse success() throws KubboHttpException {
         if (!isSuccess()) {
@@ -77,6 +70,20 @@ public abstract class AbstractHttpResponse implements HttpResponse{
                     + responseMessage);
         }
         return this;
+    }
+    
+    @Override
+    public AbstractHttpResponse success(int[] acceptCode) throws KubboHttpException {
+        if(isSuccess()){
+            return this;
+        }
+        for(int code : acceptCode){
+            if(statusCode == code){
+                return this;
+            }
+        }
+        throw new KubboHttpException("Request failed: " + statusCode + " "
+                + responseMessage);
     }
     
     

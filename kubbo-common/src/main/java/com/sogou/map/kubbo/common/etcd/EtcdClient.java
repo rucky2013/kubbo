@@ -140,15 +140,25 @@ public class EtcdClient {
         if(!api.isEmpty() && !api.equals("/")){
             etcdApiKey =  etcdApiKey + "/" + api;
         }
+        int[] acceptCodes = new int[]{400};
         try {
-            JSONObject etcdObj = client.get(etcdApiKey)
-                    .param("wait", "true")
-                    .param("recursive", "true")
-                    .paramIf("waitIndex", String.valueOf(watchIndex), watchIndex >= 0)
-                    .watch()
-                    .success()
-                    .asType(JSONObject.class);
-            return etcdObj;
+            while(true){
+                JSONObject etcdObj = client.get(etcdApiKey)
+                        .param("wait", "true")
+                        .param("recursive", "true")
+                        .paramIf("waitIndex", String.valueOf(watchIndex), watchIndex >= 0)
+                        .watch()
+                        .success(acceptCodes)
+                        .asType(JSONObject.class);
+                if(etcdObj != null && etcdObj.has("errorCode")){
+                    int code = etcdObj.optInt("errorCode", 0);
+                    if(code == 401){
+                        watchIndex = etcdObj.optInt("index", -1);
+                        continue;
+                    }
+                }
+                return etcdObj;
+            }            
         } catch (KubboHttpException e) {
             throw new EtcdOprationException(e);
         }
