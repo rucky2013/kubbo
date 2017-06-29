@@ -17,6 +17,7 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * @author liufuliang
  */
 public class RoundRobinLoadBalance extends AbstractLoadBalance {
+    
     public static final String NAME = "roundrobin";
 
     private final ConcurrentMap<String, AtomicPositiveInteger> sequences = new ConcurrentHashMap<String, AtomicPositiveInteger>();
@@ -50,7 +51,7 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
         /*
          * select by weight
          */
-        if (maxWeight > 0 && minWeight < maxWeight) { // 权重不一样
+        if (minWeight < maxWeight && maxWeight > 0) { // 权重不一样
             int weightSum = 0;
             List<IntegerWrapper> weights = new ArrayList<IntegerWrapper>(invokers.size());
             for (int i = 0; i < length; i++) {

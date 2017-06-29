@@ -75,6 +75,15 @@ public interface HttpResponse {
      */
     public HttpResponse success() throws KubboHttpException;
     
+    /**
+     * A shortcut to check for successful status codes and throw exception in
+     * case of non-2xx and non-acceptCode status codes. <br>
+     * there might be cases where you want to inspect the response-object
+     * first (check header values) and then have a short exit where the
+     * response-code is not suitable for further normal processing.
+     */
+    public HttpResponse success(int[] acceptCode) throws KubboHttpException;
+    
     public <T> T asType(Class<T> type) throws KubboHttpException;
 
 }
