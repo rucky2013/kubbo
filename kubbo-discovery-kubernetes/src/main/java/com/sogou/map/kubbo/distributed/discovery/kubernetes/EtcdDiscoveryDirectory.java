@@ -70,7 +70,7 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                         .paramIf("wait", "true", waitIndex >= 0)
                         .paramIf("waitIndex", String.valueOf(waitIndex), waitIndex >= 0)
                         //.watch()
-                        .readTimeout(24 * 60 * 60 * 1000) // 24h TODO etcd 2.2.5 bug? long time(7days) watch not work
+                        .readTimeout(24 * 60 * 60 * 1000) // 24h fix long time(several days) watch not work
                         .execute()
                         .success(acceptCodes)
                         .asType(JSONObject.class);	
