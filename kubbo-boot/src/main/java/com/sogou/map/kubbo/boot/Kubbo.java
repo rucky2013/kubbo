@@ -63,13 +63,17 @@ public class Kubbo {
     }
     
     public static <T> Exporter<T> export(T service, Class<T> type, URL url) throws RpcException {
-        URL exportURL = attachApplicationName(url);
+        URL exportURL = attachApplicationName(url)
+                .addParameter(Constants.INTERFACE_KEY, type.getName());
+                
         return getProtocol(url).export(
                 getAdaptiveInvokerProxy().getInvoker(service, type, exportURL)
                 );
     }
     public static Exporter<?> exportGeneric(Object service, Class<?> type, URL url) throws RpcException {
-        URL exportURL = attachApplicationName(url);
+        URL exportURL = attachApplicationName(url)
+                .addParameter(Constants.INTERFACE_KEY, type.getName());
+
         return getProtocol(url).export(
                 getAdaptiveInvokerProxy().getGenericInvoker(service, type, exportURL)
                 );
@@ -86,7 +90,8 @@ public class Kubbo {
             return (T) services.get(referKey);
         }
         
-        URL referURL = attachApplicationName(url);
+        URL referURL = attachApplicationName(url)
+                        .addParameter(Constants.INTERFACE_KEY, type.getName());
         
         if("discovery".equalsIgnoreCase(url.getProtocol())){
             return getAdaptiveInvokerProxy().getProxy(Distributions.refer(type, referURL));
@@ -122,11 +127,16 @@ public class Kubbo {
             }
         }
         
+        // 获取地址
         String address = configuration.getReferenceAddress(type.getName(), name);
         if(StringUtils.isBlank(address)){
             throw new IllegalArgumentException("Reference not found in configuration, interface: " + type.getName());
         }
-        return refer(type, address);
+        
+        // 不同接口的不同实现
+        URL url = URL.valueOf(address).addParameter(Constants.IMPLEMENTION_KEY, name);
+        
+        return refer(type, url);
     }
     
     /**

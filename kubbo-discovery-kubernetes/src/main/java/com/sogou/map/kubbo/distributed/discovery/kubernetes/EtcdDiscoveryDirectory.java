@@ -26,6 +26,7 @@ import com.sogou.map.kubbo.rpc.Protocols;
  *
  */
 public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
+    
     private static final Logger logger = LoggerFactory.getLogger(EtcdDiscoveryDirectory.class);
     
     private static final String DEFAULT_KUBERNETES_NAMESPACE = "default";

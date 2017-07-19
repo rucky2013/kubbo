@@ -277,8 +277,10 @@ public class InternalResponseFuture implements ResponseFuture {
             if (future != null) {
                 future.doReceived(response);
             } else {
-                String msg = new StringBuffer(32).append("The timeout response finally returned at ")
-                        .append(TIME_FORMAT.format(new Date())).append(", ").append(" response: ").append(response)
+                String msg = new StringBuffer(128)
+                        .append("The timeout response finally returned at ")
+                        .append(TIME_FORMAT.format(new Date()))
+                        .append(", response: ").append(response)
                         .append(channel == null ? ""
                                 : ", channel: " + channel.getLocalAddress() + " -> " + channel.getRemoteAddress())
                         .toString();

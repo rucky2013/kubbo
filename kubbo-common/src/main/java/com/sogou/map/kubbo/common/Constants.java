@@ -200,6 +200,8 @@ public final class Constants {
     public static final int     DEFAULT_WARMUP                     = 5 * 60 * 1000;
 
     public static final String  CHECK_KEY                          = "check";
+    
+    public static final String  IMPLEMENTION_KEY                   = "implemention";
 
     public static final String  GROUP_KEY                          = "group";
 
