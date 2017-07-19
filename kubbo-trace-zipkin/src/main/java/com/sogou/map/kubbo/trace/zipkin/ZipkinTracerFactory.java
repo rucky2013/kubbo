@@ -23,7 +23,7 @@ public class ZipkinTracerFactory implements TracerFactory{
     public Tracing create(URL address){
         String application = address.getParameter(Constants.APPLICATION_KEY, NetUtils.getHostAddress());        
 
-        Sender sender = URLConnectionSender.create(address.setProtocol("http").toIdentityString() + "/api/v1/spans");
+        Sender sender = URLConnectionSender.create(address.withProtocol("http").toIdentityString() + "/api/v1/spans");
         
         AsyncReporter<zipkin.Span> reporter = AsyncReporter.create(sender);
         

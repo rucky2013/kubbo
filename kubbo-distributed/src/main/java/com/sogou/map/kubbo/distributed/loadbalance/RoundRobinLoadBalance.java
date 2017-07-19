@@ -24,7 +24,7 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
 
     @Override
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        String key = RpcHelper.serviceKey(invokers.get(0).getUrl()) + "." + invocation.getMethodName();
+        String key = RpcHelper.serviceKey(url) + "." + invocation.getMethodName();
         int length = invokers.size(); // 总个数
         
         /*
