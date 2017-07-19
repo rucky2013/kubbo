@@ -100,7 +100,7 @@ public class InternalResponseFuture implements ResponseFuture {
             }
 
             if (!isDone()) {
-                throw new TimeoutException(sent > 0, channel, getTimeoutMessage(false));
+                throw new TimeoutException(sent > 0, channel, getTimeoutMessage());
             }
         }
         return createResult();
@@ -225,19 +225,16 @@ public class InternalResponseFuture implements ResponseFuture {
         return start;
     }
 
-    private String getTimeoutMessage(boolean scan) {
+    private String getTimeoutMessage() {
         long nowTimestamp = System.currentTimeMillis();
         return new StringBuffer(32)
-                .append(sent > 0 ? "Waiting serverresponse timeout" : "Sending request timeout in client")
-                .append(scan ? " by scan timer." : ".").append(" start time: ")
-                .append(TIME_FORMAT.format(new Date(start))).append(",").append(" end time: ")
-                .append(TIME_FORMAT.format(new Date())).append(",")
-                .append((sent > 0
-                        ? " client elapsed: " + (sent - start) + " ms, server elapsed: " + (nowTimestamp - sent)
-                        : " elapsed: " + (nowTimestamp - start)) + " ms,")
-                .append(" timeout: ").append(timeout).append("ms,").append(" request: ").append(request).append(",")
-                .append(" channel: ").append(channel.getLocalAddress()).append(" -> ")
-                .append(channel.getRemoteAddress()).toString();
+                .append(sent > 0 ? "Waiting server response timeout." : "Sending client request timeout.")
+                .append(" start: ").append(TIME_FORMAT.format(new Date(start))).append(",")
+                .append(" end: ").append(TIME_FORMAT.format(new Date())).append(",")
+                .append(" elapsed: ").append(nowTimestamp - start).append("ms,")
+                .append(" timeout: ").append(timeout).append("ms,")
+                .append(" request: ").append(request).append(",")
+                .append(" channel: ").append(channel.getLocalAddress()).append(" -> ").append(channel.getRemoteAddress()).toString();
     }
 
     private void doSent() {
@@ -280,8 +277,10 @@ public class InternalResponseFuture implements ResponseFuture {
             if (future != null) {
                 future.doReceived(response);
             } else {
-                String msg = new StringBuffer(32).append("The timeout response finally returned at ")
-                        .append(TIME_FORMAT.format(new Date())).append(", ").append(" response: ").append(response)
+                String msg = new StringBuffer(128)
+                        .append("The timeout response finally returned at ")
+                        .append(TIME_FORMAT.format(new Date()))
+                        .append(", response: ").append(response)
                         .append(channel == null ? ""
                                 : ", channel: " + channel.getLocalAddress() + " -> " + channel.getRemoteAddress())
                         .toString();
@@ -306,7 +305,7 @@ public class InternalResponseFuture implements ResponseFuture {
                             Response timeoutResponse = new Response(future.getId());
                             // set timeout status.
                             timeoutResponse.setStatus(future.isSent() ? Response.SERVER_TIMEOUT : Response.CLIENT_TIMEOUT);
-                            timeoutResponse.setErrorMessage(future.getTimeoutMessage(true));
+                            timeoutResponse.setErrorMessage(future.getTimeoutMessage());
                             // handle response.
                             InternalResponseFuture.received(future.getChannel(), timeoutResponse);
                         }

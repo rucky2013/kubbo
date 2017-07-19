@@ -277,19 +277,19 @@ public final class URL implements Serializable {
         return path;
     }
     
-    public URL setProtocol(String protocol) {
+    public URL withProtocol(String protocol) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-    public URL setUsername(String username) {
+    public URL withUsername(String username) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-    public URL setPassword(String password) {
+    public URL withPassword(String password) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
     
-    public URL setAddress(String address) {
+    public URL withAddress(String address) {
         int i = address.lastIndexOf(':');
         String host;
         int port = this.port;
@@ -302,15 +302,15 @@ public final class URL implements Serializable {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-    public URL setHost(String host) {
+    public URL withHost(String host) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-    public URL setPort(int port) {
+    public URL withPort(int port) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-    public URL setPath(String path) {
+    public URL withPath(String path) {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 

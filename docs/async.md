@@ -5,9 +5,15 @@
 ```
 Future<String> future = Kubbo.callAsync(new Callable<String>() {
   public String call() throws Exception {
-    return service.echo("async call");
+    return service.echo("hello");
   }
 });
+String result = future.get();
+```
+
+JAVA8环境可以使用lambda  
+```
+Future<String> future = Kubbo.callAsync(() -> service.echo("hello"));
 String result = future.get();
 ```
 
@@ -17,8 +23,13 @@ String result = future.get();
 Kubbo.callAsync(new Runnable(){
   @Override
   public void run() {
-    service.echo("async call");
+    service.echo("hello");
   }
 });
+```
+
+JAVA8环境可以使用lambda  
+```
+Kubbo.callAsync(() -> {service.echo("hello"); return; });
 ```
 
