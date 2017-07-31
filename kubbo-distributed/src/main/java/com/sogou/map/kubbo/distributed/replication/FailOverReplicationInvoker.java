@@ -36,7 +36,9 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
         List<Invoker<T>> copyinvokers = invokers;
         
         //尝试次数
-        int tries = getUrl().getMethodParameter(invocation.getMethodName(), Constants.RETRY_KEY, Constants.DEFAULT_RETRY) + 1;
+        int tries = getUrl().getMethodParameter(invocation.getMethodName(), 
+                Constants.RETRY_KEY, 
+                Constants.DEFAULT_FAILOVER_RETRY) + 1;
         if (tries <= 0) {
             tries = 1;
         }
@@ -65,16 +67,26 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
                 }
                 return result;
             } catch (RpcException e) {
-                if (e.isBiz()) { // biz exception.
+                // biz exception
+                if (e.isBiz()) {
                     throw e;
                 }
+                // timeout exception.
+                boolean applyToTimeout = getUrl().getMethodParameter(invocation.getMethodName(), 
+                        Constants.FAILOVER_EVENT_TIMEOUT_KEY, 
+                        Constants.DEFAULT_FAILOVER_APPLY_TIMEOUT);
+                if(!applyToTimeout && e.isTimeout()){
+                    throw e;
+                }
+                // others
                 exception = e;
             } catch (Throwable e) {
                 exception = new RpcException(e.getMessage(), e);
             } finally {
                 providers.add(invoker.getUrl().getAddress());
             }
-        }
+        }        
+        
         throw new RpcException(exception.getCode(), 
                 "Failed to invoke  " + getInterface().getName() + "." + invocation.getMethodName() 
                 + ", failed servers " + providers + " (" + providers.size() + "/" + copyinvokers.size() + ")"

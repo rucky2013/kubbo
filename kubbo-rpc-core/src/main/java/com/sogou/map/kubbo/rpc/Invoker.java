@@ -10,13 +10,13 @@ public interface Invoker<T> extends Node {
     /*
      * consumer-side or provider-side
      */
-    public enum Reside {
+    public enum Kind {
         NONE,
         CONSUMER,
         PROVIDER
     }
 
-    Reside reside();
+    Kind kind();
     
     /**
      * get service interface.

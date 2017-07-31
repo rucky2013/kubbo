@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote;
 import java.net.InetSocketAddress;
 
 /**
- * TimeoutException. (API, Prototype, ThreadSafe)
+ * TimeoutException
  * 
  * @author liufuliang
  */
@@ -15,7 +15,7 @@ public class TimeoutException extends RemotingException {
     
     public static final int SERVER_SIDE = 1;
 
-    private final int       phase;
+    private final int phase;
 
     public TimeoutException(boolean serverSide, Channel channel, String message){
         super(channel, message);
