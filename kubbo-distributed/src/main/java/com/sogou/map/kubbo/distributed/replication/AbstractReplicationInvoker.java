@@ -24,6 +24,7 @@ import com.sogou.map.kubbo.rpc.utils.RpcHelper;
  * @author liufuliang
  */
 public abstract class AbstractReplicationInvoker<T> implements Invoker<T> {
+
     private static final Logger logger = LoggerFactory.getLogger(AbstractReplicationInvoker.class);
     
     protected final Directory<T> directory;
