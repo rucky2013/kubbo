@@ -99,7 +99,7 @@ public final class Constants {
 
     public static final int     DEFAULT_FAILOVER_RETRY             = 2;
 
-    public static final boolean DEFAULT_FAILOVER_APPLY_TIMEOUT     = false;
+    public static final boolean DEFAULT_FAILOVER_EVENT_TIMEOUT     = true;
     
     public static final int     DEFAULT_MAX_PAYLOAD                = 8 * 1024 * 1024; // 默认8m
    

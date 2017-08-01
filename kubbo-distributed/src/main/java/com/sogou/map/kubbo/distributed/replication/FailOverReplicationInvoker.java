@@ -74,8 +74,8 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
                 // timeout exception.
                 boolean applyToTimeout = getUrl().getMethodParameter(invocation.getMethodName(), 
                         Constants.FAILOVER_EVENT_TIMEOUT_KEY, 
-                        Constants.DEFAULT_FAILOVER_APPLY_TIMEOUT);
-                if(!applyToTimeout && e.isTimeout()){
+                        Constants.DEFAULT_FAILOVER_EVENT_TIMEOUT);
+                if(e.isTimeout() && !applyToTimeout){
                     throw e;
                 }
                 // others
