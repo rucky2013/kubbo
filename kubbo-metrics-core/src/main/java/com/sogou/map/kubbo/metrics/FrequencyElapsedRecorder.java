@@ -20,7 +20,9 @@ public class FrequencyElapsedRecorder extends AbstractAttributable<String> imple
     
     public void mark(long time){
         frequency.inc();
-        elapsed.inc(time);
+        if(time > 0){
+            elapsed.inc(time);
+        }
     }
     
     public long frequency(){

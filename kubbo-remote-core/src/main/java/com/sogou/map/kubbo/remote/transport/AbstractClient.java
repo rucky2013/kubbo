@@ -34,7 +34,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
 
-    protected static final String CLIENT_THREAD_POOL_NAME = "kubbo-client-task-pool";
+    protected static final String CLIENT_THREAD_POOL_NAME = "kubbo-client-task-handler";
 
     private final Lock connectLock = new ReentrantLock();
 

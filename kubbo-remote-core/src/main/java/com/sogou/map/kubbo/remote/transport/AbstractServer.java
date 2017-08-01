@@ -36,7 +36,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
 
     private int idleTimeout = Constants.DEFAULT_IDLE_TIMEOUT; //600 seconds
     
-    protected static final String SERVER_THREAD_POOL_NAME  ="KubboServerTaskHandler";
+    protected static final String SERVER_THREAD_POOL_NAME  ="kubbo-server-task-handler";
     
     ExecutorService executor;
 

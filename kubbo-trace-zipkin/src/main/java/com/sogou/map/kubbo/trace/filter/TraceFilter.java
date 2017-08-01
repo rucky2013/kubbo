@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.extension.Activate;
 import com.sogou.map.kubbo.rpc.Filter;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
-import com.sogou.map.kubbo.rpc.Invoker.Reside;
+import com.sogou.map.kubbo.rpc.Invoker.Kind;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcContext;
 import com.sogou.map.kubbo.rpc.RpcException;
@@ -15,7 +15,6 @@ import com.sogou.map.kubbo.rpc.concurrent.FutureListener;
 import com.sogou.map.kubbo.trace.zipkin.SharedTracer;
 
 import brave.Span;
-import brave.Span.Kind;
 import brave.Tracer;
 import brave.Tracer.SpanInScope;
 import brave.propagation.TraceContextOrSamplingFlags;
@@ -31,7 +30,7 @@ public class TraceFilter implements Filter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         if (SharedTracer.isTraceEnabled()) {
-            if (invoker.reside() == Reside.PROVIDER) { // server
+            if (invoker.kind() == Kind.PROVIDER) { // server
                 return traceServer(invoker, invocation);
             } else { // client
                 return traceClient(invoker, invocation);
@@ -46,7 +45,7 @@ public class TraceFilter implements Filter {
         Tracer tracer = SharedTracer.instance();
         String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
         final Span span = tracer.nextSpan()
-                .kind(Kind.CLIENT)
+                .kind(Span.Kind.CLIENT)
                 .name(method)
                 .tag("kubbo.version.client", Version.getVersion())
                 .tag("kubbo.reference", invoker.getInterface().getCanonicalName())
@@ -86,7 +85,7 @@ public class TraceFilter implements Filter {
         TraceContextOrSamplingFlags contextOrFlags = SharedTracer.extractor().extract(invocation.getAttachments());
         Span span = contextOrFlags.context() != null ? tracer.joinSpan(contextOrFlags.context())
                 : tracer.newTrace(contextOrFlags.samplingFlags());
-        span.kind(Kind.SERVER)
+        span.kind(Span.Kind.SERVER)
             .name(method)
             .tag("kubbo.version.server", Version.getVersion())
             .start();

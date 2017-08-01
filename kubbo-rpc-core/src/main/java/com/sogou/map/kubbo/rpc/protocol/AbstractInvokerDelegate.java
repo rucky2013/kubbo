@@ -14,6 +14,7 @@ import com.sogou.map.kubbo.rpc.RpcException;
  *
  */
 public class AbstractInvokerDelegate<T> implements InvokerDelegate<T> {
+
     protected Invoker<T> invoker;
 
     public AbstractInvokerDelegate(Invoker<T> invoker) {
@@ -24,8 +25,8 @@ public class AbstractInvokerDelegate<T> implements InvokerDelegate<T> {
     }
 
     @Override
-    public Reside reside() {
-        return invoker.reside();
+    public Kind kind() {
+        return invoker.kind();
     }
     
     @Override
