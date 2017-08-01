@@ -72,8 +72,8 @@ public abstract class AbstractConsumerInvoker<T> implements Invoker<T> {
     }
     
     @Override
-    public Reside reside(){
-        return Reside.CONSUMER;
+    public Kind kind(){
+        return Kind.CONSUMER;
     }
     
     @Override

@@ -38,8 +38,8 @@ public abstract class AbstractProviderInvoker<T> implements Invoker<T> {
     }
     
     @Override
-    public Reside reside(){
-        return Reside.PROVIDER;
+    public Kind kind(){
+        return Kind.PROVIDER;
     }
     
     @Override

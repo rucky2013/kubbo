@@ -97,7 +97,9 @@ public final class Constants {
 
     public static final int     DEFAULT_CONNECT_TIMEOUT            = 3000;
 
-    public static final int     DEFAULT_RETRY                      = 2;
+    public static final int     DEFAULT_FAILOVER_RETRY             = 2;
+
+    public static final boolean DEFAULT_FAILOVER_EVENT_TIMEOUT     = true;
     
     public static final int     DEFAULT_MAX_PAYLOAD                = 8 * 1024 * 1024; // 默认8m
    
@@ -160,6 +162,8 @@ public final class Constants {
     public static final String  TIMEOUT_KEY                        = "timeout";
 
     public static final String  RETRY_KEY                          = "retry";
+
+    public static final String  FAILOVER_EVENT_TIMEOUT_KEY         = "failover.event.timeout";
 
     public static final String  SESSIONLAYER_KEY                   = "sessionlayer";
 

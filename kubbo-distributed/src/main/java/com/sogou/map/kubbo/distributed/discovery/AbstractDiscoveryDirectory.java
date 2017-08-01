@@ -119,8 +119,15 @@ public abstract class AbstractDiscoveryDirectory<T> extends AbstractDirectory<T>
             if(!identityAndInvokers.containsKey(identity)){
                 URL invokeUrl = notifyAddress.addParametersIfAbsent(url.getParameters());
                 Protocol protocol = Protocols.getExtension(invokeUrl);
-                Invoker<T> invoker = protocol.refer(type, invokeUrl);
-                lastestInvokers.add(invoker);
+                Invoker<T> invoker = null;
+                try{
+                    invoker = protocol.refer(type, invokeUrl);
+                    lastestInvokers.add(invoker);
+                } catch (Throwable t){
+                    if(invoker != null){
+                        invoker.destroy();
+                    }
+                }
             }
         }
         invokers = lastestInvokers;
