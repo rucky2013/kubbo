@@ -97,7 +97,7 @@ public final class Constants {
 
     public static final int     DEFAULT_CONNECT_TIMEOUT            = 3000;
 
-    public static final int     DEFAULT_FAILOVER_RETRY             = 2;
+    public static final int     DEFAULT_RETRY                      = 2;
 
     public static final boolean DEFAULT_FAILOVER_EVENT_TIMEOUT     = true;
     
