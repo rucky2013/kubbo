@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.boot.configuration;
+package com.sogou.map.kubbo.configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -9,7 +9,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
+import com.sogou.map.kubbo.configuration.KubboConfiguration;
 
 import brave.Tracer;
 import brave.Tracing;
@@ -28,7 +28,9 @@ public class SharedTracer {
     
     private static final Logger LOG = LoggerFactory.getLogger(SharedTracer.class);
     
-    private static final String traceAddress = SystemPropertyUtils.get(Constants.GLOBAL_TRACE_ADDRESS, "");
+    private static final KubboConfiguration CONF = KubboConfiguration.getInstance();
+
+    private static final String traceAddress = CONF.getTrace().getAddress();
 
     static final Getter<Map<String, String>, String> getter = new Getter<Map<String, String>, String>(){
         @Override
@@ -81,7 +83,7 @@ public class SharedTracer {
          * trace address
          */
         URL trace = URL.valueOf(traceAddress);
-        String applicationName = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, "");
+        String applicationName = CONF.getApplication().getName();
         if(! applicationName.isEmpty()){
             trace = trace.addParameterIfAbsent(Constants.APPLICATION_KEY, applicationName);
         }

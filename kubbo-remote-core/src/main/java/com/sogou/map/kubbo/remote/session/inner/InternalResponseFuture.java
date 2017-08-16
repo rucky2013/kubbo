@@ -226,12 +226,12 @@ public class InternalResponseFuture implements ResponseFuture {
     }
 
     private String getTimeoutMessage() {
-        long nowTimestamp = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
         return new StringBuffer(32)
                 .append(sent > 0 ? "Waiting server response timeout." : "Sending client request timeout.")
                 .append(" start: ").append(TIME_FORMAT.format(new Date(start))).append(",")
                 .append(" end: ").append(TIME_FORMAT.format(new Date())).append(",")
-                .append(" elapsed: ").append(nowTimestamp - start).append("ms,")
+                .append(" elapsed: ").append(now - start).append("ms,")
                 .append(" timeout: ").append(timeout).append("ms,")
                 .append(" request: ").append(request).append(",")
                 .append(" channel: ").append(channel.getLocalAddress()).append(" -> ").append(channel.getRemoteAddress()).toString();
@@ -310,7 +310,7 @@ public class InternalResponseFuture implements ResponseFuture {
                             InternalResponseFuture.received(future.getChannel(), timeoutResponse);
                         }
                     }
-                    Thread.sleep(30);
+                    TimeUnit.MILLISECONDS.sleep(30);
                 } catch (Throwable e) {
                     logger.error("Exception when scan the timeout invocation of remoting.", e);
                 }

@@ -6,9 +6,9 @@ package com.sogou.map.kubbo.boot;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.sogou.map.kubbo.boot.annotation.Hook;
-import com.sogou.map.kubbo.boot.configuration.KubboConfiguration;
-import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
 import com.sogou.map.kubbo.boot.annotation.Export;
 import com.sogou.map.kubbo.boot.context.AbstractApplicationContext;
 import com.sogou.map.kubbo.boot.context.ApplicationContext;
@@ -19,7 +19,9 @@ import com.sogou.map.kubbo.common.annotation.ClassAnnotationDiscoveryListener;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-
+import com.sogou.map.kubbo.configuration.KubboConfiguration;
+import com.sogou.map.kubbo.configuration.PropertiesConfigurator;
+import com.sogou.map.kubbo.configuration.element.ServerConfiguration;
 
 
 /**
@@ -32,14 +34,19 @@ public class Bootstrap {
     private static Logger logger = LoggerFactory.getLogger(Bootstrap.class);
     
     private ApplicationContext applicationContext = new AbstractApplicationContext();
+    
     private URL bind;
+    
     private List<String> services;
-    private List<String> hooks;    
+    
+    private List<String> hooks;   
+    
     private volatile boolean destroyed = false;
     
     private void configure(){
         PropertiesConfigurator.configure();
-        this.bind = URL.valueOf(KubboConfiguration.getInstance().getServerBind());
+        ServerConfiguration server = KubboConfiguration.getInstance().getServer();
+        this.bind = URL.valueOf(server.getBind());
     }
     
     private void scanResources() throws IOException{
@@ -66,9 +73,9 @@ public class Bootstrap {
         logger.info("Hook classes " + hooks);
     }
     
-    private void initialize() throws Throwable{
+    private boolean initialize() throws Throwable{
         if(hooks == null){
-            return;
+            return true;
         }
         for(String hook : hooks){
             Class<?> clazz = Class.forName(hook);
@@ -77,6 +84,7 @@ public class Bootstrap {
                 ((LifecycleHook)hookInstance).initialize(applicationContext);
             }
         }
+        return true;
     }
     
     synchronized private void destroy() throws Throwable{
@@ -107,7 +115,7 @@ public class Bootstrap {
     
     private void loop(){
         while(true){
-            try { Thread.sleep(600*1000);; } catch (Throwable e) { }
+            try { TimeUnit.MINUTES.sleep(30); } catch (Throwable e) { }
         }
     }
     

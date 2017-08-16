@@ -1,15 +1,17 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.configuration;
+package com.sogou.map.kubbo.configuration;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.sogou.map.kubbo.boot.configuration.element.ApplicationConfiguration;
-import com.sogou.map.kubbo.boot.configuration.element.ReferenceConfiguration;
-import com.sogou.map.kubbo.boot.configuration.element.ServerConfiguration;
+import com.sogou.map.kubbo.configuration.element.ApplicationConfiguration;
+import com.sogou.map.kubbo.configuration.element.MetricsConfiguration;
+import com.sogou.map.kubbo.configuration.element.ReferenceConfiguration;
+import com.sogou.map.kubbo.configuration.element.ServerConfiguration;
+import com.sogou.map.kubbo.configuration.element.TraceConfiguration;
 
 /**
  * -Dkubbo.configuration=xxx
@@ -21,13 +23,24 @@ import com.sogou.map.kubbo.boot.configuration.element.ServerConfiguration;
  */
 public class KubboConfiguration implements Configuration{
 
-    private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = 1336741716966069602L;
+
     private volatile boolean configured = false;
     
+    // reference
     List<ReferenceConfiguration> references = new ArrayList<ReferenceConfiguration>(10);
+
+    // server
     ServerConfiguration server = new ServerConfiguration();
+
+    // application
     ApplicationConfiguration application = new ApplicationConfiguration();
+    
+    // metrics
+    MetricsConfiguration metrics = new MetricsConfiguration();
+    
+    // trace
+    TraceConfiguration trace = new TraceConfiguration();
     
     public void addReferenceElement(ReferenceConfiguration reference){
         references.add(reference);
@@ -39,14 +52,26 @@ public class KubboConfiguration implements Configuration{
     public void setServerElement(ServerConfiguration server){
         this.server = server;
     }
-    public String getServerBind(){
-        return server == null ? null : server.getBind();
+    public ServerConfiguration getServer(){
+        return server;
     }
     public ApplicationConfiguration getApplication() {
         return application;
     }
     public void setApplication(ApplicationConfiguration application) {
         this.application = application;
+    }    
+    public MetricsConfiguration getMetrics() {
+        return metrics;
+    }
+    public void setMetrics(MetricsConfiguration metrics) {
+        this.metrics = metrics;
+    }
+    public TraceConfiguration getTrace() {
+        return trace;
+    }
+    public void setTrace(TraceConfiguration trace) {
+        this.trace = trace;
     }
     public boolean isConfigured(){
         return this.configured;
@@ -70,7 +95,6 @@ public class KubboConfiguration implements Configuration{
         }
         return null;
     }
-    
     
     private KubboConfiguration(){}
     

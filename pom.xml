@@ -9,7 +9,7 @@
 
   <groupId>com.sogou.map</groupId>
   <artifactId>kubbo-parent</artifactId>
-  <version>0.9.3</version>
+  <version>0.10.0</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>The parent project of kubbo</description>
@@ -17,6 +17,7 @@
   <modules>
     <module>kubbo-all</module>
     <module>kubbo-common</module>
+    <module>kubbo-configuration</module>
     <module>kubbo-remote-core</module>
     <module>kubbo-remote-netty4</module>
     <module>kubbo-rpc-core</module>
