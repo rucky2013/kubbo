@@ -22,6 +22,6 @@ public class SampleLifecycleHook implements LifecycleHook {
 
     @Override
     public void initialize(ApplicationContext ctx) {
-        System.out.println("<Application LifecycleHook initialize()>");
+        System.out.println("<Application LifecycleHook initialize()>" + ctx.getApplicationHome());
     }
 }

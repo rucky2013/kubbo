@@ -1,20 +1,24 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.configuration.element;
+package com.sogou.map.kubbo.configuration.element;
 
-import com.sogou.map.kubbo.boot.configuration.Configuration;
+import com.sogou.map.kubbo.configuration.Configuration;
 
 /**
  * @author liufuliang
  *
  */
 public class ReferenceConfiguration implements Configuration{
+
     private static final long serialVersionUID = 1L;
+
     public static final String TAG = "reference";
     
     String name;
+
     String interfaceType;
+
     String address;
     
     public String getName() {

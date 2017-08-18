@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
 	<artifactId>kubbo-parent</artifactId>
-	<version>0.9.3</version>
+	<version>0.10.0</version>
   </parent>
   
   <artifactId>kubbo-all</artifactId>
@@ -15,6 +15,11 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>kubbo-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>kubbo-configuration</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -128,6 +133,7 @@
           <artifactSet>
             <includes>
               <include>com.sogou.map:kubbo-common</include>
+              <include>com.sogou.map:kubbo-configuration</include>
               <include>com.sogou.map:kubbo-boot</include>
               <include>com.sogou.map:kubbo-bench</include>
               <include>com.sogou.map:kubbo-remote-core</include>
@@ -204,6 +210,7 @@
           <includeDependencySources>true</includeDependencySources>
           <dependencySourceIncludes>
             <dependencySourceInclude>com.sogou.map:kubbo-common</dependencySourceInclude>
+            <dependencySourceInclude>com.sogou.map:kubbo-configuration</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-boot</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-bench</dependencySourceInclude>
             <dependencySourceInclude>com.sogou.map:kubbo-remote-core</dependencySourceInclude>

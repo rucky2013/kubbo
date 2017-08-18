@@ -97,7 +97,7 @@ public final class Constants {
 
     public static final int     DEFAULT_CONNECT_TIMEOUT            = 3000;
 
-    public static final int     DEFAULT_FAILOVER_RETRY             = 2;
+    public static final int     DEFAULT_RETRY                      = 2;
 
     public static final boolean DEFAULT_FAILOVER_EVENT_TIMEOUT     = true;
     
@@ -277,15 +277,7 @@ public final class Constants {
     public static final String KUBBO_CONFIGURATION_KEY              = "kubbo.configuration";
 
     public static final String DEFAULT_KUBBO_CONFIGURATION          = "kubbo.properties";
-
-    public static final String GLOBAL_APPLICATION_NAME              = "kubbo.application.name";
     
-    public static final String GLOBAL_APPLICATION_HOME              = "kubbo.application.home";
-
-    public static final String GLOBAL_METRICS_ADDRESS               = "kubbo.metrics.address";
-
-    public static final String GLOBAL_TRACE_ADDRESS                 = "kubbo.trace.address";
-
     /*
      * metrics
      */

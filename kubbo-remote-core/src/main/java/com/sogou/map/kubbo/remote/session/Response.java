@@ -59,17 +59,17 @@ public class Response {
      */
     public static final byte CLIENT_ERROR      = 90;
 
-    private long             id                = 0;
+    private long id = 0;
 
-    private String           version;
+    private String version;
 
-    private byte             status           = OK;
+    private byte status = OK;
 
-    private boolean          event            = false;
+    private boolean event = false;
 
-    private String           errorMsg;
+    private String errorMsg;
 
-    private Object           result;
+    private Object result;
 
     public Response(){
     }

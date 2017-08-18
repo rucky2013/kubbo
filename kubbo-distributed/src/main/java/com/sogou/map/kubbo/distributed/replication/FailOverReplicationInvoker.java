@@ -38,7 +38,7 @@ public class FailOverReplicationInvoker<T> extends AbstractReplicationInvoker<T>
         //尝试次数
         int tries = getUrl().getMethodParameter(invocation.getMethodName(), 
                 Constants.RETRY_KEY, 
-                Constants.DEFAULT_FAILOVER_RETRY) + 1;
+                Constants.DEFAULT_RETRY) + 1;
         if (tries <= 0) {
             tries = 1;
         }

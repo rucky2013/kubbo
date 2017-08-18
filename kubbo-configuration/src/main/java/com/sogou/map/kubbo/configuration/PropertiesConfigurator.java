@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.configuration;
+package com.sogou.map.kubbo.configuration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,15 +10,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sogou.map.kubbo.boot.Bootstrap;
-import com.sogou.map.kubbo.boot.configuration.element.ApplicationConfiguration;
-import com.sogou.map.kubbo.boot.configuration.element.ReferenceConfiguration;
-import com.sogou.map.kubbo.boot.configuration.element.ServerConfiguration;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
+import com.sogou.map.kubbo.configuration.element.ApplicationConfiguration;
+import com.sogou.map.kubbo.configuration.element.MetricsConfiguration;
+import com.sogou.map.kubbo.configuration.element.ReferenceConfiguration;
+import com.sogou.map.kubbo.configuration.element.ServerConfiguration;
+import com.sogou.map.kubbo.configuration.element.TraceConfiguration;
 
 /**
  * PropertiesConfigurator
@@ -40,7 +41,7 @@ public class PropertiesConfigurator {
         }
 
         // classpath root
-        InputStream in = Bootstrap.class.getResourceAsStream("/" + Constants.DEFAULT_KUBBO_CONFIGURATION);
+        InputStream in = PropertiesConfigurator.class.getResourceAsStream("/" + Constants.DEFAULT_KUBBO_CONFIGURATION);
         if (in != null) {
             logger.info("Using configuration: kubbo.properties in CLASSPATH root.");
             configure(in);
@@ -88,8 +89,20 @@ public class PropertiesConfigurator {
         if (application != null) {
             configuration.setApplication(application);
         }
-
-        wrapper.storeToSystemProperty();
+        
+        // metrics
+        MetricsConfiguration metrics = parseMetrics(wrapper);
+        if(metrics != null){
+            configuration.setMetrics(metrics);
+        }
+        
+        // trace
+        TraceConfiguration trace = parseTrace(wrapper);
+        if(trace != null){
+            configuration.setTrace(trace);
+        }
+        
+        //wrapper.storeToSystemProperty();
         
         configuration.setConfigured(true);
     }
@@ -136,6 +149,24 @@ public class PropertiesConfigurator {
             server.setBind(bind);
         }
         return server;
+    }
+    
+    private static MetricsConfiguration parseMetrics(PropertiesEnvWrapper wrapper) {
+        MetricsConfiguration metrics = new MetricsConfiguration();
+        String address = wrapper.getString(MetricsConfiguration.TAG + ".address", "");
+        if (!address.isEmpty()) {
+            metrics.setAddress(address);;
+        }
+        return metrics;
+    }
+    
+    private static TraceConfiguration parseTrace(PropertiesEnvWrapper wrapper) {
+        TraceConfiguration trace = new TraceConfiguration();
+        String address = wrapper.getString(TraceConfiguration.TAG + ".address", "");
+        if (!address.isEmpty()) {
+            trace.setAddress(address);;
+        }
+        return trace;
     }
 
     private static ApplicationConfiguration parseApplication(PropertiesEnvWrapper wrapper) {

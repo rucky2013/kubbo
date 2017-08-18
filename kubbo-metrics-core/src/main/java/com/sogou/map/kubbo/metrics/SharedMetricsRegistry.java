@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
-import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
+import com.sogou.map.kubbo.configuration.KubboConfiguration;
 
 /**
  * SharedMetricsRegistry
@@ -22,7 +22,9 @@ public class SharedMetricsRegistry {
     
     private static final Logger LOG = LoggerFactory.getLogger(SharedMetricsRegistry.class);
     
-    private static final String metricsAddress = SystemPropertyUtils.get(Constants.GLOBAL_METRICS_ADDRESS, "");
+    private static final KubboConfiguration CONF = KubboConfiguration.getInstance();
+    
+    private static final String metricsAddress = CONF.getMetrics().getAddress();
 
     private SharedMetricsRegistry() {}
     
@@ -54,7 +56,7 @@ public class SharedMetricsRegistry {
          * metrics address
          */
         URL metrics = URL.valueOf(metricsAddress);
-        String applicationName = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, "");
+        String applicationName = CONF.getApplication().getName();
         if(! applicationName.isEmpty()){
             metrics = metrics.addParameterIfAbsent(Constants.APPLICATION_KEY, applicationName);
         }

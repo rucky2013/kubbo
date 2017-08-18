@@ -10,7 +10,9 @@ import com.sogou.map.kubbo.common.util.StringUtils;
  * @author liufuliang
  */
 public class Request {
+
     public static final String HEARTBEAT_EVENT = null;
+
     public static final String READONLY_EVENT = "R";
     
     private static final AtomicLong INVOKE_ID = new AtomicLong(0);
@@ -19,13 +21,13 @@ public class Request {
 
     private String  version;
 
-    private boolean twoWay   = true;
+    private boolean twoWay = true;
     
     private boolean event = false;
 
-    private boolean broken   = false;
+    private boolean broken = false;
 
-    private Object  data;
+    private Object data;
 
     public Request() {
         id = newId();

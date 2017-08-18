@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.sogou.map</groupId>
     <artifactId>kubbo-parent</artifactId>
-    <version>0.9.3</version>
+    <version>0.10.0</version>
   </parent>
 
   <artifactId>kubbo-boot</artifactId>
@@ -16,6 +16,11 @@
   </properties>
   
   <dependencies>
+    <dependency>
+      <groupId>com.sogou.map</groupId>
+      <artifactId>kubbo-configuration</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.sogou.map</groupId>
       <artifactId>kubbo-trace-zipkin</artifactId>

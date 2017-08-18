@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sogou.map.kubbo.boot.configuration;
+package com.sogou.map.kubbo.configuration;
 
 import org.junit.Assert;
 import org.junit.Test;

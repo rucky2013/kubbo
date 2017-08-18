@@ -5,13 +5,14 @@
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import com.sogou.map.kubbo.boot.configuration.KubboConfiguration;
-import com.sogou.map.kubbo.boot.configuration.PropertiesConfigurator;
+
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.common.util.StringUtils;
-import com.sogou.map.kubbo.common.util.SystemPropertyUtils;
+import com.sogou.map.kubbo.configuration.KubboConfiguration;
+import com.sogou.map.kubbo.configuration.PropertiesConfigurator;
+import com.sogou.map.kubbo.configuration.element.ApplicationConfiguration;
 import com.sogou.map.kubbo.distributed.Distributions;
 import com.sogou.map.kubbo.metrics.KubboMetrics;
 import com.sogou.map.kubbo.rpc.Exporter;
@@ -120,6 +121,7 @@ public class Kubbo {
      */
     public static <T> T refer(String name, Class<T> type){
         KubboConfiguration configuration = KubboConfiguration.getInstance();
+        // 客户端refer时加载配置
         if(! configuration.isConfigured()){
             PropertiesConfigurator.configure();
             if(! configuration.isConfigured()){
@@ -219,8 +221,8 @@ public class Kubbo {
     }
     
     private static URL attachApplicationName(URL url){
-        String application = SystemPropertyUtils.get(Constants.GLOBAL_APPLICATION_NAME, Constants.DEFAULT_APPLICATION_NAME);
-        return url.addParameterIfAbsent(Constants.APPLICATION_KEY, application);
+        ApplicationConfiguration application = KubboConfiguration.getInstance().getApplication();
+        return url.addParameterIfAbsent(Constants.APPLICATION_KEY, application.getName());
     }
     
     private static Protocol getProtocol(URL url) {
