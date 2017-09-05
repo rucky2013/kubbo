@@ -20,7 +20,7 @@ public class ApplicationConfiguration implements Configuration{
     String name = Constants.DEFAULT_APPLICATION_NAME;
 
     /** 应用根目录 */
-    String home;
+    String home = Constants.DEFAULT_APPLICATION_HOME;
     
     public String getName() {
         return name;
