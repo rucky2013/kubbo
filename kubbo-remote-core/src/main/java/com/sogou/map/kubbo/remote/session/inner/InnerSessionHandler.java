@@ -135,7 +135,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
     }
     
     protected void handleEvent(Channel channel, Request req) throws RemotingException {
-        if (req.getData() != null && req.getData().equals(Request.READONLY_EVENT)) {
+        if (req.getData() != null && req.getData().equals(Request.EVENT_READONLY)) {
             channel.setAttribute(Constants.CHANNEL_ATTRIBUTE_READONLY_KEY, Boolean.TRUE);
         }
     }

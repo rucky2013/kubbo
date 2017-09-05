@@ -10,34 +10,34 @@ public class Response {
     /*
      * event
      */
-    public static final String HEARTBEAT_EVENT = null;
+    public static final String EVENT_HEARTBEAT = null;
 
-    public static final String READONLY_EVENT = "R";
+    public static final String EVENT_READONLY = "R";
     
     /**
      * ok.
      */
-    public static final byte OK                = 20;
+    public static final byte OK = 20;
 
     /**
      * clien side timeout.
      */
-    public static final byte CLIENT_TIMEOUT    = 30;
+    public static final byte CLIENT_TIMEOUT = 30;
 
     /**
      * server side timeout.
      */
-    public static final byte SERVER_TIMEOUT    = 31;
+    public static final byte SERVER_TIMEOUT = 31;
 
     /**
      * request format error.
      */
-    public static final byte BAD_REQUEST       = 40;
+    public static final byte BAD_REQUEST = 40;
 
     /**
      * response format error.
      */
-    public static final byte BAD_RESPONSE      = 50;
+    public static final byte BAD_RESPONSE = 50;
 
     /**
      * service not found.
@@ -47,17 +47,17 @@ public class Response {
     /**
      * service error.
      */
-    public static final byte SERVICE_ERROR     = 70;
+    public static final byte SERVICE_ERROR = 70;
 
     /**
      * internal server error.
      */
-    public static final byte SERVER_ERROR      = 80;
+    public static final byte SERVER_ERROR = 80;
 
     /**
      * internal client error.
      */
-    public static final byte CLIENT_ERROR      = 90;
+    public static final byte CLIENT_ERROR = 90;
 
     private long id = 0;
 
@@ -125,7 +125,7 @@ public class Response {
     }
 
     public boolean isHeartbeat() {
-        return event && HEARTBEAT_EVENT == result;
+        return event && EVENT_HEARTBEAT == result;
     }
 
     public Object getResult() {

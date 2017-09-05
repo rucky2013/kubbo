@@ -45,7 +45,7 @@ public final class HeartBeatTask implements Runnable {
                         Request req = new Request();
                         req.setVersion(Version.getVersion());
                         req.setTwoWay(true);
-                        req.setEvent(Request.HEARTBEAT_EVENT);
+                        req.setEvent(Request.EVENT_HEARTBEAT);
                         channel.send(req);
                         if ( logger.isDebugEnabled() ) {
                             logger.debug( "Heartbeat to remote " + channel.getRemoteAddress()

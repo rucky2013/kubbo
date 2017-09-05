@@ -95,7 +95,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
     
     private void notifyChannelReadOnly(){
         Request request = new Request();
-        request.setEvent(Request.READONLY_EVENT);
+        request.setEvent(Request.EVENT_READONLY);
         request.setTwoWay(false);
         request.setVersion(Version.getVersion());
         

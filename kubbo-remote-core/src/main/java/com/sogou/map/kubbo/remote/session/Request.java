@@ -11,11 +11,14 @@ import com.sogou.map.kubbo.common.util.StringUtils;
  */
 public class Request {
 
-    public static final String HEARTBEAT_EVENT = null;
+    /** heartbeat event */
+    public static final String EVENT_HEARTBEAT = null;
 
-    public static final String READONLY_EVENT = "R";
+    /** readonly event */
+    public static final String EVENT_READONLY = "R";
     
-    private static final AtomicLong INVOKE_ID = new AtomicLong(0);
+    /** request id seq */
+    private static final AtomicLong REQUEST_SEQ = new AtomicLong(0);
 
     private final long id;
 
@@ -87,17 +90,17 @@ public class Request {
     }
 
     public boolean isHeartbeat() {
-        return event && HEARTBEAT_EVENT == data;
+        return event && EVENT_HEARTBEAT == data;
     }
 
     public void setHeartbeat(boolean isHeartbeat) {
         if (isHeartbeat) {
-            setEvent(HEARTBEAT_EVENT);
+            setEvent(EVENT_HEARTBEAT);
         }
     }
 
     private static long newId() {
-        return INVOKE_ID.getAndIncrement();
+        return REQUEST_SEQ.getAndIncrement();
     }
 
     @Override
