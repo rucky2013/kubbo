@@ -130,10 +130,10 @@ public class EtcdDiscoveryDirectory<T> extends AbstractDiscoveryDirectory<T>{
                     continue;
                 }
                 retry.scale();
-                logger.warn("Etcd discovery HTTP exception, will retry " + retry.interval()/1000 + " second later.", e);
+                logger.warn("Etcd discovery HTTP exception for " +  getUrl() +  ", will retry " + retry.interval()/1000 + " second later.", e);
             } catch (JSONException e) {
                 retry.scale();
-                logger.warn("Etcd discovery Parse exception, will retry " + retry.interval()/1000 + "second later." , e);
+                logger.warn("Etcd discovery Parse exception for " +  getUrl() +  ", will retry " + retry.interval()/1000 + "second later." , e);
             } 
             
             if(retry.interval() > 0){

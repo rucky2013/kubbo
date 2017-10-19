@@ -33,6 +33,8 @@ public final class Constants {
     public static final String  DEFAULT_CHARSET                    = "UTF-8";
 
     public static final String  DEFAULT_APPLICATION_NAME           = NetUtils.getLocalAddress().toString();
+
+    public static final String  DEFAULT_APPLICATION_HOME           = ".";
     
    
     /*

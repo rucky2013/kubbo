@@ -1,6 +1,7 @@
 package com.sogou.map.kubbo.common.threadpool.impl;
 
 import java.util.Collection;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -19,20 +20,29 @@ public class ScalableThreadPoolExecutor extends ThreadPoolExecutor {
      */
     private final AtomicInteger submittedCount = new AtomicInteger(0);
 
-    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int queues, RejectedExecutionHandler handler) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, new TaskQueue(queues), handler);
+    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, handler);
     }
 
-    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int queues, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, new TaskQueue(queues), threadFactory, handler);
+    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
     }
 
-    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int queues, ThreadFactory threadFactory) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, new TaskQueue(queues), threadFactory, new ThreadPoolExecutor.AbortPolicy());
+    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, new ThreadPoolExecutor.AbortPolicy());
     }
 
-    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int queues) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, new TaskQueue(queues), new ThreadPoolExecutor.AbortPolicy());
+    public ScalableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new ThreadPoolExecutor.AbortPolicy());
+    }
+    
+    public static ThreadPoolExecutor createExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, 
+            int queues, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
+        TaskQueue workQueue = new TaskQueue(queues);
+        ScalableThreadPoolExecutor executor = new ScalableThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
+                workQueue, threadFactory, handler);
+        workQueue.setParent(executor);
+        return executor;
     }
     
     @Override
@@ -116,18 +126,25 @@ public class ScalableThreadPoolExecutor extends ThreadPoolExecutor {
             return super.offer(o, timeout, unit); //forces the item onto the queue, to be used if the task is rejected
         }
 
-        @Override
-        public boolean offer(Runnable o) {
-          //we can't do any checks
-            if (parent == null) return super.offer(o);
-            //we are maxed out on threads, simply queue the object
-            if (parent.getPoolSize() == parent.getMaximumPoolSize()) return super.offer(o);
-            //we have idle threads, just add it to the queue
-            if (parent.getSubmittedCount() < (parent.getPoolSize())) return super.offer(o);
-            //if we have less threads than maximum force creation of a new thread
-            if (parent.getPoolSize() < parent.getMaximumPoolSize()) return false;
-            //if we reached here, we need to add it to the queue
-            return super.offer(o);
-        }
+      @Override
+      public boolean offer(Runnable o) {
+        //we can't do any checks
+          if (parent == null) return super.offer(o);
+          //we are maxed out on threads, simply queue the object
+          if (parent.getPoolSize() == parent.getMaximumPoolSize()) {
+              return super.offer(o);
+          }
+          //we have idle threads, just add it to the queue
+          if (parent.getSubmittedCount() < (parent.getPoolSize())) {
+              return super.offer(o);
+          }
+          //if we have less threads than maximum force creation of a new thread
+          if (parent.getPoolSize() < parent.getMaximumPoolSize()) {
+              return false;
+          }
+          
+          //if we reached here, we need to add it to the queue
+          return super.offer(o);
+      }
     }
 }

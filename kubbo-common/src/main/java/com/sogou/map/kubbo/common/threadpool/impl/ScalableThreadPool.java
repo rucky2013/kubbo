@@ -37,7 +37,7 @@ public class ScalableThreadPool implements ThreadPool {
     
     public static Executor getExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, 
             int queues, String threadname, RejectedExecutionHandler handler){
-        ThreadPoolExecutor executor = new ScalableThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
+        ThreadPoolExecutor executor = ScalableThreadPoolExecutor.createExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, 
                 queues, new NamedThreadFactory(threadname, true), handler);
         return executor;
     }

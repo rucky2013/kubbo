@@ -8,6 +8,7 @@ package com.sogou.map.kubbo.remote.session;
  *
  */
 public class EncodedMessage {
+    
     byte[] bytes;
     
     public EncodedMessage(byte[] bytes) {
@@ -22,4 +23,4 @@ public class EncodedMessage {
     public void setBytes(byte[] bytes) {
         this.bytes = bytes;
     }
-    }
+}
