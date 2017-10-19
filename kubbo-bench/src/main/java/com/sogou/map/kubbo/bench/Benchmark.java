@@ -17,6 +17,7 @@ public class Benchmark {
     private Options options = new Options(1, 1);
     private List<Job> jobs = new ArrayList<Job>();
     private Statistics statistics;
+    private boolean warmup = true;
 
     
     public static Benchmark builder(){
@@ -34,7 +35,7 @@ public class Benchmark {
     }
     
     public Benchmark job(Job job){
-        jobs.add(job);
+        this.jobs.add(job);
         return this;
     }
     public Benchmark job(List<Job> jobs){
@@ -42,6 +43,11 @@ public class Benchmark {
         return this;
     }
 
+    public Benchmark warnup(boolean enable){
+        this.warmup = enable;
+        return this;
+    }
+    
     public Statistics run(){
         if(jobs.isEmpty()){
             throw new IllegalArgumentException("no job");
@@ -50,13 +56,17 @@ public class Benchmark {
         ExecutorService threadPool = Executors.newFixedThreadPool(options.getConcurrency(), new NamedThreadFactory("kubbo-bench-pool"));
         
         System.out.println("Benchmark start (be patient)");
+        
         // JIT warmup
-        int index = 0;
-        for(int i=0; i < 20; ++i){
-            Job job = jobs.get((index++)%jobs.size());
-            job.execute();
-            try{ Thread.sleep(100); } catch(Exception e){}
+        if (this.warmup) {
+            int index = 0;
+            for(int i=0; i < 20; ++i){
+                Job job = jobs.get((index++)%jobs.size());
+                job.execute();
+                try{ Thread.sleep(100); } catch(Exception e){}
+            }
         }
+
         // job
         long start = System.nanoTime();
         Runnable task = new ExecuteTask();
