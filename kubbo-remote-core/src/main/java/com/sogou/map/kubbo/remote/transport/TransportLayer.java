@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Client;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.Server;
 
 /**
@@ -23,10 +23,10 @@ public interface TransportLayer {
      * @param url server url
      * @param handler
      * @return server
-     * @throws RemotingException 
+     * @throws RemoteException 
      */
     @Adaptive(Constants.TRANSPORTLAYER_KEY)
-    Server bind(URL url, ChannelHandler handler) throws RemotingException;
+    Server bind(URL url, ChannelHandler handler) throws RemoteException;
 
     /**
      * Connect to a server.
@@ -34,9 +34,9 @@ public interface TransportLayer {
      * @param url server url
      * @param handler
      * @return client
-     * @throws RemotingException 
+     * @throws RemoteException 
      */
     @Adaptive(Constants.TRANSPORTLAYER_KEY)
-    Client connect(URL url, ChannelHandler handler) throws RemotingException;
+    Client connect(URL url, ChannelHandler handler) throws RemoteException;
 
 }

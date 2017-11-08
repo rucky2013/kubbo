@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.remote.transport;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * AbstractChannel
@@ -17,9 +17,9 @@ public abstract class AbstractChannel extends AbstractEndpoint implements Channe
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         if (isClosed()) {
-            throw new RemotingException(this, "Failed to send message "
+            throw new RemoteException(this, "Failed to send message "
                             + (message == null ? "" : message.getClass().getName()) + ":" + message
                             + ", cause: Channel closed. channel: " + this);
         }

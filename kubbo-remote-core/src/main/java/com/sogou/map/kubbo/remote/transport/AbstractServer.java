@@ -11,10 +11,9 @@ import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.ExecutorUtils;
-import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.transport.handler.ChannelHandlers;
 import com.sogou.map.kubbo.remote.transport.handler.ExecutorWrappedChannelHandler;
@@ -27,27 +26,20 @@ import com.sogou.map.kubbo.remote.transport.handler.ExecutorWrappedChannelHandle
 public abstract class AbstractServer extends AbstractRole implements Server {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractServer.class);
-
-    private InetSocketAddress localAddress;
+    
+    protected static final String SERVER_THREAD_POOL_NAME  ="kubbo-server-task-handler";
 
     private InetSocketAddress bindAddress;
 
-    private int accepts;
-
-    private int idleTimeout = Constants.DEFAULT_IDLE_TIMEOUT; //600 seconds
-    
-    protected static final String SERVER_THREAD_POOL_NAME  ="kubbo-server-task-handler";
+    /** 最大连接数 */
+    private int accepts; 
     
     ExecutorService executor;
 
-    public AbstractServer(URL url, ChannelHandler handler) throws RemotingException {
+    public AbstractServer(URL url, ChannelHandler handler) throws RemoteException {
         super(url, handler);
-        localAddress = getUrl().toInetSocketAddress();
-        String host = url.getParameter(Constants.ANYHOST_KEY, false) || NetUtils.isInvalidLocalHost(getUrl().getHost()) ? 
-                        NetUtils.ANYHOST : getUrl().getHost();
-        bindAddress = new InetSocketAddress(host, getUrl().getPort());
-        this.accepts = url.getParameter(Constants.ACCEPTS_KEY, Constants.DEFAULT_ACCEPTS);
-        this.idleTimeout = url.getParameter(Constants.IDLE_TIMEOUT_KEY, Constants.DEFAULT_IDLE_TIMEOUT);
+        bindAddress = url.toInetSocketAddress();
+        accepts = url.getParameter(Constants.ACCEPTS_KEY, Constants.DEFAULT_ACCEPTS);
         try {
             start();
             if (logger.isInfoEnabled()) {
@@ -56,7 +48,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
                         + ", kubbo version " + Version.getVersion());
             }
         } catch (Throwable t) {
-            throw new RemotingException(url.toInetSocketAddress(), null, "Failed to bind " + getClass().getSimpleName() 
+            throw new RemoteException(bindAddress, null, "Failed to bind " + getClass().getSimpleName() 
                                         + " on " + getLocalAddress() + ", cause: " + t.getMessage(), t);
         }
         if (handler instanceof ExecutorWrappedChannelHandler ){
@@ -81,18 +73,6 @@ public abstract class AbstractServer extends AbstractRole implements Server {
                 int a = url.getParameter(Constants.ACCEPTS_KEY, 0);
                 if (a > 0) {
                     this.accepts = a;
-                }
-            }
-        } catch (Throwable t) {
-            logger.error(t.getMessage(), t);
-        }
-        
-        //idle timeout
-        try {
-            if (url.hasParameter(Constants.IDLE_TIMEOUT_KEY)) {
-                int t = url.getParameter(Constants.IDLE_TIMEOUT_KEY, 0);
-                if (t > 0) {
-                    this.idleTimeout = t;
                 }
             }
         } catch (Throwable t) {
@@ -128,7 +108,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         Collection<Channel> channels = getChannels();
         for (Channel channel : channels) {
             if (channel.isConnected()) {
@@ -165,23 +145,19 @@ public abstract class AbstractServer extends AbstractRole implements Server {
 
     @Override
     public InetSocketAddress getLocalAddress() {
-        return localAddress;
-    }
-    
-    public InetSocketAddress getBindAddress() {
         return bindAddress;
     }
 
+    public InetSocketAddress getBindAddress() {
+        return bindAddress;
+    }
+    
     public int getAccepts() {
         return accepts;
     }
 
-    public int getIdleTimeout() {
-        return idleTimeout;
-    }
-
     @Override
-    public void onConnected(Channel ch) throws RemotingException {
+    public void onConnected(Channel ch) throws RemoteException {
         Collection<Channel> channels = getChannels();
         if (accepts > 0 && channels.size() > accepts) {
             logger.warn("Close channel " + ch + ", cause: The server " + ch.getLocalAddress() + " connections greater than max accepts " + accepts);
@@ -192,7 +168,7 @@ public abstract class AbstractServer extends AbstractRole implements Server {
     }
     
     @Override
-    public void onDisconnected(Channel ch) throws RemotingException {
+    public void onDisconnected(Channel ch) throws RemoteException {
         Collection<Channel> channels = getChannels();
         if (channels.size() == 0){
             if(logger.isDebugEnabled()){

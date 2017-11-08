@@ -11,14 +11,6 @@ import com.sogou.map.kubbo.common.extension.SPI;
  */
 @SPI("kubbo")
 public interface Protocol {
-    
-    /**
-     * 获取缺省端口，当用户没有配置端口时使用。
-     * 
-     * @return 缺省端口
-     */
-    int getDefaultPort();
-
     /**
      * 暴露远程服务：<br>
      * 1. 协议在接收请求时，应记录请求来源方地址信息：RpcContext.getContext().setRemoteAddress();<br>

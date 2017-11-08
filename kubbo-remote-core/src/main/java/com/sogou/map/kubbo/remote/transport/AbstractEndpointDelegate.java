@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Endpoint;
 import com.sogou.map.kubbo.remote.EndpointDelegate;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * AbstractEndpointDelegate
@@ -18,10 +18,10 @@ import com.sogou.map.kubbo.remote.RemotingException;
  *
  */
 public class AbstractEndpointDelegate extends AbstractAttributableDelegate<Object> implements EndpointDelegate{
+    
     protected transient Endpoint endpoint;
     
-    public AbstractEndpointDelegate() {
-    }
+    public AbstractEndpointDelegate() { }
 
     public AbstractEndpointDelegate(Endpoint endpoint){
         super(endpoint);
@@ -47,13 +47,13 @@ public class AbstractEndpointDelegate extends AbstractAttributableDelegate<Objec
     }
 
     @Override
-    public void send(Object message) throws RemotingException {
+    public void send(Object message) throws RemoteException {
         endpoint.send(message);
         
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         endpoint.send(message, blocking);		
     }
 

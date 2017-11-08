@@ -17,7 +17,7 @@ import com.sogou.map.kubbo.rpc.Protocol;
 import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
- * abstract ProtocolSupport.
+ * AbstractProtocol
  * 
  * @author liufuliang
  */
@@ -29,11 +29,6 @@ public abstract class AbstractProtocol implements Protocol {
 
     //TODO SOFEREFENCE
     protected final Set<Invoker<?>> invokers = new ConcurrentHashSet<Invoker<?>>();
-    
-    
-//    public Collection<Exporter<?>> getExporters() {
-//        return Collections.unmodifiableCollection(exporterMap.values());
-//    }
     
     Map<String, Exporter<?>> getExporterMap(){
         return exporterMap;

@@ -14,6 +14,7 @@ import com.sogou.map.kubbo.rpc.RpcException;
  *
  */
 public class AbstractProtocolDelegate implements ProtocolDelegate{
+
     protected final Protocol protocol;
 
     public AbstractProtocolDelegate(Protocol protocol) {
@@ -21,11 +22,6 @@ public class AbstractProtocolDelegate implements ProtocolDelegate{
             throw new IllegalArgumentException("protocol == NULL");
         }
         this.protocol = protocol;
-    }
-
-    @Override
-    public int getDefaultPort() {
-        return protocol.getDefaultPort();
     }
 
     @Override

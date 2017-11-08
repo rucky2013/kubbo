@@ -4,7 +4,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.RemoteExecutionException;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionHandler;
 import com.sogou.map.kubbo.remote.session.Request;
@@ -29,7 +29,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onConnected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemoteException {
         SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             handler.onConnected(sessionChannel);
@@ -39,7 +39,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onDisconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemoteException {
         SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             handler.onDisconnected(sessionChannel);
@@ -49,7 +49,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onSent(Channel channel, Object message) throws RemotingException {
+    public void onSent(Channel channel, Object message) throws RemoteException {
         Throwable exception = null;
         try {
             SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
@@ -72,17 +72,17 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
         if (exception != null) {
             if (exception instanceof RuntimeException) {
                 throw (RuntimeException) exception;
-            } else if (exception instanceof RemotingException) {
-                throw (RemotingException) exception;
+            } else if (exception instanceof RemoteException) {
+                throw (RemoteException) exception;
             } else {
-                throw new RemotingException(channel.getLocalAddress(), channel.getRemoteAddress(),
+                throw new RemoteException(channel.getLocalAddress(), channel.getRemoteAddress(),
                                             exception.getMessage(), exception);
             }
         }
     }
 
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
         SessionChannel sessionChannel = InnerSessionChannel.getOrAddChannel(channel);
         try {
             if (message instanceof Request) {
@@ -111,7 +111,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemoteException {
         if (exception instanceof RemoteExecutionException) {
             RemoteExecutionException e = (RemoteExecutionException) exception;
             Object msg = e.getRequest();
@@ -134,13 +134,13 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
         }
     }
     
-    protected void handleEvent(Channel channel, Request req) throws RemotingException {
+    protected void handleEvent(Channel channel, Request req) throws RemoteException {
         if (req.getData() != null && req.getData().equals(Request.EVENT_READONLY)) {
             channel.setAttribute(Constants.CHANNEL_ATTRIBUTE_READONLY_KEY, Boolean.TRUE);
         }
     }
 
-    protected Response handleRequest(SessionChannel channel, Request req) throws RemotingException {
+    protected Response handleRequest(SessionChannel channel, Request req) throws RemoteException {
         Response res = new Response(req.getId(), req.getVersion());
         // bad requests
         if (req.isBroken()) {
@@ -169,7 +169,7 @@ public class InnerSessionHandler extends AbstractChannelHandlerDelegate {
         return res;
     }
 
-    protected void handleResponse(Channel channel, Response response) throws RemotingException {
+    protected void handleResponse(Channel channel, Response response) throws RemoteException {
         if (response != null && !response.isHeartbeat()) {
             InternalResponseFuture.received(channel, response);
         }

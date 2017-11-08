@@ -114,7 +114,7 @@ public class Bootstrap {
     }
     
     private void loop(){
-        while(true){
+        for(;;){
             try { TimeUnit.MINUTES.sleep(30); } catch (Throwable e) { }
         }
     }

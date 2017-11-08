@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.common.extension;
 import java.util.Comparator;
 
 /**
- * OrderComparetor
+ * ActivateComparator
  * 
  * @author liufuliang
  */
@@ -11,6 +11,7 @@ public class ActivateComparator implements Comparator<Object> {
     
     public static final Comparator<Object> COMPARATOR = new ActivateComparator();
 
+    @Override
     public int compare(Object o1, Object o2) {
         if (o1 == null && o2 == null) {
             return 0;

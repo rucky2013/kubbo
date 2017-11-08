@@ -1,6 +1,6 @@
 package com.sogou.map.kubbo.remote.session;
 
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * ResponseFuture.
@@ -14,7 +14,7 @@ public interface ResponseFuture {
      * 
      * @return result.
      */
-    Object get() throws RemotingException;
+    Object get() throws RemoteException;
 
     /**
      * get result with the specified timeout.
@@ -22,7 +22,7 @@ public interface ResponseFuture {
      * @param timeoutInMillis timeout.
      * @return result.
      */
-    Object get(int timeoutInMillis) throws RemotingException;
+    Object get(int timeoutInMillis) throws RemoteException;
 
     /**
      * add listener.

@@ -11,7 +11,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionClient;
 import com.sogou.map.kubbo.remote.session.SessionHandler;
@@ -28,7 +28,7 @@ import com.sogou.map.kubbo.rpc.protocol.kubbo.codec.KubboCodec;
 import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
- * kubbo protocol support.
+ * KubboProtocol
  *
  * @author liufuliang
  */
@@ -36,9 +36,7 @@ public class KubboProtocol extends AbstractProtocol {
 
     private static final Logger logger = LoggerFactory.getLogger(KubboProtocol.class);
 
-    public static final String NAME = "kubbo";
-    
-    public static final int DEFAULT_PORT = 40660;
+    public static final String NAME = "kubbo";    
         
     private final Map<String, SessionServer> serverMap = new ConcurrentHashMap<String, SessionServer>(); // <host:port,SessionServer>
     
@@ -46,20 +44,20 @@ public class KubboProtocol extends AbstractProtocol {
     
     private SessionHandler requestHandler = new SessionHandlerAdapter() {
         @Override
-        public Object reply(SessionChannel channel, Object message) throws RemotingException {
+        public Object reply(SessionChannel channel, Object message) throws RemoteException {
             if (message instanceof Invocation) {
                 Invocation inv = (Invocation) message;
                 Invoker<?> invoker = getInvoker(channel, inv);
                 Result result = invoker.invoke(inv);
                 return result;
-            }
-            throw new RemotingException(channel, 
+            }            
+            throw new RemoteException(channel, 
                     "Unsupported request: " + message == null ? null : (message.getClass().getName() + ": " + message) 
                     + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress());
         }
     };
     
-    Invoker<?> getInvoker(Channel channel, Invocation inv) throws RemotingException{
+    Invoker<?> getInvoker(Channel channel, Invocation inv) throws RemoteException{
         String group = inv.getAttachment(Constants.GROUP_KEY);
         String path = inv.getAttachment(Constants.PATH_KEY);
         String interfaceType = inv.getAttachment(Constants.INTERFACE_KEY);
@@ -68,7 +66,7 @@ public class KubboProtocol extends AbstractProtocol {
         KubboExporter<?> exporter = (KubboExporter<?>) exporterMap.get(serviceKey);
         
         if (exporter == null)
-            throw new RemotingException(channel, 
+            throw new RemoteException(channel, 
                     "Not found exported service: " + serviceKey + " in " + exporterMap.keySet() 
                     + ", may be (group, path, version) mismatch " 
                     + ", channel: consumer: " + channel.getRemoteAddress() + " -> provider: " + channel.getLocalAddress() 
@@ -83,12 +81,6 @@ public class KubboProtocol extends AbstractProtocol {
     
     public Collection<SessionServer> getServers() {
         return Collections.unmodifiableCollection(serverMap.values());
-    }
-
-
-    @Override
-    public int getDefaultPort() {
-        return DEFAULT_PORT;
     }
 
     @Override
@@ -125,7 +117,7 @@ public class KubboProtocol extends AbstractProtocol {
         try {
             SessionServer server = SessionLayers.bind(url, requestHandler);
             return server;
-        } catch (RemotingException e) {
+        } catch (RemoteException e) {
             throw new RpcException("Fail to start sesseion server(" + url + ") " + e.getMessage(), e);
         }
     }
@@ -201,7 +193,7 @@ public class KubboProtocol extends AbstractProtocol {
         try {
             SessionClient client = SessionLayers.connect(url ,requestHandler);
             return client;
-        } catch (RemotingException e) {
+        } catch (RemoteException e) {
             throw new RpcException("Fail to create session client for service(" + url + "): " + e.getMessage(), e);
         }
         

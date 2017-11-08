@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
  * 
  * @author liufuliang
  */
-public class TimeoutException extends RemotingException {
+public class TimeoutException extends RemoteException {
 
     private static final long serialVersionUID = 3122966731958222692L;
     
@@ -17,15 +17,15 @@ public class TimeoutException extends RemotingException {
 
     private final int phase;
 
-    public TimeoutException(boolean serverSide, Channel channel, String message){
+    public TimeoutException(int phase, Channel channel, String message){
         super(channel, message);
-        this.phase = serverSide ? SERVER_SIDE : CLIENT_SIDE;
+        this.phase = phase;
     }
 
-    public TimeoutException(boolean serverSide, InetSocketAddress localAddress, 
+    public TimeoutException(int phase, InetSocketAddress localAddress, 
                             InetSocketAddress remoteAddress, String message) {
         super(localAddress, remoteAddress, message);
-        this.phase = serverSide ? SERVER_SIDE : CLIENT_SIDE;
+        this.phase = phase;
     }
 
     public int getPhase() {

@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.remote.Client;
 import com.sogou.map.kubbo.remote.ClientDelegate;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * AbstractClientDelegate
@@ -35,7 +35,7 @@ public class AbstractClientDelegate extends AbstractEndpointDelegate implements 
     }
     
     @Override
-    public void reconnect() throws RemotingException {
+    public void reconnect() throws RemoteException {
         client.reconnect();
     }
 

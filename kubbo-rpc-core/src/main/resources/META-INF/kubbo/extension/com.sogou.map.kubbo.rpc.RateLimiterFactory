@@ -1,0 +1,1 @@
+tokenbucket=com.sogou.map.kubbo.rpc.limiter.TokenBucketRateLimiterFactory

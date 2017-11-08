@@ -4,7 +4,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Client;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.transport.handler.ChannelHandlerGroup;
 import com.sogou.map.kubbo.remote.transport.handler.NoOpChannelHandler;
@@ -16,11 +16,11 @@ import com.sogou.map.kubbo.remote.transport.handler.NoOpChannelHandler;
  */
 public class TransportLayers {
 
-    public static Server bind(String url, ChannelHandler... handler) throws RemotingException {
+    public static Server bind(String url, ChannelHandler... handler) throws RemoteException {
         return bind(URL.valueOf(url), handler);
     }
 
-    public static Server bind(URL url, ChannelHandler... handlers) throws RemotingException {
+    public static Server bind(URL url, ChannelHandler... handlers) throws RemoteException {
         if (url == null) {
             throw new IllegalArgumentException("url == NULL");
         }
@@ -36,11 +36,11 @@ public class TransportLayers {
         return getTransportLayer().bind(url, handler);
     }
 
-    public static Client connect(String url, ChannelHandler... handler) throws RemotingException {
+    public static Client connect(String url, ChannelHandler... handler) throws RemoteException {
         return connect(URL.valueOf(url), handler);
     }
 
-    public static Client connect(URL url, ChannelHandler... handlers) throws RemotingException {
+    public static Client connect(URL url, ChannelHandler... handlers) throws RemoteException {
         if (url == null) {
             throw new IllegalArgumentException("url == NULL");
         }
@@ -59,7 +59,6 @@ public class TransportLayers {
         return Extensions.getAdaptiveExtension(TransportLayer.class);
     }
 
-    private TransportLayers(){
-    }
+    private TransportLayers() { }
 
 }

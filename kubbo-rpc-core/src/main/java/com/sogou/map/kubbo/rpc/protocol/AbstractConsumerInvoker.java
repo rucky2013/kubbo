@@ -146,12 +146,11 @@ public abstract class AbstractConsumerInvoker<T> implements Invoker<T> {
             Throwable te = e.getTargetException();
             if (te == null) {
                 return new RpcResult(e);
-            } else {
-                if (te instanceof RpcException) {
-                    ((RpcException) te).setCode(RpcException.BIZ_EXCEPTION);
-                }
-                return new RpcResult(te);
+            } 
+            if (te instanceof RpcException) {
+                ((RpcException) te).setCode(RpcException.CODE_BIZ);
             }
+            return new RpcResult(te);
         } catch (RpcException e) {
             if (e.isBiz()) {
                 return new RpcResult(e);

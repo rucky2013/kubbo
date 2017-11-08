@@ -51,6 +51,14 @@ public final class URL implements Serializable {
 
     private static final long serialVersionUID = 4227282099870403192L;
 
+    public static final String ANYHOST_KEY = "anyhost";
+
+    public static final String ANYHOST_VALUE = "0.0.0.0";
+
+    public static final String LOCALHOST_KEY = "localhost";
+
+    public static final String LOCALHOST_VALUE = "127.0.0.1";
+    
     private final String protocol;
 
     private final String username;
@@ -745,11 +753,11 @@ public final class URL implements Serializable {
     }
     
     public boolean isLocalHost() {
-        return NetUtils.isLocalHost(host) || getParameter(Constants.LOCALHOST_KEY, false);
+        return NetUtils.isLocalHost(host) || getParameter(LOCALHOST_KEY, false);
     }
     
     public boolean isAnyHost() {
-        return Constants.ANYHOST_VALUE.equals(host) || getParameter(Constants.ANYHOST_KEY, false);
+        return ANYHOST_VALUE.equals(host) || getParameter(ANYHOST_KEY, false);
     }
     
     public URL addParameterAndEncoded(String key, String value) {

@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.AbstractChannel;
 
 /**
@@ -75,7 +75,7 @@ final class NettyChannel extends AbstractChannel {
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         super.send(message, blocking);
         boolean success = true;
         int timeout = 0;
@@ -90,7 +90,7 @@ final class NettyChannel extends AbstractChannel {
                 throw cause;
             }
         } catch (Throwable e) {
-            throw new RemotingException(this, new StringBuffer(32)
+            throw new RemoteException(this, new StringBuffer(32)
                     .append("Failed to send message [").append(message).append("] ")
                     .append("to ").append(getRemoteAddress()).append(", ")
                     .append("cause: ").append(e.getMessage())
@@ -99,7 +99,7 @@ final class NettyChannel extends AbstractChannel {
         }
         
         if(!success) {
-            throw new RemotingException(this, new StringBuffer(32)
+            throw new RemoteException(this, new StringBuffer(32)
                     .append("Failed to send message [").append(message).append("] ")
                     .append("to ").append(getRemoteAddress()).append(" ")
                     .append("in timeout(").append(timeout).append("ms) limit")

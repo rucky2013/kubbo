@@ -10,6 +10,6 @@ public interface Client extends Endpoint, Channel, Resetable{
     /**
      * reconnect.
      */
-    void reconnect() throws RemotingException;
+    void reconnect() throws RemoteException;
 
 }

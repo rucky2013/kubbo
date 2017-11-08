@@ -17,8 +17,7 @@ public class AbstractServerDelegate extends AbstractEndpointDelegate implements 
     
     protected transient Server server;
 
-    public AbstractServerDelegate() {
-    }
+    public AbstractServerDelegate() { }
 
     public AbstractServerDelegate(Server server){
         super(server);

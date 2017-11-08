@@ -31,10 +31,10 @@ public class SessionLayersTest {
     }
     
     @Test
-    public void test() throws RemotingException{
+    public void test() throws RemoteException{
         SessionServer server = SessionLayers.bind("kubbo://localhost:8080?transportlayer=netty4", new SessionHandlerAdapter(){
             @Override
-            public Object reply(SessionChannel channel, Object request) throws RemotingException {
+            public Object reply(SessionChannel channel, Object request) throws RemoteException {
                 if(request instanceof Message){
                     assertEquals("message", ((Message)request).value);
                 }

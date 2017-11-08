@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.buffer.ChannelBuffer;
 import com.sogou.map.kubbo.remote.buffer.ChannelBufferInputStream;
 import com.sogou.map.kubbo.remote.buffer.ChannelBufferOutputStream;
@@ -196,7 +196,7 @@ public class SessionCodec extends TransportCodec {
                     r.setErrorMessage("Failed to send response: " + res + ", cause: " + StringUtils.toString(t));
                     channel.send(r);
                     return;
-                } catch (RemotingException e) {
+                } catch (RemoteException e) {
                     logger.warn("Failed to send BAD_RESPONSE back: " + res + ", cause: " + e.getMessage(), e);
                 }
             }

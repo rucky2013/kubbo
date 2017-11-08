@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
  * 
  * @author liufuliang
  */
-public class ExecutionException extends RemotingException {
+public class ExecutionException extends RemoteException {
     
     private static final long serialVersionUID = -8457605237515280837L;
 

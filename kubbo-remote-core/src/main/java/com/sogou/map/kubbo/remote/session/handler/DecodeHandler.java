@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Decodeable;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
@@ -24,7 +24,7 @@ public class DecodeHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
         if (message instanceof Decodeable) {
             decode(message);
         }

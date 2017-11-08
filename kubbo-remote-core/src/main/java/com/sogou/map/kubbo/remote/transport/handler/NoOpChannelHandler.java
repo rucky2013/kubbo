@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.transport.handler;
 
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * NoopChannelHandler.
@@ -12,23 +12,23 @@ import com.sogou.map.kubbo.remote.RemotingException;
 public class NoOpChannelHandler implements ChannelHandler {
 
     @Override
-    public void onConnected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemoteException {
     }
 
     @Override
-    public void onDisconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemoteException {
     }
 
     @Override
-    public void onSent(Channel channel, Object message) throws RemotingException {
+    public void onSent(Channel channel, Object message) throws RemoteException {
     }
 
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
     }
 
     @Override
-    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemoteException {
     }
 
 }

@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcResult;
 
 /**
- * AbstractProvider
+ * AbstractProviderInvoker
  * 
  * @author liufuliang
  */

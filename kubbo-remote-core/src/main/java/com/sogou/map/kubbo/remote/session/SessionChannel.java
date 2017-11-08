@@ -1,7 +1,7 @@
 package com.sogou.map.kubbo.remote.session;
 
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 
 /**
  * SessionChannel.
@@ -15,9 +15,9 @@ public interface SessionChannel extends Channel {
      * 
      * @param request
      * @return response future
-     * @throws RemotingException
+     * @throws RemoteException
      */
-    ResponseFuture request(Object request) throws RemotingException;
+    ResponseFuture request(Object request) throws RemoteException;
 
     /**
      * send request.
@@ -25,9 +25,9 @@ public interface SessionChannel extends Channel {
      * @param request
      * @param timeout
      * @return response future
-     * @throws RemotingException
+     * @throws RemoteException
      */
-    ResponseFuture request(Object request, int timeout) throws RemotingException;
+    ResponseFuture request(Object request, int timeout) throws RemoteException;
 
     /**
      * get message handler.
@@ -35,12 +35,5 @@ public interface SessionChannel extends Channel {
      * @return message handler
      */
     SessionHandler getSessionHandler();
-
-    /**
-     * graceful close.
-     * 
-     * @param timeout
-     */
-    void close(int timeout);
 
 }

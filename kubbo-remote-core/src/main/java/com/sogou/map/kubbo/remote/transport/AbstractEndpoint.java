@@ -11,7 +11,7 @@ import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.ChannelHandlerDelegate;
 import com.sogou.map.kubbo.remote.Endpoint;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
 
 /**
@@ -38,7 +38,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     }
     
     @Override
-    public void send(Object message) throws RemotingException {
+    public void send(Object message) throws RemoteException {
         send(message, url.getParameter(Constants.SEND_BLOCKING_KEY, Constants.DEFAULT_SEND_BLOCKING));
     }
     
@@ -85,7 +85,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     }
 
     @Override
-    public void onConnected(Channel ch) throws RemotingException {
+    public void onConnected(Channel ch) throws RemoteException {
         if (closed) {
             return;
         }
@@ -94,7 +94,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
 
 
     @Override
-    public void onSent(Channel ch, Object msg) throws RemotingException {
+    public void onSent(Channel ch, Object msg) throws RemoteException {
         if (closed) {
             return;
         }
@@ -102,7 +102,7 @@ public abstract class AbstractEndpoint extends AbstractChannelHandlerDelegate im
     }
 
     @Override
-    public void onReceived(Channel ch, Object msg) throws RemotingException {
+    public void onReceived(Channel ch, Object msg) throws RemoteException {
         if (closed) {
             return;
         }

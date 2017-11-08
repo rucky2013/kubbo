@@ -1,6 +1,6 @@
 package com.sogou.map.kubbo.remote.session.inner;
 
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
 import com.sogou.map.kubbo.remote.session.SessionClient;
 import com.sogou.map.kubbo.remote.session.SessionClientDelegate;
@@ -30,13 +30,13 @@ public class AbstractSessionClientDelegate extends AbstractClientDelegate implem
     }
 
     @Override
-    public ResponseFuture request(Object request) throws RemotingException {
+    public ResponseFuture request(Object request) throws RemoteException {
         return client.request(request);
     }
 
     @Override
     public ResponseFuture request(Object request, int timeout)
-            throws RemotingException {
+            throws RemoteException {
         return client.request(request, timeout);
     }
 

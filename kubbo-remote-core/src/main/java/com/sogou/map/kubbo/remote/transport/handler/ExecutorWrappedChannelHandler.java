@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.threadpool.ThreadPool;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.RemoteExecutionException;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.handler.ChannelEventRunnable.ChannelState;
 
 /**
@@ -37,7 +37,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void onConnected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemoteException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CONNECTED));
@@ -47,7 +47,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
     
     @Override
-    public void onDisconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemoteException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.DISCONNECTED));
@@ -57,7 +57,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
         ExecutorService cexecutor = getExecutorSafely();
         try {
             cexecutor.execute(new ChannelEventRunnable(channel, handler, ChannelState.RECEIVED, message));
@@ -67,7 +67,7 @@ public class ExecutorWrappedChannelHandler extends AbstractChannelHandlerDelegat
     }
 
     @Override
-    public void onExceptonCaught(Channel channel, Throwable exception) throws RemotingException {
+    public void onExceptonCaught(Channel channel, Throwable exception) throws RemoteException {
         ExecutorService cexecutor = getExecutorSafely(); 
         try{
             cexecutor.execute(new ChannelEventRunnable(channel, handler ,ChannelState.CAUGHT, exception));

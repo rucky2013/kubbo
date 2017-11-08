@@ -10,7 +10,7 @@ import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 
 /**
- * ChannelListenerDispatcher
+ * ChannelHandlerGroup
  * 
  * @author liufuliang
  */
@@ -20,8 +20,7 @@ public class ChannelHandlerGroup implements ChannelHandler {
 
     private final Collection<ChannelHandler> channelHandlers = new CopyOnWriteArraySet<ChannelHandler>();
     
-    public ChannelHandlerGroup() {
-    }
+    public ChannelHandlerGroup() { }
     
     public ChannelHandlerGroup(ChannelHandler... handlers) {
         this(handlers == null ? null : Arrays.asList(handlers));

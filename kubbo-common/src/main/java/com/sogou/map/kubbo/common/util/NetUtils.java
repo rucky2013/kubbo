@@ -10,8 +10,6 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import com.sogou.map.kubbo.common.URL;
-
 /**
  * Network Helper for RPC, 
  * 
@@ -100,23 +98,6 @@ public class NetUtils {
     public static boolean isAnyHost(String host) {
         return "0.0.0.0".equals(host);
     }
-    
-    public static boolean isInvalidLocalHost(String host) {
-        return host == null 
-                    || host.length() == 0
-                    || host.equalsIgnoreCase("localhost")
-                    || host.equals("0.0.0.0")
-                    || (LOCAL_IP_PATTERN.matcher(host).matches());
-    }
-    
-    public static boolean isValidLocalHost(String host) {
-        return ! isInvalidLocalHost(host);
-    }
-
-    public static InetSocketAddress getLocalSocketAddress(String host, int port) {
-        return isInvalidLocalHost(host) ? 
-                new InetSocketAddress(port) : new InetSocketAddress(host, port);
-    }
 
     private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
 
@@ -128,28 +109,6 @@ public class NetUtils {
                 && ! ANYHOST.equals(name)
                 && ! LOCALHOST.equals(name) 
                 && IP_PATTERN.matcher(name).matches());
-    }
-    
-    public static String filterLocalHost(String host) {
-        if (StringUtils.isBlank(host)) {
-            return host;
-        }
-        if (host.contains("://")) {
-            URL u = URL.valueOf(host);
-            if (NetUtils.isInvalidLocalHost(u.getHost())) {
-                return u.withHost(NetUtils.getHostAddress()).toFullString();
-            }
-        } else if (host.contains(":")) {
-            int i = host.lastIndexOf(':');
-            if (NetUtils.isInvalidLocalHost(host.substring(0, i))) {
-                return NetUtils.getHostAddress() + host.substring(i);
-            }
-        } else {
-            if (NetUtils.isInvalidLocalHost(host)) {
-                return NetUtils.getHostAddress();
-            }
-        }
-        return host;
     }
     
     private static InetAddress LOCAL_ADDRESS = getLocalAddress();

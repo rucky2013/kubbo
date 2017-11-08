@@ -18,7 +18,7 @@ import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.TimeoutException;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.session.Response;
@@ -74,12 +74,12 @@ public class InternalResponseFuture implements ResponseFuture {
     }
 
     @Override
-    public Object get() throws RemotingException {
+    public Object get() throws RemoteException {
         return get(timeout);
     }
 
     @Override
-    public Object get(int timeout) throws RemotingException {
+    public Object get(int timeout) throws RemoteException {
         if (timeout <= 0) {
             timeout = Constants.DEFAULT_TIMEOUT;
         }
@@ -100,7 +100,8 @@ public class InternalResponseFuture implements ResponseFuture {
             }
 
             if (!isDone()) {
-                throw new TimeoutException(sent > 0, channel, getTimeoutMessage());
+                throw new TimeoutException(sent > 0 ? TimeoutException.SERVER_SIDE : TimeoutException.CLIENT_SIDE, 
+                        channel, getTimeoutMessage());
             }
         }
         return createResult();
@@ -158,47 +159,47 @@ public class InternalResponseFuture implements ResponseFuture {
             throw new NullPointerException("listener == NULL");
         }
         listener = null;
-        Response res = response;
-        if (res == null) {
-            throw new IllegalStateException("response cannot be null. url: " + channel.getUrl());
+        Response rsp = response;
+        if (rsp == null) {
+            throw new IllegalStateException("response cannot be NULL");
         }
 
-        if (res.getStatus() == Response.OK) {
-            try {
-                listenerCopy.done(res);
-            } catch (Exception e) {
-                logger.error("Response listener invoke error. reasult: " + res.getResult() + ", url: " + channel.getUrl(), e);
+        try {
+            if(rsp.isOK()) {
+                listenerCopy.done(rsp);
+            } else {
+                RemoteException ex = createRemoteException(rsp);
+                listenerCopy.caught(ex);
             }
-        } else if (res.getStatus() == Response.CLIENT_TIMEOUT || res.getStatus() == Response.SERVER_TIMEOUT) {
-            try {
-                TimeoutException te = new TimeoutException(res.getStatus() == Response.SERVER_TIMEOUT, channel,
-                        res.getErrorMessage());
-                listenerCopy.caught(te);
-            } catch (Exception e) {
-                logger.error("Response invoke error, url: " + channel.getUrl(), e);
+        } catch(Exception e) {
+            StringBuilder s = new StringBuilder(32);
+            s.append("Response listener error for ").append(channel.getUrl());
+            if(rsp.isOK()) {
+                s.append(", reasult: ").append(rsp.getResult());
             }
-        } else {
-            try {
-                RuntimeException re = new RuntimeException(res.getErrorMessage());
-                listenerCopy.caught(re);
-            } catch (Exception e) {
-                logger.error("Response invoke error, url: " + channel.getUrl(), e);
-            }
+            logger.error(s.toString(), e);
         }
     }
 
-    private Object createResult() throws RemotingException {
-        Response res = response;
-        if (res == null) {
+    private Object createResult() throws RemoteException {
+        Response rsp = response;
+        if (rsp == null) {
             throw new IllegalStateException("response cannot be NULL");
         }
-        if (res.getStatus() == Response.OK) {
-            return res.getResult();
+        if (rsp.isOK()) {
+            return rsp.getResult();
         }
-        if (res.getStatus() == Response.CLIENT_TIMEOUT || res.getStatus() == Response.SERVER_TIMEOUT) {
-            throw new TimeoutException(res.getStatus() == Response.SERVER_TIMEOUT, channel, res.getErrorMessage());
+        throw createRemoteException(rsp);
+    }
+    
+    private RemoteException createRemoteException(Response rsp) {
+        if(rsp.getStatus() == Response.CLIENT_TIMEOUT) {
+            return new TimeoutException(TimeoutException.CLIENT_SIDE, channel, rsp.getErrorMessage());
         }
-        throw new RemotingException(channel, res.getErrorMessage());
+        if(rsp.getStatus() == Response.SERVER_TIMEOUT) {
+            return new TimeoutException(TimeoutException.SERVER_SIDE, channel, rsp.getErrorMessage());
+        }
+        return new RemoteException(channel, rsp.getErrorMessage());
     }
 
     private long getId() {

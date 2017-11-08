@@ -16,7 +16,7 @@ import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.Server;
 import com.sogou.map.kubbo.remote.heartbeat.HeartBeatTask;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
@@ -103,7 +103,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
         for (Channel channel : channels) {
             try {
                 if (channel.isConnected())channel.send(request, getUrl().getParameter(Constants.CHANNEL_SEND_READONLYEVENT_BLOCKING_KEY, true));
-            } catch (RemotingException e) {
+            } catch (RemoteException e) {
                 logger.warn("send connot write messge error.", e);
             }
         }
@@ -122,6 +122,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
         }
     }
 
+    @Override
     public Collection<SessionChannel> getSessionChannels() {
         Collection<SessionChannel> sessionChannels  = new ArrayList<SessionChannel>();
         Collection<Channel> channels = getServer().getChannels();
@@ -133,6 +134,7 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
         return sessionChannels;
     }
 
+    @Override
     public SessionChannel getSessionChannel(InetSocketAddress remoteAddress) {
         Channel channel = getServer().getChannel(remoteAddress);
         return InnerSessionChannel.getOrAddChannel(channel);
@@ -172,17 +174,17 @@ public class InnerSessionServer extends AbstractServerDelegate implements Sessio
     }
     
     @Override
-    public void send(Object message) throws RemotingException {
+    public void send(Object message) throws RemoteException {
         if (closed) {
-            throw new RemotingException(this.getLocalAddress(), null, "Failed to send message " + message + ", cause: The server " + getLocalAddress() + " is closed!");
+            throw new RemoteException(this.getLocalAddress(), null, "Failed to send message " + message + ", cause: The server " + getLocalAddress() + " is closed!");
         }
         super.send(message);
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         if (closed) {
-            throw new RemotingException(this.getLocalAddress(), null, "Failed to send message " + message + ", cause: The server " + getLocalAddress() + " is closed!");
+            throw new RemoteException(this.getLocalAddress(), null, "Failed to send message " + message + ", cause: The server " + getLocalAddress() + " is closed!");
         }
         super.send(message, blocking);
     }

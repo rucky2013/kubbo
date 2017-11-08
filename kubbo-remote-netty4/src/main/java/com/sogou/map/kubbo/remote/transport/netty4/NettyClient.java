@@ -8,7 +8,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.AbstractClient;
 
 import io.netty.bootstrap.Bootstrap;
@@ -36,7 +36,7 @@ public class NettyClient extends AbstractClient {
 
     private volatile Channel channel; // volatile, please copy reference to use
 
-    public NettyClient(final URL url, final ChannelHandler handler) throws RemotingException{
+    public NettyClient(final URL url, final ChannelHandler handler) throws RemoteException{
         super(url, wrapChannelHandler(url, handler));
     }
 
@@ -114,11 +114,11 @@ public class NettyClient extends AbstractClient {
                 }
             } 
             else if (future.cause() != null) {
-                throw new RemotingException(this, "Failed to connect to server "
+                throw new RemoteException(this, "Failed to connect to server "
                         + getRemoteAddress() + ", " + future.cause().getMessage(), future.cause());
             } 
             else {
-                throw new RemotingException(this, "Failed to connect to server " + getRemoteAddress()
+                throw new RemoteException(this, "Failed to connect to server " + getRemoteAddress()
                         + ", connection timeout " + getConnectTimeout() + "ms (elapsed: " + (System.currentTimeMillis() - start) + "ms) from Netty client "
                         + NetUtils.getHostAddress());
             }

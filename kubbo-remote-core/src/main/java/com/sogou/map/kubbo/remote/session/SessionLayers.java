@@ -3,24 +3,24 @@ package com.sogou.map.kubbo.remote.session;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Extensions;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.codec.SessionCodec;
 import com.sogou.map.kubbo.remote.session.handler.NoOpSessionHandler;
 
 /**
- * SessionLayer facade. (API, Static, ThreadSafe)
+ * SessionLayers
  * 
  * @author liufuliang
  */
 public class SessionLayers {
-    private SessionLayers(){
-    }
     
-    public static SessionServer bind(String url, SessionHandler handler) throws RemotingException {
+    private SessionLayers() { }
+    
+    public static SessionServer bind(String url, SessionHandler handler) throws RemoteException {
         return bind(URL.valueOf(url), handler);
     }
 
-    public static SessionServer bind(URL url, SessionHandler handler) throws RemotingException {
+    public static SessionServer bind(URL url, SessionHandler handler) throws RemoteException {
         if (url == null) {
             throw new IllegalArgumentException("url == NULL");
         }
@@ -31,19 +31,19 @@ public class SessionLayers {
         return getSessionLayer(url).bind(url, handler);
     }
     
-    public static SessionClient connect(String url) throws RemotingException {
+    public static SessionClient connect(String url) throws RemoteException {
         return connect(URL.valueOf(url), new NoOpSessionHandler());
     }
     
-    public static SessionClient connect(URL url) throws RemotingException {
+    public static SessionClient connect(URL url) throws RemoteException {
         return connect(url, new NoOpSessionHandler());
     }
     
-    public static SessionClient connect(String url, SessionHandler handler) throws RemotingException {
+    public static SessionClient connect(String url, SessionHandler handler) throws RemoteException {
         return connect(URL.valueOf(url), handler);
     }
 
-    public static SessionClient connect(URL url, SessionHandler handler) throws RemotingException {
+    public static SessionClient connect(URL url, SessionHandler handler) throws RemoteException {
         if (url == null) {
             throw new IllegalArgumentException("url == NULL");
         }

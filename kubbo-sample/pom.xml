@@ -3,23 +3,22 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.sogou.map</groupId>
-    <artifactId>kubbo-parent</artifactId>
-    <version>0.10.1</version>
+	<artifactId>kubbo-parent</artifactId>
+	<version>0.11.0</version>
   </parent>
 
   <artifactId>kubbo-sample</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>${project.artifactId}</name>
- 
+
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
-  
-  <dependencies>
-    <dependency>
-      <groupId>com.sogou.map</groupId>
-      <artifactId>kubbo-all</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-  </dependencies>
+
+  <modules>
+    <module>kubbo-sample-api</module>
+    <module>kubbo-sample-server</module>
+    <module>kubbo-sample-client</module>
+	<module>kubbo-sample-bench</module>
+  </modules>
 </project>

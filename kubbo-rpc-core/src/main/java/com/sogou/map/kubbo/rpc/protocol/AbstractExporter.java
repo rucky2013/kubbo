@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.rpc.Invoker;
  */
 public abstract class AbstractExporter<T> implements Exporter<T> {
 
-    protected final Logger   logger     = LoggerFactory.getLogger(AbstractExporter.class);
+    protected final Logger logger = LoggerFactory.getLogger(AbstractExporter.class);
 
     private final Invoker<T> invoker;
 
@@ -36,7 +36,7 @@ public abstract class AbstractExporter<T> implements Exporter<T> {
     @Override
     public void unexport() {
         if (unexported) {
-            return ;
+            return;
         }
         unexported = true;
         getInvoker().destroy();

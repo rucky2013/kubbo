@@ -43,6 +43,11 @@ public class Response {
      * service not found.
      */
     public static final byte SERVICE_NOT_FOUND = 60;
+    
+    /**
+     * service forbidden.
+     */
+    public static final byte SERVICE_FORBIDDEN = 61;
 
     /**
      * service error.

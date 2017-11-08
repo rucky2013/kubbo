@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionHandler;
 import com.sogou.map.kubbo.remote.session.Request;
@@ -52,14 +52,14 @@ final class InnerSessionChannel extends AbstractChannelDelegate implements Sessi
     }
     
     @Override
-    public void send(Object message) throws RemotingException {
+    public void send(Object message) throws RemoteException {
         send(message, getUrl().getParameter(Constants.SEND_BLOCKING_KEY, Constants.DEFAULT_SEND_BLOCKING));
     }
     
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         if (closed) {
-            throw new RemotingException(
+            throw new RemoteException(
                     this.getLocalAddress(), 
                     null, 
                     "Failed to send message " + message + ", cause: The channel " + this + " is closed!");
@@ -78,14 +78,14 @@ final class InnerSessionChannel extends AbstractChannelDelegate implements Sessi
     }
 
     @Override
-    public ResponseFuture request(Object request) throws RemotingException {
+    public ResponseFuture request(Object request) throws RemoteException {
         return request(request, channel.getUrl().getPositiveParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT));
     }
 
     @Override
-    public ResponseFuture request(Object request, int timeout) throws RemotingException {
+    public ResponseFuture request(Object request, int timeout) throws RemoteException {
         if (closed) {
-            throw new RemotingException(this.getLocalAddress(), null, "Failed to send request " + request + ", cause: The channel " + this + " is closed!");
+            throw new RemoteException(this.getLocalAddress(), null, "Failed to send request " + request + ", cause: The channel " + this + " is closed!");
         }
         // create request.
         Request req = new Request();
@@ -95,7 +95,7 @@ final class InnerSessionChannel extends AbstractChannelDelegate implements Sessi
         InternalResponseFuture future = new InternalResponseFuture(channel, req, timeout);
         try{
             channel.send(req);
-        }catch (RemotingException e) {
+        }catch (RemoteException e) {
             future.cancel();
             throw e;
         }

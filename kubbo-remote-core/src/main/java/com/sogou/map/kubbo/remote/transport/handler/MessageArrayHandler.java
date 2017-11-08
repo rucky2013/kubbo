@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.remote.transport.handler;
 
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.MessageArray;
 
 /**
@@ -17,7 +17,7 @@ public class MessageArrayHandler extends AbstractChannelHandlerDelegate {
 
     
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
         if (message instanceof MessageArray) {
             MessageArray array = (MessageArray)message;
             for(Object obj : array) {

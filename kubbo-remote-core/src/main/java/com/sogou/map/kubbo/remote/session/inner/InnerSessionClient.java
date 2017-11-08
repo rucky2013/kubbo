@@ -12,7 +12,7 @@ import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.Client;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.heartbeat.HeartBeatTask;
 import com.sogou.map.kubbo.remote.session.SessionChannel;
 import com.sogou.map.kubbo.remote.session.SessionClient;
@@ -27,7 +27,7 @@ import com.sogou.map.kubbo.remote.transport.AbstractClientDelegate;
  */
 public class InnerSessionClient extends AbstractClientDelegate implements SessionClient {
 
-    private static final Logger logger = LoggerFactory.getLogger( InnerSessionClient.class );
+    private static final Logger logger = LoggerFactory.getLogger(InnerSessionClient.class);
 
     private static final ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("kubbo-client-heartbeat", true));
 
@@ -56,22 +56,22 @@ public class InnerSessionClient extends AbstractClientDelegate implements Sessio
     }
     
     @Override
-    public void send(Object message) throws RemotingException {
+    public void send(Object message) throws RemoteException {
         sessionChannel.send(message);
     }
     
     @Override
-    public void send(Object message, boolean sent) throws RemotingException {
+    public void send(Object message, boolean sent) throws RemoteException {
         sessionChannel.send(message, sent);
     }
     
     @Override
-    public ResponseFuture request(Object request) throws RemotingException {
+    public ResponseFuture request(Object request) throws RemoteException {
         return sessionChannel.request(request);
     }
  
     @Override
-    public ResponseFuture request(Object request, int timeout) throws RemotingException {
+    public ResponseFuture request(Object request, int timeout) throws RemoteException {
         return sessionChannel.request(request, timeout);
     }
 

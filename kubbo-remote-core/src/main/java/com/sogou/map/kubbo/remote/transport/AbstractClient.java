@@ -21,7 +21,7 @@ import com.sogou.map.kubbo.common.util.StringUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
 import com.sogou.map.kubbo.remote.Client;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.handler.ChannelHandlers;
 import com.sogou.map.kubbo.remote.transport.handler.ExecutorWrappedChannelHandler;
 
@@ -49,7 +49,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
 
     private ConnectionState connectionState = new ConnectionState();
 
-    public AbstractClient(URL url, ChannelHandler handler) throws RemotingException {
+    public AbstractClient(URL url, ChannelHandler handler) throws RemoteException {
         super(url, handler);
         isSendReconnect = url.getParameter(Constants.SEND_RECONNECT_KEY, false);
 
@@ -58,7 +58,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             start();
         } catch (Throwable t) {
             close();
-            throw new RemotingException(url.toInetSocketAddress(), null,
+            throw new RemoteException(url.toInetSocketAddress(), null,
                     "Failed to start " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress()
                     + " connect to the server " + getRemoteAddress() 
                     + ", cause: " + t.getMessage(), t);
@@ -67,7 +67,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
         // Connect
         try {
             connect();
-        } catch (RemotingException t) {
+        } catch (RemoteException t) {
             if (url.getParameter(Constants.CHECK_KEY, true)) {
                 close();
                 throw t;
@@ -78,7 +78,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             }
         } catch (Throwable t) {
             close();
-            throw new RemotingException(url.toInetSocketAddress(), null,
+            throw new RemoteException(url.toInetSocketAddress(), null,
                     "Failed to start " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress()
                     + " connect to the server " + getRemoteAddress() 
                     + ", cause: " + t.getMessage(), t);
@@ -98,7 +98,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
         return ChannelHandlers.wrap(handler, url);
     }
 
-    protected void connect() throws RemotingException {
+    protected void connect() throws RemoteException {
         connectLock.lock();
         try {
             if (isConnected()) {
@@ -107,7 +107,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
             doConnect();
             startConnectionStateCheckTask();
             if (!isConnected()) {
-                throw new RemotingException(this,
+                throw new RemoteException(this,
                         "Failed to connect to server " + getRemoteAddress() 
                             + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
                             + ", cause: Connection wait timeout: " + getConnectTimeout() + "ms.");
@@ -120,10 +120,10 @@ public abstract class AbstractClient extends AbstractRole implements Client {
                 }
             }
             connectionState.reset();
-        } catch (RemotingException e) {
+        } catch (RemoteException e) {
             throw e;
         } catch (Throwable e) {
-            throw new RemotingException(this, 
+            throw new RemoteException(this, 
                     "Failed to connect to server " + getRemoteAddress() 
                         + " from " + getClass().getSimpleName() + " " + NetUtils.getLocalAddress() 
                         + ", cause: " + e.getMessage(), e);
@@ -218,7 +218,7 @@ public abstract class AbstractClient extends AbstractRole implements Client {
     }
 
     public InetSocketAddress getConnectAddress() {
-        return new InetSocketAddress(NetUtils.filterLocalHost(getUrl().getHost()), getUrl().getPort());
+        return new InetSocketAddress(getUrl().getHost(), getUrl().getPort());
     }
 
     @Override
@@ -278,19 +278,19 @@ public abstract class AbstractClient extends AbstractRole implements Client {
     }
 
     @Override
-    public void send(Object message, boolean blocking) throws RemotingException {
+    public void send(Object message, boolean blocking) throws RemoteException {
         if (isSendReconnect && !isConnected()) {
             connect();
         }
         Channel channel = getChannel();
         if (channel == null || !channel.isConnected()) {
-            throw new RemotingException(this, "message can not send, because channel is closed . url:" + getUrl());
+            throw new RemoteException(this, "message can not send, because channel is closed . url:" + getUrl());
         }
         channel.send(message, blocking);
     }
 
     @Override
-    public void reconnect() throws RemotingException {
+    public void reconnect() throws RemoteException {
         disconnect();
         connect();
     }

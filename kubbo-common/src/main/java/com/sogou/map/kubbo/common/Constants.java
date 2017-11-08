@@ -36,7 +36,6 @@ public final class Constants {
 
     public static final String  DEFAULT_APPLICATION_HOME           = ".";
     
-   
     /*
      * threadpool
      */
@@ -91,8 +90,6 @@ public final class Constants {
 
     public static final int     DEFAULT_ACCEPTS                    = 0;
 
-    public static final int     DEFAULT_IDLE_TIMEOUT               = 600 * 1000;
-
     public static final int     DEFAULT_HEARTBEAT                  = 60 * 1000;
 
     public static final int     DEFAULT_TIMEOUT                    = 2000;
@@ -116,14 +113,6 @@ public final class Constants {
     public static final String  DEFAULT_KEY                        = "default";
 
     public static final String  LOADBALANCE_KEY                    = "loadbalance";
-
-    public static final String  ANYHOST_KEY                        = "anyhost";
-
-    public static final String  ANYHOST_VALUE                      = "0.0.0.0";
-
-    public static final String  LOCALHOST_KEY                      = "localhost";
-
-    public static final String  LOCALHOST_VALUE                    = "127.0.0.1";
 
     public static final String  APPLICATION_KEY                    = "application";
 
@@ -152,8 +141,6 @@ public final class Constants {
     public static final String  CONNECTIONS_KEY                    = "connections";
 
     public static final String  ACCEPTS_KEY                        = "accepts";
-
-    public static final String  IDLE_TIMEOUT_KEY                   = "idle.timeout";
 
     public static final String  HEARTBEAT_KEY                      = "heartbeat";
 
@@ -227,8 +214,6 @@ public final class Constants {
 
     public static final String  REVISION_KEY                       = "revision";
 
-    public static final String  KUBBO_VERSION_KEY                  = "kubbo";
-
     public static final String  CHANNEL_HANDLER_KEY                = "channel.handler";
 
     public static final String  DEFAULT_CHANNEL_HANDLER            = "default";
@@ -258,9 +243,9 @@ public final class Constants {
     public static final String  SHUTDOWN_WAIT_KEY                  = "kubbo.shutdown.wait";
 
     /**
-     * 默认值毫秒，避免重新计算.
+     * 默认值，避免重新计算.
      */
-    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT       = 10000;
+    public static final int     DEFAULT_SERVER_SHUTDOWN_TIMEOUT       = 10 * 1000;
     
     public static final String AUTO_ATTACH_INVOCATIONID_KEY 	      = "invocation.id.autoattach";
     
@@ -283,7 +268,7 @@ public final class Constants {
     /*
      * metrics
      */
-    public static final int  DEFAULT_METRICS_INTERVAL               = 60 * 1000;
+    public static final int  DEFAULT_METRICS_INTERVAL               = 60 * 1000; //60s
     
     public static final String  REPORTER_KEY                        = "reporter";
     
@@ -291,6 +276,17 @@ public final class Constants {
      * trace
      */
     public static final String SAMPLER_KEY                          = "sampler";
+    
+    /**
+     * limiter
+     */
+    public static final String LIMITER_KEY                          = "limiter";
+
+    public static final String LIMITER_RATE_KEY                     = "limiter.rate";
+    
+    public static final String LIMITER_INTERVAL_KEY                 = "limiter.interval";
+
+    public static final int DEFAULT_LIMITER_INTERVAL                = 1000; //1s
     
     /**
      * codec

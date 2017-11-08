@@ -9,7 +9,6 @@ public interface Invocation extends Attachable{
     /**
      * get method name.
      * 
-     * @serial
      * @return method name.
      */
     String getMethodName();
@@ -17,7 +16,6 @@ public interface Invocation extends Attachable{
     /**
      * get parameter types.
      * 
-     * @serial
      * @return parameter types.
      */
     Class<?>[] getParameterTypes();
@@ -25,7 +23,6 @@ public interface Invocation extends Attachable{
     /**
      * get arguments.
      * 
-     * @serial
      * @return arguments.
      */
     Object[] getArguments();

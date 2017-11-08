@@ -49,13 +49,14 @@ public class Kubbo {
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                try { Kubbo.destroy(); } catch (Throwable e) {}
+                try { Kubbo.destroy(); } catch (Throwable e) { }
             }
         });
     }
     
     //所有引用过的protocol
     private static ConcurrentMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
+    
     //所有引用过的远程接口
     private static ConcurrentMap<String, Object> services = new ConcurrentHashMap<String, Object>();
         
@@ -155,7 +156,6 @@ public class Kubbo {
         }
     }
     
-    
     /**
      * 异步调用 ，需要返回值
      * @param callable rpc调用封装
@@ -240,6 +240,6 @@ public class Kubbo {
         return Extensions.getAdaptiveExtension(InvokerProxy.class);
     }
     
-    private Kubbo(){}
+    private Kubbo() { }
 
 }

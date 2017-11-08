@@ -8,7 +8,7 @@ import com.sogou.map.kubbo.common.threadpool.NamedThreadFactory;
 import com.sogou.map.kubbo.common.util.NetUtils;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.transport.AbstractServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -39,7 +39,7 @@ public class NettyServer extends AbstractServer {
 
     private EventLoopGroup workerGroup;    
     
-    public NettyServer(URL url, ChannelHandler handler) throws RemotingException{
+    public NettyServer(URL url, ChannelHandler handler) throws RemoteException{
         super(url, wrapChannelHandler(url, handler));
     }
     
@@ -60,8 +60,9 @@ public class NettyServer extends AbstractServer {
         final NettyHandler nettyHandler = new NettyHandler(getUrl(), NettyServer.this);
         channels = nettyHandler.getChannels();
 
-        bossGroup = new NioEventLoopGroup(1, new NamedThreadFactory("NettyServerAcceptor", true));
-        workerGroup = new NioEventLoopGroup(getUrl().getPositiveParameter(Constants.IO_THREADS_KEY, DEFAULT_EVENT_LOOP_THREADS), new NamedThreadFactory("NettyServerNioEventLoop", true));
+        bossGroup = new NioEventLoopGroup(1, new NamedThreadFactory("kubbo-server-netty-acceptor", true));
+        workerGroup = new NioEventLoopGroup(getUrl().getPositiveParameter(Constants.IO_THREADS_KEY, DEFAULT_EVENT_LOOP_THREADS), 
+                new NamedThreadFactory("kubbo-server-netty-event-loop", true));
         ((NioEventLoopGroup)workerGroup).setIoRatio(SystemPropertyUtil.getInt("kubbo.io.netty.ioratio", 50));
         
         ServerBootstrap bootstrap = new ServerBootstrap()

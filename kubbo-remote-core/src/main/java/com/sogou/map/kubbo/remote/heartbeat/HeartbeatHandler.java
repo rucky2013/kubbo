@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.common.logger.Logger;
 import com.sogou.map.kubbo.common.logger.LoggerFactory;
 import com.sogou.map.kubbo.remote.Channel;
 import com.sogou.map.kubbo.remote.ChannelHandler;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.Request;
 import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.transport.handler.AbstractChannelHandlerDelegate;
@@ -26,25 +26,25 @@ public class HeartbeatHandler extends AbstractChannelHandlerDelegate {
     }
 
     @Override
-    public void onConnected(Channel channel) throws RemotingException {
+    public void onConnected(Channel channel) throws RemoteException {
         readAndWriteActive(channel);
         handler.onConnected(channel);
     }
 
     @Override
-    public void onDisconnected(Channel channel) throws RemotingException {
+    public void onDisconnected(Channel channel) throws RemoteException {
         readAndWriteInactive(channel);
         handler.onDisconnected(channel);
     }
 
     @Override
-    public void onSent(Channel channel, Object message) throws RemotingException {
+    public void onSent(Channel channel, Object message) throws RemoteException {
         writeActive(channel);
         handler.onSent(channel, message);
     }
     
     @Override
-    public void onReceived(Channel channel, Object message) throws RemotingException {
+    public void onReceived(Channel channel, Object message) throws RemoteException {
         readActive(channel);
         if (isHeartbeatRequest(message)) {
             Request req = (Request) message;

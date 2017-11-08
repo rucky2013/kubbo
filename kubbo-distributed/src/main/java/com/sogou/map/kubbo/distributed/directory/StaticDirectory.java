@@ -22,7 +22,7 @@ public class StaticDirectory<T> extends AbstractDirectory<T> {
 
     public StaticDirectory(Class<T> type, URL url, List<Invoker<T>> invokers) {
         super(//type
-            (type == null && invokers != null && invokers.size() > 0)?
+            (type == null && invokers != null && invokers.size() > 0) ?
                 invokers.get(0).getInterface() : type, 
             //url
             (url == null && invokers != null && invokers.size() > 0) ?

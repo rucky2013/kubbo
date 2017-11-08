@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.concurrent.AtomicPositiveInteger;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.TimeoutException;
 import com.sogou.map.kubbo.remote.session.SessionClient;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
@@ -87,9 +87,9 @@ public class KubboInvoker<T> extends AbstractConsumerInvoker<T> {
                 return (Result)internalFuture.get();
             }
         } catch (TimeoutException e) {
-            throw new RpcException(RpcException.TIMEOUT_EXCEPTION, "Invocation timeout. method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
-        } catch (RemotingException e) {
-            throw new RpcException(RpcException.NETWORK_EXCEPTION, "Invocation error. method: " + invocation.getMethodName() + ", provider: " + getUrl() + ", cause: " + e.getMessage(), e);
+            throw new RpcException(RpcException.CODE_TIMEOUT, "Timeout. method: " + invocation.getMethodName() + ", provider: " + getUrl(), e);
+        } catch (RemoteException e) {
+            throw new RpcException(RpcException.CODE_NETWORK, "Error. method: " + invocation.getMethodName() + ", provider: " + getUrl(), e);
         }
     }
     

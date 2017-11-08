@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import com.sogou.map.kubbo.common.util.StringUtils;
-import com.sogou.map.kubbo.remote.RemotingException;
+import com.sogou.map.kubbo.remote.RemoteException;
 import com.sogou.map.kubbo.remote.session.Response;
 import com.sogou.map.kubbo.remote.session.ResponseFuture;
 import com.sogou.map.kubbo.remote.session.ResponseListener;
@@ -52,7 +52,7 @@ public class DefaultListenableFuture<V> implements ListenableFuture<V> {
     public V get() throws InterruptedException, ExecutionException {
         try {
             return (V) (((Result) future.get()).recreate());
-        } catch (RemotingException e) {
+        } catch (RemoteException e) {
             throw new ExecutionException(e.getMessage(), e);
         } catch (Throwable e) {
             throw new RpcException(e);
@@ -67,7 +67,7 @@ public class DefaultListenableFuture<V> implements ListenableFuture<V> {
             return (V) (((Result) future.get(timeoutInMillis)).recreate());
         } catch (com.sogou.map.kubbo.remote.TimeoutException e) {
             throw new TimeoutException(StringUtils.toString(e));
-        } catch (RemotingException e) {
+        } catch (RemoteException e) {
             throw new ExecutionException(e.getMessage(), e);
         } catch (Throwable e) {
             throw new RpcException(e);

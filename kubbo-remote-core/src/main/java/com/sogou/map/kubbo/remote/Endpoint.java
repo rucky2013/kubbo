@@ -35,9 +35,9 @@ public interface Endpoint extends Attributable<Object>{
      * send message.
      * 
      * @param message
-     * @throws RemotingException
+     * @throws RemoteException
      */
-    void send(Object message) throws RemotingException;
+    void send(Object message) throws RemoteException;
 
     /**
      * send message.
@@ -45,7 +45,7 @@ public interface Endpoint extends Attributable<Object>{
      * @param message
      * @param blocking 是否阻塞等待发送完毕
      */
-    void send(Object message, boolean blocking) throws RemotingException;
+    void send(Object message, boolean blocking) throws RemoteException;
 
     /**
      * close the channel.

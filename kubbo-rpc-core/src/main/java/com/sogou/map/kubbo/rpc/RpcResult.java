@@ -7,7 +7,6 @@ import com.sogou.map.kubbo.rpc.protocol.AbstractAttachable;
 /**
  * RPC Result.
  * 
- * @serial Don't change the class name and properties.
  * @author liufuliang
  */
 public class RpcResult extends AbstractAttachable<RpcResult> implements Result, Serializable {
