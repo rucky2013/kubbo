@@ -5,7 +5,7 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
 
-/** (SPI Singleton ThreadSafe)
+/**
  * @author liufuliang
  *
  */

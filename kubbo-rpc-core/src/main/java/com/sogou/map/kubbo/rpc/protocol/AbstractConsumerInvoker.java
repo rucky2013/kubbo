@@ -21,7 +21,7 @@ import com.sogou.map.kubbo.rpc.RpcResult;
 import com.sogou.map.kubbo.rpc.utils.RpcHelper;
 
 /**
- * AbstractInvoker.
+ * AbstractConsumerInvoker.
  * 
  * @author liufuliang
  */

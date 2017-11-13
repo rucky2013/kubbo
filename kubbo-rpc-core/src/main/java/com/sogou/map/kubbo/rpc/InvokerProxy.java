@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.extension.Adaptive;
 import com.sogou.map.kubbo.common.extension.SPI;
 
 /**
- * ProxyFactory. (API/SPI, Singleton, ThreadSafe)
+ * InvokerProxy.
  * 
  * @author liufuliang
  */

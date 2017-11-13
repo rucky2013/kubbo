@@ -23,6 +23,7 @@ import javassist.LoaderClassPath;
  * @author liufuliang
  */
 public class JavassistCompiler extends AbstractCompiler {
+    
     public static final String NAME = "javassist";
 
     private static final Pattern IMPORT_PATTERN = Pattern.compile("import\\s+([\\w\\.\\*]+);\n");

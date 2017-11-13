@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.rpc.proxy;
+package com.sogou.map.kubbo.rpc.protocol;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -80,5 +80,4 @@ public abstract class AbstractProviderInvoker<T> implements Invoker<T> {
         return getInterface() + " -> " + getUrl()==null ? " " : getUrl().toString();
     }
 
-    
 }

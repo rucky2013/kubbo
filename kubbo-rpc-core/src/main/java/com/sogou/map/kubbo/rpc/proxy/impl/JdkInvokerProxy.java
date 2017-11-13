@@ -8,8 +8,8 @@ import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.lang.Defaults;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RpcException;
+import com.sogou.map.kubbo.rpc.protocol.AbstractProviderInvoker;
 import com.sogou.map.kubbo.rpc.proxy.AbstractInvokerProxy;
-import com.sogou.map.kubbo.rpc.proxy.AbstractProviderInvoker;
 import com.sogou.map.kubbo.rpc.proxy.InvokerInvocationHandler;
 
 /**

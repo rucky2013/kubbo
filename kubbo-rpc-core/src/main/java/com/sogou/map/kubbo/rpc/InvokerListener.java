@@ -3,7 +3,7 @@ package com.sogou.map.kubbo.rpc;
 import com.sogou.map.kubbo.common.extension.SPI;
 
 /**
- * InvokerListener. (SPI, Singleton, ThreadSafe)
+ * InvokerListener.
  * 
  * @author liufuliang
  */
