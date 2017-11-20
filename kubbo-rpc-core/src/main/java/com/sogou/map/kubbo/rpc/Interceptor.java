@@ -3,15 +3,16 @@ package com.sogou.map.kubbo.rpc;
 import com.sogou.map.kubbo.common.extension.SPI;
 
 /**
- * Filter.
+ * Interceptor.
+ * 拦截器, 用于实现AOP的Advice
  * 
  * @author liufuliang
  */
 @SPI
-public interface Filter {
+public interface Interceptor {
     
     /**
-     * invoke filter.
+     * invoke interceptor.
      * 
      * @param invoker invoker
      * @param invocation invocation.

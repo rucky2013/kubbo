@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.metrics.filter;
+package com.sogou.map.kubbo.metrics.interceptor;
 
 import java.util.concurrent.ConcurrentHashMap;
 import com.sogou.map.kubbo.common.Constants;
@@ -6,19 +6,19 @@ import com.sogou.map.kubbo.common.extension.Activate;
 import com.sogou.map.kubbo.metrics.Metric;
 import com.sogou.map.kubbo.metrics.FrequencyElapsedRecorder;
 import com.sogou.map.kubbo.metrics.SharedMetricsRegistry;
-import com.sogou.map.kubbo.rpc.Filter;
+import com.sogou.map.kubbo.rpc.Interceptor;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * MetricsFilter
+ * MetricsInterceptor
  * 
  * @author liufuliang
  */
 @Activate(group = { Constants.PROVIDER }, order = 1)
-public class MetricsFilter implements Filter {
+public class MetricsInterceptor implements Interceptor {
     private static final ConcurrentHashMap<String, FrequencyElapsedRecorder> RECORDERS = new ConcurrentHashMap<String, FrequencyElapsedRecorder>();
 
     @Override

@@ -1,9 +1,9 @@
-package com.sogou.map.kubbo.trace.filter;
+package com.sogou.map.kubbo.trace.interceptor;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.common.extension.Activate;
-import com.sogou.map.kubbo.rpc.Filter;
+import com.sogou.map.kubbo.rpc.Interceptor;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Invoker.Kind;
@@ -20,12 +20,12 @@ import brave.Tracer.SpanInScope;
 import brave.propagation.TraceContextOrSamplingFlags;
 
 /**
- * TraceFilter
+ * TraceInterceptor
  * 
  * @author liufuliang
  */
 @Activate(group = { Constants.PROVIDER, Constants.CONSUMER }, order = 2)
-public class TraceFilter implements Filter {
+public class TraceInterceptor implements Interceptor {
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

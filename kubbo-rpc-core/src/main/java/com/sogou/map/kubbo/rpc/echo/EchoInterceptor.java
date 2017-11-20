@@ -2,7 +2,7 @@ package com.sogou.map.kubbo.rpc.echo;
 
 import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.extension.Activate;
-import com.sogou.map.kubbo.rpc.Filter;
+import com.sogou.map.kubbo.rpc.Interceptor;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.Result;
@@ -10,12 +10,12 @@ import com.sogou.map.kubbo.rpc.RpcException;
 import com.sogou.map.kubbo.rpc.RpcResult;
 
 /**
- * EchoFilter
+ * EchoInterceptor
  * 
  * @author liufuliang
  */
 @Activate(group = Constants.PROVIDER, order = -10000)
-public class EchoFilter implements Filter {
+public class EchoInterceptor implements Interceptor {
 
     public Result invoke(Invoker<?> invoker, Invocation inv) throws RpcException {
         if(inv.getMethodName().equals(Constants.$ECHO) 

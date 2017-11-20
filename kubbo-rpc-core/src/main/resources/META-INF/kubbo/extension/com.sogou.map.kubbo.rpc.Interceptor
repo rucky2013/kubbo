@@ -1,0 +1,3 @@
+echo=com.sogou.map.kubbo.rpc.echo.EchoInterceptor
+accesslog=com.sogou.map.kubbo.rpc.interceptors.AccessLogInterceptor
+ratelimiter=com.sogou.map.kubbo.rpc.interceptors.RateLimitInterceptor

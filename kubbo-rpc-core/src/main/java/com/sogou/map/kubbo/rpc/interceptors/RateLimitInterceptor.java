@@ -1,4 +1,4 @@
-package com.sogou.map.kubbo.rpc.filters;
+package com.sogou.map.kubbo.rpc.interceptors;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -6,7 +6,7 @@ import com.sogou.map.kubbo.common.Constants;
 import com.sogou.map.kubbo.common.URL;
 import com.sogou.map.kubbo.common.extension.Activate;
 import com.sogou.map.kubbo.common.extension.Extensions;
-import com.sogou.map.kubbo.rpc.Filter;
+import com.sogou.map.kubbo.rpc.Interceptor;
 import com.sogou.map.kubbo.rpc.Invocation;
 import com.sogou.map.kubbo.rpc.Invoker;
 import com.sogou.map.kubbo.rpc.RateLimiter;
@@ -15,12 +15,12 @@ import com.sogou.map.kubbo.rpc.Result;
 import com.sogou.map.kubbo.rpc.RpcException;
 
 /**
- * AccessLogFilter
+ * RateLimitInterceptor
  * 
  * @author liufuliang
  */
 @Activate(group = Constants.PROVIDER, order = -1, value = Constants.LIMITER_RATE_KEY)
-public class RateLimitFilter implements Filter {
+public class RateLimitInterceptor implements Interceptor {
     
     private static final ConcurrentHashMap<String, RateLimiter> LIMITERS = new ConcurrentHashMap<String, RateLimiter>();
     

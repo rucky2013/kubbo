@@ -73,31 +73,31 @@ public class PropertiesConfigurator {
         }
 
         // reference
-        List<ReferenceConfiguration> references = parseReference(wrapper);
+        List<ReferenceConfiguration> references = parseReferenceDefination(wrapper);
         if (references != null) {
             configuration.addReferenceElements(references);
         }
 
         // server
-        ServerConfiguration server = parseServer(wrapper);
+        ServerConfiguration server = parseServerDefination(wrapper);
         if (server != null) {
             configuration.setServerElement(server);
         }
 
         // application
-        ApplicationConfiguration application = parseApplication(wrapper);
+        ApplicationConfiguration application = parseApplicationDefination(wrapper);
         if (application != null) {
             configuration.setApplication(application);
         }
         
         // metrics
-        MetricsConfiguration metrics = parseMetrics(wrapper);
+        MetricsConfiguration metrics = parseMetricsDefination(wrapper);
         if(metrics != null){
             configuration.setMetrics(metrics);
         }
         
         // trace
-        TraceConfiguration trace = parseTrace(wrapper);
+        TraceConfiguration trace = parseTraceDefination(wrapper);
         if(trace != null){
             configuration.setTrace(trace);
         }
@@ -107,7 +107,7 @@ public class PropertiesConfigurator {
         configuration.setConfigured(true);
     }
     
-    private static List<ReferenceConfiguration> parseReference(PropertiesEnvWrapper wrapper) {
+    private static List<ReferenceConfiguration> parseReferenceDefination(PropertiesEnvWrapper wrapper) {
         String header = ReferenceConfiguration.TAG + ".";
         List<ReferenceConfiguration> references = new ArrayList<ReferenceConfiguration>();
         for (String key : wrapper.keys()) {
@@ -142,7 +142,7 @@ public class PropertiesConfigurator {
         return references;
     }
 
-    private static ServerConfiguration parseServer(PropertiesEnvWrapper wrapper) {
+    private static ServerConfiguration parseServerDefination(PropertiesEnvWrapper wrapper) {
         ServerConfiguration server = new ServerConfiguration();
         String bind = wrapper.getString(ServerConfiguration.TAG + ".bind", "");
         if (!bind.isEmpty()) {
@@ -151,7 +151,7 @@ public class PropertiesConfigurator {
         return server;
     }
     
-    private static MetricsConfiguration parseMetrics(PropertiesEnvWrapper wrapper) {
+    private static MetricsConfiguration parseMetricsDefination(PropertiesEnvWrapper wrapper) {
         MetricsConfiguration metrics = new MetricsConfiguration();
         String address = wrapper.getString(MetricsConfiguration.TAG + ".address", "");
         if (!address.isEmpty()) {
@@ -160,7 +160,7 @@ public class PropertiesConfigurator {
         return metrics;
     }
     
-    private static TraceConfiguration parseTrace(PropertiesEnvWrapper wrapper) {
+    private static TraceConfiguration parseTraceDefination(PropertiesEnvWrapper wrapper) {
         TraceConfiguration trace = new TraceConfiguration();
         String address = wrapper.getString(TraceConfiguration.TAG + ".address", "");
         if (!address.isEmpty()) {
@@ -169,7 +169,7 @@ public class PropertiesConfigurator {
         return trace;
     }
 
-    private static ApplicationConfiguration parseApplication(PropertiesEnvWrapper wrapper) {
+    private static ApplicationConfiguration parseApplicationDefination(PropertiesEnvWrapper wrapper) {
         ApplicationConfiguration application = new ApplicationConfiguration();
         String name = wrapper.getString(ApplicationConfiguration.TAG + ".name", "");
         if (!name.isEmpty()) {

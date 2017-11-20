@@ -200,7 +200,7 @@
                 <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.metrics.ReporterFactory</resource>
             </transformer>
             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.rpc.Filter</resource>
+                <resource>META-INF/kubbo/extension/com.sogou.map.kubbo.rpc.Interceptor</resource>
             </transformer>
           </transformers>
         </configuration>

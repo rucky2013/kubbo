@@ -128,7 +128,7 @@ public final class Constants {
 
     public static final String  MAX_PAYLOAD_KEY                    = "payload.max";
 
-    public static final String  FILTER_KEY                         = "filter";
+    public static final String  INTERCEPTOR_KEY                    = "interceptor";
 
     public static final String  ACCESSLOG_KEY                      = "accesslog";
 
