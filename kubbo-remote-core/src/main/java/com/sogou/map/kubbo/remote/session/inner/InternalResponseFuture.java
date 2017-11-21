@@ -228,7 +228,7 @@ public class InternalResponseFuture implements ResponseFuture {
 
     private String getTimeoutMessage() {
         long now = System.currentTimeMillis();
-        return new StringBuffer(32)
+        return new StringBuilder(32)
                 .append(sent > 0 ? "Waiting server response timeout." : "Sending client request timeout.")
                 .append(" start: ").append(TIME_FORMAT.format(new Date(start))).append(",")
                 .append(" end: ").append(TIME_FORMAT.format(new Date())).append(",")

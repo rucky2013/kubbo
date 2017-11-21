@@ -90,7 +90,7 @@ final class NettyChannel extends AbstractChannel {
                 throw cause;
             }
         } catch (Throwable e) {
-            throw new RemoteException(this, new StringBuffer(32)
+            throw new RemoteException(this, new StringBuilder(32)
                     .append("Failed to send message [").append(message).append("] ")
                     .append("to ").append(getRemoteAddress()).append(", ")
                     .append("cause: ").append(e.getMessage())
@@ -99,7 +99,7 @@ final class NettyChannel extends AbstractChannel {
         }
         
         if(!success) {
-            throw new RemoteException(this, new StringBuffer(32)
+            throw new RemoteException(this, new StringBuilder(32)
                     .append("Failed to send message [").append(message).append("] ")
                     .append("to ").append(getRemoteAddress()).append(" ")
                     .append("in timeout(").append(timeout).append("ms) limit")

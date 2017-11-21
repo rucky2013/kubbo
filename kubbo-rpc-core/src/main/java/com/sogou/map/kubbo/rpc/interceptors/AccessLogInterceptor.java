@@ -24,18 +24,17 @@ public class AccessLogInterceptor implements Interceptor {
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        String source = invocation.getAttachment(Constants.APPLICATION_KEY, "-");
-        String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
-        String arguments = "";
-        try {
-            JSONArray obj = new JSONArray(invocation.getArguments());
-            arguments = obj.toString();
-        } catch (JSONException e) {}
-        
-        StringBuffer log = new StringBuffer();
-        log.append("Req,").append(method).append(" ").append(source).append(" ").append(arguments);
-        
         if(logger.isInfoEnabled()){
+            String source = invocation.getAttachment(Constants.APPLICATION_KEY, "-");
+            String method = invoker.getInterface().getSimpleName() + "." + invocation.getMethodName();
+            String arguments = "";
+            try {
+                JSONArray obj = new JSONArray(invocation.getArguments());
+                arguments = obj.toString();
+            } catch (JSONException e) {}
+            
+            StringBuilder log = new StringBuilder();
+            log.append("Req,").append(method).append(" ").append(source).append(" ").append(arguments);
             logger.info(log.toString());
         }
         
