@@ -8,6 +8,7 @@ import com.sogou.map.kubbo.common.Version;
 import com.sogou.map.kubbo.trace.zipkin.SharedTracer;
 
 import brave.Tracer;
+import brave.Span;
 import brave.Span.Kind;
 import brave.Tracer.SpanInScope;
 
@@ -18,11 +19,14 @@ import brave.Tracer.SpanInScope;
 public class KubboTrace {
         
     public static String traceId(){
-        if(!SharedTracer.isTraceEnabled()){
-            return "";
+        if(SharedTracer.isTraceEnabled()) {
+            Tracer tracer = SharedTracer.instance();
+            Span currentSpan = tracer.currentSpan();
+            if(currentSpan != null) {
+                return currentSpan.context().traceIdString();
+            }
         }
-        Tracer tracer = SharedTracer.instance();
-        return tracer.currentSpan().context().traceIdString();
+        return "";
     }
     
     public static Trace trace(String operationName){
